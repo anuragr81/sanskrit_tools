@@ -1,2 +1,5 @@
 # sanskrit_tools
-Tools for text manipulation and study of Sanskrit texts
+Tools for text manipulation and study of Sanskrit texts.
+
+The backend server for panini-machine.
+
