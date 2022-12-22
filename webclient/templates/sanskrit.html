@@ -31,9 +31,10 @@ async  function async_http_get(url)
       throw new Error(`HTTP error: ${response.status}`);
     }
     const data = await response.json();
-    console.log("FOUND: " + JSON.stringify(data));
+    //console.log("FOUND: " + JSON.stringify(data));
     //alert(JSON.stringify(dat));
-    return JSON.stringify(data);
+    //return JSON.stringify(data);
+    return(data);
   }
   catch (e) {
     console.log('Error'+e);
@@ -44,34 +45,12 @@ async  function async_http_get(url)
 }
 
 
-function httpGet(url)
-{
 
-//var dat = fetch(url, {mode:'no-cors',method:'get'})
-  var dat = null;
-  fetch(url, {method:'get'})
-.then( response => {  return response.json(); } )
-.then( data => {  console.log(data); dat=data['Data'];} )
-.catch(function (e) {
-    console.log('Error'+e);
-    return (null);
-  });
-  alert(JSON.stringify(dat));
-
-}
-
-      function showInput() {
-        var input1 = document.getElementById("input1").value; 
-      }      
-
-async      function get_all_dhaatus(){
+async function get_all_dhaatus(){
 
     // Make a GET request to the server using the value
         var typestring  = "dhaatus";
         var return_response = "";
-        //fetch(`http://research.anurags-econ.net/query_sanskrit/?type=${typestring}`)
-        //  .then(response => response.json())
-        //     .then(data => return_response);
         return_response= await async_http_get("http://research.anurags-econ.net/query_sanskrit/?type=dhaatus");
 
         return return_response;
@@ -112,7 +91,7 @@ async function createSet (i,x,y){
 
   // this call should update the UI element asynchronously
   var dhaatus = await get_all_dhaatus();
-  //alert(dhaatus);
+  dhaatus = JSON.parse(dhaatus['Data']);
   
 
   // ARRAY CHECK
@@ -153,16 +132,20 @@ async function createSet (i,x,y){
 
   var optionslist= document.createElement("datalist");
   optionslist.id = "optionsid";
-  var option1 = document.createElement("option");
-  option1.value = "option1";
-  optionslist.appendChild(option1);
+  //var option1 = document.createElement("option");
+  //option1.value = "option1";
+  //optionslist.appendChild(option1);
+  
+  for (let row in dhaatus) {
+    var option = document.createElement("option");
+    option.value = row;
+    optionslist.appendChild(option);
+    //console.log("row=\'"+row+"\'");
+  }
 
-  var option2 = document.createElement("option");
-  option2.value = "option2";
-  optionslist.appendChild(option2);
 
 
-if (true){
+
   var inp = document.createElement("input");    
   inp.id="input:"+i;
   inp.setAttribute('list','optionsid');
@@ -176,7 +159,7 @@ if (true){
   inp.style.height =H-s*2;
   inp.appendChild(optionslist)
 
-}
+
   var button = document.createElement("button");    
   button.id="buttonPlus";
   button.innerHTML ="+";
@@ -198,14 +181,6 @@ if (true){
     // var user_input = inp.value;
     createSet(i+1,x+W+3*d,y);
     
-
-    // Make a GET request to the server using the value
-    //// fetch(`http://example.com/data?value=${value}`)
-    ////   .then((response) => {
-    ////   // Do something with the response
-    //// });
-
-      
 
 
   });
@@ -243,9 +218,7 @@ if (true){
 <div id="divBoxes" />
 
     <!--input  style="position:absolute; top:40; left:0;width:100px; height:30px;" type="text" id="input1" /-->
-    
-    <!--button type="button" onclick="submitData()">Show Inputs</button-->
-    <!--button style="position:absolute;top:40;left:100;width:20px; height:20px;" type="button" onclick="showInput()">+</button-->
+    <!--button style="position:absolute;top:40;left:100;width:20px; height:20px;" type="button" >+</button-->
     
   </body>
 </html>
