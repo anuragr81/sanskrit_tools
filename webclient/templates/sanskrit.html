@@ -47,7 +47,7 @@ async  function async_http_get(url)
 
 
 async function get_all_dhaatus(){
-
+    console.log("Now fetching dhaatus");
     // Make a GET request to the server using the value
         var typestring  = "dhaatus";
         var return_response = "";
@@ -78,20 +78,33 @@ window.onload = function() {
   // the first createSet is for dhaatus and it should be invoked
   // when dhaatu-list has arrived
 
-  fs1= createSet(1,100,200);
+  fs1= createSet(1,100,200,"dhaatu");
   
 }
 
 
-async function createSet (i,x,y){
+async function createSet (i,x,y,input_type){
 
   var starter = document.getElementById("starter");
   
   var count = document.getElementById('divBoxes').getAttribute('count');
 
   // this call should update the UI element asynchronously
-  var dhaatus = await get_all_dhaatus();
-  dhaatus = JSON.parse(dhaatus['Data']);
+  var options_returned = null;
+  if (input_type == "dhaatu"){
+      var dhaatus = await get_all_dhaatus();
+      options_returned = JSON.parse(dhaatus['Data']);
+      console.log("dhaatu");
+  } else if (input_type=='pratyaya'){
+      options_returned = {'shas':'sup','jhi':'tip'};
+      console.log("Pratyaya"+ JSON.stringify(options_returned));
+  } else  {
+      console.log("Invalid type for createSet");
+      return null;
+  }
+  
+  
+  
   
 
   // ARRAY CHECK
@@ -103,7 +116,7 @@ async function createSet (i,x,y){
   
   var fs = document.createElement("fieldset");  
   var W = 100;
-  var H = 60;
+  var H = 70;
   var d = 10;
   var s = 20;
 
@@ -111,16 +124,21 @@ async function createSet (i,x,y){
   fs.style.top = y;
   fs.style.left= x ;
   fs.style.width= W;
-  fs.style.height = H+d;
+  fs.style.height = H;
 
-
+  
   var txta = document.createElement("textarea");    
   txta.id="console"
   txta.style.position ="absolute";
   txta.readOnly = true;
+  // text area is inside the fieldset and touches fs boundary on top (not on bottom)
   txta.style.top = y;
+  // text area is inside the fieldset so starts a bit more right (higher left value)
   txta.style.left= x+d ;
-  txta.style.width= W;
+  // text area is less wide to be symmetrical (hence 2*d)
+
+  txta.style.width= W -d*2;
+  // height is only H- s 
   txta.style.height = H-s;
 
 
@@ -131,32 +149,35 @@ async function createSet (i,x,y){
 
 
   var optionslist= document.createElement("datalist");
-  optionslist.id = "optionsid";
+  optionslist.id = "optionsid_"+i;
   //var option1 = document.createElement("option");
   //option1.value = "option1";
   //optionslist.appendChild(option1);
   
-  for (let row in dhaatus) {
+  
+  // iterating over options_returned to populated the options 
+  // for selection/editing
+  console.log("options_returned"+ JSON.stringify(options_returned));
+  for (let row in options_returned) {
     var option = document.createElement("option");
     option.value = row;
     optionslist.appendChild(option);
-    //console.log("row=\'"+row+"\'");
   }
 
 
-
-
   var inp = document.createElement("input");    
-  inp.id="input:"+i;
-  inp.setAttribute('list','optionsid');
+  inp.id="input_"+i;
+  inp.setAttribute('list','optionsid_'+i);
   //inp.type="text";
-  inp.name='input'+i;
+  inp.name='input_'+i;
   inp.list = "options";
   inp.style.position ="absolute";
-  inp.style.top = y+W*.5;
-  inp.style.left= x+d ;
-  inp.style.width= W;
-  inp.style.height =H-s*2;
+  // the input box itself is s down from y
+  inp.style.top = y+H-s;
+  inp.style.left= x+d;
+  // symmetrical so adjusted width
+  inp.style.width= W-2*d;
+  inp.style.height =s;
   inp.appendChild(optionslist)
 
 
@@ -165,8 +186,10 @@ async function createSet (i,x,y){
   button.innerHTML ="+";
   button.type="button";
   button.style.position ="absolute";
-  button.style.top = y+W-5*d;
-  button.style.left= x+d+W ;
+  // the button is of width d and is aligned with input horizontally (same y)
+  button.style.top = y+H-s;
+  // it touches the right boundary 
+  button.style.left= x+W-d ;
   button.style.width= d;
   button.style.height =s;
 
@@ -179,8 +202,7 @@ async function createSet (i,x,y){
   button.addEventListener('click', (e) => {
     // Get the value of the input-text field
     // var user_input = inp.value;
-    createSet(i+1,x+W+3*d,y);
-    
+    createSet(i+1,x+W+3*d,y,'pratyaya');
 
 
   });
