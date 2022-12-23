@@ -71,6 +71,8 @@ def insertion_rule(x):
 def lakaaras():
     return ('laXt','loXt','lRiXt','laNg','luNg','lRiNg','liNg1','liNg2','liXt','luXt')
 
+def all_pratyayas() : 
+    return kRit_pratyayaaH()+tiNg_pratyayaaH()+san_pratyayaaH()+strii_pratyayaaH()+sup_pratyayaaH()+taddhita_prayayaaH() + unclassified_pratyayaaH()
 
 
 class Suffix:
@@ -95,7 +97,7 @@ class Suffix:
         else:
             raise ValueError("suffix must be a string")
         
-        all_pratyayaaH = kRit_pratyayaaH()+tiNg_pratyayaaH()+san_pratyayaaH()+strii_pratyayaaH()+sup_pratyayaaH()+taddhita_prayayaaH() + unclassified_pratyayaaH()
+        all_pratyayaaH = all_pratyayays()
         if ''.join(self._suffix) not in all_pratyayaaH:
             raise ValueError("Unknown suffix %s" % ''.join(self._suffix))            
         
