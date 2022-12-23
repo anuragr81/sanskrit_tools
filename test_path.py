@@ -2,6 +2,8 @@ from generate_path import *
 from panini.sutras.common_definitions import Dhaatu,Node,Suffix, parse_string
 from pprint import pprint
 
+# TODO: use https://everythingfonts.com/unicode/devanagari to output devanagari
+
 F=False
 T=True
 
