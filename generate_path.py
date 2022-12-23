@@ -1,29 +1,31 @@
 from collections import OrderedDict
 
-from sutras.common_definitions import Dhaatu,Node,Suffix, parse_string
 import re, sys
 from copy import deepcopy
 from functools import reduce
 from pprint import pprint
 import inspect
 
-from sutras import adhyaaya1 as a1
-from sutras import adhyaaya2 as a2
-from sutras import adhyaaya3 as a3
-from sutras import adhyaaya4 as a4
-from sutras import adhyaaya5 as a5
-from sutras import adhyaaya6 as a6
-from sutras import adhyaaya7 as a7
-from sutras import adhyaaya8 as a8
 
-from sutras.adhyaaya1 import *
-from sutras.adhyaaya2 import *
-from sutras.adhyaaya3 import *
-from sutras.adhyaaya4 import *
-from sutras.adhyaaya5 import *
-from sutras.adhyaaya6 import *
-from sutras.adhyaaya7 import *
-from sutras.adhyaaya8 import *
+from panini.sutras.common_definitions import Dhaatu,Node,Suffix, parse_string
+
+from panini.sutras import adhyaaya1 as a1
+from panini.sutras import adhyaaya2 as a2
+from panini.sutras import adhyaaya3 as a3
+from panini.sutras import adhyaaya4 as a4
+from panini.sutras import adhyaaya5 as a5
+from panini.sutras import adhyaaya6 as a6
+from panini.sutras import adhyaaya7 as a7
+from panini.sutras import adhyaaya8 as a8
+
+from panini.sutras.adhyaaya1 import *
+from panini.sutras.adhyaaya2 import *
+from panini.sutras.adhyaaya3 import *
+from panini.sutras.adhyaaya4 import *
+from panini.sutras.adhyaaya5 import *
+from panini.sutras.adhyaaya6 import *
+from panini.sutras.adhyaaya7 import *
+from panini.sutras.adhyaaya8 import *
 
 
 """
