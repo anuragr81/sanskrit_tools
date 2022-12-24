@@ -65,7 +65,7 @@ def devanagari_map():
             'jha': "\u091D",
             'jh': "\u091D\u094D",
             'Nca': "\u091E",
-            'Nca': "\u091E\u094D",
+            'Nc': "\u091E\u094D",
             'Xta': "\u091F\u094D",
             'Xt': "\u091F\u094D",
             'Xtha': "\u0920",
