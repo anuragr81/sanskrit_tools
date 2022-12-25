@@ -314,7 +314,7 @@ def aatmanepada_pratyayaaH():
             "aathaam","dhvam","iXt","vahi","mahiNg")
 def kRit_pratyayaaH():
     return ("Nnvul","lyuXt","aniiyar","kta","ktavatu",
-            "tavyat","tumun","tRich","ktvaa","Nnmul",
+            "tavyat","tumun","tRich","ktvaa","Nnamul",
             "lyap","yat","Nnyat","kyap","ghaNc","ach",
             "ap","ktin","a","yuch","u","shatRi","shaanach",
             "aNn","ka","Nnini","kvip")

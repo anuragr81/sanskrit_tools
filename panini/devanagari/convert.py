@@ -67,7 +67,7 @@ def devanagari_map():
             'i': "\u0907",
             'ii': "\u0908",
             'u': "\u0909",
-            'U': "\u090A",
+            'uu': "\u090A",
             'Ri': "\u090B",
             'lRi': "\u090C",
             'e': "\u090F",
@@ -115,7 +115,7 @@ def devanagari_map():
             'na': "\u0928",
             'n': "\u0928\u094D",
             'pa': "\u092A",
-            'p': "\u092A",
+            'p': "\u092A\u094D",
             'pha': "\u092B",
             'ph': "\u092B\u094D",
             'ba': "\u092C",
@@ -163,5 +163,5 @@ def convert_to_devanagari(strParse):
 
 
 def test():
-    print(convert_to_devanagari('laabhaM labhyate'))
+    print(convert_to_devanagari('uXshXtraM laabhaM labhyate'))
 
