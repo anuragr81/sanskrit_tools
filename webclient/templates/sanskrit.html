@@ -188,7 +188,11 @@ async function createSet (i,x,y,input_type){
   // symmetrical so adjusted width
   inp.style.width= W-2*d;
   inp.style.height =s;
-  inp.appendChild(optionslist)
+  inp.appendChild(optionslist);
+
+  //inp.onchange = () => {
+  //  console.log("Selected:"+inp.value);
+  //}
 
 
   var button = document.createElement("button");    
@@ -212,7 +216,11 @@ async function createSet (i,x,y,input_type){
   button.addEventListener('click', (e) => {
     // Get the value of the input-text field
     // var user_input = inp.value;
-    createSet(i+1,x+W+3*d,y,'pratyaya');
+    
+    if (String(inp.value).length >0 ) {
+        console.log("Would be used for createSet:"+inp.value);
+        createSet(i+1,x+W+3*d,y,'pratyaya');
+    }
 
 
   });
