@@ -6,6 +6,7 @@ from flask import make_response
 from flask_cors import CORS, cross_origin
 
 from sanskrit_tools.panini import dhaatus as dh
+from sanskrit_tools.panini import pratyaya as pr
 
 
 """
@@ -29,10 +30,12 @@ def query_sanskrit():
     if request.method=="GET":
         try :
             rtype = str(request.args.get('type'))
-            if rtype == 'dhaatus':
-                response = make_response({'Data': dh.get_all_dhaatus() })
-            else:
-                response = make_response(jsonify({'Error':"UNKNOWN type"+str(rtype)}));
+            response_dict = {'dhaatus': lambda : make_response({'Data': dh.get_all_dhaatus() }),
+                    'pratyayas': lambda : make_response(jsonify(pr.get_all_suffixes()))
+                    }
+            func = response_dict.get(rtype, lambda : make_response(jsonify({'Error':"UNKNOWN type"+str(rtype)})) )
+            response = func()
+
         except Exception as e:
             print(e)
             response = make_response(jsonify({'Error':"Exception" +str(e)}))

@@ -57,6 +57,15 @@ async function get_all_dhaatus(){
      
       }
     
+async function get_all_pratyayas(){
+    console.log("Now fetching dhaatus");
+    // Make a GET request to the server using the value
+        var return_response = "";
+        return_response= await async_http_get("http://research.anurags-econ.net/query_sanskrit/?type=pratyayas");
+
+        return return_response;
+     
+      }
 
 window.onload = function() {
   // Function to be called before window is loaded
@@ -96,7 +105,8 @@ async function createSet (i,x,y,input_type){
       options_returned = JSON.parse(dhaatus['Data']);
       console.log("dhaatu");
   } else if (input_type=='pratyaya'){
-      options_returned = {'shas':'sup','jhi':'tip'};
+      var pratyayas = await get_all_pratyayas();
+      options_returned = JSON.parse(pratyayas);
       console.log("Pratyaya"+ JSON.stringify(options_returned));
   } else  {
       console.log("Invalid type for createSet");
