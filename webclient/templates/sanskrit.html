@@ -106,7 +106,7 @@ async function createSet (i,x,y,input_type){
       console.log("dhaatu");
   } else if (input_type=='pratyaya'){
       var pratyayas = await get_all_pratyayas();
-      options_returned = JSON.parse(pratyayas);
+      options_returned = JSON.parse(pratyayas['Data']);
       console.log("Pratyaya"+ JSON.stringify(options_returned));
   } else  {
       console.log("Invalid type for createSet");

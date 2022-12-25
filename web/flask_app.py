@@ -31,7 +31,7 @@ def query_sanskrit():
         try :
             rtype = str(request.args.get('type'))
             response_dict = {'dhaatus': lambda : make_response({'Data': dh.get_all_dhaatus() }),
-                    'pratyayas': lambda : make_response(jsonify(pr.get_all_suffixes()))
+                    'pratyayas': lambda : make_response({'Data':pr.get_all_suffixes()})
                     }
             func = response_dict.get(rtype, lambda : make_response(jsonify({'Error':"UNKNOWN type"+str(rtype)})) )
             response = func()
