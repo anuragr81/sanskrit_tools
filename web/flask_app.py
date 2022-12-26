@@ -1,5 +1,5 @@
 
-# A very simple Flask Hello World app for you to get started with...
+import json
 
 from flask import Flask, redirect, url_for, render_template, request,jsonify
 from flask import make_response
@@ -7,6 +7,7 @@ from flask_cors import CORS, cross_origin
 
 from sanskrit_tools.panini import dhaatus as dh
 from sanskrit_tools.panini import pratyaya as pr
+
 
 
 """
@@ -24,30 +25,47 @@ def display_image(filename):
     #print('display_image filename: ' + filename)
     return redirect(url_for('static', filename='images/' + filename), code=301)
 
+def respond_to_pratyayas_request(request):
+    try:
+        pratyaya = request.args.get('pratyaya')
+        if pratyaya:
+            if pr.is_suptingant(pratyaya):
+                response = make_response(jsonify({'Data':json.dumps({})}))
+            else:
+            #TODO: filter non-supting pratyaya as well
+                response = make_response({'Data':pr.get_all_suffixes()})
+
+        else:
+            response = make_response(jsonify({'Error':"Missing Pratyaya"+str(request.args.get('type'))}))
+    except Exception as e:
+            response = make_response(jsonify({'Error':"Exception" +str(e)}))
+
+
+    return response
+
 
 def query_sanskrit():
     response = None
     if request.method=="GET":
         try :
             rtype = str(request.args.get('type'))
-            response_dict = {'dhaatus': lambda : make_response({'Data': dh.get_all_dhaatus() }),
-                    'pratyayas': lambda : make_response({'Data':pr.get_all_suffixes()})
+            response_dict = {'dhaatus': lambda x : make_response({'Data': dh.get_all_dhaatus() }),
+                    'pratyayas': respond_to_pratyayas_request
                     }
             func = response_dict.get(rtype, lambda : make_response(jsonify({'Error':"UNKNOWN type"+str(rtype)})) )
-            response = func()
+            response = func(request)
 
         except Exception as e:
-            print(e)
             response = make_response(jsonify({'Error':"Exception" +str(e)}))
 
 
 
 
     else:
-        resonse =make_response (jsonify(''))
+        response =make_response (jsonify(''))
 
-    response.headers.add('Content-Type','application/json')
-    response.headers.add('Access-Control-Allow-Origin', '*')
+    ##response.headers.add('Content-Type','application/json')
+    ##response.headers.add('Access-Control-Allow-Origin', '*')
     return response 
     #return "<html><head/><body> sanskrit request="+request_method+" </body></html>"
 

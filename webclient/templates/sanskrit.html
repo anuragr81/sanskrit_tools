@@ -44,6 +44,33 @@ async  function async_http_get(url)
 
 }
 
+async  function async_http_get_wparams(url,params)
+{
+    
+  try {
+      const response = await fetch(url, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  },
+  body: params,
+});
+    if (!response.ok) {
+      throw new Error(`HTTP error: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log("get_wparams - FOUND: " + JSON.stringify(data));
+    //alert(JSON.stringify(dat));
+    //return JSON.stringify(data);
+    return(data);
+  }
+  catch (e) {
+    console.log('Error'+e);
+    return (null);
+  }
+  
+}
+
 
 
 async function get_all_dhaatus(){
@@ -57,11 +84,19 @@ async function get_all_dhaatus(){
      
       }
     
-async function get_all_pratyayas(){
-    console.log("Now fetching dhaatus");
+async function get_all_pratyayas(chosen_arg){
+    console.log("Now fetching suffixes");
     // Make a GET request to the server using the value
         var return_response = "";
+
+        if (String(chosen_arg).length>0){
+
+        return_response= await async_http_get("http://research.anurags-econ.net/query_sanskrit/?type=pratyayas&pratyaya="+String(chosen_arg));
+
+        } else {
+
         return_response= await async_http_get("http://research.anurags-econ.net/query_sanskrit/?type=pratyayas");
+        }
 
         return return_response;
      
@@ -87,12 +122,12 @@ window.onload = function() {
   // the first createSet is for dhaatus and it should be invoked
   // when dhaatu-list has arrived
 
-  fs1= createSet(1,100,200,"dhaatu");
+  fs1= createSet(1,100,200,"dhaatu","");
   
 }
 
 
-async function createSet (i,x,y,input_type){
+async function createSet (i,x,y,input_type,chosen_arg){
 
   var starter = document.getElementById("starter");
   
@@ -105,9 +140,9 @@ async function createSet (i,x,y,input_type){
       options_returned = JSON.parse(dhaatus['Data']);
       console.log("dhaatu");
   } else if (input_type=='pratyaya'){
-      var pratyayas = await get_all_pratyayas();
+      var pratyayas = await get_all_pratyayas(chosen_arg);
       options_returned = JSON.parse(pratyayas['Data']);
-      console.log("Pratyaya"+ JSON.stringify(options_returned));
+      console.log("Pratyaya"+ JSON.stringify(String(options_returned)));
   } else  {
       console.log("Invalid type for createSet");
       return null;
@@ -167,7 +202,7 @@ async function createSet (i,x,y,input_type){
   
   // iterating over options_returned to populated the options 
   // for selection/editing
-  console.log("options_returned"+ JSON.stringify(options_returned));
+  console.log("options_returned"+ String(JSON.stringify(options_returned)).length);
   for (let row in options_returned) {
     var option = document.createElement("option");
     option.value = row;
@@ -219,7 +254,7 @@ async function createSet (i,x,y,input_type){
     
     if (String(inp.value).length >0 ) {
         console.log("Would be used for createSet:"+inp.value);
-        createSet(i+1,x+W+3*d,y,'pratyaya');
+        createSet(i+1,x+W+3*d,y,'pratyaya',String(inp.value));
     }
 
 
