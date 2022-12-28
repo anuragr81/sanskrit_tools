@@ -13,13 +13,15 @@ def matras():
 matra-combined-hals sorted by length of string to parse
 """
 def hals_to_combine():
-    return tuple([('kh',True),('k',True),('gh',True),('g',True),('Ng',True),\
-        ('Nc',True),('NN',False),('Nn',True) ,( 'chh',True ), ('ch',True),\
-        ('jh',True),('j',True), ('Xth',True), ('Xt',True), ('Xdh',True),\
-        ('Xd',True), ('Xsh',True), ('th',True), ('t',True), ('dh',True),\
-        ('d',True), ('n',True), ('ph',True), ('p',True), ('bh',True),('b',True),\
-        ('m',True), ('y',True), ('r',True),('l',True), ('v',True), ('sh',True),\
-        ('s',True), ('h',True) ])
+    return tuple([('kh','ख',True),('k','क',True),('gh','घ',True),('g','ग',True),('Ng','ङ',True),\
+        ('Nc','ञ',True),('NN','\u0901',False),('Nn','ण',True) ,( 'chh','छ',True ), ('ch','च',True),\
+        ('jh','झ',True),('j','ज',True), ('Xth','ठ',True), ('Xt','ट',True), ('Xdh','ढ',True),\
+        ('Xd','ड',True), ('Xsh','ष',True), ('th','थ',True), ('t','त',True), ('dh','ध',True),\
+        ('d','द',True), ('n','न',True), ('ph','फ',True), ('p','प',True), ('bh','भ',True),('b','ब',True),\
+        ('m','म',True), ('y','य',True), ('r','र',True),('l','ल',True), ('v','व',True), ('sh','श',True),\
+        ('s','स',True), ('h','ह',True) ])
+
+
 
 
 """
@@ -28,7 +30,27 @@ Combine hals with matras
 def hals_combined():
     mts = [k for k,_ in matras()]+['a']
     combined_list =[]
-    for ch, togen in hals_to_combine():
+    for ch, _ , togen in hals_to_combine():
+        if togen:
+            combined_list = combined_list  + [ ch+x for x in mts] +[ch]
+            
+    return combined_list 
+
+"""
+The goal of the function is to maintain the parse order since 
+the reverse mapping takes care of the right ASCII.
+"""
+def hals_combined_devanagari():
+    mts = [k for _,k in matras() ]
+    mts.append('\u094D')
+    mts.append('ं')
+    # halant needs to be treated as matras and would have a
+    # higher parse priority in devanagari
+    
+
+
+    combined_list =[]
+    for  _ , ch, togen in hals_to_combine():
         if togen:
             combined_list = combined_list  + [ ch+x for x in mts] +[ch]
             
@@ -37,8 +59,27 @@ def hals_combined():
 
 def parse_devanagari_to_ascii(input_str):
 
+    sorted_achs= ('लॄ','ॠ', 'लृ', 'ऋ','ऐ', "ई","ऊ",'औ',"आ",'अ', 'इ', 'उ', 'ए', 'ओ')
+    match_re = "("+'|'.join(tuple(hals_combined_devanagari()) + sorted_achs)+")" + "(.*)"
 
-    return ""
+    m = dict ( (v,k) for k,v in devanagari_map().items())
+
+    matches = True
+    x_str = input_str
+    output=[]
+    while matches and x_str:
+        res = re.search(match_re, x_str)
+        if res:
+
+            output.append(m[res.group(1)])
+            x_str = res.group(2)
+        else:
+            matches =False
+    return output
+
+
+
+
 def parse_string_for_devanagari(input_str):
     """
     build a list of aksharas from the string - unknown letters are ignored
@@ -151,7 +192,7 @@ def devanagari_map():
             }
 
 
-    for lhs,togen in hals_to_combine():
+    for lhs,_, togen in hals_to_combine():
         # only take first element onf mainmap[lhs] because the second element is halant
         if togen:
             entry = [(lhs+k,mainmap[lhs][0]+v) for k,v in matras() ]
@@ -166,9 +207,3 @@ def convert_to_devanagari(strParse):
     m = devanagari_map()
     return ''.join(m[ch] for ch in strparsed)   
     
-
-
-
-def test():
-    print(convert_to_devanagari('uXshXtraM laabhaM labhyate'))
-
