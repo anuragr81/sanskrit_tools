@@ -5,7 +5,7 @@ import re
 Matras sorted by length of string to parse
 """
 def matras():
-    return  ( ('Rii',"\u0944"), ('Ri',"\u0943"),  ('au',"\u094C"),('ai',"\u0948"),\
+    return  (('lRii',"\u0963"), ('lRi',"\u0962"), ('Rii',"\u0944"), ('Ri',"\u0943"),  ('au',"\u094C"),('ai',"\u0948"),\
         ('ii',"\u0940"),('aa',"\u093E"),('uu',"\u0942"),('i',"\u093F"), ('u',"\u0941"),\
          ('e',"\u0947"), ('o',"\u094B"), )
 
@@ -34,6 +34,11 @@ def hals_combined():
             
     return combined_list 
 
+
+def parse_devanagari_to_ascii(input_str):
+
+
+    return ""
 def parse_string_for_devanagari(input_str):
     """
     build a list of aksharas from the string - unknown letters are ignored
@@ -69,7 +74,9 @@ def devanagari_map():
             'u': "\u0909",
             'uu': "\u090A",
             'Ri': "\u090B",
+            'Rii': "\u0960",
             'lRi': "\u090C",
+            'lRii': "\u0961",
             'e': "\u090F",
             'ai': "\u0910",
             'o': "\u0913",
