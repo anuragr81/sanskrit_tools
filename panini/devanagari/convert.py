@@ -62,7 +62,16 @@ def parse_devanagari_to_ascii(input_str):
     sorted_achs= ('लॄ','ॠ', 'लृ', 'ऋ','ऐ', "ई","ऊ",'औ',"आ",'अ', 'इ', 'उ', 'ए', 'ओ')
     match_re = "("+'|'.join(tuple(hals_combined_devanagari()) + sorted_achs)+")" + "(.*)"
 
-    m = dict ( (v,k) for k,v in devanagari_map().items())
+    m = dict ( (v,k) for k,v in devanagari_map().items()) 
+    ## add anuswara (and other) mapppings as they're not included
+
+    additional_matras = {'ं':'M'}
+    for  _ , ch, togen in hals_to_combine():
+        if togen:
+            for matra, ascii in additional_matras.items():
+                m[ch+matra] = m[ch]+ascii
+
+
 
     matches = True
     x_str = input_str
@@ -142,7 +151,7 @@ def devanagari_map():
             'jh': "\u091D\u094D",
             'Nca': "\u091E",
             'Nc': "\u091E\u094D",
-            'Xta': "\u091F\u094D",
+            'Xta': "\u091F",
             'Xt': "\u091F\u094D",
             'Xtha': "\u0920",
             'Xth': "\u0920\u094D",
@@ -181,7 +190,7 @@ def devanagari_map():
             'va': "\u0935",
             'v': "\u0935\u094D",
             'sha': "\u0936",
-            'sh': "\u0937\u094D",
+            'sh': "\u0936\u094D",
             'Xsha': "\u0937",
             'Xsh': "\u0937\u094D",
             'sa': "\u0938",
