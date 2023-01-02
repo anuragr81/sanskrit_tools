@@ -137,11 +137,16 @@ async function createSet (i,x,y,input_type,chosen_arg){
   var options_returned = null;
   if (input_type == "dhaatu"){
       var dhaatus = await get_all_dhaatus();
-      options_returned = JSON.parse(dhaatus['Data']);
+      options_dict = JSON.parse(dhaatus['Data']);
+      options_returned ={};
+      for (let row in options_dict) {
+          options_returned[row]=options_dict[row]['ascii'].join('');
+      }
       console.log("dhaatu");
   } else if (input_type=='pratyaya'){
       var pratyayas = await get_all_pratyayas(chosen_arg);
       options_returned = JSON.parse(pratyayas['Data']);
+
       console.log("Pratyaya"+ JSON.stringify(String(options_returned)));
   } else  {
       console.log("Invalid type for createSet");
@@ -202,7 +207,7 @@ async function createSet (i,x,y,input_type,chosen_arg){
   
   // iterating over options_returned to populated the options 
   // for selection/editing
-  console.log("options_returned"+ String(JSON.stringify(options_returned)).length);
+  console.log("options_returned"+ String(JSON.stringify(options_returned)));
   for (let row in options_returned) {
     var option = document.createElement("option");
     option.value = row;
@@ -253,7 +258,7 @@ async function createSet (i,x,y,input_type,chosen_arg){
     // var user_input = inp.value;
     
     if (String(inp.value).length >0 ) {
-        console.log("Would be used for createSet:"+inp.value);
+        console.log("Would be used for createSet:"+inp.value+" value:"+String(options_returned[inp.value]));
         createSet(i+1,x+W+3*d,y,'pratyaya',String(inp.value));
     }
 
