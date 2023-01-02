@@ -90,8 +90,9 @@ async function get_all_pratyayas(chosen_arg){
         var return_response = "";
 
         if (String(chosen_arg).length>0){
-
-        return_response= await async_http_get("http://research.anurags-econ.net/query_sanskrit/?type=pratyayas&pratyaya="+String(chosen_arg));
+            const urltofetch = "http://research.anurags-econ.net/query_sanskrit/?type=pratyayas&pratyaya="+String(chosen_arg);
+            console.log("urltofetch="+urltofetch);
+        return_response= await async_http_get(urltofetch);
 
         } else {
 
@@ -136,22 +137,22 @@ async function createSet (i,x,y,input_type,chosen_arg){
   // this call should update the UI element asynchronously
   var options_returned = null;
   if (input_type == "dhaatu"){
-      var dhaatus = await get_all_dhaatus();
-      options_dict = JSON.parse(dhaatus['Data']);
+      const dhaatus = await get_all_dhaatus();
+      const options_dict = JSON.parse(dhaatus['Data']);
       options_returned ={};
       for (let row in options_dict) {
           options_returned[row]=options_dict[row]['ascii'].join('');
       }
       console.log("dhaatu");
   } else if (input_type=='pratyaya'){
-      var pratyayas = await get_all_pratyayas(chosen_arg);
-      options_dict = JSON.parse(pratyayas['Data']);
+      const pratyayas = await get_all_pratyayas(chosen_arg);
+      const options_dict = JSON.parse(pratyayas['Data']);
       options_returned ={};
       for (let row in options_dict) {
           options_returned[row]=options_dict[row]['ascii'];
       }
 
-      console.log("Pratyaya Recd (len="+ JSON.stringify(String(options_returned).length));
+      console.log("Pratyaya Recvd (len="+ JSON.stringify(String(options_returned).length)+")");
   } else  {
       console.log("Invalid type for createSet");
       return null;
@@ -167,6 +168,11 @@ async function createSet (i,x,y,input_type,chosen_arg){
     alert ("already exists");
     return null;
   }
+
+    if (Object.keys(options_returned).length==0){
+        console.log("No suffix-options returned");
+        return null;
+    }
   
   var fs = document.createElement("fieldset");  
   var W = 100;
