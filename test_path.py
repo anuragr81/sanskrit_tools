@@ -16,7 +16,7 @@ if F:
 else:   
     
     #pprint(generate_tibaadi("paXthNN"))   ;sys.exit(0)
-    if T:
+    if F:
         sup_expr = [Node(Dhaatu(parse_string("rajNN")),parent1=None),Node(Suffix("ghaNc"),parent1=None)]
         pprint(generate_subaadi(sup_expr ,linga=1))   ;
         sys.exit(0)
@@ -44,7 +44,7 @@ else:
     output_processed_string = lambda expr: ''.join(reduce(lambda x ,y : x + y.get_output(),  expr, []))
     print(output_processed_string (processed_expr))
     print("DONE")
-    if F:
+    if T:
         print("===")
         pprint(processed_expr[0]._output)
         print("===")
