@@ -210,9 +210,6 @@ async function createSet (i,x,y,input_type,chosen_arg){
 
   var optionslist= document.createElement("datalist");
   optionslist.id = "optionsid_"+i;
-  //var option1 = document.createElement("option");
-  //option1.value = "option1";
-  //optionslist.appendChild(option1);
   
   
   // iterating over options_returned to populated the options 
@@ -240,13 +237,14 @@ async function createSet (i,x,y,input_type,chosen_arg){
   inp.style.height =s;
   inp.appendChild(optionslist);
 
-  //inp.onchange = () => {
-  //  console.log("Selected:"+inp.value);
-  //}
+  inp.onchange = () => {
+      const expression = process_expression();
+      console.log("Expression:"+expression);
+  }
 
 
   var button = document.createElement("button");    
-  button.id="buttonPlus";
+  button.id="buttonPlus"+i;
   button.innerHTML ="+";
   button.type="button";
   button.style.position ="absolute";
@@ -264,8 +262,6 @@ async function createSet (i,x,y,input_type,chosen_arg){
    * and update the record of boxes
    */   
   button.addEventListener('click', (e) => {
-    // Get the value of the input-text field
-    // var user_input = inp.value;
     
     if (String(inp.value).length >0 ) {
         const pratyaya_ascii = String(options_returned[String(inp.value)])
@@ -280,13 +276,31 @@ async function createSet (i,x,y,input_type,chosen_arg){
   starter.appendChild(txta);
   starter.appendChild(inp);
   starter.appendChild(button);
-  //starter.appendChild(fs);
   
   document.getElementById('divBoxes').setAttribute('count',i);
   var count = document.getElementById('divBoxes').getAttribute('count');
   
 
+
   return starter;
+}
+
+
+
+function process_expression(){
+  // This is to be called everytime a user selects a value in the input value
+  const element = document.querySelector('#starter');
+  const children = element.childNodes;
+  var expression = []
+  for (let i = 0; i < children.length; i++) {
+      if (children[i].nodeName == "INPUT") {
+            // console.log(children[i].nodeName + " has value:" + children[i].value);
+          expression.push(children[i].value);
+      }
+  }
+  console.log("Expression(inside func):"+expression);
+  return expression;
+
 }
 
 
