@@ -244,6 +244,13 @@ async function createSet (i,x,y,input_type,chosen_arg){
       console.log("Expression:"+expression);
   }
 
+  //TODO: add button only when i is count-1
+  console.log("Creating button new button(i="+i+") and removing the last one(count="+count+")");
+  if (count>0){
+  let oldButton= document.getElementById("buttonPlus"+count);
+  let oldButtonsParent= oldButton.parentNode;
+  oldButtonsParent.removeChild(oldButton);
+  }
 
   var button = document.createElement("button");    
   button.id="buttonPlus"+i;
@@ -280,7 +287,6 @@ async function createSet (i,x,y,input_type,chosen_arg){
   starter.appendChild(button);
   
   document.getElementById('divBoxes').setAttribute('count',i);
-  var count = document.getElementById('divBoxes').getAttribute('count');
   
 
 
