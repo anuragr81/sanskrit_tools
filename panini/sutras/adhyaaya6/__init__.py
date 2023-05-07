@@ -5,6 +5,7 @@ from ..common_definitions import find_eldest_parent1_of_condition
 from ..common_definitions import find_eldest_parent2_of_condition
 
 
+
 class liXtidhaatoranabhyaasasya_6010080:
     """
     Also implements 
@@ -20,26 +21,43 @@ class liXtidhaatoranabhyaasasya_6010080:
         if not isinstance(node,Node):
             raise    ValueError ("node must be of type Node")
         if isinstance   (node._data,Dhaatu):
-            if suffix_node._data._lakaara == 'liXt':
+            
+            
+            if suffix_node._data._lakaara == None:
+            # if lakaara is not found in the suffix but it is found in a nested parent2 then assume the parent2 (subsequent suffix) to be the effective suffix
+            # relative to which the abhyaasa-kaarya can take place.
+                searched_suffix_node=find_eldest_parent2_of_condition(suffix_node,lambda x: isinstance(x,Node) and isinstance(x._data,Suffix) and x._data._lakaara is not None)
+                
+                if searched_suffix_node == None:
+                    # lakaara not found in any parent2 so return with no change (no abhyaasa)
+                    return node.get_output()
+                else:
+                    # found lakaara so make the searched suffix_node as the effective suffix_node
+                    # no need to make a deepcopy
+                    effective_suffix_node=searched_suffix_node
+            else:
+                # suffix_node is the effective node to be searched since it has a lakaara
+                # no need to make a deepcopy
+                effective_suffix_node=suffix_node 
+                
+            
+            
+            if effective_suffix_node._data._lakaara == 'liXt':
                 applied_rules= [int(x['rule'].__name__.split('_')[-1]) for x in node._output if 'rule' in x]
-                if 6010080 not in applied_rules :
+                if 6010080 not in applied_rules : # anabhyaasa
                     hals = [i for i,x in enumerate(node.get_output()) if x in hal() and i>0]
-                    
                     if hals:
                         if len(hals)==1 and hals[0] >1 and node.get_output()[hals[0]-1] in ('a',): # ekahalmadhye achaH, asaMyoga 
                             if len([x for x in node._output if 'new' in x])==1: # no adesha
-                                
-                                if 'inputs' in suffix_node._output[-1] and suffix_node._output[-1]['inputs']['state']._data._lakaara  == 'liXt': # check on suffix
-                                    last_adesha = [x for x in suffix_node._output if 'new' in x][-1]
+                                if 'inputs' in effective_suffix_node._output[-1] and effective_suffix_node._output[-1]['inputs']['state']._data._lakaara  == 'liXt': # check on suffix
+                                    last_adesha = [x for x in effective_suffix_node._output if 'new' in x][-1]
                                     if 'output' in last_adesha and last_adesha['output']==['th','a','l']:
                                         return node.get_output()[:hals[0]-1] + ['e'] + node.get_output()[hals[0]:]
-                                    if not suffix_node.has_sthaanii_it('p'): # apit check
+                                    if not effective_suffix_node.has_sthaanii_it('p'): # apit check
                                     # apit after asaMyoga would be treated as kit (so that ekahalmadhya... may apply)
-                                        last_adesha = [x for x in suffix_node._output if 'new' in x][-1]
+                                        last_adesha = [x for x in effective_suffix_node._output if 'new' in x][-1]
                                         if node._output[-1]['output'][-1] in ach() or node._output[-1]['output'][-2] in ach() : # a-saMyoga 
                                             return  node.get_output()[:hals[0]-1] + ['e'] + node.get_output()[hals[0]:]
-                                        
-                                    
                                     
                                         
                             

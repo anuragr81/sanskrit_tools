@@ -240,7 +240,7 @@ class Node:
     
  
 def get_aadesha_sutras():
-    return (3010460,7041140)
+    return (3010460,7020350)
 
 def get_vriddhi_sutras():
     return (7020021,)

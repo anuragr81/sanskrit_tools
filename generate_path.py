@@ -62,7 +62,7 @@ def prepend_sutras():
 
 def insertion_sutras():
 #   to be considered: 601008
-    ll=[3010460,3010680,3010330,7041140,7030960,7030961]
+    ll=[3010460,3010680,3010330,7020350,7030960,7030961]
     return sorted(float(x) for x in ll)
 
 def apply_transformation(transformation_rule,new_expr):
@@ -83,9 +83,7 @@ def apply_transformation(transformation_rule,new_expr):
 #                        if (transformation_rule.__name__=="saarvadhaatukaardhadhaatukayoH_703084"):
 #                            j = 1
                         new_expr[i-1].set_output(transformation_rule,suffix_node=new_expr[i])
-                    if 'anga_node' in sig_params :
-                        
-                        
+                    if 'anga_node' in sig_params :                        
                         
                         ## WORKS: new_expr[i-1].set_output(transformation_rule,anga_node=new_expr[i])
                         new_expr[i].set_output(transformation_rule,anga_node=new_expr[i-1])
@@ -138,6 +136,7 @@ def apply_lopa(suffix_node):
     
     for lopafunc in  lopa_functions :
         not_done=True
+        #print(lopafunc.__name__)
         while not_done:
             prev_output=suffix_node.get_output()
             suffix_node.set_output(lopafunc)
@@ -147,8 +146,8 @@ def apply_lopa(suffix_node):
     return suffix_node
                     
                 
-    for pos in reversed(new_inserts):
-        new_expr.insert(pos,Node(new_inserts[pos],parent1=None))
+    #for pos in reversed(new_inserts):
+    #    new_expr.insert(pos,Node(new_inserts[pos],parent1=None))
     return new_expr
 
 
@@ -192,22 +191,33 @@ def apply_insertion(insertion_rule, new_expr):
                     new_inserts[i]={'node_data':to_insert ,'input_indices':(i-1,i),'rule':insertion_rule}
                     #new_inserts[i]=to_insert     
     for pos in reversed(new_inserts):
-        #parent1 = new_expr[pos-1]
-        #parent2 = new_expr[pos]
-        
-        #new_expr.insert(pos,Node(new_inserts[pos],parent1=parent1,parent2=parent2))
-        
         
         dat=new_inserts[pos]
         new_node = Node(dat['node_data'],parent1=new_expr[dat['input_indices'][0]],parent2=new_expr[dat['input_indices'][1]])
         #assigning properties to both sides of the insertion
-        new_node.assign_output_properties(rule=dat['rule'], node1=new_node.get_parent1(),node2=new_node.get_parent2())
-        new_expr[pos].assign_output_properties(rule=dat['rule'], node1=new_node.get_parent1(),node2=new_node.get_parent2())
+        new_node.assign_output_properties(rule=dat['rule'], node1=new_node.get_parent1(), node2=new_node.get_parent2())
+        new_expr[pos].assign_output_properties(rule=dat['rule'], node1=new_node.get_parent1(), node2=new_node.get_parent2())
         new_expr.insert(pos,new_node)
 
 
     return new_expr
 
+def apply_all_lopas(expression):
+        
+    suffix_indices= [ index for index,node in enumerate(expression) if isinstance(node._data,Suffix)]
+    dhaatu_indices= [ index for index,node in enumerate(expression) if isinstance(node._data,Dhaatu)]
+        
+    # apply lopa to suffixes
+    for suffix_index in suffix_indices:
+       suffix_node  = expression[suffix_index]
+       expression[suffix_index ] = apply_lopa(suffix_node)
+    
+    # apply lopa to dhaatus
+    for dhaatu_index in dhaatu_indices:
+       dhaatu_node  = expression[dhaatu_index ]
+       expression[dhaatu_index ] = apply_dhaatu_lopa(dhaatu_node  )
+       
+    return expression
 
 def process_until_finish(expr):
     output_processed_string = lambda e: ''.join(reduce(lambda x ,y : x + y.get_output(),  e, []))
@@ -227,21 +237,14 @@ def process_list(expr):
     # the logic for applying it-lopa is that 
     # all suffixes are searched and then lopa-application is applied
     # the lopa changes the suffix's state
-    
-    
-    suffix_indices= [ index for index,node in enumerate(new_expr) if isinstance(node._data,Suffix)]
-    dhaatu_indices= [ index for index,node in enumerate(new_expr) if isinstance(node._data,Dhaatu)]
-        
-    # apply lopa to suffixes
-    for suffix_index in suffix_indices:
-       suffix_node  = new_expr[suffix_index]
-       new_expr[suffix_index ] = apply_lopa(suffix_node)
-    
-    # apply lopa to dhaatus
-    for dhaatu_index in dhaatu_indices:
-       dhaatu_node  = new_expr[dhaatu_index ]
-       new_expr[dhaatu_index ] = apply_dhaatu_lopa(dhaatu_node  )
-      
+
+
+    # apply lopa and transformation before insertion
+    new_expr = apply_all_lopas(new_expr)
+    for transformation_ruleid in transformation_sutras():        
+           new_expr = apply_transformation(all_sutras[transformation_ruleid],new_expr)
+    new_expr = apply_all_lopas(new_expr)
+
     # apply insertions
     for insertion_sutra_id in insertion_sutras():
         new_expr = apply_insertion(all_sutras[insertion_sutra_id],new_expr)
@@ -250,12 +253,15 @@ def process_list(expr):
     # apply insertions
     for prepend_sutra_id in prepend_sutras():
         new_expr = apply_prepend(all_sutras[prepend_sutra_id],new_expr)
-    # apply transformations until there is no change in the expression
+        
+    # apply lopa and transformation after insertion       
+    new_expr = apply_all_lopas(new_expr)
     for transformation_ruleid in transformation_sutras():        
 #        print("transformation_ruleid="+str(transformation_ruleid))
 #        if transformation_ruleid==6010080.0:
 #           print("BREAK")
         new_expr = apply_transformation(all_sutras[transformation_ruleid],new_expr)
+    new_expr = apply_all_lopas(new_expr)
     
     return new_expr
 
