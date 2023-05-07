@@ -76,7 +76,7 @@ class itashcha_3041000:
         
         return node.get_output()
 
-class parasmaipadaanaaMNnalatususXthalaXthusaNnalvamaaH_3040820:
+class parasmaipadaanaaMNnalatususthalathusaNnalvamaaH_3040820:
     def __init__(self):
         self._types={'node':[Suffix,'literal']}
     def __call__(self,node,anga_node):
@@ -90,7 +90,7 @@ class parasmaipadaanaaMNnalatususXthalaXthusaNnalvamaaH_3040820:
                 suffix_data=[x['output'] for x in node._output if 'new' in x and x['new']][-1]
                 suffix_name =''.join(suffix_data)
                 mapping= {'tip':['Nn','a','l'], 'tas':['a','t','u','s'], 'jhi':['u','s'], 
-                              'sip':['Xth','a','l'], 'Xthas':['a','Xth','u','s'],'Xtha':['a'], 
+                              'sip':['th','a','l'], 'thas':['a','th','u','s'],'tha':['a'], 
                               'mip':['Nn','a','l'], 'vas':['v','a'], 'mas':['m','a']}
                 if suffix_name in tiNg_pratyayaaH() and suffix_name in mapping: 
                     return {'output':mapping[suffix_name],'mutate':True}

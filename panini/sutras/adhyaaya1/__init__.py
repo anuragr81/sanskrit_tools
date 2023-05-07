@@ -66,9 +66,15 @@ class chuXtuu_103070:
         suffix=node._data
         if not isinstance(suffix,Suffix):
             raise ValueError("Must be Suffix")
+        antyam = node.get_output()[-1]
+
+        #navibhaktautusmaaH_1030040
+        if antyam in ('t','s','m'):
+            if ''.join(node._data._suffix) in tiNg_pratyayaaH() or ''.join(node._data._suffix) in sup_pratyayaaH():
+                return node.get_output()
         if not node.get_output():
             return node.get_output()
-        if node.get_output() [0] in  chu() or node.get_output()[0] in Xtu():
+        if node._output[-1]['output'] [0] in  chu() or node._output[-1]['output'][0] in Xtu():
             return node.get_output()[1:]
         
         return node.get_output()

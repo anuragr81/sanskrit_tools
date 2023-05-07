@@ -6,6 +6,11 @@ from ..common_definitions import find_eldest_parent2_of_condition
 
 
 class liXtidhaatoranabhyaasasya_6010080:
+    """
+    Also implements 
+    ekahalmadhya...
+    thhali cha seti
+    """
     def __init__(self):
         self._types={'node':[Dhaatu],'suffix_node':[Suffix,'lakaara']}
         
@@ -23,9 +28,20 @@ class liXtidhaatoranabhyaasasya_6010080:
                     if hals:
                         if len(hals)==1 and hals[0] >1 and node.get_output()[hals[0]-1] in ('a',): # ekahalmadhye achaH, asaMyoga 
                             if len([x for x in node._output if 'new' in x])==1: # no adesha
-                                if suffix_node._output[1]['inputs']['state']._data._lakaara  == 'liXt': # check on suffix
-                                    if suffix_node._output[1]['inputs']['state']._data._suffix[-1]!='p':# cannot be p-it
-                                        return  node.get_output()[:hals[0]-1] + ['e'] + node.get_output()[hals[0]:]
+                                
+                                if 'inputs' in suffix_node._output[-1] and suffix_node._output[-1]['inputs']['state']._data._lakaara  == 'liXt': # check on suffix
+                                    last_adesha = [x for x in suffix_node._output if 'new' in x][-1]
+                                    if 'output' in last_adesha and last_adesha['output']==['th','a','l']:
+                                        return node.get_output()[:hals[0]-1] + ['e'] + node.get_output()[hals[0]:]
+                                    if not suffix_node.has_sthaanii_it('p'): # apit check
+                                    # apit after asaMyoga would be treated as kit (so that ekahalmadhya... may apply)
+                                        last_adesha = [x for x in suffix_node._output if 'new' in x][-1]
+                                        if node._output[-1]['output'][-1] in ach() or node._output[-1]['output'][-2] in ach() : # a-saMyoga 
+                                            return  node.get_output()[:hals[0]-1] + ['e'] + node.get_output()[hals[0]:]
+                                        
+                                    
+                                    
+                                        
                             
                         # ignore hals after second
                         return node.get_output()[:hals[0]]+node.get_output()

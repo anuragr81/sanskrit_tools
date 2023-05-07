@@ -217,7 +217,28 @@ class Node:
   
     def get_parent2 (self):
         return self._parent2
-
+    
+    def has_sthaanii_it(self,itchar):
+        """
+        Parameters
+        ----------
+        itchar: character
+            The character to be searched all through the output for it presence
+    
+        Raises
+        ------
+    
+        Returns
+        -------
+        list
+            boolean variable indicating whether it character exists anywhere in the history (sthaani) or not.
+        """
+        for x in self._output:
+            if itchar in x['output']:
+                return True
+        return False
+    
+ 
 def get_aadesha_sutras():
     return (3010460,7041140)
 

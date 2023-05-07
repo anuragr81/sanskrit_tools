@@ -252,7 +252,9 @@ def process_list(expr):
         new_expr = apply_prepend(all_sutras[prepend_sutra_id],new_expr)
     # apply transformations until there is no change in the expression
     for transformation_ruleid in transformation_sutras():        
-        #print("transformation_ruleid="+str(transformation_ruleid))
+#        print("transformation_ruleid="+str(transformation_ruleid))
+#        if transformation_ruleid==6010080.0:
+#           print("BREAK")
         new_expr = apply_transformation(all_sutras[transformation_ruleid],new_expr)
     
     return new_expr
@@ -260,20 +262,6 @@ def process_list(expr):
 def output_string (expr):
     return ''.join(reduce(lambda x ,y : x + y.get_output(),  process_until_finish(expr), []))
 
-def test_siddhis ():
-    
-    
-    assert output_string ([Node(Dhaatu(parse_string("bhajNN")),parent1=None),Node(Suffix("ghaNc"),parent1=None)]) == "bhaaga"
-    assert output_string ([Node(Dhaatu(parse_string("NniiNN")),parent1=None),Node(Suffix("Nnvul"),parent1=None)]) == "naayaka"
-    assert output_string ([Node(Dhaatu(parse_string("bhuu")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]) == "bhavati"
-    assert output_string ([Node(Dhaatu(parse_string("bhuu")),parent1=None),Node(Suffix("tas",lakaara='laXt'),parent1=None)]) == "bhavatas"
-    assert output_string ([Node(Dhaatu(parse_string("bhuu")),parent1=None),Node(Suffix("mip",lakaara='laXt'),parent1=None)]) == "bhavaami"
-    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tip",lakaara='luXt'),parent1=None)]) == "paXthitaa"
-    assert output_string ([Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tip",lakaara='luNg'),parent1=None)] ) == "achaiXshiit"
-    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tip",lakaara='lRiXt'),parent1=None)]) == "paXthiXshyati"
-    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tip",lakaara='liXt'),parent1=None)]) == "papaaXtha"
-    #assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tas",lakaara='liXt'),parent1=None)]) == "peXthatuH"
-    # liNg is aardhadhaatuk in aashir-liNg
 
 
 def generate_tibaadi(dhaatu_string):
