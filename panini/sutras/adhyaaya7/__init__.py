@@ -1,6 +1,7 @@
 from ..common_definitions import vriddhi,upadhaa, ach, Suffix, Node , hal
 from ..common_definitions import get_dhaatu_properties,pratyaahaara, guNna, Dhaatu
 from ..common_definitions import parasmaidpada_pratyayaaH, sup_pratyayaaH,list_past_rules_applied 
+from ..common_definitions import find_eldest_parent2_of_condition
 
 class yuvoranaakau_7010010:
     def __init__(self):
@@ -136,12 +137,9 @@ class sichivRiddhiHparasmaipadeXshu_7020021:
         if not anga_string : 
             return anga_string 
         if anga_string[-1] in ach() and ''.join(suffix_node._data._suffix)=='sNNch': 
-            #if :# sNNch is followed by parasmaipad
-            raise ValueError("Not implemented with proper parent search of parasmaipada after sNNch")
-            # TODO:the search for parasmaipada needs to be recursive. sNNch is clearly an insertion - so the parents must be traceable.
-            input_nodes=[v for k,v in suffix_node._output[-1]['inputs'].items() if isinstance(v,Node)]            
-            
-            if  input_nodes and ''.join(input_nodes[-1]._data._suffix) in parasmaidpada_pratyayaaH():
+            found_parasmaipadaH = find_eldest_parent2_of_condition(suffix_node,lambda x : isinstance(x.get_parent2()._data,Suffix) \
+                                             and ''.join(x.get_parent2()._data._suffix) in parasmaidpada_pratyayaaH() )
+            if found_parasmaipadaH:
                 return anga_string[0:-1] + [vriddhi(anga_string[-1])]
         return node.get_output() 
     
