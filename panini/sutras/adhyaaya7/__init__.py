@@ -81,10 +81,11 @@ class jhoantaH_7010030:
         
         if not isinstance(node._data,Suffix):
             raise ValueError("suffix must of type Suffix")
-        suffix_string= node.get_output()
-        if 'jh' in suffix_string:
-            jhpos=suffix_string.index('jh')
-            return suffix_string[:jhpos]+['a','n','t'] +suffix_string[jhpos+1:]
+        
+        if node._data._suffix[0] == 'jh' and 7010030 not in list_past_rules_applied(node):
+            ## doesn't matter what has happened before (chuXtuu etc.), jh and 
+            # ant would be introduced here            
+            return ['a','n','t'] +node._data._suffix[1:]
         return node.get_output()
 
 
@@ -265,7 +266,7 @@ class saarvadhaatukaardhadhaatukayoH_7030840:
         if isinstance(node._data,Suffix):
     
             if not node.get_output():
-                print("Returned due to sarvaahaari lopa")
+                print("saarvadhaatukaardhadhaatukayoH_7030840: Returned due to sarvaahaari lopa")
                 return node.get_output()
             if node._data._suffix[-1] == node.get_output()[-1]:
                 anga_string= node.get_output()
@@ -293,7 +294,7 @@ class supicha_7031020:
             raise ValueError("suffix must of type Suffix")
             
         if not node.get_output():
-                print("Returned due to sarvaahaari lopa")
+                print("supicha_7031020: Returned due to sarvaahaari lopa")
                 return node.get_output()            
         
         suffix_data = suffix_node.get_output()

@@ -66,6 +66,9 @@ class chuXtuu_103070:
         suffix=node._data
         if not isinstance(suffix,Suffix):
             raise ValueError("Must be Suffix")
+        # Need not apply chuXtuu on an empty string
+        if not node.get_output():
+            return node.get_output()
         antyam = node.get_output()[-1]
 
         #navibhaktautusmaaH_1030040

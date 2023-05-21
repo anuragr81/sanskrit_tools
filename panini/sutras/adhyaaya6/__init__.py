@@ -230,6 +230,7 @@ class akaHsavarNnediirghaH_6010971:
                     if suffix_string in sup_pratyayaaH() and suffix_string == 'am':
                         return node_output
                     else:
+                        raise ValueError("atoguNne not implemented")
                         return [make_diirgha(node_output[0])] + node_output[1:]
             
         return node_output
