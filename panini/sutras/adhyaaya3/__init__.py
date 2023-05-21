@@ -1,5 +1,7 @@
-from ..common_definitions import Suffix, Node, Dhaatu,tiNg_pratyayaaH, ach
+from ..common_definitions import Suffix, Node, Dhaatu,tiNg_pratyayaaH, ach,list_past_rules_applied
 
+
+    
 class kartarishap_3010680:
     def __init__(self):
         self._types={'dhaatu_node':[Dhaatu],'suffix_node':[Suffix,'literal','lakaara']}
@@ -50,7 +52,7 @@ class XdityabhasyaapianubandhakaraNnasaamarthyaat_3010331:
         self._types={'node':[Suffix],'suffix_node':[Suffix,'literal','lakaara']}
     def __call__(self,node,suffix_node):
         if isinstance(node._data,Suffix) and isinstance(suffix_node._data,Suffix):
-            first_suffix_data=[x['output'] for x in node._output if 'new' in x and x['new']][-1]
+
             second_suffix_data=[x['output'] for x in suffix_node._output if 'new' in x and x['new']][-1]
             if second_suffix_data[0] == 'Xd':
                 ach_indices_in_output = [ i for i,x in enumerate(node.get_output()) if x in ach()]
@@ -68,6 +70,9 @@ class itashcha_3041000:
     def __call__(self,node):
         if not isinstance(node,Node):
             raise ValueError("Must be Node")
+            
+        if not node.get_output():
+            return node.get_output()
         suffix=node._data
         if not isinstance(suffix,Suffix):
             raise ValueError("Must be Suffix")
@@ -75,6 +80,21 @@ class itashcha_3041000:
             return node.get_output()[:-1]
         
         return node.get_output()
+
+class tasthasthamipaamtaamtamtaamaH_3041020:
+    def __init__(self):
+        self._types={'node':[Suffix]}
+    def __call__(self,node):
+        if isinstance(node._data,Suffix) :
+            if 3041020 not in list_past_rules_applied(node):
+                suffix_replacement_dict = {'tas':['t','aa','m'] , 'thas':['t','a','m'], 'tha':['t','a'], 'mip':['a','m']}
+                if ''.join(node._data._suffix) in suffix_replacement_dict :
+                    return suffix_replacement_dict [''.join(node._data._suffix)]
+                    
+            
+            
+        return node.get_output()
+
 
 class parasmaipadaanaaMNnalatususthalathusaNnalvamaaH_3040820:
     def __init__(self):
