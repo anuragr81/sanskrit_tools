@@ -299,7 +299,7 @@ class supicha_7031020:
         
         suffix_data = suffix_node.get_output()
         suffix_string = ''.join(suffix_node._data._suffix)
-        if node.get_output()[-1] =='a' and list_past_rules_applied (node)[-1]!=7031020: # a-ending
+        if suffix_data and node.get_output()[-1] =='a' and list_past_rules_applied (node)[-1]!=7031020: # a-ending
             #yaNc sup
             if suffix_data[0]  in pratyaahaara('y','Nc') and suffix_string  in sup_pratyayaaH():
                 if suffix_string  == 'am':

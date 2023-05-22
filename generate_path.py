@@ -53,7 +53,7 @@ def transformation_sutras():
           6010990, 6041200, 6041480, 7010030,7010010, 7010020, 7010120,7010130,
           
           7020021, 7021150, 7021160, 7030520, 7030840,7031010,7031020,
-          8010150, 8020660, 8030059]
+          8010150, 8020230, 8020660, 8030059]
     return sorted(float(x) for x in ll)
 
 
@@ -257,6 +257,7 @@ def process_list(expr):
         
     # apply lopa and transformation after insertion       
     new_expr = apply_all_lopas(new_expr)
+    
     for transformation_ruleid in transformation_sutras():        
 #        print("transformation_ruleid="+str(transformation_ruleid))
 #        if transformation_ruleid==6010080.0:

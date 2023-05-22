@@ -214,7 +214,7 @@ class atoguNne_6010940:
             return node.get_output()
     
         if 6010940 not in list_past_rules_applied(node):
-            if node.get_output()[-1]=='a' and suffix_node.get_output()[0] in ('a','e','o'):
+            if node.get_output()[-1]=='a' and suffix_node.get_output() and suffix_node.get_output()[0] in ('a','e','o'):
                 return node.get_output()[1:]        
                 
             return node_output

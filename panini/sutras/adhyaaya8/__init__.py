@@ -1,7 +1,32 @@
 import re
-from ..common_definitions import pratyaahaara, ach, Node, Suffix
+from ..common_definitions import pratyaahaara, ach, hal, Node, Suffix
 from ..common_definitions import get_aadesha_sutras, get_vriddhi_sutras
-
+class saMyogaantasyalopaH_8020230:
+    def __init__(self):
+        self._types={'node':['literal']}
+        
+    def __call__(self,anga_node ,node):        
+        
+        if not isinstance(node,Node):
+            raise ValueError("node must of type Node")
+    
+        if not node.get_output():
+            return node.get_output()
+        
+        
+        if len(node.get_output())>1:
+            # for two consecutive consonants from last in a node, only the 
+            #     first consonant remains
+            if node.get_output()[-1] in hal() and node.get_output()[-2] in hal():
+                return node.get_output()[:-1]
+        elif len(node.get_output())==1 and len(anga_node.get_output())>0:
+            # for a single-size node with the only char being a consonant and 
+            #     an anga_node ending with consonant, the entire node is empty
+            if node.get_output()[0] in hal() and anga_node.get_output()[-1] in hal():
+                return []
+            
+        return node.get_output()
+    
 
 class sasajuXshoruH_8020660:
     def __init__(self):

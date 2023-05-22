@@ -38,7 +38,7 @@ def test_siddhis ():
     
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tip",lakaara='laNg'),parent1=None)]) == "apatXthat"
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tas",lakaara='laNg'),parent1=None)]) == "apatXthataam"
-    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("jhi",lakaara='laNg'),parent1=None)]) == "paXthanti"
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("jhi",lakaara='laNg'),parent1=None)]) == "apatXthan"
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("sip",lakaara='laNg'),parent1=None)]) == "paXthasi"
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("thas",lakaara='laNg'),parent1=None)]) == "paXthathas"
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tha",lakaara='laNg'),parent1=None)]) == "paXthatha"
@@ -56,7 +56,7 @@ def test_siddhis ():
     # liNg is aardhadhaatuk in aashir-liNg
     print("Tests Done")
 
-raise ValueError("Pending saMyogaantasyalopaH implementation")
+#raise ValueError("Pending saMyogaantasyalopaH implementation")
 
 if F:
     
@@ -80,7 +80,7 @@ else:
     
         #expression=[Node(Dhaatu(parse_string("rajNN")),parent1=None),Node(Suffix("ghaNc"),parent1=None),Node(Suffix("am",linga=1),parent1=None)]
         #expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tip",lakaara='liXt'),parent1=None)]
-        expression=[Node(Dhaatu(parse_string("patXthNN")),parent1=None),Node(Suffix("jhi",lakaara='laNg'),parent1=None)]
+        expression=[Node(Dhaatu(parse_string("patXthNN")),parent1=None),Node(Suffix("sip",lakaara='laNg'),parent1=None)]
             
     
     # sorting order is increasing in general but can be superseded by nitya condition (if nitya occurs in a later sutra then that later sutra takes advantage) 
