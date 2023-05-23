@@ -62,6 +62,18 @@ class XdityabhasyaapianubandhakaraNnasaamarthyaat_3010331:
             
         return node.get_output()
     
+class nityaMNgitaH_3040990:
+    def __init__(self):
+        self._types={'node':[Suffix]}
+    def __call__(self,node):
+        if isinstance(node._data,Suffix) and node._data._lakaara and node._data._lakaara.endswith('Ng') and ''.join(node._data._suffix) in ('mip','vas','mas',"iXt","vahi","mahiNg"):
+            if 3040990 not in list_past_rules_applied(node):               
+                if node.get_output()[-1]=='s':
+                    return node.get_output()[:-1]
+                    
+            
+            
+        return node.get_output()
 
 class itashcha_3041000:
     
@@ -85,7 +97,7 @@ class tasthasthamipaamtaamtamtaamaH_3041020:
     def __init__(self):
         self._types={'node':[Suffix]}
     def __call__(self,node):
-        if isinstance(node._data,Suffix) :
+        if isinstance(node._data,Suffix) and node._data._lakaara and node._data._lakaara.endswith('Ng'):
             if 3041020 not in list_past_rules_applied(node):
                 suffix_replacement_dict = {'tas':['t','aa','m'] , 'thas':['t','a','m'], 'tha':['t','a'], 'mip':['a','m']}
                 if ''.join(node._data._suffix) in suffix_replacement_dict :

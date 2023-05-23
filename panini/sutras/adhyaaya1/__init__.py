@@ -70,6 +70,10 @@ class chuXtuu_103070:
         if not node.get_output():
             return node.get_output()
         antyam = node.get_output()[-1]
+        
+        # hard-code jhoantaH because sutra-vyartha arguments
+        if node._data._suffix==['jh','i']:
+            return node.get_output()
 
         #navibhaktautusmaaH_1030040
         if antyam in ('t','s','m'):

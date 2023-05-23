@@ -46,14 +46,16 @@ def get_sutras_ordered ():
 
 #6011030
 
+def padaanta_sutras():
+    return [8020230]
 def transformation_sutras():
     
-    ll = [2040850,3010331,3040820,3041020,6010080,6010630, 6010750, 6040880, 6010940, 6010980, 
+    ll = [2040850,3010331,3040820,3040990,3041000,3041020,6010080,6010630, 6010750, 6040880, 6010940, 6010980, 
           6010840,6010841,6010850,6010851,
           6010990, 6041200, 6041480, 7010030,7010010, 7010020, 7010120,7010130,
           
           7020021, 7021150, 7021160, 7030520, 7030840,7031010,7031020,
-          8010150, 8020230, 8020660, 8030059]
+          8010150, 8020660, 8030059]
     return sorted(float(x) for x in ll)
 
 
@@ -65,6 +67,34 @@ def insertion_sutras():
 #   to be considered: 601008
     ll=[3010460,3010680,3010330,7020350,7030960,7030961]
     return sorted(float(x) for x in ll)
+
+def apply_transformation_at_end(transformation_rule,new_expr):
+    #print(transformation_rule.__name__)
+    sig_params = inspect.signature(transformation_rule.__call__).parameters
+    i =len(new_expr)-1    
+    if isinstance(new_expr[i]._data,Suffix):
+        if i>0 :
+            if isinstance(new_expr[i-1]._data,Dhaatu):
+                dhaatu_index=i-1
+                if 'anga_node' in sig_params :
+                    new_expr[i].set_output(transformation_rule,anga_node=new_expr[dhaatu_index])           
+                if 'suffix_node' in sig_params :
+                    new_expr[dhaatu_index].set_output(transformation_rule,suffix_node=new_expr[i])
+            else:
+                if 'suffix_node' in sig_params :
+                    new_expr[i-1].set_output(transformation_rule,suffix_node=new_expr[i])
+                if 'anga_node' in sig_params :                        
+                    
+                    ## WORKS: new_expr[i-1].set_output(transformation_rule,anga_node=new_expr[i])
+                    new_expr[i].set_output(transformation_rule,anga_node=new_expr[i-1])
+
+                
+        if 'anga_node' not in sig_params  and 'suffix_node' not in sig_params :
+            new_expr[i].set_output(transformation_rule)
+            
+        
+                    
+    return new_expr
 
 def apply_transformation(transformation_rule,new_expr):
     #print(transformation_rule.__name__)
@@ -132,8 +162,7 @@ def apply_lopa(suffix_node):
         raise ValueError("Need Suffix")
     MAX_TIMES=10000
     lopa_functions = [lashakvataddhite_1030080, aadirNciXtuXdavaH_1030050, \
-                      halantyam_1030030, chuXtuu_103070,upadesheajanunaasikait_1030020, \
-                      itashcha_3041000]
+                      halantyam_1030030, chuXtuu_103070,upadesheajanunaasikait_1030020 ]
     
     for lopafunc in  lopa_functions :
         not_done=True
@@ -225,6 +254,10 @@ def process_until_finish(expr):
     old_string = output_processed_string (expr)
     new_expr = process_list(expr)
     if output_processed_string (new_expr)==old_string:
+        # the iterations have finished now apply padaanta rules
+        all_sutras= get_sutras_ordered()
+        for transformation_ruleid in padaanta_sutras():           
+           new_expr = apply_transformation_at_end(all_sutras[transformation_ruleid],new_expr)
         return expr
     else:
         return process_until_finish(new_expr)
@@ -242,9 +275,10 @@ def process_list(expr):
 
     # apply lopa and transformation before insertion
     new_expr = apply_all_lopas(new_expr)
-    for transformation_ruleid in transformation_sutras():        
+    if True:
+        for transformation_ruleid in transformation_sutras():        
            new_expr = apply_transformation(all_sutras[transformation_ruleid],new_expr)
-    new_expr = apply_all_lopas(new_expr)
+        new_expr = apply_all_lopas(new_expr)
 
     # apply insertions
     for insertion_sutra_id in insertion_sutras():

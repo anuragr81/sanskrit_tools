@@ -186,23 +186,6 @@ class eNGipararuupam_6010910:
         return node_output
 
 """
-class atoguNne_6010940:
-    def __init__(self):
-        self._types={'node':['literal'],'suffix_node':['literal']}
-    def __call__(self,node, anga_node):
-        node_output= node.get_output()
-        if not node.get_output():
-            return node.get_output()
-        
-        if isinstance(node._data,Suffix):
-            pratyaya =''.join(node._data._suffix)
-            if pratyaya in sup_pratyayaaH()[0:6] : # only prathhama and dvitiiyaa considered
-                # suffix is sup
-                    if anga_node.get_output() and anga_node.get_output()[-1] in ach() and node.get_output()[0] in ach():
-                       if node.get_output()[0] not in pratyaahaara('i', 'ch'): ## naadichi
-                           return node_output[1:]
-            
-        return node_output
 
 
 class atoguNne_6010940:
@@ -215,9 +198,9 @@ class atoguNne_6010940:
     
         if 6010940 not in list_past_rules_applied(node):
             if node.get_output()[-1]=='a' and suffix_node.get_output() and suffix_node.get_output()[0] in ('a','e','o'):
-                return node.get_output()[1:]        
+                return node.get_output()[:-1]
                 
-            return node_output
+        return node_output
 
 """
 #

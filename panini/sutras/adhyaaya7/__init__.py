@@ -14,11 +14,13 @@ class yuvoranaakau_7010010:
             raise ValueError("suffix must of type Suffix")
             
         suffix_string= node.get_output()
-        
-        if suffix_string[-2:] == ["y","u"]:
-            return suffix_string[0:-2] + ["a","n","a"]
-        if suffix_string[-2:] == ["v","u"]:
-            return suffix_string[0:-2] + ["a","k","a"]
+        if suffix_string is None:
+            print("NONE")
+        if len(suffix_string)>=2:
+            if suffix_string[-2:] == ["y","u"]:
+                return suffix_string[0:-2] + ["a","n","a"]
+            if suffix_string[-2:] == ["v","u"]:
+                return suffix_string[0:-2] + ["a","k","a"]
     
         return suffix_string
 
