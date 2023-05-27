@@ -84,9 +84,10 @@ class jhoantaH_7010030:
         if not isinstance(node._data,Suffix):
             raise ValueError("suffix must of type Suffix")
         
-        if node._data._suffix[0] == 'jh' and 7010030 not in list_past_rules_applied(node):
+        if node._data._suffix[0] == 'jh' and 7010030 not in list_past_rules_applied(node) and 3040820 not in list_past_rules_applied(node):
             ## doesn't matter what has happened before (chuXtuu etc.), jh and 
             # ant would be introduced here            
+            # the only exception is that there is no adesha after jh
             return ['a','n','t'] +node._data._suffix[1:]
         return node.get_output()
 
