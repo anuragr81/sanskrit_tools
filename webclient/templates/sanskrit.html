@@ -24,7 +24,6 @@
    }
 
   </style>
-<!--script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.25.0/cytoscape.min.js" /-->
 
 <script type="text/javascript" src="static/packages/cytoscape/dist/cytoscape.min.js"></script>
 
@@ -154,15 +153,19 @@ async function create_cy_context(){
   container: document.getElementById('cy'), // container to render in
 
   elements: [ // list of graph elements to start with
-    { // node a
-      data: { id: 'a' }
-    },
-    { // node b
-      data: { id: 'b' }
-    },
-    { // edge ab
-      data: { id: 'ab', source: 'a', target: 'b' }
-    }
+    { data: { id:       'तिप्' } },
+    { data: { id: 'पठ्' } },
+    { data: { id:   'शप् तिप्'    } },
+    { data: { id:      'अ तिप्'} },
+{ data: { id:       'अ ति'} },
+{ data: { id:      'पठति'} },
+
+{ data: { id: 'कर्तरि शप्', target:      'शप् तिप्'  , source:      'तिप्'}    },
+    { data: { id: '_1', target:      'पठति'  , source:      'पठ्' }    },
+{ data: { id: '_2', target:      'पठति'  , source:      'अ ति' }    },
+{ data: { id: 'लशक्वतद्धिते', target:      'अ तिप्'  , source:      'शप् तिप्'}    },
+{ data: { id: 'हलन्त्यम्', target:      'अ ति'  , source:      'अ तिप्' }    }
+
   ],
 
   style: [ // the stylesheet for the graph
@@ -178,6 +181,7 @@ async function create_cy_context(){
       selector: 'edge',
       style: {
         'width': 3,
+        'label':'data(id)',
         'line-color': '#ccc',
         'target-arrow-color': '#ccc',
         'target-arrow-shape': 'triangle',
