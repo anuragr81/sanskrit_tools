@@ -68,10 +68,10 @@ def test_siddhis ():
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("jhi",lakaara='luXt'),parent1=None)]) == "paXthitaaras"
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("sip",lakaara='luXt'),parent1=None)]) == "paXthitaasi"
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("thas",lakaara='luXt'),parent1=None)]) == "paXthitaasthas"
-    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tha",lakaara='luXt'),parent1=None)]) == "paXthatha"
-    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("mip",lakaara='luXt'),parent1=None)]) == "paXthaami"
-    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("vas",lakaara='luXt'),parent1=None)]) == "paXthaavas"
-    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("mas",lakaara='luXt'),parent1=None)]) == "paXthaamas"
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tha",lakaara='luXt'),parent1=None)]) == "paXthitaastha"
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("mip",lakaara='luXt'),parent1=None)]) == "paXthitaasmi"
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("vas",lakaara='luXt'),parent1=None)]) == "paXthitaasvi"
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("mas",lakaara='luXt'),parent1=None)]) == "paXthitaasmas"
 
     #####################################################################################
     
@@ -79,7 +79,7 @@ def test_siddhis ():
     # liNg is aardhadhaatuk in aashir-liNg
     print("Tests Done")
 
-raise ValueError("na vibhaktau tusmaaH needs to be implemented to prevent chuXtuu on taas (for paXthitaasthas) and thal")
+raise ValueError("taasastyorlopaH and richa to be implemented so that luXt can be corrected for paXth+tas =  paXthitaarau")
 
 if F:
     test_siddhis ()
@@ -103,7 +103,7 @@ else:
         
 
         
-        expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("thas",lakaara='luXt'),parent1=None)]
+        expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tas",lakaara='luXt'),parent1=None)]
         
             
     

@@ -1,6 +1,6 @@
 from ..common_definitions import anunaasika, Suffix, ach, hal, chu, Xtu, Node
 from ..common_definitions import Dhaatu,tiNg_pratyayaaH,sup_pratyayaaH
-from ..common_definitions import halantyam_ignored_sutras
+from ..common_definitions import halantyam_ignored_sutras,list_past_rules_applied
 
 class uraNnraparaH_1010500:
     def __init__(self):
@@ -26,8 +26,12 @@ class halantyam_1030030:
         #works only once - not after the output has been modified with the call
         if isinstance(node._data,Suffix):
             #navibhaktautusmaaH_1030040
+            
             if antyam in ('t','s','m'):
                 if ''.join(node._data._suffix) in tiNg_pratyayaaH() or ''.join(node._data._suffix) in sup_pratyayaaH():
+                    return node.get_output()
+                # output of syataasilRiluXtoH also treated as vibhakti
+                if list_past_rules_applied(node)[0]==3010330:
                     return node.get_output()
         rules_applied = [int(x['rule'].__name__.split('_')[-1]) for x in node._output if 'rule' in x]
         
@@ -79,6 +83,10 @@ class chuXtuu_103070:
         if antyam in ('t','s','m'):
             if ''.join(node._data._suffix) in tiNg_pratyayaaH() or ''.join(node._data._suffix) in sup_pratyayaaH():
                 return node.get_output()
+        # output of syataasilRiluXtoH also treated as vibhakti
+        if list_past_rules_applied(node) and list_past_rules_applied(node)[0]==3010330:
+            return node.get_output()
+
         if not node.get_output():
             return node.get_output()
         if node._output[-1]['output'] [0] in  chu() or node._output[-1]['output'][0] in Xtu():
