@@ -20,6 +20,8 @@ def hello_world():
     return 'Hello from Flask!'
 """
 
+#def display_text(filename):
+    #return redirect(url_for('static', filename='packages/' + filename), code=301)
 
 def display_image(filename):
     #print('display_image filename: ' + filename)
@@ -99,14 +101,16 @@ def display_index():
 app = Flask(__name__)
 
 # add a rule for the index page.
-app.add_url_rule('/', 'index', (lambda: display_index()) )
+
+
+#app.add_url_rule('/', 'index', (lambda: display_index()) )
+#app.add_url_rule('/sanskrit/<filename>', view_func=display_text)
+
+
 app.add_url_rule('/display/<filename>', view_func=display_image )
 app.add_url_rule('/sanskrit/', 'sanskrit', (lambda: display_sanskrit()) )
 app.add_url_rule('/query_sanskrit/', 'query_sanskrit', (lambda: query_sanskrit()) )
 
-# add a rule when the page is accessed with a name appended to the site
-# URL.
-#app.add_url_rule('/<username>', 'hello', (lambda username: header_text + say_hello(username) + home_link + footer_text))
 
 # Add cors configuration
 cors = CORS(app)
