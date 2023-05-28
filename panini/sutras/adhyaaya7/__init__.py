@@ -380,3 +380,27 @@ class astisichoapRikte_7030961:
                 
                     
         return []
+
+
+
+class taasastyorlopaH_7040500:
+    def __init__(self):
+        self._types={'suffix_node':[Suffix,'literal','lakaara']}
+        
+    def __call__(self,node,suffix_node):
+        
+        if isinstance(node._data,Suffix) and ''.join(node._data._suffix)=='taas':
+            if suffix_node.get_output()[0]=='s':
+                return node.get_output()[:-1] # omit the last s
+        return node.get_output()
+
+class taasastyorlopaH_7040501:
+    def __init__(self):
+        self._types={'suffix_node':[Suffix,'literal','lakaara']}
+        
+    def __call__(self,node,dhaatu_node):
+        
+        if ''.join(dhaatu_node._data[:-1])=='as': # as dhaatu (omitting the last letter i.e. anubandh)
+            if node.get_output()[0]=='s':
+                return node.get_output()[:-1] # omit the last s
+        return node.get_output()
