@@ -160,12 +160,12 @@ async function create_cy_context(){
 { data: { id:       'अ ति'} },
 { data: { id:      'पठति'} },
 
-{ data: { id: 'कर्तरि शप्', target:      'शप् तिप्'  , source:      'तिप्'}    },
-    { data: { id: '_1', target:      'पठति'  , source:      'पठ्' }    },
-{ data: { id: '_2', target:      'पठति'  , source:      'अ ति' }    },
-{ data: { id: 'लशक्वतद्धिते', target:      'अ तिप्'  , source:      'शप् तिप्'}    },
-{ data: { id: 'हलन्त्यम्', target:      'अ ति'  , source:      'अ तिप्' }    }
-
+{ data: { arrowshape: 'triangle', edgewidth:3, id: 'कर्तरि शप्', target:      'शप् तिप्'  , source:      'तिप्'}    },
+    {data: { arrowshape: 'triangle',edgewidth:3, id: '_1', target:      'पठति'  , source:      'पठ्' }    },
+{ data: { arrowshape: 'triangle',edgewidth:3,id: '_2', target:      'पठति'  , source:      'अ ति' }    },
+{ data: { arrowshape: 'triangle',edgewidth:3,id: 'लशक्वतद्धिते', target:      'अ तिप्'  , source:      'शप् तिप्'}    },
+{ data: { arrowshape: 'triangle',edgewidth:3,id: 'हलन्त्यम्', target:      'अ ति'  , source:      'अ तिप्' }    },
+{data: { arrowshape: null, edgewidth:1, id: '_1', target:      'तिप्'  , source:      'पठ्' }    }
   ],
 
   style: [ // the stylesheet for the graph
@@ -180,11 +180,11 @@ async function create_cy_context(){
     {
       selector: 'edge',
       style: {
-        'width': 3,
+        'width': 'data(edgewidth)',
         'label':'data(id)',
         'line-color': '#ccc',
         'target-arrow-color': '#ccc',
-        'target-arrow-shape': 'triangle',
+        'target-arrow-shape': 'data(arrowshape)',
         'curve-style': 'bezier'
       }
     }
