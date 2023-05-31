@@ -79,7 +79,7 @@ def test_siddhis ():
     # liNg is aardhadhaatuk in aashir-liNg
     print("Tests Done")
 
-raise ValueError("taasastyorlopaH and richa to be implemented so that luXt can be corrected for paXth+tas =  paXthitaarau")
+raise ValueError("Fix path+jhi(luXt)")
 
 if F:
     test_siddhis ()
@@ -103,7 +103,7 @@ else:
         
 
         
-        expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tas",lakaara='luXt'),parent1=None)]
+        expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("jhi",lakaara='luXt'),parent1=None)]
         
             
     

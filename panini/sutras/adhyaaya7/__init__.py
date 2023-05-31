@@ -385,22 +385,22 @@ class astisichoapRikte_7030961:
 
 class taasastyorlopaH_7040500:
     def __init__(self):
-        self._types={'suffix_node':[Suffix,'literal','lakaara']}
+        self._types={'node':['literal'],'suffix_node':[Suffix,'literal']}
         
     def __call__(self,node,suffix_node):
         
-        if isinstance(node._data,Suffix) and ''.join(node._data._suffix)=='taas':
-            if suffix_node.get_output()[0]=='s':
+        if isinstance(node._data,Suffix) and ''.join(node._data._suffix)=='taas' and node.get_output()[-1]=='s' and 7040500 not in list_past_rules_applied(node):
+            if suffix_node.get_output()[0]=='s' or suffix_node.get_output()[0]=='r':
                 return node.get_output()[:-1] # omit the last s
         return node.get_output()
 
 class taasastyorlopaH_7040501:
     def __init__(self):
-        self._types={'suffix_node':[Suffix,'literal','lakaara']}
+        self._types={'node':['literal'],'suffix_node':[Suffix,'literal']}
         
-    def __call__(self,node,dhaatu_node):
-        
-        if ''.join(dhaatu_node._data[:-1])=='as': # as dhaatu (omitting the last letter i.e. anubandh)
-            if node.get_output()[0]=='s':
-                return node.get_output()[:-1] # omit the last s
+    def __call__(self,suffix_node,node):
+        if isinstance (node._data,Dhaatu):
+            if ''.join(node._data._data[:-1])=='as': # as dhaatu (omitting the last letter i.e. anubandh)
+                if node.get_output()[0]=='s'  and 7040501 not in list_past_rules_applied(node):
+                    return node.get_output()[:-1] # omit the last s
         return node.get_output()

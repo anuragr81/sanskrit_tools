@@ -84,7 +84,7 @@ class aadeshapratyayoH_8030059:
         aadesha_instances = set([float(j) for j in get_aadesha_sutras()]).intersection(set(past_rule_ids))
         if aadesha_instances:
             ##it is an aadesha sutra
-            if node.get_output()[0] == 's':
+            if node.get_output() and node.get_output()[0] == 's':
                 if anga_node.get_output()[-1] in ('i','ii','u','uu') :
                     return ['Xsh'] + node.get_output()[1:]
                 
