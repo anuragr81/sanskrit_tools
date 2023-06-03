@@ -65,8 +65,6 @@ class Anga(Group):
     def __repr__(self):
         return str(self._anga )
 
-def insertion_rule(x):
-    return x
 
 def lakaaras():
     return ('laXt','loXt','lRiXt','laNg','luNg','lRiNg','liNg1','liNg2','liXt','luXt')
@@ -138,7 +136,8 @@ class Dhaatu:
 
 def get_dhaatu_properties(dhaatu_string):
     dhaatu_store = {'chiNN':{'aniXt':True}, 
-                    'paXthNN':{'aniXt':False} 
+                    'paXthNN':{'aniXt':False},
+                    'luuNc':{'aniXt':False}
                     }
     return dhaatu_store [dhaatu_string]
 
@@ -186,11 +185,11 @@ class Node:
         self._data =data
         self._output = [{'output':self._data.get_data(),'new':True}]
     
-    def assign_output_properties(self,rule,**inputs):                
+    def _assign_output_properties(self,rule,**inputs):                
         # output is not changed
         old_output  = self.get_output()
         # no change in output -just rule and input update
-        self._output.append({'rule':rule, 'inputs':{**{'state_output':self.get_output(),'state':self} , **inputs}, 'output':old_output })
+        self._output.append({'rule':rule, 'inputs':{**{'state':self} , **inputs}, 'output':old_output })
             
     def set_output(self,rule,**kwargs):
         old_output = self.get_output()
@@ -201,13 +200,13 @@ class Node:
             if 'mutate' in new_output :
                 if new_output['output'] != old_output :
                     if new_output ['mutate']:
-                        self._output.append({'rule':rule,'inputs':{**{'state_output':old_output,'state':self } , **kwargs},'output':new_output['output'] ,'new' :True})
+                        self._output.append({'rule':rule,'inputs':{**{'state':self } , **kwargs},'output':new_output['output'] ,'new' :True})
                     else:
-                        self._output.append({'rule':rule,'inputs':{**{'state_output':old_output,'state':self } , **kwargs},'output':new_output['output']})
+                        self._output.append({'rule':rule,'inputs':{**{'state':self } , **kwargs},'output':new_output['output']})
                 
         else:
            if new_output != old_output:
-              self._output.append({'rule':rule,'inputs':{**{'state_output':old_output,'state':self} , **kwargs},'output':new_output })
+              self._output.append({'rule':rule,'inputs':{**{'state':self} , **kwargs},'output':new_output })
         
     def get_output(self):
         return self._output[-1]['output']
@@ -396,6 +395,10 @@ def vriddhi(x):
         return "ay"
     elif x == 'ii':
         return 'ai'
+    elif x=='u':
+        return 'o'
+    elif x=='uu':
+        return 'au'
     else:
         return x
     

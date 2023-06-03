@@ -1,7 +1,7 @@
 from ..common_definitions import vriddhi,upadhaa, ach, Suffix, Node , hal
 from ..common_definitions import get_dhaatu_properties,pratyaahaara, guNna, Dhaatu
 from ..common_definitions import parasmaidpada_pratyayaaH, sup_pratyayaaH,list_past_rules_applied 
-from ..common_definitions import find_eldest_parent2_of_condition
+from ..common_definitions import find_eldest_parent1_of_condition,find_eldest_parent2_of_condition
 
 class yuvoranaakau_7010010:
     def __init__(self):
@@ -136,11 +136,16 @@ class sichivRiddhiHparasmaipadeXshu_7020021:
         
         if not isinstance(suffix_node._data,Suffix):
             raise ValueError("suffix must of type Suffix")
-            
+        
         anga_string= node.get_output()
         if not anga_string : 
             return anga_string 
-        if anga_string[-1] in ach() and ''.join(suffix_node._data._suffix)=='sNNch': 
+        
+        past_sich_on_left = find_eldest_parent1_of_condition(node,lambda x: 7020021 in list_past_rules_applied(x))
+        past_sich_on_right = find_eldest_parent2_of_condition(node,lambda x: 7020021 in list_past_rules_applied(x))
+        past_sich = past_sich_on_right  or past_sich_on_left
+        
+        if not past_sich and anga_string[-1] in ach() and ''.join(suffix_node._data._suffix)=='sNNch': 
             found_parasmaipadaH = find_eldest_parent2_of_condition(suffix_node,lambda x : isinstance(x.get_parent2()._data,Suffix) \
                                              and ''.join(x.get_parent2()._data._suffix) in parasmaidpada_pratyayaaH() )
             if found_parasmaipadaH:

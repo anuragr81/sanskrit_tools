@@ -28,6 +28,8 @@ from panini.sutras.adhyaaya7 import *
 from panini.sutras.adhyaaya8 import *
 
 
+output_processed_string = lambda e: ''.join(reduce(lambda x ,y : x + y.get_output(),  e, []))
+
 """
 Currently the naayaka is broken because aardhadhaatukasyavalaadeH has been enabled due
 to default aardhadhaatukaH
@@ -55,7 +57,7 @@ def transformation_sutras():
           6010990, 6041200, 6041480, 7010030,7010010, 7010020, 7010120,7010130,
           
           7020021, 7021150, 7021160, 7030520, 7030840,7031010,7031020,7040500,7040501,
-          8010150, 8020660, 8030059]
+          8010150, 8020280, 8020660, 8030059]
     return sorted(float(x) for x in ll)
 
 
@@ -197,8 +199,9 @@ def apply_prepend(prepend_rule,new_expr):
     for pos in reversed(new_inserts):
         dat=new_inserts[pos]
         new_node = Node(dat['node_data'],parent1=new_expr[dat['input_indices'][0]],parent2=new_expr[dat['input_indices'][1]])
-        new_node.assign_output_properties(rule=dat['rule'], dhaatu_node=new_node.get_parent1(),suffix_node=new_node.get_parent2())
-        new_expr[pos].assign_output_properties(rule=dat['rule'], dhaatu_node=new_node.get_parent1(),suffix_node=new_node.get_parent2())
+        new_node._assign_output_properties(rule=dat['rule'])
+        new_expr[pos]._assign_output_properties(rule=dat['rule'])
+        
         new_expr.insert(pos,new_node)
     return new_expr
 
@@ -225,8 +228,9 @@ def apply_insertion(insertion_rule, new_expr):
         dat=new_inserts[pos]
         new_node = Node(dat['node_data'],parent1=new_expr[dat['input_indices'][0]],parent2=new_expr[dat['input_indices'][1]])
         #assigning properties to both sides of the insertion
-        new_node.assign_output_properties(rule=dat['rule'], node1=new_node.get_parent1(), node2=new_node.get_parent2())
-        new_expr[pos].assign_output_properties(rule=dat['rule'], node1=new_node.get_parent1(), node2=new_node.get_parent2())
+        new_node._assign_output_properties(rule=dat['rule'])
+        new_expr[pos]._assign_output_properties(rule=dat['rule'])
+        
         new_expr.insert(pos,new_node)
 
 
@@ -249,8 +253,16 @@ def apply_all_lopas(expression):
        
     return expression
 
+
+def apply_all_transformations(expression):
+    all_sutras= get_sutras_ordered()
+    for transformation_ruleid in transformation_sutras():        
+       new_expression= apply_transformation(all_sutras[transformation_ruleid],expression)
+    new_expression = apply_all_lopas(new_expression)
+    return new_expression
+
 def process_until_finish(expr):
-    output_processed_string = lambda e: ''.join(reduce(lambda x ,y : x + y.get_output(),  e, []))
+    
     old_string = output_processed_string (expr)
     new_expr = process_list(expr)
     if output_processed_string (new_expr)==old_string:
@@ -276,28 +288,34 @@ def process_list(expr):
     # apply lopa and transformation before insertion
     new_expr = apply_all_lopas(new_expr)
     if True:
-        for transformation_ruleid in transformation_sutras():        
-           new_expr = apply_transformation(all_sutras[transformation_ruleid],new_expr)
-        new_expr = apply_all_lopas(new_expr)
-
+        new_expr = apply_all_transformations(new_expr)
+        
+    
     # apply insertions
     for insertion_sutra_id in insertion_sutras():
+        old_string = output_processed_string(new_expr)
         new_expr = apply_insertion(all_sutras[insertion_sutra_id],new_expr)
+        if old_string != output_processed_string(new_expr):
+            new_expr = apply_all_transformations(new_expr)
+            
       
-        
-    # apply insertions
-    for prepend_sutra_id in prepend_sutras():
-        new_expr = apply_prepend(all_sutras[prepend_sutra_id],new_expr)
-        
-    # apply lopa and transformation after insertion       
-    new_expr = apply_all_lopas(new_expr)
     
-    for transformation_ruleid in transformation_sutras():        
-#        print("transformation_ruleid="+str(transformation_ruleid))
-#        if transformation_ruleid==6010080.0:
-#           print("BREAK")
-        new_expr = apply_transformation(all_sutras[transformation_ruleid],new_expr)
-    new_expr = apply_all_lopas(new_expr)
+    # apply prepend (another type of insertion)
+    for prepend_sutra_id in prepend_sutras():
+        old_string = output_processed_string(new_expr)
+        new_expr= apply_prepend(all_sutras[prepend_sutra_id],new_expr)
+        if old_string  != output_processed_string(new_expr):
+            new_expr= apply_all_transformations(new_expr)
+      
+    
+    #print("Done with current insertion round")    
+    if False:
+        # apply lopa and transformation after insertion       
+        new_expr = apply_all_lopas(new_expr)
+        
+        for transformation_ruleid in transformation_sutras():        
+            new_expr = apply_transformation(all_sutras[transformation_ruleid],new_expr)
+        new_expr = apply_all_lopas(new_expr)
     
     return new_expr
 

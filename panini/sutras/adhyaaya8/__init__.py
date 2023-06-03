@@ -1,6 +1,22 @@
 import re
 from ..common_definitions import pratyaahaara, ach, hal, Node, Suffix
 from ..common_definitions import get_aadesha_sutras, get_vriddhi_sutras
+class kharavasaanayorvisarjaniiyaH_8010150:
+    def __init__(self):
+        self._types={'node':['literal']}
+        
+    def __call__(self,node):
+        # must be used in avasaana
+        if not isinstance(node,Node):
+            raise ValueError("node must of type Node")
+        pada = node.get_output()
+        return pada
+        khar = pratyaahaara('kh','r')
+        if pada[-1]=="r" and (pada[-2] in khar or pada[-2] in ach()):
+            return pada[0:-1] + ['H']
+        return pada
+
+
 class saMyogaantasyalopaH_8020230:
     def __init__(self):
         self._types={'node':['literal']}
@@ -28,6 +44,32 @@ class saMyogaantasyalopaH_8020230:
         return node.get_output()
     
 
+class iXtaiiXti_8020280:
+    def __init__(self):
+        self._types={'node':['literal'],'suffix_node':[Suffix,'literal']}
+        
+    def __call__(self,anga_node ,node):        
+        
+        #raise ValueError("Unimplemented")
+        
+        if not isinstance(node,Node):
+            raise ValueError("node must of type Node")
+        if not isinstance(anga_node,Node):
+            raise ValueError("suffix_node must of type Node")
+        #if not isinstance(suffix_node._data,Suffix):
+        #    raise ValueError("suffix_node._data must be of type Suffix")
+    
+    
+        if not node.get_output():
+            return node.get_output()
+        
+        if isinstance(node._data,Suffix) and ''.join(node._data._suffix )== 'iXt':
+            print("FOUND")
+        
+            
+        return node.get_output()
+
+
 class sasajuXshoruH_8020660:
     def __init__(self):
         self._types={'node':['literal']}
@@ -46,20 +88,6 @@ class sasajuXshoruH_8020660:
             raise ValueError("sajuXsh not supported yet")
         return pada
 
-class kharavasaanayorvisarjaniiyaH_8010150:
-    def __init__(self):
-        self._types={'node':['literal']}
-        
-    def __call__(self,node):
-        # must be used in avasaana
-        if not isinstance(node,Node):
-            raise ValueError("node must of type Node")
-        pada = node.get_output()
-        return pada
-        khar = pratyaahaara('kh','r')
-        if pada[-1]=="r" and (pada[-2] in khar or pada[-2] in ach()):
-            return pada[0:-1] + ['H']
-        return pada
 
 
 
