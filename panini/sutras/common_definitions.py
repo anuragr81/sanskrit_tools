@@ -178,13 +178,25 @@ class Node:
     def __init__(self,data,parent1,parent2=None):
         if all ( not isinstance(data,x) for x in list(get_supported_types()) + [list] ):
             raise ValueError("Unsupported type %s" % type(data))
+        self._children=[]
         
         self._parent1 = parent1
         self._parent2 = parent2
         
+        if self._parent1:
+            self._parent1._add_child(self)
+        
+        if self._parent2:
+            self._parent2._add_child(self)
+        
+        
         self._data =data
         self._output = [{'output':self._data.get_data(),'new':True}]
     
+    
+    def _add_child(self,ptr):
+        self._children.append(ptr)
+        
     def _assign_output_properties(self,rule,**inputs):                
         # output is not changed
         old_output  = self.get_output()
