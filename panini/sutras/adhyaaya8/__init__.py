@@ -62,9 +62,13 @@ class iXtaiiXti_8020280:
     
         if not node.get_output():
             return node.get_output()
-        
-        if isinstance(node._data,Suffix) and ''.join(node._data._suffix )== 'iXt':
+        #raise ValueError("Check should be node.get_output() =='s'") 
+        if isinstance(node._data,Suffix)   and ''.join(node._data._suffix )== 'sNNch':
             print("FOUND")
+        
+        # if current 's' gave birth to iiXt and iXt then omit/lopa s
+        #node._children[1]._data == ['ii', 'Xt']
+        #node._children[0]._data == ['i', 'Xt']
         
             
         return node.get_output()

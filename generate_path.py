@@ -287,7 +287,8 @@ def process_list(expr):
 
     # apply lopa and transformation before insertion
     new_expr = apply_all_lopas(new_expr)
-    if True:
+    bReapplyTransformationsInFlight= True
+    if bReapplyTransformationsInFlight:
         new_expr = apply_all_transformations(new_expr)
         
     
@@ -295,7 +296,7 @@ def process_list(expr):
     for insertion_sutra_id in insertion_sutras():
         old_string = output_processed_string(new_expr)
         new_expr = apply_insertion(all_sutras[insertion_sutra_id],new_expr)
-        if old_string != output_processed_string(new_expr):
+        if bReapplyTransformationsInFlight and old_string != output_processed_string(new_expr):
             new_expr = apply_all_transformations(new_expr)
             
       
@@ -304,12 +305,12 @@ def process_list(expr):
     for prepend_sutra_id in prepend_sutras():
         old_string = output_processed_string(new_expr)
         new_expr= apply_prepend(all_sutras[prepend_sutra_id],new_expr)
-        if old_string  != output_processed_string(new_expr):
+        if bReapplyTransformationsInFlight and old_string  != output_processed_string(new_expr):
             new_expr= apply_all_transformations(new_expr)
       
     
     #print("Done with current insertion round")    
-    if False:
+    if not bReapplyTransformationsInFlight :
         # apply lopa and transformation after insertion       
         new_expr = apply_all_lopas(new_expr)
         
