@@ -205,7 +205,7 @@ class Node:
             
     def set_output(self,rule,**kwargs):
         old_output = self.get_output()
-        #print("set_output:"+ rule.__name__)
+        # call the function
         new_output = rule()(node=self,**kwargs)
         
         if isinstance(new_output,dict):

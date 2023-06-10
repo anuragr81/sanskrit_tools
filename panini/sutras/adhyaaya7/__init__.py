@@ -343,7 +343,8 @@ class atodiirghoyaNci_7031010:
             print("Returning due to sarvaahaari lopa")
             return node.get_output()
         if node.get_output()[-1] == 'a':
-            if suffix_node._data.is_saarvadhaatuka() and suffix_node._data._suffix[0] in pratyaahaara('y','Nc') :
+            # instead of checking suffix_node._data._suffix[0] , just check the output
+            if suffix_node._data.is_saarvadhaatuka() and suffix_node.get_output()[0] in pratyaahaara('y','Nc') :
                 return node.get_output()[0:-1]+['aa']
         return node.get_output()
     

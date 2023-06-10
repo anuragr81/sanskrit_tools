@@ -5,6 +5,7 @@ from copy import deepcopy
 from functools import reduce
 from pprint import pprint
 import inspect
+import pandas as pd
 
 
 from panini.sutras.common_definitions import Dhaatu,Node,Suffix, parse_string
@@ -99,10 +100,8 @@ def apply_transformation_at_end(transformation_rule,new_expr):
     return new_expr
 
 def apply_transformation(transformation_rule,new_expr):
-    #print(transformation_rule.__name__)
     sig_params = inspect.signature(transformation_rule.__call__).parameters
     for i in range(0,len(new_expr)):
-        #print(transformation_rule.__name__ + ": " + ''.join(new_expr[i-1].get_output()) + "+" + ''.join(new_expr[i].get_output()))
         if isinstance(new_expr[i]._data,Suffix):
             if i>0 :
                 if isinstance(new_expr[i-1]._data,Dhaatu):
@@ -113,12 +112,9 @@ def apply_transformation(transformation_rule,new_expr):
                         new_expr[dhaatu_index].set_output(transformation_rule,suffix_node=new_expr[i])
                 else:
                     if 'suffix_node' in sig_params :
-#                        if (transformation_rule.__name__=="saarvadhaatukaardhadhaatukayoH_703084"):
-#                            j = 1
+                        #Can check as transformation_rule.__name__=="saarvadhaatukaardhadhaatukayoH_703084" etc.
                         new_expr[i-1].set_output(transformation_rule,suffix_node=new_expr[i])
-                    if 'anga_node' in sig_params :                        
-                        
-                        ## WORKS: new_expr[i-1].set_output(transformation_rule,anga_node=new_expr[i])
+                    if 'anga_node' in sig_params :
                         new_expr[i].set_output(transformation_rule,anga_node=new_expr[i-1])
 
                     
@@ -287,36 +283,38 @@ def process_list(expr):
 
     # apply lopa and transformation before insertion
     new_expr = apply_all_lopas(new_expr)
-    bReapplyTransformationsInFlight= True
-    if bReapplyTransformationsInFlight:
-        new_expr = apply_all_transformations(new_expr)
         
     
     # apply insertions
-    for insertion_sutra_id in insertion_sutras():
-        old_string = output_processed_string(new_expr)
-        new_expr = apply_insertion(all_sutras[insertion_sutra_id],new_expr)
-        if bReapplyTransformationsInFlight and old_string != output_processed_string(new_expr):
-            new_expr = apply_all_transformations(new_expr)
-            
-      
     
-    # apply prepend (another type of insertion)
-    for prepend_sutra_id in prepend_sutras():
-        old_string = output_processed_string(new_expr)
-        new_expr= apply_prepend(all_sutras[prepend_sutra_id],new_expr)
-        if bReapplyTransformationsInFlight and old_string  != output_processed_string(new_expr):
-            new_expr= apply_all_transformations(new_expr)
-      
+    itdf= pd.concat([pd.DataFrame({'sutranum':[x for x in transformation_sutras()],'type':'transformation'}), 
+              pd.DataFrame({'sutranum':[x for x in insertion_sutras()],'type':'insertion'}),
+              pd.DataFrame({'sutranum':[x for x in prepend_sutras()],'type':'prepend'})])
+    itdf = itdf.sort_values('sutranum')
     
-    #print("Done with current insertion round")    
-    if not bReapplyTransformationsInFlight :
-        # apply lopa and transformation after insertion       
-        new_expr = apply_all_lopas(new_expr)
-        
-        for transformation_ruleid in transformation_sutras():        
+    for sutra_i in range(0,itdf.shape[0]):
+        objSutra = itdf.iloc[sutra_i]
+        if objSutra.type == "insertion":
+            #old_string = output_processed_string(new_expr)
+            insertion_sutra_id = objSutra.sutranum
+            new_expr = apply_insertion(all_sutras[insertion_sutra_id],new_expr)
+            # apply lopa and transformation after insertion       
+            new_expr = apply_all_lopas(new_expr)
+
+        elif objSutra.type == "prepend":
+            # apply prepend (another type of insertion)
+            #old_string = output_processed_string(new_expr)
+            prepend_sutra_id= objSutra.sutranum
+            new_expr= apply_prepend(all_sutras[prepend_sutra_id],new_expr)
+            # apply lopa and transformation after insertion       
+            new_expr = apply_all_lopas(new_expr)
+
+        elif objSutra.type == "transformation":
+            transformation_ruleid=objSutra.sutranum
             new_expr = apply_transformation(all_sutras[transformation_ruleid],new_expr)
-        new_expr = apply_all_lopas(new_expr)
+            new_expr = apply_all_lopas(new_expr)
+        else:
+            raise ValueError("Unkonwn type : %s" % objSutra.type)
     
     return new_expr
 
