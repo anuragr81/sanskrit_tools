@@ -61,6 +61,7 @@ def test_siddhis ():
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("mip",lakaara='liXt'),parent1=None)]) == "papaaXtha"
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("vas",lakaara='liXt'),parent1=None)]) == "peXthiva"
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("mas",lakaara='liXt'),parent1=None)]) == "peXthima"
+
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tip",lakaara='luXt'),parent1=None)]) == "paXthitaa"
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tas",lakaara='luXt'),parent1=None)]) == "paXthitaarau"    
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("jhi",lakaara='luXt'),parent1=None)]) == "paXthitaaras"
@@ -68,10 +69,20 @@ def test_siddhis ():
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("thas",lakaara='luXt'),parent1=None)]) == "paXthitaasthas"
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tha",lakaara='luXt'),parent1=None)]) == "paXthitaastha"
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("mip",lakaara='luXt'),parent1=None)]) == "paXthitaasmi"
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("vas",lakaara='luXt'),parent1=None)]) == "paXthitaasvas"
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("mas",lakaara='luXt'),parent1=None)]) == "paXthitaasmas"
 
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tip",lakaara='loXt'),parent1=None)]) == "paXthatu"
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tas",lakaara='loXt'),parent1=None)]) == "paXthataam"    
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("jhi",lakaara='loXt'),parent1=None)]) == "paXthantu"
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("sip",lakaara='loXt'),parent1=None)]) == "paXtha"
+    
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("thas",lakaara='loXt'),parent1=None)]) == "paXthatam"
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tha",lakaara='loXt'),parent1=None)]) == "paXthata"
     if False:
-        assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("vas",lakaara='luXt'),parent1=None)]) == "paXthitaasvi"
-        assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("mas",lakaara='luXt'),parent1=None)]) == "paXthitaasmas"
+        assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("mip",lakaara='loXt'),parent1=None)]) == "paXthaani"
+        assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("vas",lakaara='loXt'),parent1=None)]) == "paXthaava"
+        assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("mas",lakaara='loXt'),parent1=None)]) == "paXthaama"
 
     #####################################################################################
     
@@ -98,15 +109,10 @@ else:
         sys.exit(0)
     
     else:        
-        expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix('vas',lakaara='luXt'),parent1=None)]
-    
+        expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix('mip',lakaara='loXt'),parent1=None)]
         #expression=[Node(Dhaatu(parse_string("rajNN")),parent1=None),Node(Suffix("ghaNc"),parent1=None),Node(Suffix("am",linga=1),parent1=None)]
+        #expression=[Node(Dhaatu(parse_string("bhuu")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]
             
-        
-        #expression=[Node(Dhaatu(parse_string("luuNc")),parent1=None),Node(Suffix("tip",lakaara='luNg'),parent1=None)]
-        
-            
-    
     # sorting order is increasing in general but can be superseded by nitya condition (if nitya occurs in a later sutra then that later sutra takes advantage) 
     # which in turn would be superseded by the minimal condition criteria (antaraNga) 
     # The only exception is when there is a an exception that prevents application

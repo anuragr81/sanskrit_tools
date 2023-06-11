@@ -75,7 +75,7 @@ class NnonaH_6010630:
         if not isinstance   (node._data,Dhaatu):
             return node.get_output()
         dhaatu_string=node.get_output()
-        if dhaatu_string[0] == "Nn":
+        if dhaatu_string and dhaatu_string[0] == "Nn":
             return ['n']+dhaatu_string[1:]
         else:
             return dhaatu_string
@@ -316,10 +316,10 @@ class amipuurvaH_6011030:
 
 class luNglaNglRiNgkShvaXdudaattaH_6040710:
     def __init__(self):
-        self._types={'dhaatu_node':[Dhaatu],'suffix_node':[Suffix,'literal','lakaara']}
+        self._types={'prefix_node':[Dhaatu],'suffix_node':[Suffix,'literal','lakaara']}
         self._ruletype=['prepend']
         
-    def __call__(self,dhaatu_node,suffix_node):
+    def __call__(self,prefix_node,suffix_node):
         e1=find_eldest_parent1_of_condition(suffix_node,lambda x : isinstance(x ,Node) and isinstance(x._data,Suffix) and x._data._lakaara in ('luNg','laNg','lRiNg') )
         e2=find_eldest_parent2_of_condition(suffix_node,lambda x : isinstance(x ,Node) and isinstance(x._data,Suffix) and x._data._lakaara in ('luNg','laNg','lRiNg') )
 
@@ -331,10 +331,10 @@ class luNglaNglRiNgkShvaXdudaattaH_6040710:
         else:
             effective_suffix_node = e1
             
-        if isinstance(dhaatu_node ._data,Dhaatu) and \
+        if isinstance(prefix_node ._data,Dhaatu) and \
             isinstance(effective_suffix_node._data,Suffix) :
                 if effective_suffix_node._data._lakaara in ('luNg','laNg','lRiNg') :
-                    past_rules_applied = [int(x['rule'].__name__.split("_")[-1]) for x in dhaatu_node._output if 'rule' in x]
+                    past_rules_applied = [int(x['rule'].__name__.split("_")[-1]) for x in prefix_node._output if 'rule' in x]
                     if 6040710 not in past_rules_applied  :
                         #raise ValueError("aXt needs to be checked in dhaatu-nodes modification (while prepending)")
                         return Suffix("aXt")

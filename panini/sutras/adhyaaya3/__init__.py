@@ -4,9 +4,9 @@ from ..common_definitions import Suffix, Node, Dhaatu,tiNg_pratyayaaH, ach,list_
     
 class kartarishap_3010680:
     def __init__(self):
-        self._types={'dhaatu_node':[Dhaatu],'suffix_node':[Suffix,'literal','lakaara']}
-    def __call__(self,dhaatu_node,suffix_node):
-        if isinstance(dhaatu_node._data,Dhaatu) and \
+        self._types={'prefix_node':[Dhaatu],'suffix_node':[Suffix,'literal','lakaara']}
+    def __call__(self,prefix_node,suffix_node):
+        if isinstance(prefix_node._data,Dhaatu) and \
             isinstance(suffix_node._data,Suffix) and \
                 suffix_node._data.is_saarvadhaatuka() and \
                     suffix_node._data._lakaara in ('laXt','loXt','laNg','vidhiliNg') and \
@@ -17,10 +17,10 @@ class kartarishap_3010680:
 
 class chliLuNgi_3010460:
     def __init__(self):
-        self._types={'dhaatu_node':[Dhaatu],'suffix_node':[Suffix,'literal','lakaara']}
+        self._types={'prefix_node':[Dhaatu],'suffix_node':[Suffix,'literal','lakaara']}
         
-    def __call__(self,dhaatu_node,suffix_node):
-        if isinstance(dhaatu_node._data,Dhaatu) and \
+    def __call__(self,prefix_node,suffix_node):
+        if isinstance(prefix_node._data,Dhaatu) and \
             isinstance(suffix_node._data,Suffix) and \
             suffix_node._data._lakaara in ('luNg',) and \
                 ''.join(suffix_node._data._suffix) != 'sNNch' and \
@@ -29,13 +29,147 @@ class chliLuNgi_3010460:
                  return Suffix("sNNch")
         return []
   
+class parasmaipadaanaaMNnalatususthalathusaNnalvamaaH_3040820:
+    def __init__(self):
+        self._types={'node':[Suffix,'literal']}
+    def __call__(self,node,anga_node):
+
+        if not isinstance(node,Node):
+            raise ValueError("node must be of Node type")
+        if not isinstance(anga_node,Node):
+            raise ValueError("anga_node must be of Node type")
+        if isinstance(node._data,Suffix) :
+            if node._data._lakaara == "liXt":
+                suffix_data=[x['output'] for x in node._output if 'new' in x and x['new']][-1]
+                suffix_name =''.join(suffix_data)
+                mapping= {'tip':['Nn','a','l'], 'tas':['a','t','u','s'], 'jhi':['u','s'], 
+                              'sip':['th','a','l'], 'thas':['a','th','u','s'],'tha':['a'], 
+                              'mip':['Nn','a','l'], 'vas':['v','a'], 'mas':['m','a']}
+                if suffix_name in tiNg_pratyayaaH() and suffix_name in mapping: 
+                    return {'output':mapping[suffix_name],'mutate':True}
+        return node.get_output()
+
+class eruH_3040860:
+    def __init__(self):
+        self._types={'node':[Suffix,'literal']}
+    def __call__(self,node):
+
+        if not isinstance(node,Node):
+            raise ValueError("node must be of Node type")
+        # does not apply to merniH and serhyapichcha
+        if isinstance(node._data,Suffix) and node._data._lakaara == 'loXt' and not set(list_past_rules_applied(node)).intersection([3040870,3040890]):
+            i2umap ={'i':'u'}
+            return [i2umap.get(x,x) for x in node.get_output()]
+        return node.get_output()
+
+class serhyapichcha_3040870:
+    def __init__(self):
+        self._types={'node':[Suffix,'literal']}
+    def __call__(self,node):
+
+        if not isinstance(node,Node):
+            raise ValueError("node must be of Node type")
+        if isinstance(node._data,Suffix) and node._data._lakaara == 'loXt' and ''.join(node._data._suffix) == 'sip':
+            return {'output':['h','i'], 'mutate':True}
+        return node.get_output()
+
+class merniH_3040890:
+    def __init__(self):
+        self._types={'node':[Suffix,'literal']}
+    def __call__(self,node):
+        if not isinstance(node,Node):
+            raise ValueError("node must be of Node type")
+        if isinstance(node._data,Suffix) and node._data._lakaara == 'loXt' and ''.join(node._data._suffix) == 'mip':
+            return {'output':['n','i'], 'mutate':True}
+        return node.get_output()
+
+class aaXduttamasyapichchha_3040920:
+    def __init__(self):
+        self._types={'node':[Suffix,'literal'],'suffix_node':[Suffix,'literal']}
+    def __call__(self,node,suffix_node):
+        if not isinstance(node,Node):
+            raise ValueError("node must be of Node type")
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix_node must be of Node type")
+        
+        if isinstance(node._data,Suffix) and node._data._lakaara == 'loXt' and ''.join(node._data._suffix) in ('mip','vas','mas','iXt','vahi','mahiNg'):
+            return ['aa','Xt']
+            
+        return []
+    
+class nityaMNgitaH_3040990:
+    def __init__(self):
+        self._types={'node':[Suffix]}
+    def __call__(self,node):
+        if isinstance(node._data,Suffix) and node._data._lakaara and node._data._lakaara.endswith('Ng') and ''.join(node._data._suffix) in ('mip','vas','mas',"iXt","vahi","mahiNg"):
+            if 3040990 not in list_past_rules_applied(node):               
+                if node.get_output()[-1]=='s':
+                    return node.get_output()[:-1]
+                    
+            
+            
+        return node.get_output()
+
+
+
+
+
+class itashcha_3041000:
+    
+    def __init__(self):
+        self._types={'node':[Suffix,'literal']}
+    def __call__(self,node):
+        if not isinstance(node,Node):
+            raise ValueError("Must be Node")
+            
+        if not node.get_output():
+            return node.get_output()
+        suffix=node._data
+        if not isinstance(suffix,Suffix):
+            raise ValueError("Must be Suffix")
+        if suffix._lakaara and suffix._lakaara in ('laNg','luNg','lRiNg','liNg1','liNg2','liNg') and node.get_output()[-1]=='i':
+            return node.get_output()[:-1]
+        
+        return node.get_output()
+
+class tasthasthamipaamtaamtamtaamaH_3041020:
+    def __init__(self):
+        self._types={'node':[Suffix]}
+    def __call__(self,node):
+        # loXtolaNgvat allows loXt 
+        if isinstance(node._data,Suffix) and node._data._lakaara and (node._data._lakaara.endswith('Ng') or node._data._lakaara=='loXt' ):
+            if 3041020 not in list_past_rules_applied(node):
+                suffix_replacement_dict = {'tas':['t','aa','m'] , 'thas':['t','a','m'], 'tha':['t','a'], 'mip':['a','m']}
+                if ''.join(node._data._suffix) in suffix_replacement_dict :
+                    return suffix_replacement_dict [''.join(node._data._suffix)]
+                    
+            
+            
+        return node.get_output()
+
+
+
+class atoheH_3041050:
+    def __init__(self):
+        self._types={'node':[Suffix,'literal']}
+    def __call__(self,node,anga_node):
+        if not isinstance(anga_node,Node):
+            raise ValueError("anga_node must be of Node type")
+
+        if not isinstance(node,Node):
+            raise ValueError("node must be of Node type")
+        if isinstance(node._data,Suffix) and node._data._lakaara == 'loXt' :
+                suffix_data=[x['output'] for x in node._output if 'new' in x and x['new']][-1]
+                if anga_node.get_output() and anga_node.get_output()[-1]=='a' and suffix_data==['h','i']:
+                    return []
+        return node.get_output()
 
         
 class syataasiilRiluXtoH_3010330:
     def __init__(self):
-        self._types={'dhaatu_node':[Dhaatu],'suffix_node':[Suffix,'literal','lakaara']}
-    def __call__(self,dhaatu_node,suffix_node):
-        if isinstance(dhaatu_node._data,Dhaatu) and \
+        self._types={'prefix_node':[Dhaatu],'suffix_node':[Suffix,'literal','lakaara']}
+    def __call__(self,prefix_node,suffix_node):
+        if isinstance(prefix_node._data,Dhaatu) and \
             isinstance(suffix_node._data,Suffix) :
                 
                 if suffix_node._data._lakaara in ('lRiXt',) and \
@@ -61,69 +195,4 @@ class XdityabhasyaapianubandhakaraNnasaamarthyaat_3010331:
                     return node.get_output()[:ach_indices_in_output[-1]]
             
         return node.get_output()
-    
-class nityaMNgitaH_3040990:
-    def __init__(self):
-        self._types={'node':[Suffix]}
-    def __call__(self,node):
-        if isinstance(node._data,Suffix) and node._data._lakaara and node._data._lakaara.endswith('Ng') and ''.join(node._data._suffix) in ('mip','vas','mas',"iXt","vahi","mahiNg"):
-            if 3040990 not in list_past_rules_applied(node):               
-                if node.get_output()[-1]=='s':
-                    return node.get_output()[:-1]
-                    
-            
-            
-        return node.get_output()
 
-class itashcha_3041000:
-    
-    def __init__(self):
-        self._types={'node':[Suffix,'literal']}
-    def __call__(self,node):
-        if not isinstance(node,Node):
-            raise ValueError("Must be Node")
-            
-        if not node.get_output():
-            return node.get_output()
-        suffix=node._data
-        if not isinstance(suffix,Suffix):
-            raise ValueError("Must be Suffix")
-        if suffix._lakaara and suffix._lakaara in ('laNg','luNg','lRiNg','liNg1','liNg2','liNg') and node.get_output()[-1]=='i':
-            return node.get_output()[:-1]
-        
-        return node.get_output()
-
-class tasthasthamipaamtaamtamtaamaH_3041020:
-    def __init__(self):
-        self._types={'node':[Suffix]}
-    def __call__(self,node):
-        if isinstance(node._data,Suffix) and node._data._lakaara and node._data._lakaara.endswith('Ng'):
-            if 3041020 not in list_past_rules_applied(node):
-                suffix_replacement_dict = {'tas':['t','aa','m'] , 'thas':['t','a','m'], 'tha':['t','a'], 'mip':['a','m']}
-                if ''.join(node._data._suffix) in suffix_replacement_dict :
-                    return suffix_replacement_dict [''.join(node._data._suffix)]
-                    
-            
-            
-        return node.get_output()
-
-
-class parasmaipadaanaaMNnalatususthalathusaNnalvamaaH_3040820:
-    def __init__(self):
-        self._types={'node':[Suffix,'literal']}
-    def __call__(self,node,anga_node):
-
-        if not isinstance(node,Node):
-            raise ValueError("node must be of Node type")
-        if not isinstance(anga_node,Node):
-            raise ValueError("anga_node must be of Node type")
-        if isinstance(node._data,Suffix) :
-            if node._data._lakaara == "liXt":
-                suffix_data=[x['output'] for x in node._output if 'new' in x and x['new']][-1]
-                suffix_name =''.join(suffix_data)
-                mapping= {'tip':['Nn','a','l'], 'tas':['a','t','u','s'], 'jhi':['u','s'], 
-                              'sip':['th','a','l'], 'thas':['a','th','u','s'],'tha':['a'], 
-                              'mip':['Nn','a','l'], 'vas':['v','a'], 'mas':['m','a']}
-                if suffix_name in tiNg_pratyayaaH() and suffix_name in mapping: 
-                    return {'output':mapping[suffix_name],'mutate':True}
-        return node.get_output()

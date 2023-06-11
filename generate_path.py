@@ -51,9 +51,10 @@ def get_sutras_ordered ():
 
 def padaanta_sutras():
     return [8020230]
+
 def transformation_sutras():
     
-    ll = [2040850,3010331,3040820,3040990,3041000,3041020,6010080,6010630, 6010750, 6040880, 6010940, 6010980, 
+    ll = [2040850,3010331,3040820,3040860,3040870,3040890,3040990,3041000,3041020,3041050,6010080,6010630, 6010750, 6040880, 6010940, 6010980, 
           6010840,6010841,6010850,6010851,
           6010990, 6041200, 6041480, 7010030,7010010, 7010020, 7010120,7010130,
           
@@ -68,7 +69,7 @@ def prepend_sutras():
 
 def insertion_sutras():
 #   to be considered: 601008
-    ll=[3010460,3010680,3010330,7020350,7030960,7030961]
+    ll=[3010460,3010680,3040920,3010330,7020350,7030960,7030961]
     return sorted(float(x) for x in ll)
 
 def apply_transformation_at_end(transformation_rule,new_expr):
@@ -187,8 +188,8 @@ def apply_prepend(prepend_rule,new_expr):
             # reducing expression with combination
             # this involves appending plain-strings (that cannot be reduced further)
             sig_params = inspect.signature(prepend_rule.__call__).parameters
-            if 'dhaatu_node' in sig_params :         
-                to_prepend = prepend_rule()(dhaatu_node=new_expr[i-1],suffix_node=new_expr[i])
+            if 'prefix_node' in sig_params :         
+                to_prepend = prepend_rule()(prefix_node=new_expr[i-1],suffix_node=new_expr[i])
                 if to_prepend :
                     new_inserts[i-1]={'node_data':to_prepend ,'input_indices':(i-1,i),'rule':prepend_rule}
                 
@@ -209,8 +210,8 @@ def apply_insertion(insertion_rule, new_expr):
             # reducing expression with combination
             # this involves appending plain-strings (that cannot be reduced further)
             sig_params = inspect.signature(insertion_rule.__call__).parameters
-            if 'dhaatu_node' in sig_params :         
-                to_insert = insertion_rule()(dhaatu_node=new_expr[i-1],suffix_node=new_expr[i])
+            if 'prefix_node' in sig_params :         
+                to_insert = insertion_rule()(prefix_node=new_expr[i-1],suffix_node=new_expr[i])
                 if to_insert :
                     new_inserts[i]={'node_data':to_insert ,'input_indices':(i-1,i),'rule':insertion_rule}
                     #new_inserts[i]=to_insert 

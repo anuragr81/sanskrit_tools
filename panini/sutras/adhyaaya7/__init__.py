@@ -155,22 +155,22 @@ class sichivRiddhiHparasmaipadeXshu_7020021:
        
 class aardhadhaatukasyeXdvalaadeH_7020350:
     def __init__(self):
-        self._types={'dhaatu_node':[Dhaatu,'literal'],'suffix_node':[Suffix,'literal']}
+        self._types={'prefix_node':[Dhaatu,'literal'],'suffix_node':[Suffix,'literal']}
         self._ruletype = ['insertion']
         
-    def __call__(self,dhaatu_node,suffix_node):
+    def __call__(self,prefix_node,suffix_node):
         """
         insertion rule
         """
-        if not isinstance(dhaatu_node,Node):
-            raise ValueError("dhaatu_node must of type Node")
+        if not isinstance(prefix_node,Node):
+            raise ValueError("prefix_node must of type Node")
         if not isinstance(suffix_node,Node):
             raise ValueError("suffix_node must of type Node")
             
         
-        if isinstance(dhaatu_node._data,Dhaatu) and \
+        if isinstance(prefix_node._data,Dhaatu) and \
             isinstance(suffix_node._data,Suffix) :
-                #dhaatu_node_data=[x['output'] for x in dhaatu_node._output if 'new' in x and x['new']][-1]
+                #prefix_node_data=[x['output'] for x in prefix_node._output if 'new' in x and x['new']][-1]
                 suffix_node_data=[x['output'] for x in suffix_node._output if 'new' in x and x['new']][-1]       
                 suffix_node_output=suffix_node.get_output()
                 if suffix_node._data._lakaara == 'liXt' or not suffix_node._data.is_saarvadhaatuka() :
@@ -179,7 +179,7 @@ class aardhadhaatukasyeXdvalaadeH_7020350:
                     is_like_aardhadhaatuka=False
                     
                 if not iXt_not_allowed(suffix_node_data) and is_like_aardhadhaatuka\
-                    and not get_dhaatu_properties(''.join(dhaatu_node._data._data))['aniXt'] \
+                    and not get_dhaatu_properties(''.join(prefix_node._data._data))['aniXt'] \
                     and suffix_node_output[0] in pratyaahaara('v','l')  and ''.join(suffix_node_data) != 'iXt':
                     return Suffix("iXt")
     
@@ -281,7 +281,7 @@ class saarvadhaatukaardhadhaatukayoH_7030840:
                 if node._data._suffix[-1] in pratyaahaara('i','k'):
                     return anga_string[0:-1]+[guNna(anga_string[-1])]
         else:
-            if node._data._data[-1] == node.get_output()[-1]:
+            if node._data._data and node.get_output() and node._data._data[-1] == node.get_output()[-1]:
                 anga_string= node.get_output()
                 if node._data._data[-1] in pratyaahaara('i','k'):
                     return anga_string[0:-1]+[guNna(anga_string[-1])]
@@ -344,7 +344,7 @@ class atodiirghoyaNci_7031010:
             return node.get_output()
         if node.get_output()[-1] == 'a':
             # instead of checking suffix_node._data._suffix[0] , just check the output
-            if suffix_node._data.is_saarvadhaatuka() and suffix_node.get_output()[0] in pratyaahaara('y','Nc') :
+            if suffix_node._data.is_saarvadhaatuka() and suffix_node.get_output() and suffix_node.get_output()[0] in pratyaahaara('y','Nc') :
                 return node.get_output()[0:-1]+['aa']
         return node.get_output()
     
@@ -352,8 +352,8 @@ class atodiirghoyaNci_7031010:
     
 class astisichoapRikte_7030960:
     def __init__(self):
-        self._types={'dhaatu_node':[Dhaatu],'suffix_node':[Suffix,'literal','lakaara']}
-    def __call__(self,dhaatu_node,suffix_node):
+        self._types={'prefix_node':[Dhaatu],'suffix_node':[Suffix,'literal','lakaara']}
+    def __call__(self,prefix_node,suffix_node):
         if not isinstance(suffix_node._data, Suffix):
             raise ValueError("Must be suffix")
         suffix_data = suffix_node._data
@@ -361,7 +361,7 @@ class astisichoapRikte_7030960:
         # ekaala saarvadhaatuaka
         if suffix_data.is_saarvadhaatuka() and suffix_data._suffix[0] in hal() and numachs ==1:
             if ''.join(suffix_data ._suffix) != 'iiXt':
-                if (isinstance(dhaatu_node._data,Dhaatu) and ''.join(dhaatu_node._data._data)=='asNN') :
+                if (isinstance(prefix_node._data,Dhaatu) and ''.join(prefix_node._data._data)=='asNN') :
                     return Suffix("iiXt")
         return []
 
