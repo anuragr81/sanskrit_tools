@@ -86,14 +86,14 @@ class merniH_3040890:
 class aaXduttamasyapichchha_3040920:
     def __init__(self):
         self._types={'node':[Suffix,'literal'],'suffix_node':[Suffix,'literal']}
-    def __call__(self,node,suffix_node):
-        if not isinstance(node,Node):
-            raise ValueError("node must be of Node type")
+    def __call__(self,prefix_node,suffix_node):
         if not isinstance(suffix_node,Node):
             raise ValueError("suffix_node must be of Node type")
+        if not isinstance(prefix_node,Node):
+            raise ValueError("prefix_node must be of Node type")
         
-        if isinstance(node._data,Suffix) and node._data._lakaara == 'loXt' and ''.join(node._data._suffix) in ('mip','vas','mas','iXt','vahi','mahiNg'):
-            return ['aa','Xt']
+        if 3040920 not in list_past_rules_applied(suffix_node) and isinstance(suffix_node._data,Suffix) and suffix_node._data._lakaara == 'loXt' and ''.join(suffix_node._data._suffix) in ('mip','vas','mas','iXt','vahi','mahiNg'):
+            return Suffix('aaXt')
             
         return []
     
