@@ -101,8 +101,9 @@ class nityaMNgitaH_3040990:
     def __init__(self):
         self._types={'node':[Suffix]}
     def __call__(self,node):
-        if isinstance(node._data,Suffix) and node._data._lakaara and node._data._lakaara.endswith('Ng') and ''.join(node._data._suffix) in ('mip','vas','mas',"iXt","vahi","mahiNg"):
-            if 3040990 not in list_past_rules_applied(node):               
+        cond_langvat = (node._data._lakaara  and node._data._lakaara.endswith('Ng') or node._data._lakaara == 'loXt' )
+        if isinstance(node._data,Suffix) and node._data._lakaara and cond_langvat and ''.join(node._data._suffix) in ('mip','vas','mas',"iXt","vahi","mahiNg"):
+            if 3040990 not in list_past_rules_applied(node):
                 if node.get_output()[-1]=='s':
                     return node.get_output()[:-1]
                     

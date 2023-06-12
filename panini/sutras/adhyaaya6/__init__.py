@@ -202,58 +202,89 @@ class atoguNne_6010940:
                 
         return node_output
 
-"""
-#
-# Skipped 
-#
 
+def diirgha_mapper ():    
+    return {'a':{'match':['a','aa'],'diirgha':'aa'},
+     'aa':{'match':['a','aa'],'diirgha':'aa'},
+     'i':{'match':['i','ii'],'diirgha':'ii'},
+     'ii':{'match':['i','ii'],'diirgha':'ii'},
+     'u':{'match':['u','uu'],'diirgha':'uu'},
+     'uu':{'match':['u','uu'],'diirgha':'uu'},
+     'Ri':{'match':['Ri','Rii','lRi','lRii'],'diirgha':'Rii'},
+     'Rii':{'match':['Ri','Rii','lRi','lRii'],'diirgha':'Rii'},
+     'lRi':{'match':['lRi','lRii'],'diirgha':'lRii'},
+     'lRii':{'match':['lRi','lRii'],'diirgha':'lRii'},
+    }
+
+"""
+
+Two classes implement this because the output of the rule affects two 
+different nodes. The first implementation - which is invoked before the 
+latter - changes the node only so no material changes is caused
+to the preconditions for the second implementation 
+"""
 class akaHsavarNnediirghaH_6010970:
+
     def __init__(self):
         self._types={'node':['literal'],'suffix_node':['literal']}
-    def __call__(self,node, anga_node):
-        node_output= node.get_output()
+    def __call__(self,node, suffix_node):
+        if not isinstance(node,Node):
+            raise ValueError("node must be of Node type")
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix_node must be of Node type")
+        
         if not node.get_output():
             return node.get_output()
         
-        if isinstance(node._data,Suffix):
+        ak_keys = pratyaahaara('a','k')+('aa',) 
+        ak_mapper = diirgha_mapper()
+        
+        if set(ak_keys) - set(ak_mapper.keys()):
+            raise ValueError("Missing mapping for diirgha")
+        
+        if node.get_output()  and node.get_output() [-1] in ak_mapper and suffix_node.get_output() and suffix_node.get_output()[0] in ak_mapper[node.get_output() [-1] ]['match']:
+            if isinstance(suffix_node._data,Suffix):
+                pratyaya  = ''.join(suffix_node._data._suffix)
+                # ami puurvaH
+                if pratyaya in sup_pratyayaaH() and pratyaya == 'am' :
+                    return node.get_output()
+            return node.get_output()[0:-1] + [ak_mapper[node.get_output()[-1]]['diirgha']]
             
-            pratyaya  = ''.join(node._data._suffix)
-            if node.get_output() [0] in pratyaahaara('a','k') and anga_node.get_output():
-                puurva_varNna=anga_node.get_output()[-1]
-                if node.get_output()[0] == puurva_varNna:
-                    # ami puurvaH
-                    if pratyaya in sup_pratyayaaH() and pratyaya == 'am':
-                        return node_output
-                    else:
-                        return node_output[1:] #skip because the other instance of the rule uses the diirgha
-            
-        return node_output
+        return node.get_output()
+
 
 class akaHsavarNnediirghaH_6010971:
     def __init__(self):
         self._types={'node':['literal'],'suffix_node':['literal']}
-    def __call__(self,node, suffix_node):
+    def __call__(self,node, anga_node):
+        if not isinstance(node,Node):
+            raise ValueError("node must be of Node type")
+        if not isinstance(anga_node,Node):
+            raise ValueError("anga_node must be of Node type")
+        
         node_output= node.get_output()
+        
         if not node.get_output():
             return node.get_output()
         
-        if isinstance(suffix_node._data,Suffix):                        
-            # rule last applied was the other half of the rule where suffix's first
-            # letter has been erased
-            suffix_state = suffix_node._output[-1]['inputs']['state_output'] if list_past_rules_applied(suffix_node) and list_past_rules_applied(suffix_node)[-1] == 6010970 else suffix_node.get_output()
-            #suffix_node._output[-1]['inputs']['state_output']
-            if node_output[-1] in pratyaahaara('a','k') :
-                suffix_string = ''.join(suffix_node._data._suffix)
-                puurva_varNna=node_output[-1]
-                if suffix_state[0] == puurva_varNna:
-                    if suffix_string in sup_pratyayaaH() and suffix_string == 'am':
-                        return node_output
-                    else:
-#                        raise ValueError("atoguNne not implemented")
-                        return [make_diirgha(node_output[0])] + node_output[1:]
+        
+        ak_keys = pratyaahaara('a','k')+('aa',) 
+        ak_mapper = diirgha_mapper()
+        
+        if set(ak_keys) - set(ak_mapper.keys()):
+            raise ValueError("Missing mapping for diirgha")
+        
+        if anga_node.get_output() and anga_node.get_output() [-1] in ak_mapper and node.get_output()[0] in ak_mapper[anga_node.get_output() [-1]]['match']:
+            if isinstance(node._data,Suffix):
+                pratyaya  = ''.join(node._data._suffix)
+                # ami puurvaH
+                if pratyaya in sup_pratyayaaH() and pratyaya == 'am':
+                    return node_output[1:]
             
-        return node_output
-"""
+            return node_output[1:] #skip because the other instance of the rule uses the diirgha
+            
+        return node.get_output()
+
 
 class prathamayoHpuurvasavarNnaH_6010980:
     def __init__(self):
