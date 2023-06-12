@@ -9,7 +9,7 @@ class kartarishap_3010680:
         if isinstance(prefix_node._data,Dhaatu) and \
             isinstance(suffix_node._data,Suffix) and \
                 suffix_node._data.is_saarvadhaatuka() and \
-                    suffix_node._data._lakaara in ('laXt','loXt','laNg','vidhiliNg') and \
+                    suffix_node._data._lakaara in ('laXt','loXt','laNg','liNg1') and \
                     ''.join(suffix_node._data._suffix) != 'shap':
                     # kartari shap is applied only in cedhaatu_nodertain lakaaras
                  return Suffix("shap")
@@ -28,7 +28,38 @@ class chliLuNgi_3010460:
                     # kartari shap is applied only in certain lakaaras
                  return Suffix("sNNch")
         return []
-  
+
+class syataasiilRiluXtoH_3010330:
+    def __init__(self):
+        self._types={'prefix_node':[Dhaatu],'suffix_node':[Suffix,'literal','lakaara']}
+    def __call__(self,prefix_node,suffix_node):
+        if isinstance(prefix_node._data,Dhaatu) and \
+            isinstance(suffix_node._data,Suffix) :
+                
+                if suffix_node._data._lakaara in ('lRiXt',) and \
+                    ''.join(suffix_node._data._suffix) != 'sya':
+                    return Suffix("sya")
+                if suffix_node._data._lakaara in ('luXt',) and \
+                    ''.join(suffix_node._data._suffix) != 'taas':                    
+                    return Suffix("taas")
+        return []
+    
+
+class XdityabhasyaapianubandhakaraNnasaamarthyaat_3010331:
+    def __init__(self):
+        self._types={'node':[Suffix],'suffix_node':[Suffix,'literal','lakaara']}
+    def __call__(self,node,suffix_node):
+        if isinstance(node._data,Suffix) and isinstance(suffix_node._data,Suffix):
+
+            second_suffix_data=[x['output'] for x in suffix_node._output if 'new' in x and x['new']][-1]
+            if second_suffix_data[0] == 'Xd':
+                ach_indices_in_output = [ i for i,x in enumerate(node.get_output()) if x in ach()]
+                if ach_indices_in_output :                
+                    # picking the last ach onwards (Xti bhaaga)
+                    return node.get_output()[:ach_indices_in_output[-1]]
+            
+        return node.get_output()
+
 class parasmaipadaanaaMNnalatususthalathusaNnalvamaaH_3040820:
     def __init__(self):
         self._types={'node':[Suffix,'literal']}
@@ -106,12 +137,9 @@ class nityaMNgitaH_3040990:
             if 3040990 not in list_past_rules_applied(node):
                 if node.get_output()[-1]=='s':
                     return node.get_output()[:-1]
-                    
-            
+                
             
         return node.get_output()
-
-
 
 
 
@@ -133,67 +161,35 @@ class itashcha_3041000:
         
         return node.get_output()
 
-class tasthasthamipaamtaamtamtaamaH_3041020:
+class tasthasthamipaamtaamtamtaamaH_3041010:
     def __init__(self):
         self._types={'node':[Suffix]}
     def __call__(self,node):
         # loXtolaNgvat allows loXt 
         if isinstance(node._data,Suffix) and node._data._lakaara and (node._data._lakaara.endswith('Ng') or node._data._lakaara=='loXt' ):
-            if 3041020 not in list_past_rules_applied(node):
+            if 3041010 not in list_past_rules_applied(node):
                 suffix_replacement_dict = {'tas':['t','aa','m'] , 'thas':['t','a','m'], 'tha':['t','a'], 'mip':['a','m']}
                 if ''.join(node._data._suffix) in suffix_replacement_dict :
                     return suffix_replacement_dict [''.join(node._data._suffix)]
-                    
-            
-            
+                                
         return node.get_output()
 
 
-
-class atoheH_3041050:
-    def __init__(self):
-        self._types={'node':[Suffix,'literal']}
-    def __call__(self,node,anga_node):
-        if not isinstance(anga_node,Node):
-            raise ValueError("anga_node must be of Node type")
-
-        if not isinstance(node,Node):
-            raise ValueError("node must be of Node type")
-        if isinstance(node._data,Suffix) and node._data._lakaara == 'loXt' :
-                suffix_data=[x['output'] for x in node._output if 'new' in x and x['new']][-1]
-                if anga_node.get_output() and anga_node.get_output()[-1]=='a' and suffix_data==['h','i']:
-                    return []
-        return node.get_output()
 
         
-class syataasiilRiluXtoH_3010330:
+class yaasuXtparasmaipadeXshuudaattoNgichchha_3041030:
     def __init__(self):
-        self._types={'prefix_node':[Dhaatu],'suffix_node':[Suffix,'literal','lakaara']}
-    def __call__(self,prefix_node,suffix_node):
-        if isinstance(prefix_node._data,Dhaatu) and \
-            isinstance(suffix_node._data,Suffix) :
+        self._types={'node':[Suffix]}
+    def __call__(self, prefix_node, suffix_node):
+        if not isinstance(prefix_node,Node):
+            raise ValueError("prefix_node must be of Node type")                        
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix_node must be of Node type")                        
+        
+        if isinstance(prefix_node._data,Suffix) and ''.join(prefix_node._data._suffix) != 'yaasuXt':
+            if suffix_node._data._lakaara in ('liNg1','ling2',):
+                # yaasuXt thus created would be considered Ngitvat
+                return Suffix('yaasuXt')
                 
-                if suffix_node._data._lakaara in ('lRiXt',) and \
-                    ''.join(suffix_node._data._suffix) != 'sya':
-                    return Suffix("sya")
-                if suffix_node._data._lakaara in ('luXt',) and \
-                    ''.join(suffix_node._data._suffix) != 'taas':                    
-                    return Suffix("taas")
+                
         return []
-    
-
-class XdityabhasyaapianubandhakaraNnasaamarthyaat_3010331:
-    def __init__(self):
-        self._types={'node':[Suffix],'suffix_node':[Suffix,'literal','lakaara']}
-    def __call__(self,node,suffix_node):
-        if isinstance(node._data,Suffix) and isinstance(suffix_node._data,Suffix):
-
-            second_suffix_data=[x['output'] for x in suffix_node._output if 'new' in x and x['new']][-1]
-            if second_suffix_data[0] == 'Xd':
-                ach_indices_in_output = [ i for i,x in enumerate(node.get_output()) if x in ach()]
-                if ach_indices_in_output :                
-                    # picking the last ach onwards (Xti bhaaga)
-                    return node.get_output()[:ach_indices_in_output[-1]]
-            
-        return node.get_output()
-

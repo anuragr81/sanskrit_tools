@@ -388,6 +388,23 @@ class bhuvovugluNgliXtoH_6040880:
             
         return  node.get_output()
 
+
+class atoheH_6041050:
+    def __init__(self):
+        self._types={'node':[Suffix,'literal']}
+    def __call__(self,node,anga_node):
+        if not isinstance(anga_node,Node):
+            raise ValueError("anga_node must be of Node type")
+
+        if not isinstance(node,Node):
+            raise ValueError("node must be of Node type")
+        if isinstance(node._data,Suffix) and node._data._lakaara == 'loXt' :
+                suffix_data=[x['output'] for x in node._output if 'new' in x and x['new']][-1]
+                if anga_node.get_output() and anga_node.get_output()[-1]=='a' and suffix_data==['h','i']:
+                    return []
+        return node.get_output()
+
+
 class ataekahalmadhyeanaadeshaaderliXti_6041200:
     def __init__(self):
         self._types={'node':['stateupdate'],'suffix_node':[Suffix,'literal','lakaara']}
