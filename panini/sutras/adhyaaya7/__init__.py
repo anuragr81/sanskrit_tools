@@ -187,6 +187,7 @@ class aardhadhaatukasyeXdvalaadeH_7020350:
 
 
 
+
 class liNgaHsalopoanantyasya_7020790:
     def __init__(self):
         self._types={'node':[Suffix,'literal'],'suffix_node':[Suffix,'literal']}
@@ -210,6 +211,32 @@ class liNgaHsalopoanantyasya_7020790:
         
         return node.get_output()
     
+
+class atoyeyaH_7020800:
+    def __init__(self):
+        self._types={'node':[Suffix,'literal'],'suffix_node':[Suffix,'literal']}
+        
+    def __call__(self,anga_node,node):   
+            
+        if not isinstance(node,Node):
+            raise ValueError("node must of type Node")
+        
+        if not isinstance(anga_node,Node):
+            raise ValueError("anga_node must of type Node")
+            
+        nodeliNgRelated= find_eldest_parent2_of_condition(node,lambda x : isinstance(x._data,Suffix) and x._data._lakaara in('liNg1','liNg2') )
+        
+        if nodeliNgRelated and anga_node.get_output() and anga_node.get_output()[-1] in ('a','aa'):
+            node_output = node.get_output()
+            ya_occurrences = [(j['index'],j['index']+1) for j in [ {'index':i-1,'data':(node_output [i-1],node_output [i])} for  i in range(1,len(node_output ))] if j['data'] == ('y','aa')]  
+            if ya_occurrences:
+                for ya_tuple in ya_occurrences:
+                    node_output[ya_tuple[0]] = 'i'
+                    node_output[ya_tuple[1]] = 'y'
+            return node_output
+
+        return node.get_output()
+
 
 class ataupadhaayaaH_7021160:
     def __init__(self):
