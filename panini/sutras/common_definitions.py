@@ -329,7 +329,7 @@ def Xtu():
 
 
 def unclassified_pratyayaaH():
-    return ('sNNch','chlNN','shap','taas','sya','aXt','iiXt','aaXt','yaasuXt')
+    return ('sNNch','chlNN','shap','taas','sya','aXt','iiXt','aaXt','yaasNNXt','sNNXt')
 
 def san_pratyayaaH():
     return ("san","kyach","kaamyach","kyaNg","kyaXsh",

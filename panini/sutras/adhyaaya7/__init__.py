@@ -187,6 +187,30 @@ class aardhadhaatukasyeXdvalaadeH_7020350:
 
 
 
+class liNgaHsalopoanantyasya_7020790:
+    def __init__(self):
+        self._types={'node':[Suffix,'literal'],'suffix_node':[Suffix,'literal']}
+        
+    def __call__(self,node,suffix_node):   
+            
+        if not isinstance(node,Node):
+            raise ValueError("node must of type Node")
+        
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix_node must of type Node")
+        
+        if not suffix_node.get_output():
+            # not applied to antya nodes
+            return node.get_output()
+        
+        nodeliNgRelated= find_eldest_parent2_of_condition(node,lambda x : isinstance(x._data,Suffix) and x._data._lakaara in('liNg1','liNg2') )
+        if nodeliNgRelated:
+            # omit s
+            return [x for x in node.get_output() if x !='s']
+        
+        return node.get_output()
+    
+
 class ataupadhaayaaH_7021160:
     def __init__(self):
         self._types={'node':[],'suffix_node':[Suffix,'literal','stateupdate']}
