@@ -206,6 +206,7 @@ class Node:
     def set_output(self,rule,**kwargs):
         old_output = self.get_output()
         # call the function
+        #print(rule.__name__ + ":" + str(kwargs))
         new_output = rule()(node=self,**kwargs)
         
         if isinstance(new_output,dict):
@@ -249,12 +250,7 @@ class Node:
                 return True
         return False
     
- 
-def get_aadesha_sutras():
-    return (3010460,7020350)
 
-def get_vriddhi_sutras():
-    return (7020021,)
 
 def get_supported_types ():
     return (Suffix,It,Dhaatu)

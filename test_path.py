@@ -1,4 +1,5 @@
 from generate_path import *
+from generate_path import output_string
 from panini.sutras.common_definitions import Dhaatu,Node,Suffix, parse_string
 from pprint import pprint
 
@@ -9,9 +10,10 @@ T=True
 
 def test_siddhis ():
     
+    assert output_string ([Node(Dhaatu(parse_string("NniiNN")),parent1=None),Node(Suffix("Nnvul"),parent1=None)]) == "naayaka"
     
     assert output_string ([Node(Dhaatu(parse_string("bhajNN")),parent1=None),Node(Suffix("ghaNc"),parent1=None)]) == "bhaaga"
-    assert output_string ([Node(Dhaatu(parse_string("NniiNN")),parent1=None),Node(Suffix("Nnvul"),parent1=None)]) == "naayaka"
+    
     assert output_string ([Node(Dhaatu(parse_string("bhuu")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]) == "bhavati"
     
     assert output_string ([Node(Dhaatu(parse_string("bhuu")),parent1=None),Node(Suffix("tas",lakaara='laXt'),parent1=None)]) == "bhavatas"
@@ -102,7 +104,7 @@ def test_siddhis ():
 #raise ValueError("Fix alaaviit - The lopa of s needs to be implemented in iXt iiXti")
 #raise ValueError("Fix path+jhi(luXt)")
 
-if T:
+if F:
     test_siddhis ()
     #print("Test")
     #f=Functor()
@@ -118,7 +120,9 @@ else:
         sys.exit(0)
     
     else:        
-        expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix('jhi',lakaara='laXt'),parent1=None)]
+#        expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix('tip',lakaara='lRiXt'),parent1=None)]
+        expression=[Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tip",lakaara='luNg'),parent1=None)]
+        
         #expression=[Node(Dhaatu(parse_string("rajNN")),parent1=None),Node(Suffix("ghaNc"),parent1=None),Node(Suffix("am",linga=1),parent1=None)]
         #expression=[Node(Dhaatu(parse_string("bhuu")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]
             

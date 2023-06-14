@@ -57,8 +57,7 @@ def transformation_sutras():
     ll = [2040850,3010331,3040820,3040860,3040870,3040890,3040990,3041000,3041010,
           6010080,6010630, 6010750, 6040880, 6010940, 6010980, 
           6010840,6010841,6010850,6010851,
-          6010970,6010971,
-          6010990, 6041200, 6041480, 6041050,7010030,7010010, 7010020, 7010120,7010130,
+          6010970,6010971,6010990, 6041050, 6041200, 6041480, 7010030,7010010, 7010020, 7010120,7010130,
           
           7020021, 7020790,7020800, 7021150, 7021160, 7030520, 7030840,7031010,7031020,7040500,7040501,
           8010150, 8020280, 8020660, 8030059]
@@ -105,6 +104,7 @@ def apply_transformation(transformation_rule,new_expr):
     for i in range(0,len(new_expr)):
         if isinstance(new_expr[i]._data,Suffix):
             if i>0 :
+                
                 if isinstance(new_expr[i-1]._data,Dhaatu):
                     dhaatu_index=i-1
                     if 'anga_node' in sig_params :
@@ -174,12 +174,14 @@ def apply_lopa(suffix_node):
                 
     return suffix_node
                     
-                
-    #for pos in reversed(new_inserts):
-    #    new_expr.insert(pos,Node(new_inserts[pos],parent1=None))
+
     return new_expr
 
 
+"""
+For any two nodes A and B, insertion can happen in the middle, before A or after B. 
+Prepend operation implies the insertion before A
+"""
 def apply_prepend(prepend_rule,new_expr):
     #TODO: trace history of insertion by modifying the output of both sides of the insertion
     new_inserts=OrderedDict()
@@ -191,6 +193,7 @@ def apply_prepend(prepend_rule,new_expr):
             if 'prefix_node' in sig_params :         
                 to_prepend = prepend_rule()(prefix_node=new_expr[i-1],suffix_node=new_expr[i])
                 if to_prepend :
+                    # prepending happens before the node
                     new_inserts[i-1]={'node_data':to_prepend ,'input_indices':(i-1,i),'rule':prepend_rule}
                 
     for pos in reversed(new_inserts):
@@ -202,8 +205,14 @@ def apply_prepend(prepend_rule,new_expr):
         new_expr.insert(pos,new_node)
     return new_expr
 
+
+
+"""
+For any two nodes A and B, insertion can happen in the middle, before A or after B. 
+Insert operation implies the insertion between A and B
+"""
 def apply_insertion(insertion_rule, new_expr):
-    #TODO: trace history of insertion by modifying the output of both sides of the insertion
+
     new_inserts=OrderedDict()
     for i in range(1,len(new_expr)):
         if isinstance(new_expr[i]._data,Suffix):
@@ -214,14 +223,14 @@ def apply_insertion(insertion_rule, new_expr):
                 to_insert = insertion_rule()(prefix_node=new_expr[i-1],suffix_node=new_expr[i])
                 if to_insert :
                     new_inserts[i]={'node_data':to_insert ,'input_indices':(i-1,i),'rule':insertion_rule}
-                    #new_inserts[i]=to_insert 
+
     for pos in reversed(new_inserts):
         
         dat=new_inserts[pos]
         new_node = Node(dat['node_data'],parent1=new_expr[dat['input_indices'][0]],parent2=new_expr[dat['input_indices'][1]])
         #assigning properties to both sides of the insertion
         new_node._assign_output_properties(rule=dat['rule'])
-        new_expr[pos]._assign_output_properties(rule=dat['rule'])
+        #new_expr[pos]._assign_output_properties(rule=dat['rule'])
         
         new_expr.insert(pos,new_node)
 
@@ -284,8 +293,10 @@ def process_list(expr):
     # apply insertions
     
     itdf= pd.concat([pd.DataFrame({'sutranum':[x for x in transformation_sutras()],'type':'transformation'}), 
-              pd.DataFrame({'sutranum':[x for x in insertion_sutras()],'type':'insertion'}),
-              pd.DataFrame({'sutranum':[x for x in prepend_sutras()],'type':'prepend'})])
+                     pd.DataFrame({'sutranum':[x for x in prepend_sutras()],'type':'prepend'}),
+              pd.DataFrame({'sutranum':[x for x in insertion_sutras()],'type':'insertion'})
+              
+              ])
     itdf = itdf.sort_values('sutranum')
     
     for sutra_i in range(0,itdf.shape[0]):
@@ -298,11 +309,8 @@ def process_list(expr):
             new_expr = apply_all_lopas(new_expr)
 
         elif objSutra.type == "prepend":
-            # apply prepend (another type of insertion)
-            #old_string = output_processed_string(new_expr)
             prepend_sutra_id= objSutra.sutranum
-            new_expr= apply_prepend(all_sutras[prepend_sutra_id],new_expr)
-            # apply lopa and transformation after insertion       
+            new_expr= apply_prepend(all_sutras[prepend_sutra_id],new_expr)        
             new_expr = apply_all_lopas(new_expr)
 
         elif objSutra.type == "transformation":
@@ -326,7 +334,7 @@ def generate_tibaadi(dhaatu_string):
     
     lakaaras = ('liXt','lRiXt','laXt','luXt','luNg')
     for lakaara_string in lakaaras :
-        print(lakaara_string )
+        
         res[lakaara_string ] = []
         for la in las:
             dhaatu_node = Node(Dhaatu(parse_string(dhaatu_string)),parent1=None)
@@ -349,7 +357,7 @@ def generate_subaadi(sup_expression,linga):
     for sup_string in sups :
         cur_sup_expression=deepcopy(sup_expression)
         cur_sup_expression.append(Node(Suffix(sup_string,linga=linga),parent1=None))        
-        print(sup_string )
+        
         result = output_string (cur_sup_expression)
         #print(sup_string + " gives " +result )
         #print(result)
