@@ -102,7 +102,7 @@ def test_siddhis ():
 #raise ValueError("Fix alaaviit - The lopa of s needs to be implemented in iXt iiXti")
 #raise ValueError("Fix path+jhi(luXt)")
 
-if F:
+if T:
     test_siddhis ()
     #print("Test")
     #f=Functor()
@@ -118,7 +118,7 @@ else:
         sys.exit(0)
     
     else:        
-        expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix('tip',lakaara='liNg1'),parent1=None)]
+        expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix('jhi',lakaara='laXt'),parent1=None)]
         #expression=[Node(Dhaatu(parse_string("rajNN")),parent1=None),Node(Suffix("ghaNc"),parent1=None),Node(Suffix("am",linga=1),parent1=None)]
         #expression=[Node(Dhaatu(parse_string("bhuu")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]
             

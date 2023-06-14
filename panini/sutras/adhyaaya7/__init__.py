@@ -124,7 +124,7 @@ class aayaneyiiniiyiyaH_phaXdhakhachchhaghaaM_pratyayaadiinaaM_7010020:
 
 class sichivRiddhiHparasmaipadeXshu_7020021:
     def __init__(self):
-        self._types={'presuffix_node':['literal'],'suffix_node':[Suffix,'literal']}
+        self._types={'prefix_node':['literal'],'suffix_node':[Suffix,'literal']}
         
     def __call__(self,node,suffix_node):
         
@@ -418,23 +418,19 @@ class astisichoapRikte_7030960:
 
 class astisichoapRikte_7030961:
     def __init__(self):
-        self._types={'presuffix_node':[Suffix,'literal','lakaara'],'suffix_node':[Suffix,'literal','lakaara']}
+        self._types={'prefix_node':[Suffix,'literal','lakaara'],'suffix_node':[Suffix,'literal','lakaara']}
         
-    def __call__(self,presuffix_node,suffix_node):
-        if not isinstance(presuffix_node._data, Suffix):
-            raise ValueError("Must be suffix")
-        if not isinstance(suffix_node._data, Suffix):
-            raise ValueError("Must be suffix")
-        presuffix_data= presuffix_node._data
-        suffix_data= suffix_node._data
-        
-        numachs = len([x for x in suffix_data._suffix if x in ach()])
-        # ekaala saarvadhaatuaka
-        if suffix_data.is_saarvadhaatuka() and suffix_data._suffix[0] in hal() and numachs ==1:
-            if ''.join(suffix_data._suffix) != 'iiXt':
-                if ''.join(presuffix_node._data._suffix)=='sNNch' :
-                    return Suffix("iiXt")
-                
+    def __call__(self,prefix_node,suffix_node):
+        if isinstance(prefix_node._data, Suffix) and isinstance(suffix_node._data, Suffix):            
+            suffix_data= suffix_node._data
+            
+            numachs = len([x for x in suffix_data._suffix if x in ach()])
+            # ekaala saarvadhaatuaka
+            if suffix_data.is_saarvadhaatuka() and suffix_data._suffix[0] in hal() and numachs ==1:
+                if ''.join(suffix_data._suffix) != 'iiXt':
+                    if ''.join(prefix_node._data._suffix)=='sNNch' :
+                        return Suffix("iiXt")
+                    
                     
         return []
 

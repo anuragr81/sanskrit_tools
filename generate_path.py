@@ -53,9 +53,9 @@ def padaanta_sutras():
     return [8020230]
 
 def transformation_sutras():
-    
+    # TODO: add 6010640
     ll = [2040850,3010331,3040820,3040860,3040870,3040890,3040990,3041000,3041010,
-          6010080,6010630, 6010640, 6010750, 6040880, 6010940, 6010980, 
+          6010080,6010630, 6010750, 6040880, 6010940, 6010980, 
           6010840,6010841,6010850,6010851,
           6010970,6010971,
           6010990, 6041200, 6041480, 6041050,7010030,7010010, 7010020, 7010120,7010130,
@@ -89,9 +89,7 @@ def apply_transformation_at_end(transformation_rule,new_expr):
             else:
                 if 'suffix_node' in sig_params :
                     new_expr[i-1].set_output(transformation_rule,suffix_node=new_expr[i])
-                if 'anga_node' in sig_params :                        
-                    
-                    ## WORKS: new_expr[i-1].set_output(transformation_rule,anga_node=new_expr[i])
+                if 'anga_node' in sig_params :                                            
                     new_expr[i].set_output(transformation_rule,anga_node=new_expr[i-1])
 
                 
@@ -217,11 +215,6 @@ def apply_insertion(insertion_rule, new_expr):
                 if to_insert :
                     new_inserts[i]={'node_data':to_insert ,'input_indices':(i-1,i),'rule':insertion_rule}
                     #new_inserts[i]=to_insert 
-            if 'presuffix_node' in sig_params and isinstance(new_expr[i-1]._data,Suffix):         
-                to_insert = insertion_rule()(presuffix_node=new_expr[i-1],suffix_node=new_expr[i])
-                if to_insert :
-                    new_inserts[i]={'node_data':to_insert ,'input_indices':(i-1,i),'rule':insertion_rule}
-                    #new_inserts[i]=to_insert     
     for pos in reversed(new_inserts):
         
         dat=new_inserts[pos]
