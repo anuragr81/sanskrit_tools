@@ -1,6 +1,7 @@
 <html>
 
 
+
   <head>
 
     <style>
@@ -31,8 +32,25 @@
 
 <script type="text/javascript">
 
+// TIPS
+// * Add textbox listener
+  //// const textBox = document.getElementById('input1');
+  //// textBox.addEventListener('keypress', (e) => {
+  //// var keyPressed= `${e.key}`;
+  //// document.getElementById("console").innerHTML = keyPressed;
+  //// });
 
+// * Refer to element by Id
+    //var cy = cytoscape({
+    //    container: document.getElementById('cy') // container to render in
+    //});
 
+// * iterate over arrays
+
+//// for (let i = 0; i < arrayOfStrings.length; i++) {
+////   const currentString = arrayOfStrings[i];
+////   // Do something with currentString
+//// }
 
 
 async  function async_http_get(url)
@@ -117,21 +135,8 @@ async function get_all_pratyayas(chosen_arg){
 
 window.onload = function() {
   // Function to be called before window is loaded
-  // Get references to the text box
-
-  //// const textBox = document.getElementById('input1');
-  //// textBox.addEventListener('keypress', (e) => {
-  //// var keyPressed= `${e.key}`;
-  //// document.getElementById("console").innerHTML = keyPressed;
-  //// });
-
-    //var cy = cytoscape({
-    //    container: document.getElementById('cy') // container to render in
-    //});
 
     var cy = create_cy_context();
-
-
 
 // set total count to 0
   document.getElementById('divBoxes').setAttribute('count',0);
@@ -272,10 +277,6 @@ async function createSet (i,x,y,input_type,chosen_arg){
   txta.style.height = H-s;
 
 
-//// for (let i = 0; i < arrayOfStrings.length; i++) {
-////   const currentString = arrayOfStrings[i];
-////   // Do something with currentString
-//// }
 
 
   var optionslist= document.createElement("datalist");
