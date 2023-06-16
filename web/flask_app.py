@@ -101,9 +101,8 @@ def display_index():
 app = Flask(__name__)
 
 # add a rule for the index page.
+app.add_url_rule('/', 'index', (lambda: display_index()) )
 
-
-#app.add_url_rule('/', 'index', (lambda: display_index()) )
 #app.add_url_rule('/sanskrit/<filename>', view_func=display_text)
 
 
