@@ -75,9 +75,6 @@ def query_sanskrit():
         except Exception as e:
             response = make_response(jsonify({'Error':"Exception" +str(e)}))
 
-
-
-
     else:
         response =make_response (jsonify(''))
 

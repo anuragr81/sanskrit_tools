@@ -88,9 +88,23 @@
       return return_response;
 
     }
-    async get_expression_tree(){
+
+    async get_expression_tree(expression){
+      console.log("get_expression_tree :: Now getting the tree for expression:" + expression);
+      var return_response = "";
+
+      if (String(expression).length>0){
+        const urltofetch = "http://research.anurags-econ.net/query_sanskrit/?type=expr&expr="+String(expression);
+        console.log("urltofetch="+urltofetch);
+        return_response= await async_http_get(urltofetch);
+
+      } 
+
+      return return_response;
+
 
     }
+
     async function get_all_pratyayas(chosen_arg){
       console.log("Now fetching suffixes");
     // Make a GET request to the server using the value
