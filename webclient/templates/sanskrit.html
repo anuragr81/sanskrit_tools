@@ -2,43 +2,44 @@
 
 
 
-  <head>
+<head>
 
-    <style>
+  <style>
     body {
       background-color: #f2f2f2;
       font-family: sans-serif;
     }
 
     textarea {
-  z-index: 4;
+      z-index: 4;
     }
 
     input {
-  z-index: 0;
-  }
+      z-index: 0;
+    }
 
     #cy {
-    width: 900px;
-    height: 900px;
-    left: 100;
-    top:400;
-    display: block;
-   }
+      width: 900px;
+      height: 900px;
+      left: 100;
+      top:400;
+      display: block;
+    }
 
   </style>
 
-<script type="text/javascript" src="static/packages/cytoscape/dist/cytoscape.min.js"></script>
+  <script type="text/javascript" src="static/packages/cytoscape/dist/cytoscape.min.js"></script>
 
-<script type="text/javascript">
+  <script type="text/javascript">
 
 // TIPS
 // * Add textbox listener
-  //// const textBox = document.getElementById('input1');
-  //// textBox.addEventListener('keypress', (e) => {
-  //// var keyPressed= `${e.key}`;
-  //// document.getElementById("console").innerHTML = keyPressed;
-  //// });
+
+//// const textBox = document.getElementById('input1');
+//// textBox.addEventListener('keypress', (e) => {
+//// var keyPressed= `${e.key}`;
+//// document.getElementById("console").innerHTML = keyPressed;
+//// });
 
 // * Refer to element by Id
     //var cy = cytoscape({
@@ -52,286 +53,287 @@
 ////   // Do something with currentString
 //// }
 
-
-async  function async_http_get(url)
-{
-
-  try {
-    const response = await fetch(url, {method:'get'});
-    if (!response.ok) {
-      throw new Error(`HTTP error: ${response.status}`);
-    }
-    const data = await response.json();
-    //console.log("FOUND: " + JSON.stringify(data));
-    //alert(JSON.stringify(dat));
-    //return JSON.stringify(data);
-    return(data);
-  }
-  catch (e) {
-    console.log('Error'+e);
-    return (null);
-  }
+// * declare positions and sizes in HTML declaration
+//  <!--input  style="position:absolute; top:40; left:0;width:100px; height:30px;" type="text" id="input1" /-->
+//  <!--button style="position:absolute;top:40;left:100;width:20px; height:20px;" type="button" >+</button-->
 
 
-}
-
-async  function async_http_get_wparams(url,params)
-{
-
-  try {
-      const response = await fetch(url, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
-  },
-  body: params,
-});
-    if (!response.ok) {
-      throw new Error(`HTTP error: ${response.status}`);
-    }
-    const data = await response.json();
-    console.log("get_wparams - FOUND: " + JSON.stringify(data));
-    //alert(JSON.stringify(dat));
-    //return JSON.stringify(data);
-    return(data);
-  }
-  catch (e) {
-    console.log('Error'+e);
-    return (null);
-  }
-
-}
+// * check if element exists in array
+//if (boxArr.includes(i)){}
 
 
 
-async function get_all_dhaatus(){
-    console.log("Now fetching dhaatus");
-    // Make a GET request to the server using the value
-        var typestring  = "dhaatus";
-        var return_response = "";
-        return_response= await async_http_get("http://research.anurags-econ.net/query_sanskrit/?type=dhaatus");
-        return return_response;
+    async  function async_http_get(url)
+    {
 
+      try {
+        const response = await fetch(url, {method:'get'});
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+        const data = await response.json();
+        return(data);
+      }
+      catch (e) {
+        console.log('Error'+e);
+        return (null);
       }
 
-async function get_all_pratyayas(chosen_arg){
-    console.log("Now fetching suffixes");
-    // Make a GET request to the server using the value
-        var return_response = "";
 
-        if (String(chosen_arg).length>0){
-            const urltofetch = "http://research.anurags-econ.net/query_sanskrit/?type=pratyayas&pratyaya="+String(chosen_arg);
-            console.log("urltofetch="+urltofetch);
+    }
+
+    async  function async_http_get_wparams(url,params)
+    {
+
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: params,
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log("get_wparams - FOUND: " + JSON.stringify(data));
+        return(data);
+      }
+      catch (e) {
+        console.log('Error'+e);
+        return (null);
+      }
+
+    }
+
+
+
+    async function get_all_dhaatus(){
+      console.log("Now fetching dhaatus");
+    // Make a GET request to the server using the value
+      var typestring  = "dhaatus";
+      var return_response = "";
+      return_response= await async_http_get("http://research.anurags-econ.net/query_sanskrit/?type=dhaatus");
+      return return_response;
+
+    }
+
+    async function get_all_pratyayas(chosen_arg){
+      console.log("Now fetching suffixes");
+    // Make a GET request to the server using the value
+      var return_response = "";
+
+      if (String(chosen_arg).length>0){
+        const urltofetch = "http://research.anurags-econ.net/query_sanskrit/?type=pratyayas&pratyaya="+String(chosen_arg);
+        console.log("urltofetch="+urltofetch);
         return_response= await async_http_get(urltofetch);
 
-        } else {
+      } else {
 
         return_response= await async_http_get("http://research.anurags-econ.net/query_sanskrit/?type=pratyayas");
-        }
-
-        return return_response;
-
       }
 
-window.onload = function() {
+      return return_response;
+
+    }
+
+    window.onload = function() {
   // Function to be called before window is loaded
 
-    var cy = create_cy_context();
+      var cy = create_cy_context();
 
 // set total count to 0
-  document.getElementById('divBoxes').setAttribute('count',0);
+      document.getElementById('divBoxes').setAttribute('count',0);
 
   // the first createSet is for dhaatus and it should be invoked
   // when dhaatu-list has arrived
-  const maxX = (window.innerWidth)/4;
-  const maxY = (window.innerHeight)/4;
+      const maxX = (window.innerWidth)/4;
+      const maxY = (window.innerHeight)/4;
 
-  fs1= createSet(1,maxX,maxY,"dhaatu","");
+      fs1= createSet(1,maxX,maxY,"dhaatu","");
 
-}
+    }
 
 
-async function create_cy_context(){
+    async function create_cy_context(){
 
-    var cy = cytoscape({
+      var cy = cytoscape({
 
   container: document.getElementById('cy'), // container to render in
 
   elements: [ // list of graph elements to start with
-        { data: { id:       'तिप्' } },
+    { data: { id:       'तिप्' } },
     { data: { id: 'पठ्' } },
     { data: { id:   'शप्'    } },
     { data: { id:      'अ'} },
-{ data: { id:       'ति'} },
-{ data: { id:      'पठति'} },
-{ data: { arrowshape: 'triangle', edgewidth:3, id: 'कर्तरि शप्', target:      'शप्'  , source:      'तिप्'}    },
-{ data: { arrowshape: 'triangle',edgewidth:3,id: 'लशक्वतद्धिते', target:      'अ'  , source:      'शप्'}    },
-{ data: { arrowshape: 'triangle',edgewidth:3,id: 'हलन्त्यम्', target:      'ति'  , source:      'तिप्' }    },
-{ data: { arrowshape: 'triangle',edgewidth:3,id: '1', target:      'पठति'  , source:      'पठ्' }    },
-{ data: { arrowshape: 'triangle',edgewidth:3,id: '2', target:      'पठति'  , source:      'अ' }    },
-{ data: { arrowshape: 'triangle',edgewidth:3,id: '3', target:      'पठति'  , source:      'ति' }    }
-  ],
+    { data: { id:       'ति'} },
+    { data: { id:      'पठति'} },
+    { data: { arrowshape: 'triangle', edgewidth:3, id: 'कर्तरि शप्', target:      'शप्'  , source:      'तिप्'}    },
+    { data: { arrowshape: 'triangle',edgewidth:3,id: 'लशक्वतद्धिते', target:      'अ'  , source:      'शप्'}    },
+    { data: { arrowshape: 'triangle',edgewidth:3,id: 'हलन्त्यम्', target:      'ति'  , source:      'तिप्' }    },
+    { data: { arrowshape: 'triangle',edgewidth:3,id: '1', target:      'पठति'  , source:      'पठ्' }    },
+    { data: { arrowshape: 'triangle',edgewidth:3,id: '2', target:      'पठति'  , source:      'अ' }    },
+    { data: { arrowshape: 'triangle',edgewidth:3,id: '3', target:      'पठति'  , source:      'ति' }    }
+    ],
 
   style: [ // the stylesheet for the graph
-    {
-      selector: 'node',
-      style: {
-        'background-color': '#666',
-        'label': 'data(id)'
-      }
-    },
-
-    {
-      selector: 'edge',
-      style: {
-        'width': 'data(edgewidth)',
-        'label':'data(id)',
-        'line-color': '#ccc',
-        'target-arrow-color': '#ccc',
-        'target-arrow-shape': 'data(arrowshape)',
-        'curve-style': 'bezier'
-      }
+  {
+    selector: 'node',
+    style: {
+      'background-color': '#666',
+      'label': 'data(id)'
     }
+  },
+
+  {
+    selector: 'edge',
+    style: {
+      'width': 'data(edgewidth)',
+      'label':'data(id)',
+      'line-color': '#ccc',
+      'target-arrow-color': '#ccc',
+      'target-arrow-shape': 'data(arrowshape)',
+      'curve-style': 'bezier'
+    }
+  }
   ],
 
   layout: {
-     name: 'breadthfirst',   fit: true
-//     name: 'circle'
-
-    // klay, elk, dagre,cola - currently not available in the installed distro (min)
-    // rows: 4 // for grid-layout
-  }
+   name: 'breadthfirst',   fit: true
+  //     name: 'circle'
+  // klay, elk, dagre,cola - currently not available in the installed distro (min)
+  // rows: 4 // for grid-layout
+ }
 
 });
-return cy;
-}
-
-async function createSet (i,x,y,input_type,chosen_arg){
-
-  var starter = document.getElementById("starter");
-
-  var count = document.getElementById('divBoxes').getAttribute('count');
-
-  // this call should update the UI element asynchronously
-  var options_returned = null;
-  if (input_type == "dhaatu"){
-      const dhaatus = await get_all_dhaatus();
-      const options_dict = JSON.parse(dhaatus['Data']);
-      options_returned ={};
-      for (let row in options_dict) {
-          options_returned[row]=options_dict[row]['ascii'].join('');
-      }
-      console.log("dhaatu");
-  } else if (input_type=='pratyaya'){
-      const pratyayas = await get_all_pratyayas(chosen_arg);
-      const options_dict = JSON.parse(pratyayas['Data']);
-      options_returned ={};
-      for (let row in options_dict) {
-          options_returned[row]=options_dict[row]['ascii'];
-      }
-
-      console.log("Pratyaya Recvd (len="+ JSON.stringify(String(options_returned).length)+")");
-  } else  {
-      console.log("Invalid type for createSet");
-      return null;
-  }
-
-
-  // ARRAY CHECK
-  //if (boxArr.includes(i)){}
-  if (i - count <=0 ){
-    alert ("already exists");
-    return null;
-  }
-
-    if (Object.keys(options_returned).length==0){
-        console.log("No suffix-options returned");
-        return null;
+      return cy;
     }
 
-  var fs = document.createElement("fieldset");
-  var W = 100;
-  var H = 70;
-  var d = 10;
-  var s = 20;
+    async function createSet (i,x,y,input_type,chosen_arg){
 
-  fs.style.position ="absolute";
-  fs.style.top = y;
-  fs.style.left= x ;
-  fs.style.width= W;
-  fs.style.height = H;
+      var starter = document.getElementById("starter");
+
+      var count = document.getElementById('divBoxes').getAttribute('count');
+
+  // this call should update the UI element asynchronously
+      var options_returned = null;
+      if (input_type == "dhaatu"){
+        const dhaatus = await get_all_dhaatus();
+        const options_dict = JSON.parse(dhaatus['Data']);
+        options_returned ={};
+        for (let row in options_dict) {
+          options_returned[row]=options_dict[row]['ascii'].join('');
+        }
+        console.log("dhaatu");
+      } else if (input_type=='pratyaya'){
+        const pratyayas = await get_all_pratyayas(chosen_arg);
+        const options_dict = JSON.parse(pratyayas['Data']);
+        options_returned ={};
+        for (let row in options_dict) {
+          options_returned[row]=options_dict[row]['ascii'];
+        }
+
+        console.log("Pratyaya Recvd (len="+ JSON.stringify(String(options_returned).length)+")");
+      } else  {
+        console.log("Invalid type for createSet");
+        return null;
+      }
 
 
-  var txta = document.createElement("textarea");
-  txta.id="console"
-  txta.style.position ="absolute";
-  txta.readOnly = true;
+      if (i - count <=0 ){
+        alert ("already exists");
+        return null;
+      }
+
+      if (Object.keys(options_returned).length==0){
+        console.log("No suffix-options returned");
+        return null;
+      }
+
+      var fs = document.createElement("fieldset");
+      var W = 100;
+      var H = 70;
+      var d = 10;
+      var s = 20;
+
+      fs.style.position ="absolute";
+      fs.style.top = y;
+      fs.style.left= x ;
+      fs.style.width= W;
+      fs.style.height = H;
+
+
+      var txta = document.createElement("textarea");
+      txta.id="console"
+      txta.style.position ="absolute";
+      txta.readOnly = true;
   // text area is inside the fieldset and touches fs boundary on top (not on bottom)
-  txta.style.top = y;
+      txta.style.top = y;
   // text area is inside the fieldset so starts a bit more right (higher left value)
-  txta.style.left= x+d ;
+      txta.style.left= x+d ;
   // text area is less wide to be symmetrical (hence 2*d)
 
-  txta.style.width= W -d*2;
+      txta.style.width= W -d*2;
   // height is only H- s
-  txta.style.height = H-s;
+      txta.style.height = H-s;
 
 
 
 
-  var optionslist= document.createElement("datalist");
-  optionslist.id = "optionsid_"+i;
+      var optionslist= document.createElement("datalist");
+      optionslist.id = "optionsid_"+i;
 
 
   // iterating over options_returned to populated the options
   // for selection/editing
-  console.log("options_returned"+ String(JSON.stringify(options_returned)));
-  for (let row in options_returned) {
-    var option = document.createElement("option");
-    option.value = row;
-    optionslist.appendChild(option);
-  }
+      console.log("options_returned"+ String(JSON.stringify(options_returned)));
+      for (let row in options_returned) {
+        var option = document.createElement("option");
+        option.value = row;
+        optionslist.appendChild(option);
+      }
 
 
-  var inp = document.createElement("input");
-  inp.id="input_"+i;
-  inp.setAttribute('list','optionsid_'+i);
+      var inp = document.createElement("input");
+      inp.id="input_"+i;
+      inp.setAttribute('list','optionsid_'+i);
   //inp.type="text";
-  inp.name='input_'+i;
-  inp.list = "options";
-  inp.style.position ="absolute";
+      inp.name='input_'+i;
+      inp.list = "options";
+      inp.style.position ="absolute";
   // the input box itself is s down from y
-  inp.style.top = y+H-s;
-  inp.style.left= x+d;
+      inp.style.top = y+H-s;
+      inp.style.left= x+d;
   // symmetrical so adjusted width
-  inp.style.width= W-2*d;
-  inp.style.height =s;
-  inp.appendChild(optionslist);
+      inp.style.width= W-2*d;
+      inp.style.height =s;
+      inp.appendChild(optionslist);
 
-  inp.onchange = () => {
-      const expression = process_expression();
-      console.log("Expression:"+expression);
-  }
+      inp.onchange = () => {
+        const expression = process_expression();
+        console.log("Expression:"+expression);
+      }
 
   //TODO: add button only when i is count-1
-  console.log("Creating button new button(i="+i+") and removing the last one(count="+count+")");
-  if (count>0){
-  let oldButton= document.getElementById("buttonPlus"+count);
-  let oldButtonsParent= oldButton.parentNode;
-  oldButtonsParent.removeChild(oldButton);
-  }
+      console.log("Creating button new button(i="+i+") and removing the last one(count="+count+")");
+      if (count>0){
+        let oldButton= document.getElementById("buttonPlus"+count);
+        let oldButtonsParent= oldButton.parentNode;
+        oldButtonsParent.removeChild(oldButton);
+      }
 
-  var button = document.createElement("button");
-  button.id="buttonPlus"+i;
-  button.innerHTML ="+";
-  button.type="button";
-  button.style.position ="absolute";
+      var button = document.createElement("button");
+      button.id="buttonPlus"+i;
+      button.innerHTML ="+";
+      button.type="button";
+      button.style.position ="absolute";
   // the button is of width d and is aligned with input horizontally (same y)
-  button.style.top = y+H-s;
+      button.style.top = y+H-s;
   // it touches the right boundary
-  button.style.left= x+W-d ;
-  button.style.width= d;
-  button.style.height =s;
+      button.style.left= x+W-d ;
+      button.style.width= d;
+      button.style.height =s;
 
   // Add an event listener to the button
 
@@ -339,69 +341,56 @@ async function createSet (i,x,y,input_type,chosen_arg){
    * the event listener would add another UI unit
    * and update the record of boxes
    */
-  button.addEventListener('click', (e) => {
+      button.addEventListener('click', (e) => {
 
-    if (String(inp.value).length >0 ) {
-        const pratyaya_ascii = String(options_returned[String(inp.value)])
-        console.log("Would be used for createSet:"+inp.value+" value:"+pratyaya_ascii);
-        createSet(i+1,x+W+3*d,y,'pratyaya',pratyaya_ascii);
+        if (String(inp.value).length >0 ) {
+          const pratyaya_ascii = String(options_returned[String(inp.value)])
+          console.log("Would be used for createSet:"+inp.value+" value:"+pratyaya_ascii);
+          createSet(i+1,x+W+3*d,y,'pratyaya',pratyaya_ascii);
+        }
+
+
+      });
+
+      starter.appendChild(fs);
+      starter.appendChild(txta);
+      starter.appendChild(inp);
+      starter.appendChild(button);
+
+      document.getElementById('divBoxes').setAttribute('count',i);
+
+      return starter;
     }
 
 
-  });
 
-  starter.appendChild(fs);
-  starter.appendChild(txta);
-  starter.appendChild(inp);
-  starter.appendChild(button);
-
-  document.getElementById('divBoxes').setAttribute('count',i);
-
-
-
-  return starter;
-}
-
-
-
-function process_expression(){
+    function process_expression(){
   // This is to be called everytime a user selects a value in the input value
-  const element = document.querySelector('#starter');
-  const children = element.childNodes;
-  var expression = []
-  for (let i = 0; i < children.length; i++) {
-      if (children[i].nodeName == "INPUT") {
-            // console.log(children[i].nodeName + " has value:" + children[i].value);
+      const element = document.querySelector('#starter');
+      const children = element.childNodes;
+      var expression = []
+      for (let i = 0; i < children.length; i++) {
+        if (children[i].nodeName == "INPUT") {
           expression.push(children[i].value);
+        }
       }
-  }
-  console.log("Expression(inside func):"+expression);
-  return expression;
+      console.log("Expression(inside func):"+expression);
+      return expression;
 
-}
+    }
 
-
-// One way to get a mandatory input is using prompt.
-// let input = prompt("Please enter your name:");
-// if(input !== null) {
-//  console.log("Your name is " + input);
-// }
-// let response = confirm("Do you like JavaScript?");
-
-    </script>
+  </script>
 
 
 
-  </head>
+</head>
 
-  <body>
+<body>
 
-<div id="starter" />
-<div id="cy" />
-<div id="divBoxes" />
+  <div id="starter" />
+  <div id="cy" />
+  <div id="divBoxes" />
 
-    <!--input  style="position:absolute; top:40; left:0;width:100px; height:30px;" type="text" id="input1" /-->
-    <!--button style="position:absolute;top:40;left:100;width:20px; height:20px;" type="button" >+</button-->
 
-  </body>
+</body>
 </html>
