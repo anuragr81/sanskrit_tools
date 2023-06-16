@@ -7,7 +7,7 @@ from flask_cors import CORS, cross_origin
 
 from sanskrit_tools.panini import dhaatus as dh
 from sanskrit_tools.panini import pratyaya as pr
-
+from sanskrit_tools.panini import expressiontree as expt
 
 
 """
@@ -75,6 +75,9 @@ def query_sanskrit():
         except Exception as e:
             response = make_response(jsonify({'Error':"Exception" +str(e)}))
 
+
+
+
     else:
         response =make_response (jsonify(''))
 
@@ -98,8 +101,9 @@ def display_index():
 app = Flask(__name__)
 
 # add a rule for the index page.
-app.add_url_rule('/', 'index', (lambda: display_index()) )
 
+
+app.add_url_rule('/', 'index', (lambda: display_index()) )
 #app.add_url_rule('/sanskrit/<filename>', view_func=display_text)
 
 
