@@ -1,0 +1,32 @@
+
+
+// TIPS
+// * Add textbox listener
+
+//// const textBox = document.getElementById('input1');
+//// textBox.addEventListener('keypress', (e) => {
+//// var keyPressed= `${e.key}`;
+//// document.getElementById("console").innerHTML = keyPressed;
+//// });
+
+// * Refer to element by Id
+    //var cy = cytoscape({
+    //    container: document.getElementById('cy') // container to render in
+    //});
+
+// * iterate over arrays
+
+//// for (let i = 0; i < arrayOfStrings.length; i++) {
+////   const currentString = arrayOfStrings[i];
+////   // Do something with currentString
+//// }
+
+// * declare positions and sizes in HTML declaration
+//  <!--input  style="position:absolute; top:40; left:0;width:100px; height:30px;" type="text" id="input1" /-->
+//  <!--button style="position:absolute;top:40;left:100;width:20px; height:20px;" type="button" >+</button-->
+
+
+// * check if element exists in array
+//if (boxArr.includes(i)){}
+
+

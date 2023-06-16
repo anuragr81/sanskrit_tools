@@ -32,36 +32,6 @@
 
   <script type="text/javascript">
 
-// TIPS
-// * Add textbox listener
-
-//// const textBox = document.getElementById('input1');
-//// textBox.addEventListener('keypress', (e) => {
-//// var keyPressed= `${e.key}`;
-//// document.getElementById("console").innerHTML = keyPressed;
-//// });
-
-// * Refer to element by Id
-    //var cy = cytoscape({
-    //    container: document.getElementById('cy') // container to render in
-    //});
-
-// * iterate over arrays
-
-//// for (let i = 0; i < arrayOfStrings.length; i++) {
-////   const currentString = arrayOfStrings[i];
-////   // Do something with currentString
-//// }
-
-// * declare positions and sizes in HTML declaration
-//  <!--input  style="position:absolute; top:40; left:0;width:100px; height:30px;" type="text" id="input1" /-->
-//  <!--button style="position:absolute;top:40;left:100;width:20px; height:20px;" type="button" >+</button-->
-
-
-// * check if element exists in array
-//if (boxArr.includes(i)){}
-
-
 
     async  function async_http_get(url)
     {
@@ -118,7 +88,9 @@
       return return_response;
 
     }
+    async get_expression_tree(){
 
+    }
     async function get_all_pratyayas(chosen_arg){
       console.log("Now fetching suffixes");
     // Make a GET request to the server using the value
@@ -141,8 +113,6 @@
     window.onload = function() {
   // Function to be called before window is loaded
 
-      var cy = create_cy_context();
-
 // set total count to 0
       document.getElementById('divBoxes').setAttribute('count',0);
 
@@ -156,7 +126,7 @@
     }
 
 
-    async function create_cy_context(){
+    async function create_cy_context(expression){
 
       var cy = cytoscape({
 
@@ -168,13 +138,13 @@
     { data: { id:   'शप्'    } },
     { data: { id:      'अ'} },
     { data: { id:       'ति'} },
-    { data: { id:      'पठति'} },
+    { data: { id:      'पठति/'+(expression)} },
     { data: { arrowshape: 'triangle', edgewidth:3, id: 'कर्तरि शप्', target:      'शप्'  , source:      'तिप्'}    },
     { data: { arrowshape: 'triangle',edgewidth:3,id: 'लशक्वतद्धिते', target:      'अ'  , source:      'शप्'}    },
     { data: { arrowshape: 'triangle',edgewidth:3,id: 'हलन्त्यम्', target:      'ति'  , source:      'तिप्' }    },
-    { data: { arrowshape: 'triangle',edgewidth:3,id: '1', target:      'पठति'  , source:      'पठ्' }    },
-    { data: { arrowshape: 'triangle',edgewidth:3,id: '2', target:      'पठति'  , source:      'अ' }    },
-    { data: { arrowshape: 'triangle',edgewidth:3,id: '3', target:      'पठति'  , source:      'ति' }    }
+    { data: { arrowshape: 'triangle',edgewidth:3,id: '1', target:      'पठति/'+(expression)  , source:      'पठ्' }    },
+    { data: { arrowshape: 'triangle',edgewidth:3,id: '2', target:      'पठति/'+(expression)  , source:      'अ' }    },
+    { data: { arrowshape: 'triangle',edgewidth:3,id: '3', target:      'पठति/'+(expression)  , source:      'ति' }    }
     ],
 
   style: [ // the stylesheet for the graph
@@ -248,6 +218,10 @@
 
       if (Object.keys(options_returned).length==0){
         console.log("No suffix-options returned");
+        const expression = get_current_expression();
+        const exprtree = await get_expression_tree(expression);
+        var cy = create_cy_context(expression);
+
         return null;
       }
 
@@ -277,9 +251,6 @@
       txta.style.width= W -d*2;
   // height is only H- s
       txta.style.height = H-s;
-
-
-
 
       var optionslist= document.createElement("datalist");
       optionslist.id = "optionsid_"+i;
@@ -311,7 +282,7 @@
       inp.appendChild(optionslist);
 
       inp.onchange = () => {
-        const expression = process_expression();
+        const expression = get_current_expression();
         console.log("Expression:"+expression);
       }
 
@@ -364,7 +335,7 @@
 
 
 
-    function process_expression(){
+    function get_current_expression(){
   // This is to be called everytime a user selects a value in the input value
       const element = document.querySelector('#starter');
       const children = element.childNodes;
