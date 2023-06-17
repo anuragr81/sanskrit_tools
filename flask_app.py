@@ -50,7 +50,7 @@ def respond_to_expression_request(request):
     try:
         expr = request.args.get('expr')
         if expr:
-            response = make_response(jsonify({'Data':str(expr)}))
+            response = make_response(jsonify({'Data':str(expt.get_expression_tree(expr))}))
         else:
             response = make_response(jsonify({'Error':"Missing expr"+str(request.args.get('type'))}))
     except Exception as e:
