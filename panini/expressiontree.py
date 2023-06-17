@@ -1,14 +1,16 @@
 
 import json
+from functools import reduce
 
 from panini.sutras.common_definitions import Dhaatu,Node,Suffix, parse_string
 from panini.dhaatus import dhaatus_meaning
 
 from generate_path import *
 
-from panini.devanagari.convert import parse_devanagari_to_ascii
+from panini.devanagari.convert import parse_devanagari_to_ascii, convert_to_devanagari
 
 from pprint import pprint
+output_processed_string = lambda expr: ''.join(reduce(lambda x ,y : x + y.get_output(),  expr, []))
 
 """
 Node structure contains additional information such as the lakaara as well. lakaara can be selected after
@@ -30,6 +32,21 @@ def prepare_node_structure(arr):
     return []
 
 
+def get_vertices_edges(nodes):
+    listVertices = reduce(lambda x,y : x + y , [[''.join(x['output']) for x in node._output] for node in nodes])
+    vertices = list(set(listVertices))
+    edges = []
+    for node in nodes:
+        for i in range(len(node._output)):
+            if i>0:
+                edge_rule = node._output[i]['rule'].__name__.split("_")[0]
+                rule_name = convert_to_devanagari(edge_rule)
+                edge_source = ''.join(node._output[i-1]['output'])
+                edge_target = ''.join(node._output[i]['output'])
+                edges.append({'id':rule_name, 'target':edge_target, 'source':edge_source})
+
+    return {'vertices':vertices,'edges':edges}
+
 """
   returns the expression in form of a cytoscape graph
 """
@@ -37,5 +54,6 @@ def get_expression_tree(expression):
     arrInp=[ ''.join(parse_devanagari_to_ascii(x)) for x in expression.split(",")]
 
     ep = prepare_node_structure(arrInp)
+    pe=process_until_finish(ep)
+    return json.dumps(get_vertices_edges(pe))
 
-    return json.dumps(arrInp)

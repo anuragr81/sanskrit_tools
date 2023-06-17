@@ -33,11 +33,11 @@ def hals_combined():
     for ch, _ , togen in hals_to_combine():
         if togen:
             combined_list = combined_list  + [ ch+x for x in mts] +[ch]
-            
-    return combined_list 
+
+    return combined_list
 
 """
-The goal of the function is to maintain the parse order since 
+The goal of the function is to maintain the parse order since
 the reverse mapping takes care of the right ASCII.
 """
 def hals_combined_devanagari():
@@ -46,15 +46,15 @@ def hals_combined_devanagari():
     mts.append('ं')
     # halant needs to be treated as matras and would have a
     # higher parse priority in devanagari
-    
+
 
 
     combined_list =[]
     for  _ , ch, togen in hals_to_combine():
         if togen:
             combined_list = combined_list  + [ ch+x for x in mts] +[ch]
-            
-    return combined_list 
+
+    return combined_list
 
 
 def parse_devanagari_to_ascii(input_str):
@@ -62,7 +62,7 @@ def parse_devanagari_to_ascii(input_str):
     sorted_achs= ('लॄ','ॠ', 'लृ', 'ऋ','ऐ', "ई","ऊ",'औ',"आ",'अ', 'इ', 'उ', 'ए', 'ओ')
     match_re = "("+'|'.join(tuple(hals_combined_devanagari()) + sorted_achs)+")" + "(.*)"
 
-    m = dict ( (v,k) for k,v in devanagari_map().items()) 
+    m = dict ( (v,k) for k,v in devanagari_map().items())
     ## add anuswara (and other) mapppings as they're not included
 
     additional_matras = {'ं':'M'}
@@ -117,6 +117,7 @@ def devanagari_map():
     mainmap =  {
             'NN': "\u0901",
             'M': "\u0902",
+            'H': "\u0903",
             'a': "\u0905",
             'aa': "\u0906",
             'i': "\u0907",
@@ -214,5 +215,5 @@ def devanagari_map():
 def convert_to_devanagari(strParse):
     strparsed = parse_string_for_devanagari(strParse)
     m = devanagari_map()
-    return ''.join(m[ch] for ch in strparsed)   
-    
+    return ''.join(m[ch] for ch in strparsed)
+
