@@ -140,25 +140,13 @@
     }
 
 
-    async function create_cy_context(expression){
+    async function create_cy_context(treeInfo){
 
       var cy = cytoscape({
 
   container: document.getElementById('cy'), // container to render in
 
-  elements: [ // list of graph elements to start with
-    { data: { id:       'तिप्' } },
-    { data: { id: 'पठ्' } },
-    { data: { id:   'शप्'    } },
-    { data: { id:      'अ'} },
-    { data: { id:       'ति'} },
-    { data: { id:      'पठति/'+(expression)} },
-    { data: { arrowshape: 'triangle', edgewidth:3, id: 'कर्तरि शप्', target:      'शप्'  , source:      'तिप्'}    },
-    { data: { arrowshape: 'triangle',edgewidth:3,id: 'लशक्वतद्धिते', target:      'अ'  , source:      'शप्'}    },
-    { data: { arrowshape: 'triangle',edgewidth:3,id: 'हलन्त्यम्', target:      'ति'  , source:      'तिप्' }    },
-    { data: { arrowshape: 'triangle',edgewidth:3,id: '1', target:      'पठति/'+(expression)  , source:      'पठ्' }    },
-    { data: { arrowshape: 'triangle',edgewidth:3,id: '2', target:      'पठति/'+(expression)  , source:      'अ' }    },
-    { data: { arrowshape: 'triangle',edgewidth:3,id: '3', target:      'पठति/'+(expression)  , source:      'ति' }    }
+  elements: [
     ],
 
   style: [ // the stylesheet for the graph
@@ -191,6 +179,15 @@
  }
 
 });
+
+    console.log ("Number of Vertices="+JSON.stringify(String(treeInfo['vertices'].length)))
+
+     for (let i = 0; i < treeInfo['vertices'].length; i++) {
+         cy.add({ group: 'nodes',
+            data: { id: treeInfo[i] }
+        });
+     }
+
       return cy;
     }
 
@@ -234,8 +231,8 @@
         console.log("No suffix-options returned");
         const expression = get_current_expression();
         const exprtree = await get_expression_tree(expression);
-        const tree_list = JSON.parse(exprtree['Data']);
-        var cy = create_cy_context(tree_list);
+        const treeInfo = JSON.parse(exprtree['Data']);
+        var cy = create_cy_context(treeInfo);
 
         return null;
       }
