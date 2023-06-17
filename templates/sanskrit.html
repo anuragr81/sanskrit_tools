@@ -98,7 +98,7 @@
         console.log("urltofetch="+urltofetch);
         return_response= await async_http_get(urltofetch);
 
-      } 
+      }
 
       return return_response;
 
@@ -234,7 +234,8 @@
         console.log("No suffix-options returned");
         const expression = get_current_expression();
         const exprtree = await get_expression_tree(expression);
-        var cy = create_cy_context(exprtree);
+        const tree_list = JSON.parse(exprtree['Data']);
+        var cy = create_cy_context(tree_list);
 
         return null;
       }

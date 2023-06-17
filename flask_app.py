@@ -20,11 +20,8 @@ def hello_world():
     return 'Hello from Flask!'
 """
 
-#def display_text(filename):
-    #return redirect(url_for('static', filename='packages/' + filename), code=301)
 
 def display_image(filename):
-    #print('display_image filename: ' + filename)
     return redirect(url_for('static', filename='images/' + filename), code=301)
 
 def respond_to_pratyayas_request(request):
@@ -84,16 +81,11 @@ def query_sanskrit():
     ##response.headers.add('Content-Type','application/json')
     ##response.headers.add('Access-Control-Allow-Origin', '*')
     return response 
-    #return "<html><head/><body> sanskrit request="+request_method+" </body></html>"
 
 def display_sanskrit():
     return render_template('sanskrit.html')
 
 def display_index():
-    #dat =""
-    #with open('/home/anuragr/research_persona/index.html') as fh:
-    #    dat = fh.read()
-    #return dat
     return render_template('index.html')
 
 
@@ -104,7 +96,6 @@ app = Flask(__name__)
 
 
 app.add_url_rule('/', 'index', (lambda: display_index()) )
-#app.add_url_rule('/sanskrit/<filename>', view_func=display_text)
 
 
 app.add_url_rule('/display/<filename>', view_func=display_image )
