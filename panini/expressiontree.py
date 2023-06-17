@@ -3,7 +3,7 @@ import json
 from functools import reduce
 
 from panini.sutras.common_definitions import Dhaatu,Node,Suffix, parse_string
-from panini.dhaatus import dhaatus_meaning
+from panini.dhaatus import dhaatus_list 
 
 from generate_path import *
 
@@ -17,7 +17,7 @@ Node structure contains additional information such as the lakaara as well. laka
 a tibaadi suffix is selected. subaadi can also be simplified in this manner.
 """
 def prepare_node_structure(arr):
-    all_dhaatus = [ ''.join(dhaatus_meaning()[k]['ascii']) for k in dhaatus_meaning().keys()]
+    all_dhaatus = dhaatus_list ()
     tibaadi_suffixes = ('tip','tas','jhi','sip','thas','tha','mip','vas','mas','ta','aataam','jha','thaa','sa','aathaam','dhvam','iXt','vahi','mahiNg',)
     ep=[]
     if len(arr)>1:
@@ -36,14 +36,40 @@ def get_vertices_edges(nodes):
     listVertices = reduce(lambda x,y : x + y , [[''.join(x['output']) for x in node._output] for node in nodes])
     vertices = list(set(listVertices))
     edges = []
+    edgenames = {}
     for node in nodes:
         for i in range(len(node._output)):
             if i>0:
                 edge_rule = node._output[i]['rule'].__name__.split("_")[0]
-                rule_name = convert_to_devanagari(edge_rule)
+                #rule_name = convert_to_devanagari(edge_rule)
+                rule_name = edge_rule
                 edge_source = ''.join(node._output[i-1]['output'])
+                if rule_name in edgenames : 
+                    # change rule_name 
+                    rule_name_wcount = rule_name + str(edgenames[ rule_name ]['count'])
+                    edgenames[rule_name]['count'] = edgenames[rule_name]['count'] + 1
+                else:
+                    edgenames[rule_name]={}
+                    edgenames[rule_name]['count'] = 1
+                    rule_name_wcount = rule_name + str(edgenames[ rule_name ]['count'])
+                    edgenames[rule_name]['count'] = edgenames[rule_name]['count'] + 1
+
+
                 edge_target = ''.join(node._output[i]['output'])
-                edges.append({'id':rule_name, 'target':edge_target, 'source':edge_source})
+                edges.append({'id':rule_name_wcount, 'target':edge_target, 'source':edge_source})
+
+    # add final output and related vertices
+    output_processed_string = lambda expr: ''.join(reduce(lambda x ,y : x + y.get_output(),  expr, []))
+    finaloutput = output_processed_string (nodes)
+    vertices.append(finaloutput)
+
+    for i,node in enumerate(nodes):
+        rule_name = str(i+1)
+        edge_source = ''.join(node.get_output())
+        edge_target = finaloutput
+        edges.append({'id':rule_name, 'target':edge_target, 'source':edge_source})
+        
+
 
     return {'vertices':vertices,'edges':edges}
 
