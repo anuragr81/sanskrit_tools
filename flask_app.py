@@ -5,9 +5,9 @@ from flask import Flask, redirect, url_for, render_template, request,jsonify
 from flask import make_response
 from flask_cors import CORS, cross_origin
 
-from sanskrit_tools.panini import dhaatus as dh
-from sanskrit_tools.panini import pratyaya as pr
-from sanskrit_tools.panini import expressiontree as expt
+from panini import dhaatus as dh
+from panini import pratyaya as pr
+from panini import expressiontree as expt
 
 
 """
@@ -50,7 +50,7 @@ def respond_to_expression_request(request):
     try:
         expr = request.args.get('expr')
         if expr:
-            response = make_response(jsonify({'Data':{}}))
+            response = make_response(jsonify({'Data':str(expr)}))
         else:
             response = make_response(jsonify({'Error':"Missing expr"+str(request.args.get('type'))}))
     except Exception as e:

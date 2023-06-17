@@ -8,7 +8,6 @@ import inspect
 import pandas as pd
 
 
-from panini.sutras.common_definitions import Dhaatu,Node,Suffix, parse_string
 
 from panini.sutras import adhyaaya1 as a1
 from panini.sutras import adhyaaya2 as a2
