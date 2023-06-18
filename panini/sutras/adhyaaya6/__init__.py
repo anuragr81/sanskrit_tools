@@ -13,7 +13,7 @@ class liXtidhaatoranabhyaasasya_6010080:
     thhali cha seti
     """
     def __init__(self):
-        self._types={'node':[Dhaatu],'suffix_node':[Suffix,'lakaara']}
+        self._numconditions = 1
         
     def __call__(self,node,suffix_node):
         if not isinstance(suffix_node,Node):
@@ -67,7 +67,7 @@ class liXtidhaatoranabhyaasasya_6010080:
 
 class NnonaH_6010630:
     def __init__(self):
-        self._types={'node':[Dhaatu,'literal']}
+        self._numconditions = 0
         
     def __call__(self,node,suffix_node):    
         if not isinstance   (node,Node):
@@ -83,7 +83,7 @@ class NnonaH_6010630:
 
 class lopovyorvali_6010640:
     def __init__(self):
-        self._types={'suffix_node':[Suffix,'literal']}
+        self._numconditions = 2
         
     def __call__(self,node,suffix_node):    
         if not isinstance   (node,Node):
@@ -126,7 +126,7 @@ class lopovyorvali_6010640:
 
 class echoayavaayaavaH_6010750:
     def __init__(self):
-        self._types={'node':['literal'],'suffix_node':['literal']}
+        self._numconditions = 1
     def __call__(self,node, suffix_node):
         if not node.get_output():
             return node.get_output()
@@ -151,7 +151,7 @@ class echoayavaayaavaH_6010750:
 
 class aadguNnaH_6010840:
     def __init__(self):
-        self._types={'node':['literal'],'suffix_node':['literal']}
+        self._numconditions = 1
     def __call__(self,node, anga_node):
         node_output= node.get_output()
         if not node.get_output():
@@ -168,7 +168,7 @@ class aadguNnaH_6010840:
 
 class aadguNnaH_6010841:
     def __init__(self):
-        self._types={'node':['literal'],'suffix_node':['literal']}
+        self._numconditions = 1
     def __call__(self,node, suffix_node):
         
         node_output= node.get_output()
@@ -183,7 +183,7 @@ class aadguNnaH_6010841:
 
 class vRiddhirechi_6010850:
     def __init__(self):
-        self._types={'node':['literal'],'suffix_node':['literal']}
+        self._numconditions = 1
     def __call__(self,node, anga_node):
         node_output= node.get_output()
         if not node.get_output():
@@ -200,7 +200,7 @@ class vRiddhirechi_6010850:
 
 class vRiddhirechi_6010851:
     def __init__(self):
-        self._types={'node':['literal'],'suffix_node':['literal']}
+        self._numconditions = 1
     def __call__(self,node, suffix_node):
         node_output= node.get_output()
         if not node.get_output():
@@ -234,7 +234,7 @@ class eNGipararuupam_6010910:
 
 class atoguNne_6010940:
     def __init__(self):
-        self._types={'node':['literal'],'suffix_node':['literal']}
+        self._numconditions = 1
     def __call__(self,node, suffix_node):
         node_output= node.get_output()
         if not node.get_output():
@@ -270,7 +270,7 @@ to the preconditions for the second implementation
 class akaHsavarNnediirghaH_6010970:
 
     def __init__(self):
-        self._types={'node':['literal'],'suffix_node':['literal']}
+        self._numconditions = 1
     def __call__(self,node, suffix_node):
         if not isinstance(node,Node):
             raise ValueError("node must be of Node type")
@@ -299,7 +299,7 @@ class akaHsavarNnediirghaH_6010970:
 
 class akaHsavarNnediirghaH_6010971:
     def __init__(self):
-        self._types={'node':['literal'],'suffix_node':['literal']}
+        self._numconditions = 1
     def __call__(self,node, anga_node):
         if not isinstance(node,Node):
             raise ValueError("node must be of Node type")
@@ -332,7 +332,7 @@ class akaHsavarNnediirghaH_6010971:
 
 class prathamayoHpuurvasavarNnaH_6010980:
     def __init__(self):
-        self._types={'node':['literal'],'suffix_node':['literal']}
+        self._numconditions = 1
     def __call__(self,node, anga_node):
         node_output= node.get_output()
         if not node.get_output():
@@ -350,7 +350,7 @@ class prathamayoHpuurvasavarNnaH_6010980:
 
 class tasmaatchhasonaHpuMsi_6010990:
     def __init__(self):
-        self._types={'node':['literal'],'suffix_node':['literal']}
+        self._numconditions = 2
         
     def __call__(self,node):
         node_output= node.get_output()
@@ -391,7 +391,7 @@ class amipuurvaH_6011030:
 
 class luNglaNglRiNgkShvaXdudaattaH_6040710:
     def __init__(self):
-        self._types={'prefix_node':[Dhaatu],'suffix_node':[Suffix,'literal','lakaara']}
+        self._numconditions = 1
         self._ruletype=['prepend']
         
     def __call__(self,prefix_node,suffix_node):
@@ -417,7 +417,7 @@ class luNglaNglRiNgkShvaXdudaattaH_6040710:
   
 class bhuvovugluNgliXtoH_6040880:
     def __init__(self):
-        self._types={'node':[Dhaatu],'suffix_node':[Suffix,'literal','lakaara']}
+        self._numconditions = 1
         
     def __call__(self,node,suffix_node):   
         if not isinstance(suffix_node,Node):
@@ -435,7 +435,7 @@ class bhuvovugluNgliXtoH_6040880:
 
 class atoheH_6041050:
     def __init__(self):
-        self._types={'node':[Suffix,'literal']}
+        self._numconditions = 1
     def __call__(self,node,anga_node):
         if not isinstance(anga_node,Node):
             raise ValueError("anga_node must be of Node type")
@@ -451,7 +451,7 @@ class atoheH_6041050:
 
 class ataekahalmadhyeanaadeshaaderliXti_6041200:
     def __init__(self):
-        self._types={'node':['stateupdate'],'suffix_node':[Suffix,'literal','lakaara']}
+        self._numconditions = 1
     def __call__(self,node,suffix_node):
         if not isinstance(suffix_node,Node):
             raise    ValueError ("suffix_node must be of type Node")
@@ -470,7 +470,7 @@ class ataekahalmadhyeanaadeshaaderliXti_6041200:
 
 class yasyeticha_6041480:
     def __init__(self):
-        self._types={'node':['literal'],'suffix_node':[Suffix,'stateupdate','literal']}
+        self._numconditions = 1
         
     def __call__(self,node,suffix_node):
     

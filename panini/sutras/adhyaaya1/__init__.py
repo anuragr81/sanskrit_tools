@@ -4,7 +4,7 @@ from ..common_definitions import halantyam_ignored_sutras,list_past_rules_applie
 
 class uraNnraparaH_1010500:
     def __init__(self):
-        self._types={'a':['literal'],'b':['literal']}
+        self._numconditions=1
     def __call__(self,a,b):
         if a[-1] == "Ri" :
             if b[0] == "a":
@@ -17,7 +17,7 @@ class uraNnraparaH_1010500:
     
 class halantyam_1030030:
     def __init__(self):
-        self._types={'node':['literal']}
+        self._numconditions=1
     def __call__(self,node):
         #Check isinstance(node._data,Dhaatu) if necessary
         if not node.get_output():
@@ -49,7 +49,7 @@ class halantyam_1030030:
     
 class aadirNciXtuXdavaH_1030050:
     def __init__(self):
-        self._types={'node':['literal']}
+        self._numconditions=1
     def __call__(self,node):
         if not isinstance(node,Node):
             raise ValueError("Must be Node")
@@ -63,7 +63,7 @@ class aadirNciXtuXdavaH_1030050:
     
 class chuXtuu_103070:
     def __init__(self):
-        self._types={'node':['literal']}
+        self._numconditions=1
     def __call__(self,node):
         if not isinstance(node,Node):
             raise ValueError("Must be Node")
@@ -99,7 +99,7 @@ class chuXtuu_103070:
     
 class lashakvataddhite_1030080:
     def __init__(self):
-        self._types={'node':['literal']}
+        self._numconditions=1
     def __call__(self,node):
         if not isinstance(node,Node):
             raise ValueError("Must be of Node type")
@@ -116,7 +116,7 @@ class lashakvataddhite_1030080:
     
 class upadesheajanunaasikait_1030020:
     def __init__(self):
-        self._types={'node':['literal']}
+        self._numconditions=1
     def __call__(self,node):
         if not isinstance(node,Node):
             raise ValueError("Must be of Node type")
@@ -138,7 +138,7 @@ class upadesheajanunaasikait_1030020:
     
 class yachibham_1040180:
     def __init__(self):
-        self._types={'suffix_str':['literal']}
+        self._numconditions=1
     def __call__(self,suffix_str):
         return suffix_str[0] in ach() or suffix_str[0] == 'y' 
 

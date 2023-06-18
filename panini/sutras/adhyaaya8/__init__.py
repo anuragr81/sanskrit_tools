@@ -3,7 +3,7 @@ from ..common_definitions import pratyaahaara, ach, hal, Node, Suffix
 
 class kharavasaanayorvisarjaniiyaH_8010150:
     def __init__(self):
-        self._types={'node':['literal']}
+        self._numconditions = 1
         
     def __call__(self,node):
         # must be used in avasaana
@@ -19,7 +19,7 @@ class kharavasaanayorvisarjaniiyaH_8010150:
 
 class saMyogaantasyalopaH_8020230:
     def __init__(self):
-        self._types={'node':['literal']}
+        self._numconditions = 1
         
     def __call__(self,anga_node ,node):        
         
@@ -46,7 +46,7 @@ class saMyogaantasyalopaH_8020230:
 
 class iXtaiiXti_8020280:
     def __init__(self):
-        self._types={'node':['literal'],'suffix_node':[Suffix,'literal']}
+        self._numconditions = 1
         
     def __call__(self,anga_node ,node):        
         
@@ -76,7 +76,7 @@ class iXtaiiXti_8020280:
 
 class sasajuXshoruH_8020660:
     def __init__(self):
-        self._types={'node':['literal']}
+        self._numconditions = 1
         
     def __call__(self,node):
         
@@ -98,7 +98,7 @@ class sasajuXshoruH_8020660:
 
 class aadeshapratyayoH_8030059:
     def __init__(self):
-        self._types={'anga_node':[],'node':[Suffix ,'literal']}
+        self._numconditions = 1
         
     def __call__(self,anga_node ,node):        
         if not isinstance(node,Node):

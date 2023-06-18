@@ -2,7 +2,7 @@ from ..common_definitions import Suffix, sup_pratyayaaH,Node
 
 class supodhaatupraatipadikayoH_2040710:
     def __init__(self):        
-        self._types={'state':[Suffix]}
+        self._numconditions=1
     def __call__(self,state):
         suffixes = [ {'pos':i,'data':st} for i,st in enumerate(state) if isinstance(st,Suffix)]
         if len(suffixes)>1:
@@ -15,7 +15,7 @@ class supodhaatupraatipadikayoH_2040710:
 
 class luXtaHprathamasyaXdaaraurasaH_2040850:
     def __init__(self):
-        self._types={'node':[Suffix,'lakaara','literal']}
+        self._numconditions=1
     def __call__(self,node):
         if not isinstance(node,Node):
             raise ValueError("node must be of Node type")
