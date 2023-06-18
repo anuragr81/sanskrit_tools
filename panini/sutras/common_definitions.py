@@ -69,6 +69,10 @@ class Anga(Group):
 def lakaaras():
     return ('laXt','loXt','lRiXt','laNg','luNg','lRiNg','liNg1','liNg2','liXt','luXt')
 
+def classified_pratyayaaH():
+    # ignoring kyach and other san_pratyayaaH for now
+    return kRit_pratyayaaH()+tiNg_pratyayaaH()+strii_pratyayaaH()+sup_pratyayaaH()+taddhita_prayayaaH()
+
 def all_pratyayas() : 
 
     return kRit_pratyayaaH()+tiNg_pratyayaaH()+san_pratyayaaH()+strii_pratyayaaH()+sup_pratyayaaH()+taddhita_prayayaaH() + unclassified_pratyayaaH()
