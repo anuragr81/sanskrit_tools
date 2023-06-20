@@ -98,6 +98,52 @@ def apply_transformation_at_end(transformation_rule,new_expr):
                     
     return new_expr
 
+
+
+
+def is_transformation_applicable(transformation_rule,new_expr):
+    sig_params = inspect.signature(transformation_rule.__call__).parameters
+    for i in range(0,len(new_expr)):
+        old_output = new_expr[i].get_output()
+        if isinstance(new_expr[i]._data,Suffix):
+            if i>0 :
+                #TODO: remove Dhaatu check in anga - since suffixes (that are not Dhaatus) may also act as anga
+                
+                
+                if isinstance(new_expr[i-1]._data,Dhaatu):
+                    dhaatu_index=i-1
+                    if 'anga_node' in sig_params :        
+                        new_output = transformation_rule()(node=new_expr[i],anga_node=new_expr[dhaatu_index])
+                        if new_output  != old_output:
+                            return True
+                    
+                    if 'suffix_node' in sig_params :
+                        new_output = transformation_rule()(node=new_expr[dhaatu_index],suffix_node=new_expr[i])
+                        if new_output  != old_output:
+                            return True
+
+                else:
+                    if 'suffix_node' in sig_params :
+                        new_output = transformation_rule()(node=new_expr[i-1],suffix_node=new_expr[i])
+                        if new_output  != old_output:
+                            return True
+                        
+                    if 'anga_node' in sig_params :
+                       new_output = transformation_rule()(node=new_expr[i],anga_node=new_expr[i-1])
+                       if new_output  != old_output:
+                           return True
+
+                    
+            if 'anga_node' not in sig_params  and 'suffix_node' not in sig_params :
+                new_output = transformation_rule()(node=new_expr[i])
+                if new_output  != old_output:
+                    return True
+
+            
+                    
+    return False
+
+
 def apply_transformation(transformation_rule,new_expr):
     sig_params = inspect.signature(transformation_rule.__call__).parameters
     for i in range(0,len(new_expr)):
@@ -181,6 +227,22 @@ def apply_lopa(suffix_node):
 For any two nodes A and B, insertion can happen in the middle, before A or after B. 
 Prepend operation implies the insertion before A
 """
+def is_prepend_applicable(prepend_rule,new_expr):
+    for i in range(1,len(new_expr)):
+        if isinstance(new_expr[i]._data,Suffix):
+            sig_params = inspect.signature(prepend_rule.__call__).parameters
+            if 'prefix_node' in sig_params :         
+                if prepend_rule()(prefix_node=new_expr[i-1],suffix_node=new_expr[i]):
+                    return True
+                
+                
+    return False
+
+
+"""
+For any two nodes A and B, insertion can happen in the middle, before A or after B. 
+Prepend operation implies the insertion before A
+"""
 def apply_prepend(prepend_rule,new_expr):
     #TODO: trace history of insertion by modifying the output of both sides of the insertion
     new_inserts=OrderedDict()
@@ -203,6 +265,24 @@ def apply_prepend(prepend_rule,new_expr):
         
         new_expr.insert(pos,new_node)
     return new_expr
+
+
+
+"""
+For any two nodes A and B, check whether insertion can happen in the middle, before A or after B. 
+"""
+def is_insertion_applicable(insertion_rule, new_expr):
+
+    for i in range(1,len(new_expr)):
+        if isinstance(new_expr[i]._data,Suffix):
+            # reducing expression with combination
+            # this involves appending plain-strings (that cannot be reduced further)
+            sig_params = inspect.signature(insertion_rule.__call__).parameters
+            if 'prefix_node' in sig_params :
+                if insertion_rule()(prefix_node=new_expr[i-1],suffix_node=new_expr[i]) :
+                    return True
+
+    return False
 
 
 
@@ -276,8 +356,10 @@ def process_until_finish(expr):
         
 def process_list(expr):
     all_sutras= get_sutras_ordered()
+    
     if any(not isinstance(entry,Node) for entry in expr):
         raise ValueError("Only nodes are to be present")
+        
     new_expr = expr.copy()
     
     # the logic for applying it-lopa is that 
@@ -286,8 +368,7 @@ def process_list(expr):
 
 
     # apply lopa and transformation before insertion
-    new_expr = apply_all_lopas(new_expr)
-        
+    new_expr = apply_all_lopas(new_expr)        
     
     # apply insertions
     
@@ -297,6 +378,30 @@ def process_list(expr):
               
               ])
     itdf = itdf.sort_values('sutranum')
+    
+    # the sutra function do not change the expression itself therefore 
+    # a dry-run on the rules filters out only the sutras that apply i.e. would cause a change
+    # the application happens only in the order based on num-conditions, sutra-order
+    
+    listApplicableSutras=[]
+    
+    for sutra_i in range(0,itdf.shape[0]):
+        objSutra = itdf.iloc[sutra_i]
+        if objSutra.type == "insertion":
+            if is_insertion_applicable (all_sutras[objSutra.sutranum],new_expr):
+                listApplicableSutras.append(objSutra.sutranum)
+
+        elif objSutra.type == "prepend":
+            if is_prepend_applicable(all_sutras[objSutra.sutranum],new_expr):
+                listApplicableSutras.append(objSutra.sutranum)
+
+        elif objSutra.type == "transformation":
+            if is_transformation_applicable(all_sutras[objSutra.sutranum],new_expr):
+                listApplicableSutras.append(objSutra.sutranum)
+        else:
+            raise ValueError("Unkonwn type : %s" % objSutra.type)
+
+    ## the sutras to be applied are in list
     
     for sutra_i in range(0,itdf.shape[0]):
         objSutra = itdf.iloc[sutra_i]

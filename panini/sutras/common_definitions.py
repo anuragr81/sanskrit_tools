@@ -309,8 +309,6 @@ def pratyaahaara(start,end):
         if not_found:
             raise ValueError("Unknown starting letter: %s" % start)
         
-def halantyam_ignored_sutras():
-    return []
 
 def hal():
     return ("kh","k","gh","g","Ng","Nc","NN","Nn","chh","ch","jh","j",

@@ -1,6 +1,6 @@
 from ..common_definitions import anunaasika, Suffix, ach, hal, chu, Xtu, Node
 from ..common_definitions import Dhaatu,tiNg_pratyayaaH,sup_pratyayaaH
-from ..common_definitions import halantyam_ignored_sutras,list_past_rules_applied
+from ..common_definitions import list_past_rules_applied
 
 class uraNnraparaH_1010500:
     def __init__(self):
@@ -38,8 +38,7 @@ class halantyam_1030030:
         last_rule_applied  = rules_applied[-1] if rules_applied else None
         
         node_data=[x['output'] for x in node._output if 'new' in x and x['new']][-1]
-        if antyam in hal() and node_data[-1] == antyam \
-            and last_rule_applied not in halantyam_ignored_sutras():
+        if antyam in hal() and node_data[-1] == antyam :
                 return node.get_output()[:-1]
         else:
             return node.get_output()
