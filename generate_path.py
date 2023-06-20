@@ -104,7 +104,7 @@ def apply_transformation_at_end(transformation_rule,new_expr):
 def is_transformation_applicable(transformation_rule,new_expr):
     sig_params = inspect.signature(transformation_rule.__call__).parameters
     for i in range(0,len(new_expr)):
-        old_output = new_expr[i].get_output()
+        
         if isinstance(new_expr[i]._data,Suffix):
             if i>0 :
                 #TODO: remove Dhaatu check in anga - since suffixes (that are not Dhaatus) may also act as anga
@@ -113,28 +113,33 @@ def is_transformation_applicable(transformation_rule,new_expr):
                 if isinstance(new_expr[i-1]._data,Dhaatu):
                     dhaatu_index=i-1
                     if 'anga_node' in sig_params :        
+                        old_output = new_expr[i].get_output()
                         new_output = transformation_rule()(node=new_expr[i],anga_node=new_expr[dhaatu_index])
                         if new_output  != old_output:
                             return True
                     
                     if 'suffix_node' in sig_params :
+                        old_output = new_expr[dhaatu_index].get_output()
                         new_output = transformation_rule()(node=new_expr[dhaatu_index],suffix_node=new_expr[i])
                         if new_output  != old_output:
                             return True
 
                 else:
                     if 'suffix_node' in sig_params :
+                        old_output = new_expr[i-1].get_output()
                         new_output = transformation_rule()(node=new_expr[i-1],suffix_node=new_expr[i])
                         if new_output  != old_output:
                             return True
                         
                     if 'anga_node' in sig_params :
+                       old_output = new_expr[i].get_output()
                        new_output = transformation_rule()(node=new_expr[i],anga_node=new_expr[i-1])
                        if new_output  != old_output:
                            return True
 
                     
             if 'anga_node' not in sig_params  and 'suffix_node' not in sig_params :
+                old_output = new_expr[i].get_output()
                 new_output = transformation_rule()(node=new_expr[i])
                 if new_output  != old_output:
                     return True
@@ -389,41 +394,48 @@ def process_list(expr):
         objSutra = itdf.iloc[sutra_i]
         if objSutra.type == "insertion":
             if is_insertion_applicable (all_sutras[objSutra.sutranum],new_expr):
-                listApplicableSutras.append(objSutra.sutranum)
+                listApplicableSutras.append({'sutranum':objSutra.sutranum,'type':'insertion'})
 
         elif objSutra.type == "prepend":
             if is_prepend_applicable(all_sutras[objSutra.sutranum],new_expr):
-                listApplicableSutras.append(objSutra.sutranum)
+                listApplicableSutras.append({'sutranum':objSutra.sutranum,'type':'prepend'})
 
         elif objSutra.type == "transformation":
             if is_transformation_applicable(all_sutras[objSutra.sutranum],new_expr):
-                listApplicableSutras.append(objSutra.sutranum)
+                listApplicableSutras.append({'sutranum':objSutra.sutranum,'type':'transformation'})
         else:
             raise ValueError("Unkonwn type : %s" % objSutra.type)
 
     ## the sutras to be applied are in list
-    
-    for sutra_i in range(0,itdf.shape[0]):
-        objSutra = itdf.iloc[sutra_i]
-        if objSutra.type == "insertion":
-            #old_string = output_processed_string(new_expr)
-            insertion_sutra_id = objSutra.sutranum
-            new_expr = apply_insertion(all_sutras[insertion_sutra_id],new_expr)
-            # apply lopa and transformation after insertion       
-            new_expr = apply_all_lopas(new_expr)
-
-        elif objSutra.type == "prepend":
-            prepend_sutra_id= objSutra.sutranum
-            new_expr= apply_prepend(all_sutras[prepend_sutra_id],new_expr)        
-            new_expr = apply_all_lopas(new_expr)
-
-        elif objSutra.type == "transformation":
-            transformation_ruleid=objSutra.sutranum
-            new_expr = apply_transformation(all_sutras[transformation_ruleid],new_expr)
-            new_expr = apply_all_lopas(new_expr)
+    numConditionsDict=OrderedDict()
+    for sutraInfo in listApplicableSutras:
+        key = all_sutras[sutraInfo['sutranum']]()._numconditions
+        if key in numConditionsDict:
+            numConditionsDict[key].append(sutraInfo)
         else:
-            raise ValueError("Unkonwn type : %s" % objSutra.type)
+            numConditionsDict[key]=[sutraInfo]
+        
+    if numConditionsDict.keys() :
+        applicableSutrasInfo= numConditionsDict[min(numConditionsDict.keys())]
+        if applicableSutrasInfo:
+            firstApplicableSutra = applicableSutrasInfo[0]
+        
+            if firstApplicableSutra ['type'] == "insertion":
+                #old_string = output_processed_string(new_expr)                
+                new_expr = apply_insertion(all_sutras[firstApplicableSutra ['sutranum']],new_expr)
+                # apply lopa and transformation after insertion       
+                new_expr = apply_all_lopas(new_expr)
     
+            elif firstApplicableSutra ['type'] == "prepend":                
+                new_expr= apply_prepend(all_sutras[firstApplicableSutra ['sutranum']],new_expr)        
+                new_expr = apply_all_lopas(new_expr)
+    
+            elif firstApplicableSutra ['type'] == "transformation":
+                new_expr = apply_transformation(all_sutras[firstApplicableSutra ['sutranum']],new_expr)
+                new_expr = apply_all_lopas(new_expr)
+            else:
+                raise ValueError("Unkonwn type : %s" % objSutra.type)
+        
     return new_expr
 
 def output_string (expr):
