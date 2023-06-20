@@ -115,6 +115,16 @@ Devanagari map taken from  https://everythingfonts.com/unicode/devanagari
 """
 def devanagari_map():
     mainmap =  {
+            '0':"\u0966",
+            '1':"\u0967",
+            '2':"\u0968",
+            '3':"\u0969",
+            '4':"\u096A",
+            '5':"\u096B",
+            '6':"\u096C",
+            '7':"\u096D",
+            '8':"\u096E",
+            '9':"\u096F",
             'NN': "\u0901",
             'M': "\u0902",
             'H': "\u0903",

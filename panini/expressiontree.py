@@ -35,51 +35,52 @@ def prepare_node_structure(arr):
     return []
 
 
-def get_vertices_edges(nodes):
+def get_vertices_edges(nodes,devanagari=True):
     edges = []
     edgenames = {}
-    for node in nodes:
+    convert = lambda x : convert_to_devanagari(x) if devanagari else x
+    empty_prefix = "empty" if not devanagari else "रिक्त"
+
+    for k,node in enumerate(nodes):
         for i in range(len(node._output)):
             if i>0:
-                rule_name = node._output[i]['rule'].__name__.split("_")[0]
-                edge_source = convert_to_devanagari(''.join(node._output[i-1]['output']))
+                rule_name = convert(node._output[i]['rule'].__name__.split("_")[0])
+                edge_source = convert(''.join(node._output[i-1]['output']))
 
                 if rule_name in edgenames : 
                     # change rule_name 
-                    rule_name_wcount = convert_to_devanagari(rule_name) + str(edgenames[ rule_name ]['count'])
+                    rule_name_wcount = (rule_name) + str(edgenames[ rule_name ]['count'])
                     edgenames[rule_name]['count'] = edgenames[rule_name]['count'] + 1
                 else:
                     edgenames[rule_name]={}
                     edgenames[rule_name]['count'] = 1
-                    rule_name_wcount = convert_to_devanagari(rule_name) + str(edgenames[ rule_name ]['count'])
+                    rule_name_wcount = (rule_name) + str(edgenames[ rule_name ]['count'])
                     edgenames[rule_name]['count'] = edgenames[rule_name]['count'] + 1
 
 
-                if not edge_source:
-                    edge_source = "empty"+str(edgenames[rule_name]['count'])
+                if not edge_source or edge_source=="":
+                    edge_source = empty_prefix+str(k)+"_"+str(i)
 
-                edge_target = convert_to_devanagari(''.join(node._output[i]['output']))
+                edge_target = convert(''.join(node._output[i]['output']))
                 # reusing the edgename count 
-                if not edge_target:
-                    edge_target= "empty"+str(edgenames[rule_name]['count'])
+                if not edge_target or edge_target=="":
+                    edge_target= empty_prefix +str(k)+"_"+str(i) 
 
                 edges.append({'id':rule_name_wcount, 'target':edge_target, 'source':edge_source})
 
     # add final output and related vertices
     output_processed_string = lambda expr: ''.join(reduce(lambda x ,y : x + y.get_output(),  expr, []))
-    finaloutput = convert_to_devanagari(output_processed_string (nodes))
-    #TODO: prepare vertices from edge data to make sure that vertex renames are assimilated
-
-    listVertices = reduce(lambda x,y : x + y , [[''.join(x['output']) for x in node._output] for node in nodes])
-    vertices = list(convert_to_devanagari(x) for x  in set(listVertices))
-    vertices.append(finaloutput)
+    finaloutput = convert(output_processed_string (nodes))
 
     for i,node in enumerate(nodes):
         rule_name = str(i+1)
-        edge_source = convert_to_devanagari(''.join(node.get_output()))
+        edge_source = convert(''.join(node.get_output())) if node.get_output() else empty_prefix +str(i)+"_"+str(len(node._output)-1)
         edge_target = finaloutput
         edges.append({'id':rule_name, 'target':edge_target, 'source':edge_source})
         
+    vertices = list(set(e['source'] for e in edges).union(set(e['target'] for e in edges)))
+    vertices.append(finaloutput)
+
 
 
     return {'vertices':vertices,'edges':edges}
