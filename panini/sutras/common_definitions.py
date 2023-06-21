@@ -1,18 +1,5 @@
 import re
 
-
-if False:    
-    # Usage : Add @sutra_precondition(a,b,c) before the function
-    def sutra_precondition(**kwargs):
-        def wrap(func):
-            def wrapped_sutra(*args):
-                print("wrapped_f: kwargs="+str(kwargs))
-                if 't' in kwargs and kwargs['t']=="literal":
-                    print("Using literal invocatoin")
-                func(*args)
-            return wrapped_sutra
-        return wrap
-
 def parse_string(input_str):
     """
     build a list of aksharas from the string - unknown letters are ignored
@@ -33,37 +20,6 @@ def parse_string(input_str):
             matches =False
     return output
 
-class Group:
-    def __init__(self,data):
-        self._data = data
-        
-    def has_vRiddhi(self):
-        achs = [ j for j in self._data if j in ach() ]
-        if achs and achs[0] in ('aa','ai','au',):
-            return True
-        return False
-    
-    def data(self):
-        return self._data
-
-
-
-class Anga(Group):
-    def __init__(self,anga,is_dhaatu=False):
-        self._anga = Group(anga)
-        self._is_dhaatu=is_dhaatu
-        
-    def is_dhaatu(self):
-        return self._is_dhaatu
-    
-    def get_anga(self):
-        return self._anga.data()
-        
-    def __str__(self):
-        return str(self._anga )
-
-    def __repr__(self):
-        return str(self._anga )
 
 
 def lakaaras():
@@ -125,10 +81,6 @@ class Suffix:
     def __repr__(self):
         return str(self._suffix)
 
-
-class It:
-    def __init__(self,data):
-        self._data= data
 
 class Dhaatu:
     def __init__(self,data):
@@ -257,7 +209,7 @@ class Node:
 
 
 def get_supported_types ():
-    return (Suffix,It,Dhaatu)
+    return (Suffix,Dhaatu)
 
 
 def ach():

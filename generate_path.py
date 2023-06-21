@@ -46,8 +46,6 @@ def get_sutras_ordered ():
     all_sutras = reduce(lambda x , y : x + get_sutras_for_module (y) , [a1,a2,a3,a4,a5,a6,a7,a8],[]) 
     return OrderedDict(sorted(all_sutras))
 
-#6011030
-
 def padaanta_sutras():
     return [8020230]
 
@@ -359,6 +357,44 @@ def process_until_finish(expr):
     else:
         return process_until_finish(new_expr)
         
+    
+def get_numconditions_dictionary(all_sutras,sutradf,expression):
+    """
+     since the sutra function do not change the expression itself, a dry-run 
+     on the rules filters out only the sutras that cause a change (apply).
+     the function presents the applicable sutras arranged in an orderedict
+     indexed by the number of conditions
+    """    
+    
+    listApplicableSutras=[]
+    
+    for sutra_i in range(0,sutradf.shape[0]):
+        objSutra = sutradf.iloc[sutra_i]
+        if objSutra.type == "insertion":
+            if is_insertion_applicable (all_sutras[objSutra.sutranum],expression):
+                listApplicableSutras.append({'sutranum':objSutra.sutranum,'type':'insertion'})
+
+        elif objSutra.type == "prepend":
+            if is_prepend_applicable(all_sutras[objSutra.sutranum],expression):
+                listApplicableSutras.append({'sutranum':objSutra.sutranum,'type':'prepend'})
+
+        elif objSutra.type == "transformation":
+            if is_transformation_applicable(all_sutras[objSutra.sutranum],expression):
+                listApplicableSutras.append({'sutranum':objSutra.sutranum,'type':'transformation'})
+        else:
+            raise ValueError("Unkonwn type : %s" % objSutra.type)
+
+    ## the sutras to be applied are in list
+    numConditionsDict=OrderedDict()
+    for sutraInfo in listApplicableSutras:
+        key = all_sutras[sutraInfo['sutranum']]()._numconditions
+        if key in numConditionsDict:
+            numConditionsDict[key].append(sutraInfo)
+        else:
+            numConditionsDict[key]=[sutraInfo]
+            
+    return numConditionsDict
+            
 def process_list(expr):
     all_sutras= get_sutras_ordered()
     
@@ -384,41 +420,12 @@ def process_list(expr):
               ])
     itdf = itdf.sort_values('sutranum')
     
-    # the sutra function do not change the expression itself therefore 
-    # a dry-run on the rules filters out only the sutras that apply i.e. would cause a change
-    # the application happens only in the order based on num-conditions, sutra-order
-    
-    listApplicableSutras=[]
-    
-    for sutra_i in range(0,itdf.shape[0]):
-        objSutra = itdf.iloc[sutra_i]
-        if objSutra.type == "insertion":
-            if is_insertion_applicable (all_sutras[objSutra.sutranum],new_expr):
-                listApplicableSutras.append({'sutranum':objSutra.sutranum,'type':'insertion'})
-
-        elif objSutra.type == "prepend":
-            if is_prepend_applicable(all_sutras[objSutra.sutranum],new_expr):
-                listApplicableSutras.append({'sutranum':objSutra.sutranum,'type':'prepend'})
-
-        elif objSutra.type == "transformation":
-            if is_transformation_applicable(all_sutras[objSutra.sutranum],new_expr):
-                listApplicableSutras.append({'sutranum':objSutra.sutranum,'type':'transformation'})
-        else:
-            raise ValueError("Unkonwn type : %s" % objSutra.type)
-
-    ## the sutras to be applied are in list
-    numConditionsDict=OrderedDict()
-    for sutraInfo in listApplicableSutras:
-        key = all_sutras[sutraInfo['sutranum']]()._numconditions
-        if key in numConditionsDict:
-            numConditionsDict[key].append(sutraInfo)
-        else:
-            numConditionsDict[key]=[sutraInfo]
+    numConditionsDict = get_numconditions_dictionary(all_sutras=all_sutras, sutradf=itdf,expression=new_expr)
         
     if numConditionsDict.keys() :
         applicableSutrasInfo= numConditionsDict[min(numConditionsDict.keys())]
         if applicableSutrasInfo:
-            firstApplicableSutra = applicableSutrasInfo[0]
+            firstApplicableSutra = applicableSutrasInfo[-1]
         
             if firstApplicableSutra ['type'] == "insertion":
                 #old_string = output_processed_string(new_expr)                

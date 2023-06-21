@@ -120,8 +120,8 @@ else:
         sys.exit(0)
     
     else:        
-#        expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix('tip',lakaara='lRiXt'),parent1=None)]
-        expression=[Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tip",lakaara='luNg'),parent1=None)]
+        expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix('jhi',lakaara='laXt'),parent1=None)]
+        #expression=[Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tip",lakaara='luNg'),parent1=None)]
         
         #expression=[Node(Dhaatu(parse_string("rajNN")),parent1=None),Node(Suffix("ghaNc"),parent1=None),Node(Suffix("am",linga=1),parent1=None)]
         
