@@ -425,7 +425,7 @@ def process_list(expr):
     if numConditionsDict.keys() :
         applicableSutrasInfo= numConditionsDict[min(numConditionsDict.keys())]
         if applicableSutrasInfo:
-            firstApplicableSutra = applicableSutrasInfo[-1]
+            firstApplicableSutra = applicableSutrasInfo[0]
         
             if firstApplicableSutra ['type'] == "insertion":
                 #old_string = output_processed_string(new_expr)                

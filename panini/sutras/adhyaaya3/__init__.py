@@ -99,7 +99,7 @@ class serhyapichcha_3040870:
 
         if not isinstance(node,Node):
             raise ValueError("node must be of Node type")
-        if isinstance(node._data,Suffix) and node._data._lakaara == 'loXt' and ''.join(node._data._suffix) == 'sip':
+        if isinstance(node._data,Suffix) and node._data._lakaara == 'loXt' and ''.join(node._data._suffix) == 'sip' and 3040870 not in list_past_rules_applied(node):
             return {'output':['h','i'], 'mutate':True}
         return node.get_output()
 
