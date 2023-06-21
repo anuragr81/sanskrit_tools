@@ -121,6 +121,7 @@ else:
     
     else:        
         expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix('mip',lakaara='loXt'),parent1=None)]
+        #raise ValueError("tasthamipaaMtaaMtamTaamaH cannot be applied on mip - it needs to be verified how this is a nitya-apavaada scenario")
         #expression=[Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tip",lakaara='luNg'),parent1=None)]
         
         #expression=[Node(Dhaatu(parse_string("rajNN")),parent1=None),Node(Suffix("ghaNc"),parent1=None),Node(Suffix("am",linga=1),parent1=None)]

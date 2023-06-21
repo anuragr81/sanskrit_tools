@@ -87,7 +87,7 @@ class eruH_3040860:
         if not isinstance(node,Node):
             raise ValueError("node must be of Node type")
         # does not apply to merniH and serhyapichcha
-        if isinstance(node._data,Suffix) and node._data._lakaara == 'loXt' and not set(list_past_rules_applied(node)).intersection([3040870,3040890]):
+        if isinstance(node._data,Suffix) and node._data._lakaara == 'loXt' and not set(list_past_rules_applied(node)).intersection([3040860,3040870,3040890]):
             i2umap ={'i':'u'}
             return [i2umap.get(x,x) for x in node.get_output()]
         return node.get_output()
@@ -109,7 +109,7 @@ class merniH_3040890:
     def __call__(self,node):
         if not isinstance(node,Node):
             raise ValueError("node must be of Node type")
-        if isinstance(node._data,Suffix) and node._data._lakaara == 'loXt' and ''.join(node._data._suffix) == 'mip':
+        if isinstance(node._data,Suffix) and node._data._lakaara == 'loXt' and ''.join(node._data._suffix) == 'mip' and 3040890 not in  list_past_rules_applied(node):
             return {'output':['n','i'], 'mutate':True}
         return node.get_output()
 
@@ -122,7 +122,7 @@ class aaXduttamasyapichchha_3040920:
         if not isinstance(prefix_node,Node):
             raise ValueError("prefix_node must be of Node type")
         
-        if 3040920 not in list_past_rules_applied(suffix_node) and isinstance(suffix_node._data,Suffix) and suffix_node._data._lakaara == 'loXt' and ''.join(suffix_node._data._suffix) in ('mip','vas','mas','iXt','vahi','mahiNg'):
+        if 3040920 not in list_past_rules_applied(prefix_node) and 3040920 not in list_past_rules_applied(suffix_node)  and isinstance(suffix_node._data,Suffix) and suffix_node._data._lakaara == 'loXt' and ''.join(suffix_node._data._suffix) in ('mip','vas','mas','iXt','vahi','mahiNg'):
             return Suffix('aaXt')
             
         return []
