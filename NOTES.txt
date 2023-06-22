@@ -1,9 +1,9 @@
 PENDING
 
-1. Add NN to halant dhaatus
-2. Add state-machine for inputs so that user is only presented subaadi/tibaadi/taddhita/kRit options in the beginning. No need to group taddhita for the moment. As a first step, grouping tibaadi would be enough. The response functions would have to change.
-3. parent1 checking
-4. comparison based on number of conditions should be added - so that the sutra with fewer conditions is applied.
+1. Add state-machine for inputs so that user is only presented subaadi/tibaadi/taddhita/kRit options in the beginning. No need to group taddhita for the moment. As a first step, grouping tibaadi would be enough. The response functions would have to change.
+2. comparison based on number of conditions should be added - so that the sutra with fewer conditions is applied.
+3. Add uraNnrapaH - so that karshati can be formed from kRish.
+4. Find out why kRi,raj and other basic dhaatus are absent.
 
 // TIPS
 // * Add textbox listener

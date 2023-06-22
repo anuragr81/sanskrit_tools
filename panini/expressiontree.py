@@ -39,6 +39,7 @@ def get_vertices_edges(nodes,devanagari=True):
     edges = []
     edgenames = {}
     convert = lambda x : convert_to_devanagari(x) if devanagari else x
+    get_second_or_first_parent = lambda node : node._parent2 if node._parent2 else node._parent1 
     empty_prefix = "empty" if not devanagari else "रिक्त"
 
     for k,node in enumerate(nodes):
@@ -65,6 +66,8 @@ def get_vertices_edges(nodes,devanagari=True):
                 # reusing the edgename count 
                 if not edge_target or edge_target=="":
                     edge_target= empty_prefix +str(k)+"_"+str(i) 
+                if edge_source == edge_target and 'new' in node._output[i-1] and ( node._parent1  or node._parent2)  : 
+                    edge_source = convert( ''.join(get_second_or_first_parent(node)._output[0]['output']))
 
                 edges.append({'id':rule_name_wcount, 'target':edge_target, 'source':edge_source})
 

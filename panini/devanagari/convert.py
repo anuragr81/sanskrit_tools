@@ -93,7 +93,7 @@ def parse_string_for_devanagari(input_str):
     """
     build a list of aksharas from the string - unknown letters are ignored
     """
-    sorted_achs= ('lRii','Rii', 'lRi', 'Ri','ai', "ii","uu",'au',"aa",'a', 'i', 'u', 'e', 'o','M')
+    sorted_achs= ('lRii','Rii', 'lRi', 'Ri','ai', "ii","uu",'au',"aa",'a', 'i', 'u', 'e', 'o','M','H','NN','S')
     match_re = "("+'|'.join(tuple(hals_combined()) + sorted_achs)+")" + "(.*)"
 
 
