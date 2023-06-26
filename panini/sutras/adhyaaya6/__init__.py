@@ -14,6 +14,12 @@ class liXtidhaatoranabhyaasasya_6010080:
     """
     def __init__(self):
         self._numconditions = 1
+        # conditions are only used for nitya-apavaada comparison
+        self._condition= {'self':{'lakaara':{
+                                            'domain':['liXt']
+                                            }
+                                }
+                          }
         
     def __call__(self,node,suffix_node):
         if not isinstance(suffix_node,Node):
@@ -68,7 +74,9 @@ class liXtidhaatoranabhyaasasya_6010080:
 class NnonaH_6010630:
     def __init__(self):
         self._numconditions = 0
-        
+        self._condition = {'self':{'index':{0 :{'domain':['Nn']} }
+                                   }
+                           }
     def __call__(self,node,suffix_node):    
         if not isinstance   (node,Node):
             raise    ValueError ("node must be of type Node")
@@ -84,7 +92,12 @@ class NnonaH_6010630:
 class lopovyorvali_6010640:
     def __init__(self):
         self._numconditions = 2
-        
+        pratyaaharaval= ['v', 'r', 'l', 'Nc', 'm', 'Ng', 'Nn', 'n', 'jh', 'bh', 'gh', 'Xdh', 'dh', 'j', 'b', 'g', 'Xd', 'd', 'kh', 'ph', 'chh', 'Xth', 'th', 'ch', 'Xt', 't', 'k', 'p', 'sh', 'Xsh', 's', 'h']
+        self._condition = {'self':{'index': { -1 : {'domain:':['y','v']}} 
+                                   },
+                           'next1':{ 'index': {0 : {'domain': pratyaaharaval}}
+                                    }
+                           }
     def __call__(self,node,suffix_node):    
         if not isinstance   (node,Node):
             raise    ValueError ("node must be of type Node")
@@ -115,7 +128,6 @@ class lopovyorvali_6010640:
                     # if parent2 is also empty then set empty_node to parent2 
                         empty_node  = empty_node._parent2
                 else:
-                    
                     return node.get_output()
                     
                     
@@ -127,6 +139,12 @@ class lopovyorvali_6010640:
 class echoayavaayaavaH_6010750:
     def __init__(self):
         self._numconditions = 1
+        achs = ['aa', 'ii', 'uu', 'Rii', 'lRii', 'a', 'i', 'ii', 'u', 'uu', 'Ri', 'Rii', 'lRi', 'lRii', 'e', 'o', 'ai', 'au']
+        self._condition = {'self':{'index': { -1 : { 'domain':['e','o','ai','au'] } ,
+                                              0 : achs }
+                                   
+                                   }
+                           }
     def __call__(self,node, suffix_node):
         if not node.get_output():
             return node.get_output()
@@ -152,6 +170,10 @@ class echoayavaayaavaH_6010750:
 class aadguNnaH_6010840:
     def __init__(self):
         self._numconditions = 1
+        pyhik= ['i', 'ii', 'u', 'uu', 'Ri', 'Rii', 'lRi', 'lRii']
+        self._condition = {'self':{'index':{0: {'domain': pyhik }}},
+                           'prev1':{'index':{ 0 :['a','aa']}}
+                           }
     def __call__(self,node, anga_node):
         node_output= node.get_output()
         if not node.get_output():
@@ -169,6 +191,10 @@ class aadguNnaH_6010840:
 class aadguNnaH_6010841:
     def __init__(self):
         self._numconditions = 1
+        self._condition = {'self':{'index':{0:{'domain':['a','aa']}
+                                            }
+                                   }
+                           }
     def __call__(self,node, suffix_node):
         
         node_output= node.get_output()
@@ -184,6 +210,11 @@ class aadguNnaH_6010841:
 class vRiddhirechi_6010850:
     def __init__(self):
         self._numconditions = 1
+        ech = ('e', 'o', 'ai', 'au')
+        self._condition = {'prev1':{'index':{-1:{'domain':['a','aa']}}},
+                           'self':{'index':{0:{'domain':ech}}
+                                   }
+                           }
     def __call__(self,node, anga_node):
         node_output= node.get_output()
         if not node.get_output():

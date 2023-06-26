@@ -10,7 +10,7 @@ class kartarishap_3010680:
                 suffix_node._data.is_saarvadhaatuka() and \
                     suffix_node._data._lakaara in ('laXt','loXt','laNg','liNg1') and \
                     ''.join(suffix_node._data._suffix) != 'shap':
-                    # kartari shap is applied only in cedhaatu_nodertain lakaaras
+                    # kartari shap is applied only in certain lakaaras
                  return Suffix("shap")
         return []
 
