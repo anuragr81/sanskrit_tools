@@ -1,4 +1,5 @@
-from ..common_definitions import Suffix,Node, Dhaatu, ach, hal, sup_pratyayaaH
+from functools import reduce
+from ..common_definitions import Suffix,Node, Dhaatu, ach, hal, sup_pratyayaaH, taddhita_prayayaaH
 from ..common_definitions import pratyaahaara, make_diirgha, guna_letters_for_aat
 from ..common_definitions import vriddhi, list_past_rules_applied
 from ..common_definitions import find_eldest_parent1_of_condition 
@@ -232,6 +233,12 @@ class vRiddhirechi_6010850:
 class vRiddhirechi_6010851:
     def __init__(self):
         self._numconditions = 1
+        ech = ['e', 'o', 'ai', 'au']
+        self._condition = {
+            'self':{'index':{-1:{'domain':['a','aa']}}
+                    },
+            'next1':{'index':{0:{'domain':ech}} }
+            }
     def __call__(self,node, suffix_node):
         node_output= node.get_output()
         if not node.get_output():
@@ -263,20 +270,6 @@ class eNGipararuupam_6010910:
 """
 
 
-class atoguNne_6010940:
-    def __init__(self):
-        self._numconditions = 1
-    def __call__(self,node, suffix_node):
-        node_output= node.get_output()
-        if not node.get_output():
-            return node.get_output()
-    
-        if 6010940 not in list_past_rules_applied(node):
-            if node.get_output()[-1]=='a' and suffix_node.get_output() and suffix_node.get_output()[0] in ('a','e','o'):
-                return node.get_output()[:-1]
-                
-        return node_output
-
 
 def diirgha_mapper ():    
     return {'a':{'match':['a','aa'],'diirgha':'aa'},
@@ -291,6 +284,26 @@ def diirgha_mapper ():
      'lRii':{'match':['lRi','lRii'],'diirgha':'lRii'},
     }
 
+class atoguNne_6010940:
+    def __init__(self):
+        self._numconditions = 1
+        self._condition = {'self':{'index':{-1: {'domain':['a'] }}
+                                   },
+                           'next1':{'index':{0:{'domain':['a','e','o']}}
+                                    }
+                           }
+    def __call__(self,node, suffix_node):
+        node_output= node.get_output()
+        if not node.get_output():
+            return node.get_output()
+    
+        if 6010940 not in list_past_rules_applied(node):
+            if node.get_output()[-1]=='a' and suffix_node.get_output() and suffix_node.get_output()[0] in ('a','e','o'):
+                return node.get_output()[:-1]
+                
+        return node_output
+
+
 """
 
 Two classes implement this because the output of the rule affects two 
@@ -302,6 +315,14 @@ class akaHsavarNnediirghaH_6010970:
 
     def __init__(self):
         self._numconditions = 1
+        # the issue that a condition B might depend on whether condition A has 
+        # been satisfied or not has not been handled. We're considering conditions A and B as being independently matched 
+        # e.g. by consider a weaker condition in this case
+        self._condition = { 'self':{'index': {-1:{'domain': list(diirgha_mapper().keys()) }}
+                                    } ,
+                            'next1':{'index':{0:{'domain':list(set(reduce(lambda x, y: x + y , [v['match'] for _,v in diirgha_mapper().items()]))) }}
+                                    }
+                           }
     def __call__(self,node, suffix_node):
         if not isinstance(node,Node):
             raise ValueError("node must be of Node type")
@@ -331,6 +352,12 @@ class akaHsavarNnediirghaH_6010970:
 class akaHsavarNnediirghaH_6010971:
     def __init__(self):
         self._numconditions = 1
+        self._condition = { 'self':{'index': {-1:{'domain': list(diirgha_mapper().keys()) }}
+                                    } ,
+                            'next1':{'index':{0:{'domain':list(set(reduce(lambda x, y: x + y , [v['match'] for _,v in diirgha_mapper().items()]))) }}
+                                    }
+                           }
+
     def __call__(self,node, anga_node):
         if not isinstance(node,Node):
             raise ValueError("node must be of Node type")
@@ -364,6 +391,13 @@ class akaHsavarNnediirghaH_6010971:
 class prathamayoHpuurvasavarNnaH_6010980:
     def __init__(self):
         self._numconditions = 1
+        self._condition = {
+                           'prev1':{'index':{-1:{'domain':ach()}}},
+                           'self':{'index':{0:{'domain':ach()}},
+                                   'data':{'domain':sup_pratyayaaH()[0:6]}
+                                   }
+                           }
+        
     def __call__(self,node, anga_node):
         node_output= node.get_output()
         if not node.get_output():
@@ -382,7 +416,10 @@ class prathamayoHpuurvasavarNnaH_6010980:
 class tasmaatchhasonaHpuMsi_6010990:
     def __init__(self):
         self._numconditions = 2
-        
+        self._condition = {
+            'self':{'data':{'domain':['shas']},
+            'liNga':{'domain':[1]}}
+            }
     def __call__(self,node):
         node_output= node.get_output()
         if not node.get_output():
@@ -423,7 +460,8 @@ class amipuurvaH_6011030:
 class luNglaNglRiNgkShvaXdudaattaH_6040710:
     def __init__(self):
         self._numconditions = 1
-        self._ruletype=['prepend']
+        self._condition = {'next1':{'lakaara':['luNg','laNg','lRiNg']},
+                           }
         
     def __call__(self,prefix_node,suffix_node):
         e1=find_eldest_parent1_of_condition(suffix_node,lambda x : isinstance(x ,Node) and isinstance(x._data,Suffix) and x._data._lakaara in ('luNg','laNg','lRiNg') )
@@ -449,6 +487,12 @@ class luNglaNglRiNgkShvaXdudaattaH_6040710:
 class bhuvovugluNgliXtoH_6040880:
     def __init__(self):
         self._numconditions = 1
+        self._condition = {'next1':{
+                            'index':{0:{'domain':ach()}},
+                            'lakaara':{'domain':['luNg','liXt'] }
+                            },
+                           'self':{'data':{'domain':["bhuu"]}}
+                           }
         
     def __call__(self,node,suffix_node):   
         if not isinstance(suffix_node,Node):
@@ -467,6 +511,8 @@ class bhuvovugluNgliXtoH_6040880:
 class atoheH_6041050:
     def __init__(self):
         self._numconditions = 1
+        self._condition = {'self':{'lakaara':{'domain':['loXt']},'data':{'domain':['hi']}  },
+                           'prev1':{'index':{-1:{'domain':['a'] }}}}
     def __call__(self,node,anga_node):
         if not isinstance(anga_node,Node):
             raise ValueError("anga_node must be of Node type")
@@ -483,6 +529,11 @@ class atoheH_6041050:
 class ataekahalmadhyeanaadeshaaderliXti_6041200:
     def __init__(self):
         self._numconditions = 1
+        self._condition = {'next1':{'lakaara':{'domain':['liXt']}
+                                    }, 
+                           'self':{'index':{-2:{'domain': hal()}, -1:{'domain':hal()}}
+                                   }
+                           }
     def __call__(self,node,suffix_node):
         if not isinstance(suffix_node,Node):
             raise    ValueError ("suffix_node must be of type Node")
@@ -502,7 +553,10 @@ class ataekahalmadhyeanaadeshaaderliXti_6041200:
 class yasyeticha_6041480:
     def __init__(self):
         self._numconditions = 1
-        
+        taddhitas = list(taddhita_prayayaaH ())
+        self._condition = {'next1':{'data':{'domain':taddhitas }},
+                           'index':{0:{'domain':['i','ii']}}
+                           }
     def __call__(self,node,suffix_node):
     
         suffix = suffix_node._data
