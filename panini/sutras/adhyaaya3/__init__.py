@@ -1,9 +1,13 @@
-from ..common_definitions import Suffix, Node, Dhaatu,tiNg_pratyayaaH, ach,list_past_rules_applied
+from ..common_definitions import Suffix, Node, Dhaatu,tiNg_pratyayaaH, all_pratyayaaH, ach,list_past_rules_applied
 
     
 class kartarishap_3010680:
     def __init__(self):
         self._numconditions=1
+        itbeingshpratyayas = [p for p in all_pratyayaaH() if p[0:2]=='sh' or p[-2:]=="sh"]
+        self._condition = {'self':{'lakaara':['laXt','loXt','laNg','liNg1'],
+                                   'data':{itbeingshpratyayas+list(tiNg_pratyayaaH()) }
+                                   }}
     def __call__(self,prefix_node,suffix_node):
         if isinstance(prefix_node._data,Dhaatu) and \
             isinstance(suffix_node._data,Suffix) and \
@@ -82,6 +86,7 @@ class parasmaipadaanaaMNnalatususthalathusaNnalvamaaH_3040820:
 class eruH_3040860:
     def __init__(self):
         self._numconditions=1
+        self._sutranum =str(type(self).__name__).split("_")[-1]
     def __call__(self,node):
 
         if not isinstance(node,Node):
@@ -95,6 +100,7 @@ class eruH_3040860:
 class serhyapichcha_3040870:
     def __init__(self):
         self._numconditions=1
+        self._sutranum =str(type(self).__name__).split("_")[-1]
     def __call__(self,node):
 
         if not isinstance(node,Node):
@@ -106,6 +112,7 @@ class serhyapichcha_3040870:
 class merniH_3040890:
     def __init__(self):
         self._numconditions=1
+        self._sutranum =str(type(self).__name__).split("_")[-1]
     def __call__(self,node):
         if not isinstance(node,Node):
             raise ValueError("node must be of Node type")
@@ -116,6 +123,7 @@ class merniH_3040890:
 class aaXduttamasyapichchha_3040920:
     def __init__(self):
         self._numconditions=1
+        self._sutranum =str(type(self).__name__).split("_")[-1]
     def __call__(self, prefix_node, suffix_node):
         if not isinstance(suffix_node,Node):
             raise ValueError("suffix_node must be of Node type")
@@ -130,6 +138,7 @@ class aaXduttamasyapichchha_3040920:
 class nityaMNgitaH_3040990:
     def __init__(self):
         self._numconditions=1
+        self._sutranum =str(type(self).__name__).split("_")[-1]
     def __call__(self,node):
         cond_langvat = (node._data._lakaara  and node._data._lakaara.endswith('Ng') or node._data._lakaara == 'loXt' )
         if isinstance(node._data,Suffix) and node._data._lakaara and cond_langvat and ''.join(node._data._suffix) in ('mip','vas','mas',"iXt","vahi","mahiNg"):
