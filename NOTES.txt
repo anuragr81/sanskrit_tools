@@ -26,6 +26,15 @@ PENDING
 ////   // Do something with currentString
 //// }
 
+
+/// *extract unique occurrences in a list
+// const listTypes = [];
+      // for (let row in options_returned) {
+          // if (listTypes.indexOf(options_returned[row]['type'])<0){
+            //  listTypes.push(options_returned[row]['type']);
+         //  }
+    //  }
+
 // * declare positions and sizes in HTML declaration
 //  <!--input  style="position:absolute; top:40; left:0;width:100px; height:30px;" type="text" id="input1" /-->
 //  <!--button style="position:absolute;top:40;left:100;width:20px; height:20px;" type="button" >+</button-->

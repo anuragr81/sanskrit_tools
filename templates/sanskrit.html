@@ -208,7 +208,7 @@
         const options_dict = JSON.parse(dhaatus['Data']);
         options_returned ={};
         for (let row in options_dict) {
-          options_returned[row]=options_dict[row]['ascii'].join('');
+          options_returned[row]=options_dict[row];
         }
         console.log("dhaatu");
       } else if (input_type=='pratyaya'){
@@ -216,7 +216,7 @@
         const options_dict = JSON.parse(pratyayas['Data']);
         options_returned ={};
         for (let row in options_dict) {
-          options_returned[row]=options_dict[row]['ascii'];
+          options_returned[row]=options_dict[row];
         }
 
         console.log("Pratyaya Recvd (len="+ JSON.stringify(String(options_returned).length)+")");
@@ -275,11 +275,25 @@
   // iterating over options_returned to populated the options
   // for selection/editing
       console.log("options_returned"+ String(JSON.stringify(options_returned)));
-      for (let row in options_returned) {
-        var option = document.createElement("option");
-        option.value = row;
-        optionslist.appendChild(option);
-      }
+
+
+// inefficient but easy (speed does not matter much in selection of finite suffixes)
+           for (let row in options_returned) {
+            var option = document.createElement("option");
+            option.value = row;
+            //console.log("Populating using: "+ String(JSON.stringify(options_returned[row])))
+            if (options_returned[row]['type']){
+                console.log("Populating type:"+ String(JSON.stringify(options_returned[row]['type'])))
+                option.text = options_returned[row]['type'];
+            }
+            if (options_returned[row]['meaning']){
+                option.text = options_returned[row]['meaning'];
+                console.log("Populating meaning:"+ String(JSON.stringify(options_returned[row]['meaning'])))
+            }
+
+
+            optionslist.appendChild(option);
+          }
 
 
       var inp = document.createElement("input");
@@ -331,7 +345,7 @@
       button.addEventListener('click', (e) => {
 
         if (String(inp.value).length >0 ) {
-          const pratyaya_ascii = String(options_returned[String(inp.value)])
+          const pratyaya_ascii = String(options_returned[String(inp.value)]['ascii'])
           console.log("Would be used for createSet:"+inp.value+" value:"+pratyaya_ascii);
           createSet(i+1,x+W+3*d,y,'pratyaya',pratyaya_ascii);
         }

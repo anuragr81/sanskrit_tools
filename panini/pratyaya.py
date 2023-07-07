@@ -15,7 +15,7 @@ def get_all_suffixes():
 
     for ptype, pratyayas in dictTypes.items():
         for pratyaya in pratyayas:
-            dictSuffixes[convert_to_devanagari(pratyaya)]  = {'ascii':pratyaya, 'type':ptype}
+            dictSuffixes[convert_to_devanagari(pratyaya)]  = {'ascii':pratyaya, 'type':convert_to_devanagari(ptype)}
     return json.dumps(dictSuffixes)
 
 def is_suptingant(pratyaya):
