@@ -1,12 +1,12 @@
-from ..common_definitions import Suffix, Node, Dhaatu,tiNg_pratyayaaH, all_pratyayaaH, ach,list_past_rules_applied
+from ..common_definitions import Suffix, Node, Dhaatu,tiNg_pratyayaaH, all_pratyayas, ach,list_past_rules_applied
 
     
 class kartarishap_3010680:
     def __init__(self):
         self._numconditions=1
-        itbeingshpratyayas = [p for p in all_pratyayaaH() if p[0:2]=='sh' or p[-2:]=="sh"]
+        itbeingshpratyayas = [p for p in all_pratyayas() if p[0:2]=='sh' or p[-2:]=="sh"]
         self._condition = {'self':{'lakaara':['laXt','loXt','laNg','liNg1'],
-                                   'data':{itbeingshpratyayas+list(tiNg_pratyayaaH()) }
+            'data':{'domain':itbeingshpratyayas+list(tiNg_pratyayaaH()) }
                                    }}
     def __call__(self,prefix_node,suffix_node):
         if isinstance(prefix_node._data,Dhaatu) and \
@@ -54,7 +54,7 @@ class syataasiilRiluXtoH_3010330:
 class XdityabhasyaapianubandhakaraNnasaamarthyaat_3010331:
     def __init__(self):
         self._numconditions=1
-        Xditsuffixes = [ x for x in  all_pratyayaaH() if x[0:2]=='Xd']
+        Xditsuffixes = [ x for x in  all_pratyayas() if x[0:2]=='Xd']
         self._condition = {'self': {'data':{'domain':Xditsuffixes}}}
     def __call__(self,node,suffix_node):
         if isinstance(node._data,Suffix) and isinstance(suffix_node._data,Suffix):
@@ -229,7 +229,7 @@ class yaasuXtparasmaipadeXshuudaattoNgichchha_3041030:
 class suXttithoH_3041070:
     def __init__(self):
         self._numconditions=2
-        itwithtsuffixes = [x for x in all_pratyayaaH() if x[0] == 't' or x[0:2]=='th']
+        itwithtsuffixes = [x for x in all_pratyayas() if x[0] == 't' or x[0:2]=='th']
         self._condition = {'self':{'lakaara':{'domain':['liNg1','liNg2']} , 'data':{'domain':[itwithtsuffixes]}}
                            }
         self._sutranum =str(type(self).__name__).split("_")[-1]
