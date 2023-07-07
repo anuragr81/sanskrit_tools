@@ -281,14 +281,11 @@
            for (let row in options_returned) {
             var option = document.createElement("option");
             option.value = row;
-            //console.log("Populating using: "+ String(JSON.stringify(options_returned[row])))
             if (options_returned[row]['type']){
-                console.log("Populating type:"+ String(JSON.stringify(options_returned[row]['type'])))
                 option.text = options_returned[row]['type'];
             }
             if (options_returned[row]['meaning']){
                 option.text = options_returned[row]['meaning'];
-                console.log("Populating meaning:"+ String(JSON.stringify(options_returned[row]['meaning'])))
             }
 
 
