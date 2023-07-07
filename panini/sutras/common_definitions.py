@@ -25,13 +25,11 @@ def parse_string(input_str):
 def lakaaras():
     return ('laXt','loXt','lRiXt','laNg','luNg','lRiNg','liNg1','liNg2','liXt','luXt')
 
-def classified_pratyayaaH():
-    # ignoring kyach and other san_pratyayaaH for now
-    return kRit_pratyayaaH()+tiNg_pratyayaaH()+strii_pratyayaaH()+sup_pratyayaaH()+taddhita_prayayaaH()
+
+
 
 def all_pratyayas() : 
-
-    return kRit_pratyayaaH()+tiNg_pratyayaaH()+san_pratyayaaH()+strii_pratyayaaH()+sup_pratyayaaH()+taddhita_prayayaaH() + unclassified_pratyayaaH()
+    return kRit_pratyayaaH()+tiNg_pratyayaaH()+san_pratyayaaH()+strii_pratyayaaH()+sup_pratyayaaH()+taddhita_pratyayaaH() + unclassified_pratyayaaH()
 
 
 class Suffix:
@@ -60,7 +58,7 @@ class Suffix:
         if ''.join(self._suffix) not in all_pratyayaaH:
             raise ValueError("Unknown suffix %s" % ''.join(self._suffix))            
         
-        self.is_taddhita = ''.join(self._suffix) in taddhita_prayayaaH()
+        self.is_taddhita = ''.join(self._suffix) in taddhita_pratyayaaH()
         
     def get_data(self):
         return self._suffix
@@ -318,7 +316,7 @@ def sup_pratyayaaH():
         'bhyas','Ngasi','bhyaam','bhyas','Ngas','os','aam','Ngi','os','sup')
 
 
-def taddhita_prayayaaH ():
+def taddhita_pratyayaaH ():
     return ('chha','iiy')
 
 def upadhaa(x):    

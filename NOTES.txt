@@ -34,4 +34,5 @@ PENDING
 // * check if element exists in array
 //if (boxArr.includes(i)){}
 
-
+// canvas can be declared as follows
+// <canvas id="myCanvas" width="900px" height="900px" style="position:absolute; border:1px solid #000000;top:400px; left:100px; z-index:1" />

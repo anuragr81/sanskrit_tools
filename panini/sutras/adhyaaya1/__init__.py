@@ -1,5 +1,5 @@
 from ..common_definitions import anunaasika, Suffix, ach, hal, chu, Xtu, Node
-from ..common_definitions import Dhaatu,tiNg_pratyayaaH,sup_pratyayaaH,all_pratyayas,taddhita_prayayaaH
+from ..common_definitions import Dhaatu,tiNg_pratyayaaH,sup_pratyayaaH,all_pratyayas,taddhita_pratyayaaH
 from ..common_definitions import list_past_rules_applied
 
 class uraNnraparaH_1010500:
@@ -111,7 +111,7 @@ class lashakvataddhite_1030080:
         
         self._condition = {'self':{'index':{0:{'domain':["l","sh","k","kh","g","gh","NN"]}}
                                    },
-                           'suffixtype':list(set(all_pratyayas())-set(taddhita_prayayaaH()))
+                           'suffixtype':list(set(all_pratyayas())-set(taddhita_pratyayaaH()))
                            }
     def __call__(self,node):
         if not isinstance(node,Node):

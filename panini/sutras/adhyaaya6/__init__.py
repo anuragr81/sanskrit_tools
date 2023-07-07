@@ -1,5 +1,5 @@
 from functools import reduce
-from ..common_definitions import Suffix,Node, Dhaatu, ach, hal, sup_pratyayaaH, taddhita_prayayaaH
+from ..common_definitions import Suffix,Node, Dhaatu, ach, hal, sup_pratyayaaH, taddhita_pratyayaaH
 from ..common_definitions import pratyaahaara, make_diirgha, guna_letters_for_aat
 from ..common_definitions import vriddhi, list_past_rules_applied
 from ..common_definitions import find_eldest_parent1_of_condition 
@@ -553,7 +553,7 @@ class ataekahalmadhyeanaadeshaaderliXti_6041200:
 class yasyeticha_6041480:
     def __init__(self):
         self._numconditions = 1
-        taddhitas = list(taddhita_prayayaaH ())
+        taddhitas = list(taddhita_pratyayaaH ())
         self._condition = {'next1':{'data':{'domain':taddhitas }},
                            'index':{0:{'domain':['i','ii']}}
                            }
