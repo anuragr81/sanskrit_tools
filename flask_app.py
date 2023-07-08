@@ -43,6 +43,17 @@ def respond_to_pratyayas_request(request):
     return response
 
 
+def respond_to_dhaatupratyayas_request(request):
+    try:
+        dhaatu = request.args.get('dhaatu')
+        # currently the same pratyayas apply to all dhaatus
+        response = make_response({'Data':pr.get_dhaatu_suffixes()})
+    except Exception as e:
+        response = make_response (jsonify({'Error':'Exception: '+str(e)}))
+
+    return response
+
+
 def respond_to_expression_request(request):
     try:
         expr = request.args.get('expr')
@@ -64,9 +75,10 @@ def query_sanskrit():
             rtype = str(request.args.get('type'))
             response_dict = {'dhaatus': lambda x : make_response({'Data': dh.get_all_dhaatus() }),
                     'pratyayas': respond_to_pratyayas_request, 
+                    'dhaatupratyayas': respond_to_dhaatupratyayas_request,
                     'expr': respond_to_expression_request
                     }
-            func = response_dict.get(rtype, lambda : make_response(jsonify({'Error':"UNKNOWN type"+str(rtype)})) )
+            func = response_dict.get(rtype, lambda x : make_response(jsonify({'Error':"UNKNOWN type"+str(rtype)})) )
             response = func(request)
 
         except Exception as e:

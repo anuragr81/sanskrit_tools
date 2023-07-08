@@ -105,6 +105,24 @@
 
     }
 
+    async function get_dhaatu_pratyayas(chosen_arg){
+      console.log("Now fetching dhaatu suffixes");
+    // Make a GET request to the server using the value
+      var return_response = "";
+
+      if (String(chosen_arg).length>0){
+        const urltofetch = "http://research.anurags-econ.net/query_sanskrit/?type=dhaatupratyayas&dhaatu="+String(chosen_arg);
+        console.log("urltofetch="+urltofetch);
+        return_response= await async_http_get(urltofetch);
+
+      } else {
+
+        return_response= await async_http_get("http://research.anurags-econ.net/query_sanskrit/?type=pratyayas");
+      }
+
+      return return_response;
+
+    }
     async function get_all_pratyayas(chosen_arg){
       console.log("Now fetching suffixes");
     // Make a GET request to the server using the value
@@ -200,6 +218,7 @@
       var starter = document.getElementById("starter");
 
       var count = document.getElementById('divBoxes').getAttribute('count');
+      var nextQueryType = null;
 
   // this call should update the UI element asynchronously
       var options_returned = null;
@@ -210,7 +229,9 @@
         for (let row in options_dict) {
           options_returned[row]=options_dict[row];
         }
-        console.log("dhaatu");
+        nextQueryType="dhaatu-suffixes"
+
+        console.log("dhaatu-list");
       } else if (input_type=='pratyaya'){
         const pratyayas = await get_all_pratyayas(chosen_arg);
         const options_dict = JSON.parse(pratyayas['Data']);
@@ -220,7 +241,17 @@
         }
 
         console.log("Pratyaya Recvd (len="+ JSON.stringify(String(options_returned).length)+")");
-      } else  {
+      } else if (input_type=="dhaatu-suffixes") {
+        const pratyayas = await get_dhaatu_pratyayas(chosen_arg);
+        const options_dict = JSON.parse(pratyayas['Data']);
+        options_returned ={};
+        for (let row in options_dict) {
+          options_returned[row]=options_dict[row];
+        }
+        console.log("Dhaatu-Pratyayas Recvd (len="+ JSON.stringify(String(options_returned).length)+")");
+          
+      }
+        else  {
         console.log("Invalid type for createSet");
         return null;
       }
@@ -343,8 +374,13 @@
 
         if (String(inp.value).length >0 ) {
           const pratyaya_ascii = String(options_returned[String(inp.value)]['ascii'])
-          console.log("Would be used for createSet:"+inp.value+" value:"+pratyaya_ascii);
+            if (nextQueryType){
+          console.log("Would be used for createSet:"+inp.value+" value:"+pratyaya_ascii + " nextQueryType=" + nextQueryType);
+          createSet(i+1,x+W+3*d,y,nextQueryType,pratyaya_ascii);
+            } else {
+          console.log("Would be used for createSet:"+inp.value+" value:"+pratyaya_ascii + "(pratyay query)");
           createSet(i+1,x+W+3*d,y,'pratyaya',pratyaya_ascii);
+            }
         }
 
 

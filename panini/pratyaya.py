@@ -10,13 +10,26 @@ def broad_pratyayaclasses ():
 output in devanagari using mapping from https://everythingfonts.com/unicode/devanagari
 """
 def get_all_suffixes():
-    dictTypes = {'subaadi':sup_pratyayaaH(),'tibaadi':tiNg_pratyayaaH(), 'taddhita':taddhita_pratyayaaH(), 'kRidanta': kRit_pratyayaaH()}
+    dictTypes = {'noun-endings':sup_pratyayaaH(),'verb-endings':tiNg_pratyayaaH(), 'nominal-suffixes':taddhita_pratyayaaH(), 'verbal-suffixes': kRit_pratyayaaH()}
     dictSuffixes={}
 
     for ptype, pratyayas in dictTypes.items():
         for pratyaya in pratyayas:
-            dictSuffixes[convert_to_devanagari(pratyaya)]  = {'ascii':pratyaya, 'type':convert_to_devanagari(ptype)}
+            dictSuffixes[convert_to_devanagari(pratyaya)]  = {'ascii':pratyaya, 'type':ptype}
     return json.dumps(dictSuffixes)
+
+
+"""
+Avoiding sending sup and taddhita suffixes to dhaatus
+"""
+def get_dhaatu_suffixes():
+    dictTypes = {'verb-endings':tiNg_pratyayaaH(), 'verbal-suffixes': kRit_pratyayaaH()}
+    dictSuffixes={}
+    for ptype, pratyayas in dictTypes.items():
+        for pratyaya in pratyayas:
+            dictSuffixes[convert_to_devanagari(pratyaya)]  = {'ascii':pratyaya, 'type':ptype}
+    return json.dumps(dictSuffixes)
+
 
 def is_suptingant(pratyaya):
     if pratyaya in sup_pratyayaaH() or pratyaya in tiNg_pratyayaaH():

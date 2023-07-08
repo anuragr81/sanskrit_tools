@@ -1,6 +1,6 @@
 PENDING
 
-1. Add state-machine for inputs so that user is only presented tibaadi/taddhita/kRit options in the beginning. if kridaanta selected then allow more kridaanta,taddhita,tibaadi. subaadi appears only after taddhita. otherwise tibaadi terminates anything. No need to group taddhita for the moment. As a first step, grouping tibaadi would be enough. The response functions would have to change.
+1. Enhance state-machine for inputs so that if kridaanta selected then allow more both tibaadi and subaadi. taddhita can occur only after subaadi. Whenever taddhita is applied subaadi before taddhita is ignored (supo dhaatupraatipadikayoH). Only subaadi follows after taddhita. Subaadi can therefore terminal only after taddhita and kridanta.
 2. comparison based on number of conditions should be added - so that the sutra with fewer conditions is applied.
 3. Add uraNnrapaH - so that karshati can be formed from kRish.
 4. Find out why kRi,raj and other basic dhaatus are absent.
