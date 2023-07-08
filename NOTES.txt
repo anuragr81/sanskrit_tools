@@ -4,6 +4,8 @@ PENDING
 2. comparison based on number of conditions should be added - so that the sutra with fewer conditions is applied.
 3. Add uraNnrapaH - so that karshati can be formed from kRish.
 4. Find out why kRi,raj and other basic dhaatus are absent.
+5. Add support for aatmanepada/parasmaipada.
+6. Ensure jhoantaH is not applied for jha suffix.
 
 // TIPS
 // * Add textbox listener
