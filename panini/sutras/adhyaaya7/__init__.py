@@ -180,7 +180,7 @@ class aardhadhaatukasyeXdvalaadeH_7020350:
                     is_like_aardhadhaatuka=False
                     
                 if not iXt_not_allowed(suffix_node_data) and is_like_aardhadhaatuka\
-                    and not get_dhaatu_properties(''.join(prefix_node._data._data))['aniXt'] \
+                    and get_dhaatu_properties(''.join(prefix_node._data._data))['aniXt'] == "false"  \
                     and suffix_node_output[0] in pratyaahaara('v','l')  and ''.join(suffix_node_data) != 'iXt':
                     return Suffix("iXt")
     

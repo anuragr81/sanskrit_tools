@@ -1,4 +1,6 @@
-import re
+import re,json
+
+
 
 def parse_string(input_str):
     """
@@ -88,13 +90,19 @@ class Dhaatu:
         return self._data
 
 
-def get_dhaatu_properties(dhaatu_string):
-    dhaatu_store = {'chiNN':{'aniXt':True}, 
-                    'paXthNN':{'aniXt':False},
-                    'luuNc':{'aniXt':False}
-                    }
-    return dhaatu_store [dhaatu_string]
+def get_dhaatu_properties_dict():
+    with open ("panini/data/dhaatu_properties.json") as fh :
+        dhaatu_store = json.load(fh)
+    #booleanise = lambda t : True if t == "true" else False
+    #dhaatu_store = dict ( (k, booleanise(v)) for k,v in dhaatu_store.items())
+    return dhaatu_store
 
+global_dhaatu_store  = get_dhaatu_properties_dict()
+
+def get_dhaatu_properties(string):
+    global global_dhaatu_store 
+    print ("Returning %s for %s " % (global_dhaatu_store[string],string))
+    return global_dhaatu_store[string]
 
 def find_eldest_parent1_of_condition(node,cond):
     

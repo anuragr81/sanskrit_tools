@@ -30,6 +30,8 @@ from panini.sutras.adhyaaya8 import *
 
 output_processed_string = lambda e: ''.join(reduce(lambda x ,y : x + y.get_output(),  e, []))
 
+
+
 """
 Currently the naayaka is broken because aardhadhaatukasyavalaadeH has been enabled due
 to default aardhadhaatukaH

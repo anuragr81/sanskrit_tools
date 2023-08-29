@@ -26,7 +26,7 @@ def read_aniXt_property():
     x = x [~pd.isnull(x.english)]
     x["aniXt"]= (x.iXt !="सेट्")
     x["aniXt"]  = x.aniXt.apply(lambda t : "true" if t else "false")
-    dictraw = (dict((''.join(cnv.parse_devanagari_to_ascii( x.iloc[k].halantname )),x.iloc[k].aniXt ) for k in range(x.shape[0])))
+    dictraw = (dict((''.join(cnv.parse_devanagari_to_ascii( x.iloc[k].halantname )), {'aniXt':x.iloc[k].aniXt} ) for k in range(x.shape[0])))
     return json.dumps(dictraw)
 
 
