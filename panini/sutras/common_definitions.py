@@ -1,7 +1,6 @@
 import re,json
 
 
-
 def parse_string(input_str):
     """
     build a list of aksharas from the string - unknown letters are ignored
@@ -401,3 +400,21 @@ def guna_letters_for_aat(x):
     
     raise ValueError("No guNna support")
 
+def next_possible_suffix(suffix):
+    if not isinstance(suffix,Suffix):
+        raise ValueError("input must be a suffix")
+    suffix_str = ''.join(suffix._suffix)
+    allowed_next_values = ("subaadi",)
+
+    next_values_dict = {"Nnvul": "subaadi" } 
+    #,"lyuXt","aniiyar","kta","ktavatu",
+    # "tavyat","tumun","tRich","ktvaa","Nnamul",
+    # "lyap","yat","Nnyat","kyap","ghaNc","ach",
+    # "ap","ktin","a","yuch","u","shatRi","shaanach",
+    # "ka","Nnini","kvip"
+    if suffix_str not in next_values_dict:
+        raise ValueError("Unknown Suffix")
+
+    if next_suffix not in allowed_next_values:
+        raise ValueError("Invalid next suffix")
+    return next_suffix

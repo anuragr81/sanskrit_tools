@@ -111,6 +111,11 @@ if F:
     #f(2)
     
 else:   
+
+    from panini.sutras.common_definitions import next_possible_suffix
+    print(next_possible_suffix(Suffix("sNN")))
+    print("EXITING...")
+    sys.exit(0)
     
     #pprint(generate_tibaadi("paXthNN"))   ;sys.exit(0)
     if F:
@@ -120,7 +125,8 @@ else:
         sys.exit(0)
     
     else:        
-        expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix('mip',lakaara='loXt'),parent1=None)]
+        #expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix('mip',lakaara='loXt'),parent1=None)]
+        expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix('ghaNc'),parent1=None),Node(Suffix('sNN'),parent1=None)]
         #raise ValueError("tasthamipaaMtaaMtamTaamaH cannot be applied on mip - it needs to be verified how this is a nitya-apavaada scenario")
         #expression=[Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tip",lakaara='luNg'),parent1=None)]
         
