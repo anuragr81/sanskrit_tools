@@ -1,6 +1,8 @@
 PENDING
 
-1. Enhance state-machine for inputs so that if kridaanta selected then allow more both tibaadi and subaadi. taddhita can occur only after subaadi. Whenever taddhita is applied subaadi before taddhita is ignored (supo dhaatupraatipadikayoH). Only subaadi follows after taddhita. Subaadi can therefore terminal only after taddhita and kridanta.
+1. Enhance state-machine for inputs so that if kridaanta selected then allow more both tibaadi or subaadi - wherever allowed.
+1.1. taddhita could be allowed after subaadi so that supodhaatupraatipadikayoH is permitted in the chain-logic. But a convincing case for the need to retain subaadi before a taddhita is yet to arise. aagaviinaH for example does not need subaadi. It seems that having taddhita without subaadi is sufficient.
+1.2. taddhita only occur after verb-form. multiple taddhitas are allowed but subaadi would always terminate the chain. This keeps the logic simple in the UI.
 2. comparison based on number of conditions should be added - so that the sutra with fewer conditions is applied.
 3. Add uraNnrapaH - so that karshati can be formed from kRish.
 4. Find out why kRi,raj and other basic dhaatus are absent.
