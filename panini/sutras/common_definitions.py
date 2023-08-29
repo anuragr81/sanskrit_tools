@@ -299,7 +299,7 @@ def kRit_pratyayaaH():
             "tavyat","tumun","tRich","ktvaa","Nnamul",
             "lyap","yat","Nnyat","kyap","ghaNc","ach",
             "ap","ktin","a","yuch","u","shatRi","shaanach",
-            "aNn","ka","Nnini","kvip")
+            "ka","Nnini","kvip")
 
 def upasargaaH():
     return ("abhi","prati","pari","upa","pra","apa",
@@ -317,7 +317,7 @@ def sup_pratyayaaH():
 
 
 def taddhita_pratyayaaH ():
-    return ('chha','iiy')
+    return ('chha','iiy','aNn')
 
 def upadhaa(x):    
     if not isinstance(x,list) or not all(isinstance(j,str) for j in x):

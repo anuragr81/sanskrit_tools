@@ -1,4 +1,5 @@
 
+import numpy as np
 
 import pandas as pd
 import devanagari.convert as cnv
@@ -10,11 +11,25 @@ def print_dhaatus_ascii():
     dhs=[k for k,v in json.loads(dh.get_all_dhaatus()).items()]
     print([''.join(cnv.parse_devanagari_to_ascii(k[0:len(k)])) for k in dhs])
 
-if __name__ == '__main__':
+
+def read_names_json():
     x = pd.read_csv('dhaatucols.csv')
     x = x [~pd.isnull(x.halantname)]
     x = x [~pd.isnull(x.name)]
     x = x [~pd.isnull(x.english)]
-    print(json.dumps(dict(zip(x.halantname,x.english))))
+    return (json.dumps(dict(zip(x.halantname,x.english))))
 
+def read_aniXt_property():
+    x = pd.read_csv('dhaatucols.csv')
+    x = x [~pd.isnull(x.halantname)]
+    x = x [~pd.isnull(x.name)]
+    x = x [~pd.isnull(x.english)]
+    x["aniXt"]= (x.iXt !="सेट्")
+    x["aniXt"]  = x.aniXt.apply(lambda t : "true" if t else "false")
+    dictraw = (dict((''.join(cnv.parse_devanagari_to_ascii( x.iloc[k].halantname )),x.iloc[k].aniXt ) for k in range(x.shape[0])))
+    return json.dumps(dictraw)
+
+
+if __name__ == '__main__':
+    print (read_aniXt_property())
 
