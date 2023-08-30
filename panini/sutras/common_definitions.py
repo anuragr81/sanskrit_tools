@@ -7,8 +7,8 @@ def parse_string(input_str):
     """
     sorted_achs= ('lRii','Rii', 'lRi', 'Ri','ai', "ii","uu",'au',"aa",'a', 'i', 'u', 'e', 'o',)
     match_re = "("+'|'.join(hal() + sorted_achs)+")" + "(.*)"
-    
-    
+
+
     matches = True
     x_str = input_str
     output=[]
@@ -29,22 +29,22 @@ def lakaaras():
 
 
 
-def all_pratyayas() : 
+def all_pratyayas() :
     return kRit_pratyayaaH()+tiNg_pratyayaaH()+san_pratyayaaH()+strii_pratyayaaH()+sup_pratyayaaH()+taddhita_pratyayaaH() + unclassified_pratyayaaH()
 
 
 class Suffix:
     def __init__(self,suffix,lakaara=None,linga=None):
-        
+
         if lakaara is not None:
             if lakaara not in lakaaras():
-                raise ValueError("Unknown lakaara")            
+                raise ValueError("Unknown lakaara")
         self._lakaara=lakaara
 
-        
+
         if linga is not None:
             if linga not in (0,1,2):
-                raise ValueError("Invalid linga")            
+                raise ValueError("Invalid linga")
         self._linga=linga
 
 
@@ -54,20 +54,20 @@ class Suffix:
             self._suffix= suffix
         else:
             raise ValueError("suffix must be a string")
-        
+
         all_pratyayaaH = all_pratyayas()
         if ''.join(self._suffix) not in all_pratyayaaH:
-            raise ValueError("Unknown suffix %s" % ''.join(self._suffix))            
-        
+            raise ValueError("Unknown suffix %s" % ''.join(self._suffix))
+
         self.is_taddhita = ''.join(self._suffix) in taddhita_pratyayaaH()
-        
+
     def get_data(self):
         return self._suffix
-        
-    
+
+
     def apply_reduction(self,functor, **kwargs):
         self.reduced = functor(**kwargs)
-        
+
     def is_saarvadhaatuka(self):
         if ''.join(self._suffix) in tiNg_pratyayaaH() or self._suffix[0]=='sh':
             return True
@@ -84,7 +84,7 @@ class Suffix:
 class Dhaatu:
     def __init__(self,data):
         self._data= data
-        
+
     def get_data(self):
         return self._data
 
@@ -99,77 +99,77 @@ def get_dhaatu_properties_dict():
 global_dhaatu_store  = get_dhaatu_properties_dict()
 
 def get_dhaatu_properties(string):
-    global global_dhaatu_store 
+    global global_dhaatu_store
     #print ("Returning %s for %s " % (global_dhaatu_store[string],string))
     return global_dhaatu_store[string]
 
 def find_eldest_parent1_of_condition(node,cond):
-    
+
     if node and node.get_parent1():
         if cond(node):
             return node.get_parent1()
         else:
             return find_eldest_parent1_of_condition(node.get_parent1(),cond)
-    
+
     if cond(node):
-        return node 
+        return node
     else:
         return None
 
 def find_eldest_parent2_of_condition(node,cond):
-    
+
     if node and node.get_parent2():
         if cond(node):
             return node.get_parent2()
         else:
             return find_eldest_parent2_of_condition(node.get_parent2(),cond)
     if cond(node):
-        return node 
+        return node
     else:
         return None
-    
-    
+
+
 def list_past_rules_applied (nd):
     """
     Returns list of rules applied so far for the node:nd
     """
     return [int(x['rule'].__name__.split("_")[-1]) for x in nd._output if 'rule' in x]
-    
+
 class Node:
     def __init__(self,data,parent1,parent2=None):
         if all ( not isinstance(data,x) for x in list(get_supported_types()) + [list] ):
             raise ValueError("Unsupported type %s" % type(data))
         self._children=[]
-        
+
         self._parent1 = parent1
         self._parent2 = parent2
-        
+
         if self._parent1:
             self._parent1._add_child(self)
-        
+
         if self._parent2:
             self._parent2._add_child(self)
-        
-        
+
+
         self._data =data
         self._output = [{'output':self._data.get_data(),'new':True}]
-    
-    
+
+
     def _add_child(self,ptr):
         self._children.append(ptr)
-        
-    def _assign_output_properties(self,rule,**inputs):                
+
+    def _assign_output_properties(self,rule,**inputs):
         # output is not changed
         old_output  = self.get_output()
         # no change in output -just rule and input update
         self._output.append({'rule':rule, 'inputs':{**{'state':self} , **inputs}, 'output':old_output })
-            
+
     def set_output(self,rule,**kwargs):
         old_output = self.get_output()
         # call the function
         #print(rule.__name__ + ":" + str(kwargs))
         new_output = rule()(node=self,**kwargs)
-        
+
         if isinstance(new_output,dict):
             if 'mutate' in new_output :
                 if new_output['output'] != old_output :
@@ -177,30 +177,30 @@ class Node:
                         self._output.append({'rule':rule,'inputs':{**{'state':self } , **kwargs},'output':new_output['output'] ,'new' :True})
                     else:
                         self._output.append({'rule':rule,'inputs':{**{'state':self } , **kwargs},'output':new_output['output']})
-                
+
         else:
            if new_output != old_output:
               self._output.append({'rule':rule,'inputs':{**{'state':self} , **kwargs},'output':new_output })
-        
+
     def get_output(self):
         return self._output[-1]['output']
-    
+
     def get_parent1 (self):
         return self._parent1
-  
+
     def get_parent2 (self):
         return self._parent2
-    
+
     def has_sthaanii_it(self,itchar):
         """
         Parameters
         ----------
         itchar: character
             The character to be searched all through the output for it presence
-    
+
         Raises
         ------
-    
+
         Returns
         -------
         list
@@ -210,7 +210,7 @@ class Node:
             if itchar in x['output']:
                 return True
         return False
-    
+
 
 
 def get_supported_types ():
@@ -221,7 +221,7 @@ def ach():
     return ("aa","ii","uu","Rii",'lRii') + pratyaahaara('a','ch')
 
 def pratyaahaara(start,end):
-    """   
+    """
     Parameters
     ----------
     start : character
@@ -240,7 +240,7 @@ def pratyaahaara(start,end):
         characters in the pratyaahaara.
 
     """
-    
+
     plist= ({'letters':("a","i",'ii',"u",'uu',),'marker':'Nn'},{'letters':('Ri','Rii','lRi','lRii'),'marker':'k'},
         {'letters':('e','o',),'marker':'Ng'},{'letters':('ai','au'),'marker':'ch'},{'letters':('h','y','v','r',),'marker':'Xt'},{'letters':('l',),'marker':'N'},
         {'letters':('Nc','m','Ng','Nn','n'),'marker':'m'},{'letters':('jh','bh'),'marker':'Nc'},{'letters':('gh','Xdh','dh'),'marker':'Xsh'},
@@ -262,10 +262,10 @@ def pratyaahaara(start,end):
                 for res_entry in results[1:]:
                     output = output+list(res_entry['letters'])
                 return tuple(output)
-                
+
         if not_found:
             raise ValueError("Unknown starting letter: %s" % start)
-        
+
 
 def hal():
     return ("kh","k","gh","g","Ng","Nc","NN","Nn","chh","ch","jh","j",
@@ -304,8 +304,8 @@ def aatmanepada_pratyayaaH():
 def kRit_pratyayaaH():
     return ("Nnvul","lyuXt","aniiyar","kta","ktavatu",
             "tavyat","tumun","tRich","ktvaa","Nnamul",
-            "lyap","yat","Nnyat","kyap","ghaNc","ach",
-            "ap","ktin","a","yuch","u","shatRi","shaanach",
+            "lyap","yat","Nnyat","kyap","ghaNc",'ach',
+            "ap","ktin","a","yuch","shatRi","shaanach",
             "ka","Nnini","kvip")
 
 def upasargaaH():
@@ -326,7 +326,7 @@ def sup_pratyayaaH():
 def taddhita_pratyayaaH ():
     return ('chha','iiy','aNn')
 
-def upadhaa(x):    
+def upadhaa(x):
     if not isinstance(x,list) or not all(isinstance(j,str) for j in x):
         raise ValueError("invalid input: %s" % x)
     if len(x)>=2:
@@ -353,7 +353,7 @@ def guNna(x):
         return "o"
     else:
         return x
-            
+
 def vriddhi(x):
     if x =="a":
         return "aa"
@@ -369,13 +369,13 @@ def vriddhi(x):
         return 'au'
     else:
         return x
-    
+
 
 def make_diirgha(x):
-    
+
     if x not in ach():
         raise ValueError("must be an ach")
-    
+
     if x in ('a','aa',):
         return "aa"
     if x in ("ii",'i',):
@@ -388,7 +388,7 @@ def make_diirgha(x):
         return 'lRii'
 
 def guna_letters_for_aat(x):
-    
+
     if x in ( 'i', 'ii',):
         return ['e']
     if x in ('u', 'uu',):
@@ -397,24 +397,30 @@ def guna_letters_for_aat(x):
         return ['a','r']
     if x in ('lRi', 'lRii',):
         return ['a','l']
-    
+
     raise ValueError("No guNna support")
 
 def next_possible_suffix(suffix):
     if not isinstance(suffix,Suffix):
         raise ValueError("input must be a suffix")
     suffix_str = ''.join(suffix._suffix)
-    allowed_next_values = ("subaadi",)
+    subaadi = sup_pratyayaaH()
+    taddhita = taddhita_pratyayaaH()
+    suptaddhita = subaadi + taddhita
 
-    next_values_dict = {"Nnvul": "subaadi" } 
-    #,"lyuXt","aniiyar","kta","ktavatu",
-    # "tavyat","tumun","tRich","ktvaa","Nnamul",
-    # "lyap","yat","Nnyat","kyap","ghaNc","ach",
-    # "ap","ktin","a","yuch","u","shatRi","shaanach",
-    # "ka","Nnini","kvip"
+    allowed_next_values = tuple(subaadi + taddhita  )
+
+
+    next_values_dict = {"Nnvul": suptaddhita , 'aniiyar':suptaddhita , 'tavyat': suptaddhita , 'tavya': suptaddhita ,
+    "lyuXt":suptaddhita, 'kta': subaadi, 'ktavatu': subaadi, 'tumun': None, 'tRich':suptaddhita , 'ktvaa', None, 'Nnamul': subaadi,
+    'lyap':subaadi, 'yat':suptaddhita,'Nnyat':suptaddhita, 'kyap':suptaddhita,'ghaNc':suptaddhita, 'ach':suptaddhita, 'ap':suptaddhita,
+    'ktin':suptaddhita,'a': subaadi, 'yuch':suptaddhita, 'shatRi':suptaddhita, 'shaanach': suptaddhita, 'ka': suptaddhita, 'Nnini':suptaddhita,
+    'kvip':suptaddhita
+    }
+
     if suffix_str not in next_values_dict:
         raise ValueError("Unknown Suffix")
-
-    if next_suffix not in allowed_next_values:
+    next_suffixes = next_values_dict[suffix_str]
+    if any ( next_suffix not in allowed_next_values for next_suffix in next_suffixes):
         raise ValueError("Invalid next suffix")
-    return next_suffix
+    return next_suffixes
