@@ -30,6 +30,12 @@ def read_aniXt_property():
     return json.dumps(dictraw)
 
 
+def unique_entries(entries):
+    allentries = (list(set(entries)))
+    ascii_entries = [cnv.parse_devanagari_to_ascii(e) for e in allentries ]
+    return([''.join((ae)) for ae in ascii_entries])
+
+
 if __name__ == '__main__':
     print (read_aniXt_property())
 

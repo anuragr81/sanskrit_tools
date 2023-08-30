@@ -324,7 +324,9 @@ def sup_pratyayaaH():
 
 
 def taddhita_pratyayaaH ():
-    return ('chha','iiy','aNn')
+    return ('ghan', 'khaNc', 'aNn', 'a', 'tyak', 'chhas', 'kan', 'Xdya', 'vuk', 'chphaNc', 'ti', 'chhaNn', 'snaNc', 'Nca', 'XdhakaNc', 'NgiiXsh', 'airak', 'vun', 'NciXtha', 'Xtaap', 'yan', 'phak', 'mayaXt', 'lup', 'chha', 'yat', 'phiNc', 'Xshpha', 'vuNc', 'Xdhak', 'Xdyat', 'ra', 'tyap', 'Ngiip', 'NcyaNg', 'phin', 'Xdmatup', 'ka', 'eNnya', 'Xtyul', 'ila', 'Xthach', 'iNc', 'Xthak', 'sa', 'XshXthan', 'Nna', 'phaNc', 'XdhaNc', 'XthaNc', 'valach', 'ini', 'Xdhrak', 'naNc', 'Nnya', 'aNc', 'Xtyu', 'Ncya', 'XshyaNg', 'bhaktal', 'uuNg', 'Ngiin', 'ruupya', 'Xthap', 'yaNc', 'vidhal', 'Xdaap', 'chaap', 'Xdvalach', 'gha', 'matup', 'vyan', 'Xshphak', 'luk', 'tal', 'ma', 'ya', 'kak', 'kha',)
+
+
 
 def upadhaa(x):
     if not isinstance(x,list) or not all(isinstance(j,str) for j in x):
