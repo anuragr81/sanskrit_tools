@@ -414,15 +414,25 @@ def next_possible_suffix(suffix):
 
 
     next_values_dict = {"Nnvul": suptaddhita , 'aniiyar':suptaddhita , 'tavyat': suptaddhita , 'tavya': suptaddhita ,
-    "lyuXt":suptaddhita, 'kta': subaadi, 'ktavatu': subaadi, 'tumun': None, 'tRich':suptaddhita , 'ktvaa', None, 'Nnamul': subaadi,
+    "lyuXt":suptaddhita, 'kta': subaadi, 'ktavatu': subaadi, 'tumun': None, 'tRich':suptaddhita , 'ktvaa': None, 'Nnamul': subaadi,
     'lyap':subaadi, 'yat':suptaddhita,'Nnyat':suptaddhita, 'kyap':suptaddhita,'ghaNc':suptaddhita, 'ach':suptaddhita, 'ap':suptaddhita,
-    'ktin':suptaddhita,'a': subaadi, 'yuch':suptaddhita, 'shatRi':suptaddhita, 'shaanach': suptaddhita, 'ka': suptaddhita, 'Nnini':suptaddhita,
-    'kvip':suptaddhita
+    'ktin':suptaddhita,'a': subaadi, 'yuch':suptaddhita, 'shatRi':suptaddhita, 'shaanach': suptaddhita, 'ka': suptaddhita, 
+    'Nnini':suptaddhita,'kvip':suptaddhita,'ghan':suptaddhita,'khaNc':suptaddhita,'aNn':subaadi,'a':subaadi,'tyak':subaadi,
+    'chhas':subaadi,'kan':suptaddhita, 'Xthak':suptaddhita,'kan':suptaddhita,'Xdya':suptaddhita,'vuk':subaadi,'chphaNc':subaadi,'ti':subaadi,
+    'chhaNn':subaadi
     }
+    # 'ti', , 'snaNc', 'Nca', 'XdhakaNc', 'NgiiXsh', 'airak', 'vun', 'NciXtha', 'Xtaap', 'yan', 
+    #'phak', 'mayaXt', 'lup', 'chha', 'yat', 'phiNc', 'Xshpha', 'vuNc', 'Xdhak', 'Xdyat', 'ra', 'tyap', 
+    # Ngiip', 'NcyaNg', 'phin', 'Xdmatup', 'ka', 'eNnya', 'Xtyul', 'ila', 'Xthach', 'iNc', 'sa', 'XshXthan', 
+    #'Nna', 'phaNc', 'XdhaNc', 'XthaNc', 'valach', 'ini', 'Xdhrak', 'naNc', 'Nnya', 'aNc', 'Xtyu',
+    #'Ncya', 'XshyaNg', 'bhaktal', 'uuNg', 'Ngiin', 'ruupya', 'Xthap', 'yaNc', 'vidhal', 'Xdaap', 
+    #'chaap', 'Xdvalach', 'gha', 'matup', 'vyan', 'Xshphak', 'luk', 'tal', 'ma', 'ya', 'kak', 'kha'
 
     if suffix_str not in next_values_dict:
         raise ValueError("Unknown Suffix")
     next_suffixes = next_values_dict[suffix_str]
+    
+    # double-check
     if any ( next_suffix not in allowed_next_values for next_suffix in next_suffixes):
         raise ValueError("Invalid next suffix")
     return next_suffixes
