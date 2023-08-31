@@ -87,13 +87,16 @@ def parse_devanagari_to_ascii(input_str):
     return output
 
 
+def achs_ascii():
+    return ('lRii','Rii', 'lRi', 'Ri','ai', "ii","uu",'au',"aa",'a', 'i', 'u', 'e', 'o','M','H','NN','S'  ,)
 
 
 def parse_string_for_devanagari(input_str):
     """
     build a list of aksharas from the string - unknown letters are ignored
     """
-    sorted_achs= ('lRii','Rii', 'lRi', 'Ri','ai', "ii","uu",'au',"aa",'a', 'i', 'u', 'e', 'o','M','H','NN','S')
+    sorted_achs= achs_ascii()
+
     match_re = "("+'|'.join(tuple(hals_combined()) + sorted_achs)+")" + "(.*)"
 
 

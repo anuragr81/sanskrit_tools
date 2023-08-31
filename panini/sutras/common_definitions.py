@@ -101,7 +101,12 @@ global_dhaatu_store  = get_dhaatu_properties_dict()
 def get_dhaatu_properties(string):
     global global_dhaatu_store
     #print ("Returning %s for %s " % (global_dhaatu_store[string],string))
-    return global_dhaatu_store[string]
+    
+    if string in global_dhaatu_store : 
+        return global_dhaatu_store[string]
+    # NN may have been forcefully added
+    elif string[-2:] == "NN":
+        return global_dhaatu_store[string[:-2]]
 
 def find_eldest_parent1_of_condition(node,cond):
 
