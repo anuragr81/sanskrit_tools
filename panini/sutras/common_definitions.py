@@ -402,7 +402,12 @@ def guna_letters_for_aat(x):
 
     raise ValueError("No guNna support")
 
-def next_possible_suffix(suffix):
+def next_possible_suffixes(suffix_arg):
+    if isinstance(suffix_arg,str):
+        suffix=Suffix(suffix_arg)
+    else:
+        suffix=suffix_arg
+
     if not isinstance(suffix,Suffix):
         raise ValueError("input must be a suffix")
     suffix_str = ''.join(suffix._suffix)

@@ -1,17 +1,20 @@
 import json
 
-from panini.sutras.common_definitions import sup_pratyayaaH, tiNg_pratyayaaH, taddhita_pratyayaaH, strii_pratyayaaH, kRit_pratyayaaH
+from panini.sutras.common_definitions import sup_pratyayaaH, tiNg_pratyayaaH, taddhita_pratyayaaH, strii_pratyayaaH, kRit_pratyayaaH, next_possible_suffixes
+
 from panini.devanagari.convert import convert_to_devanagari
 
-def broad_pratyayaclasses ():
-    return ('subaadi','tibaadi','taddhita','kRidanta')
+
+def get_all_dict_types ():
+    return {'noun-endings':sup_pratyayaaH(),'verb-endings':tiNg_pratyayaaH(), 'nominal-suffixes':taddhita_pratyayaaH(), 'verbal-suffixes': kRit_pratyayaaH()}
+
 
 """
 output in devanagari using mapping from https://everythingfonts.com/unicode/devanagari
 """
 def get_all_suffixes():
-    dictTypes = {'noun-endings':sup_pratyayaaH(),'verb-endings':tiNg_pratyayaaH(), 'nominal-suffixes':taddhita_pratyayaaH(), 'verbal-suffixes': kRit_pratyayaaH()}
     dictSuffixes={}
+    dictTypes = get_all_dict_types ()
 
     for ptype, pratyayas in dictTypes.items():
         for pratyaya in pratyayas:
@@ -38,3 +41,18 @@ def is_suptingant(pratyaya):
         return False
 
 
+def get_next_pratyayas(pratyaya):
+    dictTypes = get_all_dict_types()
+    ptypeDict = {}
+    for k,v in dictTypes.items():
+        for sufname in v:
+            ptypeDict[sufname]=k
+
+
+    suffixes = next_possible_suffixes(pratyaya)
+    dictSuffixes={}
+
+    for suffix in suffixes:
+        dictSuffixes[convert_to_devanagari(suffix)]  = {'ascii':suffix, 'type':ptypeDict[suffix]}
+
+    return json.dumps(dictSuffixes)

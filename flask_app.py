@@ -31,8 +31,10 @@ def respond_to_pratyayas_request(request):
             if pr.is_suptingant(pratyaya):
                 response = make_response(jsonify({'Data':json.dumps({})}))
             else:
-            #TODO: filter non-supting pratyaya as well
-                response = make_response({'Data':pr.get_all_suffixes()})
+                nextSuffixes = pr.get_next_pratyayas(pratyaya)
+                if nextSuffixes is None:
+                    nextSuffixes = json.dumps({}) 
+                response = make_response({'Data':nextSuffixes})
 
         else:
             response = make_response(jsonify({'Error':"Missing Pratyaya"+str(request.args.get('type'))}))

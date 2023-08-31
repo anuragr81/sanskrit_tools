@@ -1,8 +1,12 @@
 
 from unittest import TestCase
+from sanskrit_tools.panini.sutras import common_definitions as cd
+
 
 class TransitionTest(TestCase):
     def test_next_after_taddhita(self):
-        x=1
-        self.assertTrue(x==1)
+        x=cd.next_possible_suffixes(cd.Suffix('aNn'))
+        self.assertTrue(len(x)>0)
         
+
+
