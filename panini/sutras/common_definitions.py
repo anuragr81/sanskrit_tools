@@ -409,8 +409,9 @@ def next_possible_suffix(suffix):
     subaadi = sup_pratyayaaH()
     taddhita = taddhita_pratyayaaH()
     suptaddhita = subaadi + taddhita
+    tibaadi = tiNg_pratyayaaH()
 
-    allowed_next_values = tuple(subaadi + taddhita  )
+    allowed_next_values = tuple(subaadi + taddhita + tibaadi)
 
 
     next_values_dict = {"Nnvul": suptaddhita , 'aniiyar':suptaddhita , 'tavyat': suptaddhita , 'tavya': suptaddhita ,
@@ -419,14 +420,11 @@ def next_possible_suffix(suffix):
     'ktin':suptaddhita,'a': subaadi, 'yuch':suptaddhita, 'shatRi':suptaddhita, 'shaanach': suptaddhita, 'ka': suptaddhita, 
     'Nnini':suptaddhita,'kvip':suptaddhita,'ghan':suptaddhita,'khaNc':suptaddhita,'aNn':subaadi,'a':subaadi,'tyak':subaadi,
     'chhas':subaadi,'kan':suptaddhita, 'Xthak':suptaddhita,'kan':suptaddhita,'Xdya':suptaddhita,'vuk':subaadi,'chphaNc':subaadi,'ti':subaadi,
-    'chhaNn':subaadi
-    }
-    # 'ti', , 'snaNc', 'Nca', 'XdhakaNc', 'NgiiXsh', 'airak', 'vun', 'NciXtha', 'Xtaap', 'yan', 
-    #'phak', 'mayaXt', 'lup', 'chha', 'yat', 'phiNc', 'Xshpha', 'vuNc', 'Xdhak', 'Xdyat', 'ra', 'tyap', 
-    # Ngiip', 'NcyaNg', 'phin', 'Xdmatup', 'ka', 'eNnya', 'Xtyul', 'ila', 'Xthach', 'iNc', 'sa', 'XshXthan', 
-    #'Nna', 'phaNc', 'XdhaNc', 'XthaNc', 'valach', 'ini', 'Xdhrak', 'naNc', 'Nnya', 'aNc', 'Xtyu',
-    #'Ncya', 'XshyaNg', 'bhaktal', 'uuNg', 'Ngiin', 'ruupya', 'Xthap', 'yaNc', 'vidhal', 'Xdaap', 
-    #'chaap', 'Xdvalach', 'gha', 'matup', 'vyan', 'Xshphak', 'luk', 'tal', 'ma', 'ya', 'kak', 'kha'
+    'chhaNn':subaadi, 'snaNc': subaadi, 'Nca': subaadi, 'XdhakaNc': subaadi, 'NgiiXsh': subaadi, 'airak': subaadi, 'vun': subaadi, 'NciXtha': subaadi, 'Xtaap': subaadi, 'yan': subaadi, 'phak': subaadi, 'mayaXt': subaadi, 'lup': subaadi, 'chha': subaadi,  'phiNc': subaadi, 'Xshpha': subaadi, 'vuNc': subaadi, 'Xdhak': subaadi, 'Xdyat': subaadi, 'ra': subaadi, 'tyap': subaadi, 'Ngiip': subaadi, 'NcyaNg': subaadi, 'phin': subaadi, 'Xdmatup': subaadi, 'eNnya': subaadi, 'Xtyul': subaadi, 'ila': subaadi, 'Xthach': subaadi, 'iNc': subaadi, 'sa': subaadi, 'XshXthan': subaadi, 'Nna': subaadi, 'phaNc': subaadi, 'XdhaNc': subaadi, 'XthaNc': subaadi, 'valach': subaadi, 'ini': subaadi, 'Xdhrak': subaadi, 'naNc': subaadi, 'Nnya': subaadi, 'aNc': subaadi, 'Xtyu': subaadi, 'Ncya': subaadi, 'XshyaNg': subaadi, 'bhaktal': subaadi, 'uuNg': subaadi, 'Ngiin': subaadi, 'ruupya': subaadi, 'Xthap': subaadi, 'yaNc': subaadi, 'vidhal': subaadi, 'Xdaap': subaadi, 'chaap': subaadi, 'Xdvalach': subaadi, 'gha': subaadi, 'matup': subaadi, 'vyan': subaadi, 'Xshphak': subaadi, 'luk': subaadi, 'tal': subaadi, 'ma': subaadi, 'ya': subaadi, 'kak': subaadi, 'kha': subaadi,
+    'sNN': None, 'au': None, 'jas': None, 'am': None, 'auXt': None, 'shas': None, 'Xtaa': None, 'bhyaam': None, 'bhis': None, 'Nge': None, 'bhyas': None, 'Ngasi': None, 'Ngas': None, 'os': None, 'aam': None, 'Ngi': None, 'sup': None,
+    'tip': None, 'tas': None, 'jhi': None, 'sip': None, 'thas': None, 'tha': None, 'mip': None, 'vas': None, 'mas': None, 'ta': None, 'aataam': None, 'jha': None, 'thaas': None, 'aathaam': None, 'dhvam': None, 'iXt': None, 'vahi': None, 'mahiNg': None
+    }    
+  
 
     if suffix_str not in next_values_dict:
         raise ValueError("Unknown Suffix")
