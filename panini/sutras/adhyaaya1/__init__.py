@@ -34,7 +34,7 @@ class halantyam_1030030:
                 if ''.join(node._data._suffix) in tiNg_pratyayaaH() or ''.join(node._data._suffix) in sup_pratyayaaH():
                     return node.get_output()
                 # output of syataasilRiluXtoH also treated as vibhakti
-                if list_past_rules_applied(node)[0]==3010330:
+                if list_past_rules_applied(node) and list_past_rules_applied(node)[0]==3010330:
                     return node.get_output()        
                
         node_data=[x['output'] for x in node._output if 'new' in x and x['new']][-1]
