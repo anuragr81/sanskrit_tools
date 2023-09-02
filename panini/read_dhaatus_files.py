@@ -17,7 +17,7 @@ def read_names_json():
     x = x [~pd.isnull(x.halantname)]
     x = x [~pd.isnull(x.name)]
     x = x [~pd.isnull(x.english)]
-    return (json.dumps(dict(zip(x.halantname,x.english))))
+    return (json.dumps(dict( (x.iloc[k].halantname,{'meaning':x.iloc[k].english,'ascii': ''.join(cnv.parse_devanagari_to_ascii(x.iloc[k].halantname))  }) for k in range(x.shape[0]))))
 
 def read_aniXt_property():
     x = pd.read_csv('dhaatucols.csv')
@@ -37,5 +37,6 @@ def unique_entries(entries):
 
 
 if __name__ == '__main__':
-    print (read_aniXt_property())
+    #print (read_aniXt_property())
+    print(read_names_json())
 

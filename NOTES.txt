@@ -4,12 +4,12 @@ PENDING
 1.1. taddhita could be allowed after subaadi so that supodhaatupraatipadikayoH is permitted in the chain-logic. But a convincing case for the need to retain subaadi before a taddhita is yet to arise. aagaviinaH for example does not need subaadi. It seems that having taddhita without subaadi is sufficient.
 1.2. Multiple taddhitas are allowed but subaadi would always terminate the chain. This keeps the logic simple in the UI.
 1.3. there is no need for multiple krit's to be allowed for all. this must be done on a case by case basis. For example, after ghaNc aur Nnvul, the result is a noun so taddhita aur noun-ends should follow. This is allowed with a transition matrix implemented as a dict with key being individual suffixes. 
-
-2. comparison based on number of conditions should be added - so that the sutra with fewer conditions is applied.
-3. Add uraNnrapaH - so that karshati can be formed from kRish.
-4. Find out why kRi,raj and other basic dhaatus are absent.
-5. Add support for aatmanepada/parasmaipada.
-6. Ensure jhoantaH is not applied for jha suffix.
+2. Add lakaara (debug chiNc-tip).
+3. comparison based on number of conditions should be added - so that the sutra with fewer conditions is applied.
+4. Add uraNnrapaH - so that karshati can be formed from kRish.
+5. Find out why kRi,raj and other basic dhaatus are absent.
+6. Add support for aatmanepada/parasmaipada.
+7. Ensure jhoantaH is not applied for jha suffix.
 
 // TIPS
 // * Add textbox listener
