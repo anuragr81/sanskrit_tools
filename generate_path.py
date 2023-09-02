@@ -76,7 +76,7 @@ def apply_transformation_at_end(transformation_rule,new_expr):
     #print(transformation_rule.__name__)
     sig_params = inspect.signature(transformation_rule.__call__).parameters
     i =len(new_expr)-1    
-    if isinstance(new_expr[i]._data,Suffix):
+    if i>0 and isinstance(new_expr[i]._data,Suffix):
         if i>0 :
             if isinstance(new_expr[i-1]._data,Dhaatu):
                 dhaatu_index=i-1

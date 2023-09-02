@@ -15,14 +15,15 @@ def print_dhaatus_ascii():
 def read_names_json():
     x = pd.read_csv('dhaatucols.csv')
     x = x [~pd.isnull(x.halantname)]
-    x = x [~pd.isnull(x.name)]
+    x = x [~pd.isnull(x.upadeshaname)]
     x = x [~pd.isnull(x.english)]
-    return (json.dumps(dict( (x.iloc[k].halantname,{'meaning':x.iloc[k].english,'ascii': ''.join(cnv.parse_devanagari_to_ascii(x.iloc[k].halantname))  }) for k in range(x.shape[0]))))
+    namedict = dict( (x.iloc[k].upadeshaname,{'meaning':x.iloc[k].english,'ascii': ''.join(cnv.parse_devanagari_to_ascii(x.iloc[k].halantname))  }) for k in range(x.shape[0]))))
+    return (json.dumps(namedict) ) 
 
 def read_aniXt_property():
     x = pd.read_csv('dhaatucols.csv')
     x = x [~pd.isnull(x.halantname)]
-    x = x [~pd.isnull(x.name)]
+    x = x [~pd.isnull(x.upadeshaname)]
     x = x [~pd.isnull(x.english)]
     x["aniXt"]= (x.iXt !="सेट्")
     x["aniXt"]  = x.aniXt.apply(lambda t : "true" if t else "false")

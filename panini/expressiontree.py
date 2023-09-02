@@ -3,7 +3,7 @@ import json
 from functools import reduce
 
 from panini.sutras.common_definitions import Dhaatu,Node,Suffix, parse_string,hal
-from panini.dhaatus import dhaatus_list 
+from panini.dhaatus import dhaatus_list , dhaatus_meaning
 
 from generate_path import *
 
@@ -12,17 +12,23 @@ from panini.devanagari.convert import parse_devanagari_to_ascii, convert_to_deva
 from pprint import pprint
 output_processed_string = lambda expr: ''.join(reduce(lambda x ,y : x + y.get_output(),  expr, []))
 
+global_dhaatu_names = dhaatus_meaning ()
+
 """
 Node structure contains additional information such as the lakaara as well. lakaara can be selected after
 a tibaadi suffix is selected. subaadi can also be simplified in this manner.
 """
 def prepare_node_structure(arr):
+    global global_dhaatu_names 
     all_dhaatus = dhaatus_list ()
     tibaadi_suffixes = ('tip','tas','jhi','sip','thas','tha','mip','vas','mas','ta','aataam','jha','thaa','sa','aathaam','dhvam','iXt','vahi','mahiNg',)
     ep=[]
     if len(arr)>1:
        if arr[0] in  all_dhaatus:
            dhaatu_name = arr[0] + "NN" if arr[0][-1] in hal() else arr[0]
+           if dhaatu_name not in global_dhaatu_names :
+               raise ValueError("Dhaatu named %s is not in global store" % dhaatu_name)
+           print("dhaatu_name %s is found" % dhaatu_name)
            ep.append(Node(Dhaatu(parse_string(dhaatu_name)),parent1=None))
            for x in arr[1:]:
                if x in tibaadi_suffixes:
@@ -31,6 +37,8 @@ def prepare_node_structure(arr):
                else:
                    ep.append(Node(Suffix(x),parent1=None))
            return ep
+       else:
+           raise ValueError("First object not found as a dhaatu (name=%s)" % arr[0])
 
     return []
 
