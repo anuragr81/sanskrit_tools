@@ -3,8 +3,7 @@ import json
 from functools import reduce
 
 from panini.sutras.common_definitions import Dhaatu,Node,Suffix, parse_string,hal
-from panini.dhaatus import dhaatus_list , dhaatus_meaning
-
+from panini.dhaatus import  dhaatus_halant_to_upadesha
 from generate_path import *
 
 from panini.devanagari.convert import parse_devanagari_to_ascii, convert_to_devanagari
@@ -12,33 +11,31 @@ from panini.devanagari.convert import parse_devanagari_to_ascii, convert_to_deva
 from pprint import pprint
 output_processed_string = lambda expr: ''.join(reduce(lambda x ,y : x + y.get_output(),  expr, []))
 
-global_dhaatu_names = dhaatus_meaning ()
+
+halant_to_upadesha_map =  dhaatus_halant_to_upadesha()
 
 """
 Node structure contains additional information such as the lakaara as well. lakaara can be selected after
 a tibaadi suffix is selected. subaadi can also be simplified in this manner.
 """
 def prepare_node_structure(arr):
-    global global_dhaatu_names 
-    all_dhaatus = dhaatus_list ()
+    global halant_to_upadesha_map
+    all_dhaatu_names = list(halant_to_upadesha_map.keys())
     tibaadi_suffixes = ('tip','tas','jhi','sip','thas','tha','mip','vas','mas','ta','aataam','jha','thaa','sa','aathaam','dhvam','iXt','vahi','mahiNg',)
     ep=[]
     if len(arr)>1:
-       if arr[0] in  all_dhaatus:
-           dhaatu_name = arr[0] + "NN" if arr[0][-1] in hal() else arr[0]
-           if dhaatu_name not in global_dhaatu_names :
-               raise ValueError("Dhaatu named %s is not in global store" % dhaatu_name)
-           print("dhaatu_name %s is found" % dhaatu_name)
-           ep.append(Node(Dhaatu(parse_string(dhaatu_name)),parent1=None))
-           for x in arr[1:]:
-               if x in tibaadi_suffixes:
-                   #TODO: consider inputs other than laXt
-                   ep.append(Node(Suffix(x,lakaara='laXt'),parent1=None))
-               else:
-                   ep.append(Node(Suffix(x),parent1=None))
-           return ep
-       else:
-           raise ValueError("First object not found as a dhaatu (name=%s)" % arr[0])
+        if arr[0] not in all_dhaatu_names :
+            raise ValueError("Dhaatu named %s is not in global store" % arr[0])
+        else:
+            dhaatu_name = halant_to_upadesha_map[arr[0]]
+        ep.append(Node(Dhaatu(parse_string(dhaatu_name)),parent1=None))
+        for x in arr[1:]:
+            if x in tibaadi_suffixes:
+                #TODO: consider inputs other than laXt
+                ep.append(Node(Suffix(x,lakaara='laXt'),parent1=None))
+            else:
+                ep.append(Node(Suffix(x),parent1=None))
+        return ep
 
     return []
 
@@ -47,7 +44,7 @@ def get_vertices_edges(nodes,devanagari=True):
     edges = []
     edgenames = {}
     convert = lambda x : convert_to_devanagari(x) if devanagari else x
-    get_second_or_first_parent = lambda node : node._parent2 if node._parent2 else node._parent1 
+    get_second_or_first_parent = lambda node : node._parent2 if node._parent2 else node._parent1
     empty_prefix = "empty" if not devanagari else "रिक्त"
 
     for k,node in enumerate(nodes):
@@ -56,8 +53,8 @@ def get_vertices_edges(nodes,devanagari=True):
                 rule_name = convert(node._output[i]['rule'].__name__.split("_")[0])
                 edge_source = convert(''.join(node._output[i-1]['output']))
 
-                if rule_name in edgenames : 
-                    # change rule_name 
+                if rule_name in edgenames :
+                    # change rule_name
                     rule_name_wcount = (rule_name) + str(edgenames[ rule_name ]['count'])
                     edgenames[rule_name]['count'] = edgenames[rule_name]['count'] + 1
                 else:
@@ -71,10 +68,10 @@ def get_vertices_edges(nodes,devanagari=True):
                     edge_source = empty_prefix+str(k)+"_"+str(i)
 
                 edge_target = convert(''.join(node._output[i]['output']))
-                # reusing the edgename count 
+                # reusing the edgename count
                 if not edge_target or edge_target=="":
-                    edge_target= empty_prefix +str(k)+"_"+str(i) 
-                if edge_source == edge_target and 'new' in node._output[i-1] and ( node._parent1  or node._parent2)  : 
+                    edge_target= empty_prefix +str(k)+"_"+str(i)
+                if edge_source == edge_target and 'new' in node._output[i-1] and ( node._parent1  or node._parent2)  :
                     edge_source = convert( ''.join(get_second_or_first_parent(node)._output[0]['output']))
 
                 edges.append({'id':rule_name_wcount, 'target':edge_target, 'source':edge_source})
@@ -88,7 +85,7 @@ def get_vertices_edges(nodes,devanagari=True):
         edge_source = convert(''.join(node.get_output())) if node.get_output() else empty_prefix +str(i)+"_"+str(len(node._output)-1)
         edge_target = finaloutput
         edges.append({'id':rule_name, 'target':edge_target, 'source':edge_source})
-        
+
     vertices = list(set(e['source'] for e in edges).union(set(e['target'] for e in edges)))
     vertices.append(finaloutput)
 
