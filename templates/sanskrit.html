@@ -249,7 +249,7 @@
           options_returned[row]=options_dict[row];
         }
         console.log("Dhaatu-Pratyayas Recvd (len="+ JSON.stringify(String(options_returned).length)+")");
-          
+
       }
         else  {
         console.log("Invalid type for createSet");
@@ -373,6 +373,7 @@
       button.addEventListener('click', (e) => {
 
         if (String(inp.value).length >0 ) {
+
           const pratyaya_ascii = String(options_returned[String(inp.value)]['ascii'])
             if (nextQueryType){
           console.log("Would be used for createSet:"+inp.value+" value:"+pratyaya_ascii + " nextQueryType=" + nextQueryType);

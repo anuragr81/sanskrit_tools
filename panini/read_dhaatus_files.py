@@ -17,7 +17,7 @@ def read_names_json():
     x = x [~pd.isnull(x.halantname)]
     x = x [~pd.isnull(x.upadeshaname)]
     x = x [~pd.isnull(x.english)]
-    namedict = dict( (x.iloc[k].upadeshaname,{'meaning':x.iloc[k].english,'ascii': ''.join(cnv.parse_devanagari_to_ascii(x.iloc[k].halantname))  }) for k in range(x.shape[0]))))
+    namedict = dict( (x.iloc[k].halantname,{'halantname': x.iloc[k].halantname, 'meaning':x.iloc[k].english,'upadeshaname':x.iloc[k].upadeshaname,'ascii': ''.join(cnv.parse_devanagari_to_ascii(x.iloc[k].halantname))  }) for k in range(x.shape[0]))
     return (json.dumps(namedict) ) 
 
 def read_aniXt_property():

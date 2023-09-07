@@ -24,6 +24,10 @@ def hello_world():
 def display_image(filename):
     return redirect(url_for('static', filename='images/' + filename), code=301)
 
+
+"""
+the function to present the next set of suffixes corresponding to a given suffix sent as part of the request
+"""
 def respond_to_pratyayas_request(request):
     try:
         pratyaya = request.args.get('pratyaya')
@@ -45,6 +49,10 @@ def respond_to_pratyayas_request(request):
     return response
 
 
+
+"""
+returns the list of all dhaatu suffixes
+"""
 def respond_to_dhaatupratyayas_request(request):
     try:
         dhaatu = request.args.get('dhaatu')
@@ -56,6 +64,9 @@ def respond_to_dhaatupratyayas_request(request):
     return response
 
 
+"""
+creating a tree from the expression
+"""
 def respond_to_expression_request(request):
     try:
         expr = request.args.get('expr')
