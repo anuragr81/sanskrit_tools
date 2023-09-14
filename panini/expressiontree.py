@@ -15,8 +15,10 @@ output_processed_string = lambda expr: ''.join(reduce(lambda x ,y : x + y.get_ou
 halant_to_upadesha_map =  dict( (k,''.join(parse_devanagari_to_ascii(v))) for k,v in dhaatus_halant_to_upadesha().items())
 
 """
-Node structure contains additional information such as the lakaara as well. lakaara can be selected after
-a tibaadi suffix is selected. subaadi can also be simplified in this manner.
+Function to return Tree based on ASCII list of node-names where the first Node is assumed to be that of a Dhaatu.
+Input: ASCII list
+Output: Node structure contains additional information such as the lakaara as well. lakaara can be selected after
+a tibaadi suffix is selected.
 """
 def prepare_node_structure(arr):
     global halant_to_upadesha_map
