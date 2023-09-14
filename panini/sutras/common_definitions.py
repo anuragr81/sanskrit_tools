@@ -99,8 +99,8 @@ global_dhaatu_store  = get_dhaatu_properties_dict()
 def get_dhaatu_properties(string):
     global global_dhaatu_store
     #print ("Returning %s for %s " % (global_dhaatu_store[string],string))
-    
-    if string in global_dhaatu_store : 
+
+    if string in global_dhaatu_store :
         return global_dhaatu_store[string]
     else:
         raise ValueError("%s not found as in dhaatu-store" % string)
@@ -404,40 +404,41 @@ def guna_letters_for_aat(x):
 
     raise ValueError("No guNna support")
 
-def next_possible_suffixes(suffix_arg):
-    if isinstance(suffix_arg,str):
-        suffix=Suffix(suffix_arg)
-    else:
-        suffix=suffix_arg
+"""
+The function to provide next possible suffixes. This includes non-suffixes such as lakaaras. The only goal is to provide the terminal condition of
+a given suffix-string.
+"""
+def next_possible_suffixes(suffix_str):
 
-    if not isinstance(suffix,Suffix):
-        raise ValueError("input must be a suffix")
-    suffix_str = ''.join(suffix._suffix)
     subaadi = sup_pratyayaaH()
     taddhita = taddhita_pratyayaaH()
     suptaddhita = subaadi + taddhita
     tibaadi = tiNg_pratyayaaH()
+    lakaara = lakaaras()
 
-    allowed_next_values = tuple(subaadi + taddhita + tibaadi)
+    allowed_next_values = tuple(subaadi + taddhita + tibaadi + lakaara)
 
 
     next_values_dict = {"Nnvul": suptaddhita , 'aniiyar':suptaddhita , 'tavyat': suptaddhita , 'tavya': suptaddhita ,
     "lyuXt":suptaddhita, 'kta': subaadi, 'ktavatu': subaadi, 'tumun': None, 'tRich':suptaddhita , 'ktvaa': None, 'Nnamul': subaadi,
     'lyap':subaadi, 'yat':suptaddhita,'Nnyat':suptaddhita, 'kyap':suptaddhita,'ghaNc':suptaddhita, 'ach':suptaddhita, 'ap':suptaddhita,
-    'ktin':suptaddhita,'a': subaadi, 'yuch':suptaddhita, 'shatRi':suptaddhita, 'shaanach': suptaddhita, 'ka': suptaddhita, 
+    'ktin':suptaddhita,'a': subaadi, 'yuch':suptaddhita, 'shatRi':suptaddhita, 'shaanach': suptaddhita, 'ka': suptaddhita,
     'Nnini':suptaddhita,'kvip':suptaddhita,'ghan':suptaddhita,'khaNc':suptaddhita,'aNn':subaadi,'a':subaadi,'tyak':subaadi,
     'chhas':subaadi,'kan':suptaddhita, 'Xthak':suptaddhita,'kan':suptaddhita,'Xdya':suptaddhita,'vuk':subaadi,'chphaNc':subaadi,'ti':subaadi,
     'chhaNn':subaadi, 'snaNc': subaadi, 'Nca': subaadi, 'XdhakaNc': subaadi, 'NgiiXsh': subaadi, 'airak': subaadi, 'vun': subaadi, 'NciXtha': subaadi, 'Xtaap': subaadi, 'yan': subaadi, 'phak': subaadi, 'mayaXt': subaadi, 'lup': subaadi, 'chha': subaadi,  'phiNc': subaadi, 'Xshpha': subaadi, 'vuNc': subaadi, 'Xdhak': subaadi, 'Xdyat': subaadi, 'ra': subaadi, 'tyap': subaadi, 'Ngiip': subaadi, 'NcyaNg': subaadi, 'phin': subaadi, 'Xdmatup': subaadi, 'eNnya': subaadi, 'Xtyul': subaadi, 'ila': subaadi, 'Xthach': subaadi, 'iNc': subaadi, 'sa': subaadi, 'XshXthan': subaadi, 'Nna': subaadi, 'phaNc': subaadi, 'XdhaNc': subaadi, 'XthaNc': subaadi, 'valach': subaadi, 'ini': subaadi, 'Xdhrak': subaadi, 'naNc': subaadi, 'Nnya': subaadi, 'aNc': subaadi, 'Xtyu': subaadi, 'Ncya': subaadi, 'XshyaNg': subaadi, 'bhaktal': subaadi, 'uuNg': subaadi, 'Ngiin': subaadi, 'ruupya': subaadi, 'Xthap': subaadi, 'yaNc': subaadi, 'vidhal': subaadi, 'Xdaap': subaadi, 'chaap': subaadi, 'Xdvalach': subaadi, 'gha': subaadi, 'matup': subaadi, 'vyan': subaadi, 'Xshphak': subaadi, 'luk': subaadi, 'tal': subaadi, 'ma': subaadi, 'ya': subaadi, 'kak': subaadi, 'kha': subaadi,
     'sNN': None, 'au': None, 'jas': None, 'am': None, 'auXt': None, 'shas': None, 'Xtaa': None, 'bhyaam': None, 'bhis': None, 'Nge': None, 'bhyas': None, 'Ngasi': None, 'Ngas': None, 'os': None, 'aam': None, 'Ngi': None, 'sup': None,
-    'tip': None, 'tas': None, 'jhi': None, 'sip': None, 'thas': None, 'tha': None, 'mip': None, 'vas': None, 'mas': None, 'ta': None, 'aataam': None, 'jha': None, 'thaas': None, 'aathaam': None, 'dhvam': None, 'iXt': None, 'vahi': None, 'mahiNg': None
-    }    
-  
+    'tip': lakaara, 'tas': lakaara, 'jhi': lakaara, 'sip': lakaara, 'thas': lakaara, 'tha': lakaara, 'mip': lakaara, 'vas': lakaara, 'mas': lakaara, 'ta': lakaara, 'aataam': lakaara, 'jha': lakaara, 'thaas': lakaara, 'aathaam': lakaara, 'dhvam': lakaara, 'iXt': lakaara, 'vahi': lakaara, 'mahiNg': lakaara,
+    'laXt':None, 'loXt':None, 'lRiXt':None ,'laNg':None ,'luNg':None ,'lRiNg':None ,'liNg1':None ,'liNg2':None ,'liXt':None ,'luXt':None
+    }
+
 
     if suffix_str not in next_values_dict:
         raise ValueError("Unknown Suffix")
     next_suffixes = next_values_dict[suffix_str]
-    
-    # double-check
-    if any ( next_suffix not in allowed_next_values for next_suffix in next_suffixes):
+
+    if next_suffixes is None:
+        return tuple()
+    elif any ( next_suffix not in allowed_next_values for next_suffix in next_suffixes):
         raise ValueError("Invalid next suffix")
-    return next_suffixes
+    else:
+        return next_suffixes

@@ -1,12 +1,12 @@
 import json
 
-from panini.sutras.common_definitions import sup_pratyayaaH, tiNg_pratyayaaH, taddhita_pratyayaaH, strii_pratyayaaH, kRit_pratyayaaH, next_possible_suffixes
+from panini.sutras.common_definitions import sup_pratyayaaH, tiNg_pratyayaaH, taddhita_pratyayaaH, strii_pratyayaaH, kRit_pratyayaaH, next_possible_suffixes, lakaaras
 
 from panini.devanagari.convert import convert_to_devanagari
 
 
 def get_all_dict_types ():
-    return {'noun-endings':sup_pratyayaaH(),'verb-endings':tiNg_pratyayaaH(), 'nominal-suffixes':taddhita_pratyayaaH(), 'verbal-suffixes': kRit_pratyayaaH()}
+    return {'noun-endings':sup_pratyayaaH(),'verb-endings':tiNg_pratyayaaH(), 'nominal-suffixes':taddhita_pratyayaaH(), 'verbal-suffixes': kRit_pratyayaaH(),'lakaara':lakaaras() }
 
 
 """
@@ -32,13 +32,6 @@ def get_dhaatu_suffixes():
         for pratyaya in pratyayas:
             dictSuffixes[convert_to_devanagari(pratyaya)]  = {'ascii':pratyaya, 'type':ptype}
     return json.dumps(dictSuffixes)
-
-
-def is_suptingant(pratyaya):
-    if pratyaya in sup_pratyayaaH() or pratyaya in tiNg_pratyayaaH():
-        return True
-    else:
-        return False
 
 
 def get_next_pratyayas(pratyaya):

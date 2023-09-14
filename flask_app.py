@@ -32,13 +32,10 @@ def respond_to_pratyayas_request(request):
     try:
         pratyaya = request.args.get('pratyaya')
         if pratyaya:
-            if pr.is_suptingant(pratyaya):
-                response = make_response(jsonify({'Data':json.dumps({})}))
-            else:
-                nextSuffixes = pr.get_next_pratyayas(pratyaya)
-                if nextSuffixes is None:
-                    nextSuffixes = json.dumps({}) 
-                response = make_response({'Data':nextSuffixes})
+            nextSuffixes = pr.get_next_pratyayas(pratyaya)
+            if nextSuffixes is None:
+                nextSuffixes = json.dumps({}) 
+            response = make_response({'Data':nextSuffixes})
 
         else:
             response = make_response(jsonify({'Error':"Missing Pratyaya"+str(request.args.get('type'))}))

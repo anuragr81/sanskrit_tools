@@ -1,11 +1,10 @@
 PENDING
 
-1. Add lakaara (debug chiNc-tip).
+1. To add support for lakaara, make sure that the pratyayas returned are stored with types so that the expression request also consists of types. This avoids having the need to assume that the first element of the expression-request is a dhaatu as well. This is about how expression with type can be maintained in javascript.
 2. comparison based on number of conditions should be added - so that the sutra with fewer conditions is applied.
 3. Add uraNnrapaH - so that karshati can be formed from kRish.
 4. Add support for aatmanepada/parasmaipada.
 5. Ensure jhoantaH is not applied for jha suffix.
-6. Add support for ASCII.
 
 NOTES
 
