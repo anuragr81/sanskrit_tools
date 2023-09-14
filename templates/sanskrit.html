@@ -312,8 +312,12 @@
            for (let row in options_returned) {
             var option = document.createElement("option");
             option.value = row;
-            if (options_returned[row]['type']){
-                option.text = options_returned[row]['type'];
+            if (options_returned[row]['ascii']){
+                if (options_returned[row]['type']) {
+                option.text = options_returned[row]['ascii'] + " (" +options_returned[row]['type']  + ")"
+                } else {
+                option.text = options_returned[row]['ascii'];
+                }
             }
             if (options_returned[row]['meaning']){
                 option.text = options_returned[row]['meaning'];
