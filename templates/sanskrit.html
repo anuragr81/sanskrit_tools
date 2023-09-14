@@ -320,7 +320,12 @@
                 }
             }
             if (options_returned[row]['meaning']){
+                if (options_returned[row]['ascii']){
+                    option.text = options_returned[row]['ascii'] + " - " + options_returned[row]['meaning'];
+                } else{
                 option.text = options_returned[row]['meaning'];
+                }
+
             }
 
 
