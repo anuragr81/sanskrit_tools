@@ -401,6 +401,12 @@
       starter.appendChild(inp);
       starter.appendChild(button);
 
+      var fieldInputTypeHidden = document.createElement("text");
+      fieldInputTypeHidden.style.display='none';
+      fieldInputTypeHidden.innerHTML = input_type;
+
+      starter.appendChild(fieldInputTypeHidden);
+
       document.getElementById('divBoxes').setAttribute('count',i);
 
       return starter;
@@ -410,15 +416,27 @@
 
     function get_current_expression(){
   // This is to be called everytime a user selects a value in the input value
+
       const element = document.querySelector('#starter');
       const children = element.childNodes;
-      var expression = []
+
+      var expression = [];
+      var typeslist = [];
+
       for (let i = 0; i < children.length; i++) {
         if (children[i].nodeName == "INPUT") {
           expression.push(children[i].value);
         }
+        if (children[i].nodeName == "TEXT"){
+            typeslist.push(children[i].innerHTML);
+            console.log("children[TEXT]="+ children[i].innerHTML);
+        }
+
       }
+
+
       console.log("Expression(inside func):"+expression);
+      console.log("nodetypes(inside func):"+typeslist);
       return expression;
 
     }
@@ -432,6 +450,7 @@
 <body>
 
   <div id="starter" />
+
   <div id="cy" />
   <div id="divBoxes" />
 
