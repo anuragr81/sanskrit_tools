@@ -14,7 +14,10 @@ class DhaatusLoadingTest(TestCase):
         self.assertTrue('meaning' in dmstruct[keys[0]] )
         self.assertTrue('ascii' in dmstruct[keys[0]] )
 
+    def test_halanta_upadesha_map(self):
+        m=dh.dhaatus_halant_to_upadesha()
+        self.assertTrue(m['chiNc'] == "चिँ")
 
-        
+
 
 

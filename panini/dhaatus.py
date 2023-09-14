@@ -10,7 +10,7 @@ def dhaatus_meaning ():
 
 def dhaatus_halant_to_upadesha():
     m = dhaatus_meaning()
-    return dict ( (v['ascii'],k) for k,v in m.items())
+    return dict ( (v['ascii'],v['upadeshaname']) for _,v in m.items())
 
 def get_all_dhaatus():
     return json.dumps(dhaatus_meaning())

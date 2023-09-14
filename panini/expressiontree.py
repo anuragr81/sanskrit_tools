@@ -12,7 +12,7 @@ from pprint import pprint
 output_processed_string = lambda expr: ''.join(reduce(lambda x ,y : x + y.get_output(),  expr, []))
 
 
-halant_to_upadesha_map =  dhaatus_halant_to_upadesha()
+halant_to_upadesha_map =  dict( (k,''.join(parse_devanagari_to_ascii(v))) for k,v in dhaatus_halant_to_upadesha().items())
 
 """
 Node structure contains additional information such as the lakaara as well. lakaara can be selected after
@@ -28,6 +28,7 @@ def prepare_node_structure(arr):
             raise ValueError("Dhaatu named %s is not in global store" % arr[0])
         else:
             dhaatu_name = halant_to_upadesha_map[arr[0]]
+            print("dhaatu_name="+str(dhaatu_name))
         ep.append(Node(Dhaatu(parse_string(dhaatu_name)),parent1=None))
         for x in arr[1:]:
             if x in tibaadi_suffixes:

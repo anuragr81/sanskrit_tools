@@ -41,18 +41,21 @@ The goal of the function is to maintain the parse order since
 the reverse mapping takes care of the right ASCII.
 """
 def hals_combined_devanagari():
-    mts = [k for _,k in matras() ]
-    mts.append('\u094D')
-    mts.append('ं')
+    mts_base = [k for _,k in matras() ]
+    mts = mts_base + ['\u094D','\u0901','ं']
+
     # halant needs to be treated as matras and would have a
     # higher parse priority in devanagari
 
 
-
     combined_list =[]
     for  _ , ch, togen in hals_to_combine():
+    # item appearing first in the list would have higher priority in parsing
+
         if togen:
-            combined_list = combined_list  + [ ch+x for x in mts] +[ch]
+            # since chandra-bindu (902) and bindu (901) can be combined with matras the list has them combined with matras
+            # as first in order (larger combinations to parse are put first in the list)
+            combined_list = combined_list  + [ (ch+x+'\u0901') for x in mts_base]   + [ (ch+x+'\u0902') for x in mts_base] + [ ch+x for x in mts] +[ch]
 
     return combined_list
 
@@ -65,7 +68,7 @@ def parse_devanagari_to_ascii(input_str):
     m = dict ( (v,k) for k,v in devanagari_map().items())
     ## add anuswara (and other) mapppings as they're not included
 
-    additional_matras = {'ं':'M'}
+    additional_matras = {'ं':'M' ,'ँ':'NN'}
     for  _ , ch, togen in hals_to_combine():
         if togen:
             for matra, ascii in additional_matras.items():
@@ -218,8 +221,14 @@ def devanagari_map():
     for lhs,_, togen in hals_to_combine():
         # only take first element onf mainmap[lhs] because the second element is halant
         if togen:
+            # adding entry with the matra
             entry = [(lhs+k,mainmap[lhs][0]+v) for k,v in matras() ]
-            #print (entry)
+            mainmap.update(dict(entry))
+
+            # adding entry with the matra and the anuswara (bindu) and anunaasika (chandra-bindu)
+            entry = [(lhs+k+"M",mainmap[lhs][0]+v+"\u0902") for k,v in matras() ]
+            mainmap.update(dict(entry))
+            entry = [(lhs+k+"NN",mainmap[lhs][0]+v+"\u0901") for k,v in matras() ]
             mainmap.update(dict(entry))
 
     return mainmap
