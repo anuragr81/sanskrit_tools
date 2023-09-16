@@ -75,7 +75,9 @@ def respond_to_expression_request(request):
 
     return response
 
-
+"""
+The main handler of te requests
+"""
 def query_sanskrit():
     response = None
     if request.method=="GET":

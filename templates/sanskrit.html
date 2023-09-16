@@ -125,7 +125,7 @@
       return return_response;
 
     }
-    async function get_all_pratyayas(chosen_arg){
+    async function get_next_pratyaya(chosen_arg){
       console.log("Now fetching suffixes");
     // Make a GET request to the server using the value
       var return_response = "";
@@ -351,7 +351,7 @@ async function createSet(i, x, y, input_type, chosen_arg) {
       }
 
    }
-   else if (input_type == "suffix") {
+   else if (input_type == "dhaatupratyaya") {
       const pratyayas = await get_dhaatu_pratyayas(chosen_arg);
       const options_dict = JSON.parse(pratyayas['Data']);
       options_returned = {};
@@ -359,6 +359,16 @@ async function createSet(i, x, y, input_type, chosen_arg) {
          options_returned[row] = options_dict[row];
       }
       console.log("Dhaatu-Pratyayas Recvd (len=" + JSON.stringify(String(options_returned).length) + ")");
+
+   }
+   else if (input_type == "pratyaya"){
+      const pratyayas = await get_next_pratyaya(chosen_arg);
+      const options_dict = JSON.parse(pratyayas['Data']);
+      options_returned = {};
+      for (let row in options_dict) {
+         options_returned[row] = options_dict[row];
+      }
+      console.log("Pratyayas Recvd (len=" + JSON.stringify(String(options_returned).length) + ")");
 
    }
    else {
@@ -410,9 +420,21 @@ async function createSet(i, x, y, input_type, chosen_arg) {
 
       if (String(inp.value).length > 0) {
 
-         const pratyaya_ascii = String(options_returned[String(inp.value)]['ascii'])
-         console.log("Would be used for createSet:" + inp.value + " value:" + pratyaya_ascii + "of type:" +  String(options_returned[String(inp.value)]['type']));
-         createSet(i + 1, x + W + 3 * d, y, options_returned[String(inp.value)]['type'], pratyaya_ascii);
+         const selection_ascii = String(options_returned[String(inp.value)]['ascii'])
+         const selection_type = String(options_returned[String(inp.value)]['type']);
+         
+         if (selection_type=="dhaatu"){
+             console.log("Would be used for createSet - value:" + selection_ascii + "of type:" +  selection_type);
+             createSet(i + 1, x + W + 3 * d, y, "dhaatupratyaya", selection_ascii);
+         }
+         
+         else if (selection_type=='noun-endings' || selection_type== 'verb-endings' || selection_type== 'nominal-suffixes' ||selection_type== 'verbal-suffixes' || selection_type=='lakaara'){
+             console.log("Would be used for createSet - value:" + selection_ascii + "of type:" +  selection_type);
+             createSet(i + 1, x + W + 3 * d, y, "pratyaya", selection_ascii);
+         } else{
+             console.log("createSet - Invalid type : " + selection_type + " skipped call to createSet");
+         }
+         
 
       }
 

@@ -2,45 +2,63 @@
 import json
 from functools import reduce
 
-from panini.sutras.common_definitions import Dhaatu,Node,Suffix, parse_string,hal
+from panini.sutras.common_definitions import Dhaatu,Node,Suffix, parse_string, lakaaras, tiNg_pratyayaaH
 from panini.dhaatus import  dhaatus_halant_to_upadesha
-from generate_path import *
+from generate_path import process_until_finish
 
 from panini.devanagari.convert import parse_devanagari_to_ascii, convert_to_devanagari
 
-from pprint import pprint
 output_processed_string = lambda expr: ''.join(reduce(lambda x ,y : x + y.get_output(),  expr, []))
 
 
 halant_to_upadesha_map =  dict( (k,''.join(parse_devanagari_to_ascii(v))) for k,v in dhaatus_halant_to_upadesha().items())
 
 """
-Function to return Tree based on ASCII list of node-names where the first Node is assumed to be that of a Dhaatu.
-Input: ASCII list
+Function to return Tree based on ASCII list of node-names where the first Node is assumed to be that of a Dhaatu - also
+uses the types passed on by the user. The goal is to translate the user-string into application expression format.
+Input: ASCII itemslist, Typelist
 Output: Node structure contains additional information such as the lakaara as well. lakaara can be selected after
 a tibaadi suffix is selected.
 """
-def prepare_node_structure(arr):
+def prepare_node_structure(itemslist,typeslist):
+    if len(itemslist)!=len(typeslist):
+        raise ValueError("Invalid input: lengths of itemslist and typeslist do not match")
+
+    if len(itemslist)<=1:
+        return itemslist
+
     global halant_to_upadesha_map
     all_dhaatu_names = list(halant_to_upadesha_map.keys())
-    tibaadi_suffixes = ('tip','tas','jhi','sip','thas','tha','mip','vas','mas','ta','aataam','jha','thaa','sa','aathaam','dhvam','iXt','vahi','mahiNg',)
-    ep=[]
-    if len(arr)>1:
-        if arr[0] not in all_dhaatu_names :
-            raise ValueError("Dhaatu named %s is not in global store" % arr[0])
-        else:
-            dhaatu_name = halant_to_upadesha_map[arr[0]]
-            print("dhaatu_name="+str(dhaatu_name))
-        ep.append(Node(Dhaatu(parse_string(dhaatu_name)),parent1=None))
-        for x in arr[1:]:
-            if x in tibaadi_suffixes:
-                #TODO: consider inputs other than laXt
-                ep.append(Node(Suffix(x,lakaara='laXt'),parent1=None))
-            else:
-                ep.append(Node(Suffix(x),parent1=None))
-        return ep
 
-    return []
+
+    ep=[]
+    curpos = len(itemslist)-1
+    # parsing backwards
+    while curpos >= 0 :
+        if curpos == 0:
+            if itemslist[0] not in all_dhaatu_names :
+                raise ValueError("Dhaatu named %s is not in global store" % itemslist[0])
+            else:
+                dhaatu_name = halant_to_upadesha_map[itemslist[0]]
+
+            ep.insert(0,Node(Dhaatu(parse_string(dhaatu_name)),parent1=None))
+
+        else:
+            # if a lakaara is found, then ensure that the item before it is a tiNG
+            # and move backwards an extra step
+            if itemslist[curpos] in lakaaras():
+                if curpos <=1 or itemslist[curpos-1] not in tiNg_pratyayaaH():
+                    raise ValueError("Invalid Input: %s must  be a tiNg suffix:" % itemslist[curpos-1])
+                else:
+                    ep.insert(0,Node(Suffix(itemslist[curpos-1],lakaara=itemslist[curpos]),parent1=None))
+                    curpos=curpos-1
+            else:
+                ep.insert(0,Node(Suffix(itemslist[curpos]),parent1=None))
+        # move to next position
+        curpos = curpos - 1
+    return ep
+
+
 
 
 def get_vertices_edges(nodes,devanagari=True):
@@ -96,13 +114,16 @@ def get_vertices_edges(nodes,devanagari=True):
 
     return {'vertices':vertices,'edges':edges}
 
+
 """
   returns the expression in form of a cytoscape graph
 """
 def get_expression_tree(expression,typelist):
-    arrInp=[ ''.join(parse_devanagari_to_ascii(x)) for x in expression.split(",")]
 
-    ep = prepare_node_structure(arrInp)
+    arrInp=[ ''.join(parse_devanagari_to_ascii(x)) for x in expression.split(",")]
+    typelist=typelist.split(",")
+
+    ep = prepare_node_structure(arrInp,typelist)
     pe=process_until_finish(ep)
     return json.dumps(get_vertices_edges(pe))
 
