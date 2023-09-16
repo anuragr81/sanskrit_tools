@@ -89,12 +89,12 @@
 
     }
 
-    async function get_expression_tree(expression){
+    async function get_expression_tree(expression, typelist){
       console.log("get_expression_tree :: Now getting the tree for expression:" + expression);
       var return_response = "";
 
       if (String(expression).length>0){
-        const urltofetch = "http://research.anurags-econ.net/query_sanskrit/?type=expr&expr="+String(expression);
+        const urltofetch = "http://research.anurags-econ.net/query_sanskrit/?type=expr&expr="+String(expression)+ "&typelist="+String(typelist);
         console.log("urltofetch="+urltofetch);
         return_response= await async_http_get(urltofetch);
 
@@ -265,7 +265,8 @@
       if (Object.keys(options_returned).length==0){
         console.log("No suffix-options returned");
         const expression = get_current_expression();
-        const exprtree = await get_expression_tree(expression);
+        const typelist = get_current_typelist();
+        const exprtree = await get_expression_tree(expression, typelist);
         const treeInfo = JSON.parse(exprtree['Data']);
         var cy = create_cy_context(treeInfo);
 
@@ -350,7 +351,8 @@
 
       inp.onchange = () => {
         const expression = get_current_expression();
-        console.log("Expression:"+expression);
+        const typelist = get_current_typelist();
+        console.log("Expression:"+expression + " typelist="+typelist);
       }
 
   //TODO: add button only when i is count-1
@@ -421,23 +423,35 @@
       const children = element.childNodes;
 
       var expression = [];
-      var typeslist = [];
 
       for (let i = 0; i < children.length; i++) {
         if (children[i].nodeName == "INPUT") {
           expression.push(children[i].value);
         }
+      }
+
+      console.log("Expression(inside func):"+expression);
+      return expression;
+
+    }
+
+
+    function get_current_typelist(){
+
+      const element = document.querySelector('#starter');
+      const children = element.childNodes;
+
+      var typeslist = [];
+
+      for (let i = 0; i < children.length; i++) {
         if (children[i].nodeName == "TEXT"){
             typeslist.push(children[i].innerHTML);
-            console.log("children[TEXT]="+ children[i].innerHTML);
         }
 
       }
 
-
-      console.log("Expression(inside func):"+expression);
       console.log("nodetypes(inside func):"+typeslist);
-      return expression;
+      return typeslist;
 
     }
 
