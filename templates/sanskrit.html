@@ -212,209 +212,216 @@
 
       return cy;
     }
+    
+    
+async function createInput(optionslist, i,x,y,H,s,W,d) {
+    var inp = document.createElement("input");
+    inp.id = "input_" + i;
+    inp.setAttribute('list', 'optionsid_' + i);
+   
+    inp.name = 'input_' + i;
+    inp.list = "options";
+    inp.style.position = "absolute";
+    // the input box itself is s down from y
+    inp.style.top = y + H - s;
+    inp.style.left = x + d;
+    // symmetrical so adjusted width
+    inp.style.width = W - 2 * d;
+    inp.style.height = s;
+    inp.appendChild(optionslist);
 
-    async function createSet (i,x,y,input_type,chosen_arg){
-
-      var starter = document.getElementById("starter");
-
-      var count = document.getElementById('divBoxes').getAttribute('count');
-      var nextQueryType = null;
-
-  // this call should update the UI element asynchronously
-      var options_returned = null;
-      if (input_type == "dhaatu"){
-        const dhaatus = await get_all_dhaatus();
-        const options_dict = JSON.parse(dhaatus['Data']);
-        options_returned ={};
-        for (let row in options_dict) {
-          options_returned[row]=options_dict[row];
-        }
-        nextQueryType="dhaatu-suffixes"
-
-        console.log("dhaatu-list");
-      } else if (input_type=='pratyaya'){
-        const pratyayas = await get_all_pratyayas(chosen_arg);
-        const options_dict = JSON.parse(pratyayas['Data']);
-        options_returned ={};
-        for (let row in options_dict) {
-          options_returned[row]=options_dict[row];
-        }
-
-        console.log("Pratyaya Recvd (len="+ JSON.stringify(String(options_returned).length)+")");
-      } else if (input_type=="dhaatu-suffixes") {
-        const pratyayas = await get_dhaatu_pratyayas(chosen_arg);
-        const options_dict = JSON.parse(pratyayas['Data']);
-        options_returned ={};
-        for (let row in options_dict) {
-          options_returned[row]=options_dict[row];
-        }
-        console.log("Dhaatu-Pratyayas Recvd (len="+ JSON.stringify(String(options_returned).length)+")");
-
-      }
-        else  {
-        console.log("Invalid type for createSet");
-        return null;
-      }
-
-
-      if (i - count <=0 ){
-        alert ("already exists");
-        return null;
-      }
-
-      if (Object.keys(options_returned).length==0){
-        console.log("No suffix-options returned");
-        const expression = get_current_expression();
-        const typelist = get_current_typelist();
-        const exprtree = await get_expression_tree(expression, typelist);
-        const treeInfo = JSON.parse(exprtree['Data']);
-        var cy = create_cy_context(treeInfo);
-
-        return null;
-      }
-
-      var fs = document.createElement("fieldset");
-      var W = 100;
-      var H = 70;
-      var d = 10;
-      var s = 20;
-
-      fs.style.position ="absolute";
-      fs.style.top = y;
-      fs.style.left= x ;
-      fs.style.width= W;
-      fs.style.height = H;
-
-
-      var txta = document.createElement("textarea");
-      txta.id="console"
-      txta.style.position ="absolute";
-      txta.readOnly = true;
-  // text area is inside the fieldset and touches fs boundary on top (not on bottom)
-      txta.style.top = y;
-  // text area is inside the fieldset so starts a bit more right (higher left value)
-      txta.style.left= x+d ;
-  // text area is less wide to be symmetrical (hence 2*d)
-
-      txta.style.width= W -d*2;
-  // height is only H- s
-      txta.style.height = H-s;
-
-      var optionslist= document.createElement("datalist");
-      optionslist.id = "optionsid_"+i;
-
-
-  // iterating over options_returned to populated the options
-  // for selection/editing
-      console.log("options_returned"+ String(JSON.stringify(options_returned)));
-
-
-// inefficient but easy (speed does not matter much in selection of finite suffixes)
-           for (let row in options_returned) {
-            var option = document.createElement("option");
-            option.value = row;
-            if (options_returned[row]['ascii']){
-                if (options_returned[row]['type']) {
-                option.text = options_returned[row]['ascii'] + " (" +options_returned[row]['type']  + ")"
-                } else {
-                option.text = options_returned[row]['ascii'];
-                }
-            }
-            if (options_returned[row]['meaning']){
-                if (options_returned[row]['ascii']){
-                    option.text = options_returned[row]['ascii'] + " - " + options_returned[row]['meaning'];
-                } else{
-                option.text = options_returned[row]['meaning'];
-                }
-
-            }
-
-
-            optionslist.appendChild(option);
-          }
-
-
-      var inp = document.createElement("input");
-      inp.id="input_"+i;
-      inp.setAttribute('list','optionsid_'+i);
-  //inp.type="text";
-      inp.name='input_'+i;
-      inp.list = "options";
-      inp.style.position ="absolute";
-  // the input box itself is s down from y
-      inp.style.top = y+H-s;
-      inp.style.left= x+d;
-  // symmetrical so adjusted width
-      inp.style.width= W-2*d;
-      inp.style.height =s;
-      inp.appendChild(optionslist);
-
-      inp.onchange = () => {
-        const expression = get_current_expression();
-        const typelist = get_current_typelist();
-        console.log("Expression:"+expression + " typelist="+typelist);
-      }
-
-  //TODO: add button only when i is count-1
-      console.log("Creating button new button(i="+i+") and removing the last one(count="+count+")");
-      if (count>0){
-        let oldButton= document.getElementById("buttonPlus"+count);
-        let oldButtonsParent= oldButton.parentNode;
-        oldButtonsParent.removeChild(oldButton);
-      }
-
-      var button = document.createElement("button");
-      button.id="buttonPlus"+i;
-      button.innerHTML ="+";
-      button.type="button";
-      button.style.position ="absolute";
-  // the button is of width d and is aligned with input horizontally (same y)
-      button.style.top = y+H-s;
-  // it touches the right boundary
-      button.style.left= x+W-d ;
-      button.style.width= d;
-      button.style.height =s;
-
-  // Add an event listener to the button
-
-  /**
-   * the event listener would add another UI unit
-   * and update the record of boxes
-   */
-      button.addEventListener('click', (e) => {
-
-        if (String(inp.value).length >0 ) {
-
-          const pratyaya_ascii = String(options_returned[String(inp.value)]['ascii'])
-            if (nextQueryType){
-          console.log("Would be used for createSet:"+inp.value+" value:"+pratyaya_ascii + " nextQueryType=" + nextQueryType);
-          createSet(i+1,x+W+3*d,y,nextQueryType,pratyaya_ascii);
-            } else {
-          console.log("Would be used for createSet:"+inp.value+" value:"+pratyaya_ascii + "(pratyay query)");
-          createSet(i+1,x+W+3*d,y,'pratyaya',pratyaya_ascii);
-            }
-        }
-
-
-      });
-
-      starter.appendChild(fs);
-      starter.appendChild(txta);
-      starter.appendChild(inp);
-      starter.appendChild(button);
-
-      var fieldInputTypeHidden = document.createElement("text");
-      fieldInputTypeHidden.style.display='none';
-      fieldInputTypeHidden.innerHTML = input_type;
-
-      starter.appendChild(fieldInputTypeHidden);
-
-      document.getElementById('divBoxes').setAttribute('count',i);
-
-      return starter;
+    inp.onchange = () => {
     }
+    return inp;
+}
+    
+async function createButton(i,x,y,H,s,W,d){
+    var button = document.createElement("button");
+    button.id = "buttonPlus" + i;
+    button.innerHTML = "+";
+    button.type = "button";
+    button.style.position = "absolute";
+    // the button is of width d and is aligned with input horizontally (same y)
+    button.style.top = y + H - s;
+    // it touches the right boundary
+    button.style.left = x + W - d;
+    button.style.width = d;
+    button.style.height = s;
+    return button;
+}
+
+async function createTextArea(x,y,H,s,W,d){
+    
+   var txta = document.createElement("textarea");
+   txta.id = "console"
+   txta.style.position = "absolute";
+   txta.readOnly = true;
+   // text area is inside the fieldset and touches fs boundary on top (not on bottom)
+   txta.style.top = y;
+   // text area is inside the fieldset so starts a bit more right (higher left value)
+   txta.style.left = x + d;
+   // text area is less wide to be symmetrical (hence 2*d)
+
+   txta.style.width = W - d * 2;
+   // height is only H- s
+   txta.style.height = H - s;
+   
+   return txta;
 
 
+}
+
+
+async function createOptionsList(i,options_returned){
+    
+   var optionslist = document.createElement("datalist");
+   optionslist.id = "optionsid_" + i;
+
+
+   console.log("options_returned" + String(JSON.stringify(options_returned)));
+
+   // iterating over options_returned to populated the options
+   // for selection/editing
+
+   for (let row in options_returned) {
+      var option = document.createElement("option");
+      option.value = row;
+      if (options_returned[row]['ascii']) {
+         if (options_returned[row]['type']) {
+            option.text = options_returned[row]['ascii'] + " (" + options_returned[row]['type'] + ")"
+         }
+         else {
+            option.text = options_returned[row]['ascii'];
+         }
+      }
+      if (options_returned[row]['meaning']) {
+         if (options_returned[row]['ascii']) {
+            option.text = options_returned[row]['ascii'] + " - " + options_returned[row]['meaning'];
+         }
+         else {
+            option.text = options_returned[row]['meaning'];
+         }
+
+      }
+
+
+      optionslist.appendChild(option);
+   }
+   return optionslist;
+}
+async function createSet(i, x, y, input_type, chosen_arg) {
+
+   var starter = document.getElementById("starter");
+
+   var count = document.getElementById('divBoxes').getAttribute('count');
+
+   // this call should update the UI element asynchronously
+   var options_returned = null;
+   if (input_type == "dhaatu") {
+      const dhaatus = await get_all_dhaatus();
+      const options_dict = JSON.parse(dhaatus['Data']);
+      options_returned = {};
+      for (let row in options_dict) {
+         options_returned[row] = options_dict[row];
+      }
+
+   }
+   else if (input_type == "suffix") {
+      const pratyayas = await get_dhaatu_pratyayas(chosen_arg);
+      const options_dict = JSON.parse(pratyayas['Data']);
+      options_returned = {};
+      for (let row in options_dict) {
+         options_returned[row] = options_dict[row];
+      }
+      console.log("Dhaatu-Pratyayas Recvd (len=" + JSON.stringify(String(options_returned).length) + ")");
+
+   }
+   else {
+      console.log("Invalid type for createSet");
+      return null;
+   }
+
+
+   if (i - count <= 0) {
+      alert("already exists");
+      return null;
+   }
+   
+   // Display only when no options are returned for the given expression
+   if (Object.keys(options_returned).length == 0) {
+      console.log("No suffix-options returned");
+      const expression = get_current_expression();
+      const typelist = get_current_typelist();
+      const exprtree = await get_expression_tree(expression, typelist);
+      const treeInfo = JSON.parse(exprtree['Data']);
+      var cy = create_cy_context(treeInfo);
+
+      return null;
+   }
+
+   var fs = document.createElement("fieldset");
+   var W = 100;
+   var H = 70;
+   var d = 10;
+   var s = 20;
+
+   fs.style.position = "absolute";
+   fs.style.top = y;
+   fs.style.left = x;
+   fs.style.width = W;
+   fs.style.height = H;
+
+   var optionslist = await createOptionsList(i,options_returned);
+   console.log("createOptionsList"+String(createOptionsList));
+   var inp = await createInput(optionslist,i,x,y,H,s,W,d);
+
+   //TODO: add button only when i is count-1
+   console.log("Creating button new button(i=" + i + ") and removing the last one(count=" + count + ")");
+   if (count > 0) {
+      let oldButton = document.getElementById("buttonPlus" + count);
+      let oldButtonsParent = oldButton.parentNode;
+      oldButtonsParent.removeChild(oldButton);
+   }
+   
+   var button = await createButton(i,x,y,H,s,W,d);
+
+   // Add an event listener to the button
+
+   /**
+    * the event listener would add another UI unit
+    * and update the record of boxes
+    */
+   button.addEventListener('click', (e) => {
+
+      if (String(inp.value).length > 0) {
+
+         const pratyaya_ascii = String(options_returned[String(inp.value)]['ascii'])
+         console.log("Would be used for createSet:" + inp.value + " value:" + pratyaya_ascii + "(pratyaya query)");
+         createSet(i + 1, x + W + 3 * d, y, options_returned[String(inp.value)]['type'], pratyaya_ascii);
+
+      }
+
+
+   });
+   
+   
+   var txta = await createTextArea(x,y,H,s,W,d);
+   
+   starter.appendChild(fs);
+   starter.appendChild(txta);
+   starter.appendChild(inp);
+   starter.appendChild(button);
+
+   var fieldInputTypeHidden = document.createElement("text");
+   fieldInputTypeHidden.style.display = 'none';
+   fieldInputTypeHidden.innerHTML = input_type;
+
+   starter.appendChild(fieldInputTypeHidden);
+
+   document.getElementById('divBoxes').setAttribute('count', i);
+
+   return starter;
+}
 
     function get_current_expression(){
   // This is to be called everytime a user selects a value in the input value

@@ -67,12 +67,13 @@ creating a tree from the expression
 def respond_to_expression_request(request):
     try:
         expr = request.args.get('expr')
-        if expr:
-            response = make_response(jsonify({'Data':str(expt.get_expression_tree(expr))}))
+        typelist = request.args.get('typelist')
+        if expr and typelist:
+            response = make_response(jsonify({'Data':str(expt.get_expression_tree(expr,typelist))}))
         else:
-            response = make_response(jsonify({'Error':"Missing expr"+str(request.args.get('type'))}))
+            response = make_response(jsonify({'Error':"Missing expr or typelist ("+str(request.args.get('type')+")")}))
     except Exception as e:
-            response = make_response(jsonify({'Error':"Exception" +str(e)}))
+            response = make_response(jsonify({'Error':"Exception ( " +str(e)+ " )"}))
 
 
     return response

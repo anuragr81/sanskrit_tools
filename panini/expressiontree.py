@@ -99,7 +99,7 @@ def get_vertices_edges(nodes,devanagari=True):
 """
   returns the expression in form of a cytoscape graph
 """
-def get_expression_tree(expression):
+def get_expression_tree(expression,typelist):
     arrInp=[ ''.join(parse_devanagari_to_ascii(x)) for x in expression.split(",")]
 
     ep = prepare_node_structure(arrInp)
