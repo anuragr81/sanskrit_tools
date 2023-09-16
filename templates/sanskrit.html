@@ -84,7 +84,9 @@
     // Make a GET request to the server using the value
       var typestring  = "dhaatus";
       var return_response = "";
-      return_response= await async_http_get("http://research.anurags-econ.net/query_sanskrit/?type=dhaatus");
+      const dhaatuURL =  "http://research.anurags-econ.net/query_sanskrit/?type=dhaatus";
+      console.log("Fetching dhaatus with : " + dhaatuURL);
+      return_response= await async_http_get(dhaatuURL);
       return return_response;
 
     }
@@ -309,12 +311,35 @@ async function createOptionsList(i,options_returned){
    }
    return optionslist;
 }
+
+
+async function createFieldSet ( x,y,H,s,W,d) {
+    var fs = document.createElement("fieldset");
+
+
+    fs.style.position = "absolute";
+    fs.style.top = y;
+    fs.style.left = x;
+    fs.style.width = W;
+    fs.style.height = H;
+    
+    return fs;
+}
+
+
 async function createSet(i, x, y, input_type, chosen_arg) {
+    
+   var W = 100;
+   var H = 70;
+   var d = 10;
+   var s = 20;
+   
+   
 
    var starter = document.getElementById("starter");
 
    var count = document.getElementById('divBoxes').getAttribute('count');
-
+   
    // this call should update the UI element asynchronously
    var options_returned = null;
    if (input_type == "dhaatu") {
@@ -359,20 +384,10 @@ async function createSet(i, x, y, input_type, chosen_arg) {
       return null;
    }
 
-   var fs = document.createElement("fieldset");
-   var W = 100;
-   var H = 70;
-   var d = 10;
-   var s = 20;
 
-   fs.style.position = "absolute";
-   fs.style.top = y;
-   fs.style.left = x;
-   fs.style.width = W;
-   fs.style.height = H;
 
    var optionslist = await createOptionsList(i,options_returned);
-   console.log("createOptionsList"+String(createOptionsList));
+   
    var inp = await createInput(optionslist,i,x,y,H,s,W,d);
 
    //TODO: add button only when i is count-1
@@ -396,7 +411,7 @@ async function createSet(i, x, y, input_type, chosen_arg) {
       if (String(inp.value).length > 0) {
 
          const pratyaya_ascii = String(options_returned[String(inp.value)]['ascii'])
-         console.log("Would be used for createSet:" + inp.value + " value:" + pratyaya_ascii + "(pratyaya query)");
+         console.log("Would be used for createSet:" + inp.value + " value:" + pratyaya_ascii + "of type:" +  String(options_returned[String(inp.value)]['type']));
          createSet(i + 1, x + W + 3 * d, y, options_returned[String(inp.value)]['type'], pratyaya_ascii);
 
       }
@@ -406,6 +421,7 @@ async function createSet(i, x, y, input_type, chosen_arg) {
    
    
    var txta = await createTextArea(x,y,H,s,W,d);
+   var fs = await createFieldSet ( x,y,H,s,W,d);
    
    starter.appendChild(fs);
    starter.appendChild(txta);

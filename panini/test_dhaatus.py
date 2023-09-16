@@ -1,11 +1,17 @@
 
 from unittest import TestCase
-import sanskrit_tools.panini.dhaatus as dh
+
+import sys
+
+sys.path.append('/home/anuragr/research_persona/sanskrit_tools')
+
+import panini.dhaatus as dh
+import panini.requesthandlers as rh
 
 
 class DhaatusLoadingTest(TestCase):
     def test_dhaatus_load(self):
-        json_dhaatus = dh.get_all_dhaatus()
+        json_dhaatus = rh.get_all_dhaatus()
         self.assertTrue(len(json_dhaatus)>0)
         dmstruct = dh.dhaatus_meaning()
         self.assertTrue(isinstance(dmstruct,dict))

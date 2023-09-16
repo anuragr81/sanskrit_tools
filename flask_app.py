@@ -5,8 +5,7 @@ from flask import Flask, redirect, url_for, render_template, request,jsonify
 from flask import make_response
 from flask_cors import CORS, cross_origin
 
-from panini import dhaatus as dh
-from panini import pratyaya as pr
+from panini import requesthandlers as rh
 from panini import expressiontree as expt
 
 
@@ -32,9 +31,9 @@ def respond_to_pratyayas_request(request):
     try:
         pratyaya = request.args.get('pratyaya')
         if pratyaya:
-            nextSuffixes = pr.get_next_pratyayas(pratyaya)
+            nextSuffixes = rh.get_next_pratyayas(pratyaya)
             if nextSuffixes is None:
-                nextSuffixes = json.dumps({}) 
+                nextSuffixes = json.dumps({})
             response = make_response({'Data':nextSuffixes})
 
         else:
@@ -52,9 +51,7 @@ returns the list of all dhaatu suffixes
 """
 def respond_to_dhaatupratyayas_request(request):
     try:
-        dhaatu = request.args.get('dhaatu')
-        # currently the same pratyayas apply to all dhaatus
-        response = make_response({'Data':pr.get_dhaatu_suffixes()})
+        response = make_response({'Data':rh.get_dhaatu_suffixes()})
     except Exception as e:
         response = make_response (jsonify({'Error':'Exception: '+str(e)}))
 
@@ -84,8 +81,8 @@ def query_sanskrit():
     if request.method=="GET":
         try :
             rtype = str(request.args.get('type'))
-            response_dict = {'dhaatus': lambda x : make_response({'Data': dh.get_all_dhaatus() }),
-                    'pratyayas': respond_to_pratyayas_request, 
+            response_dict = {'dhaatus': lambda x : make_response({'Data': rh.get_all_dhaatus() }),
+                    'pratyayas': respond_to_pratyayas_request,
                     'dhaatupratyayas': respond_to_dhaatupratyayas_request,
                     'expr': respond_to_expression_request
                     }
@@ -103,7 +100,7 @@ def query_sanskrit():
 
     ##response.headers.add('Content-Type','application/json')
     ##response.headers.add('Access-Control-Allow-Origin', '*')
-    return response 
+    return response
 
 def display_sanskrit():
     return render_template('sanskrit.html')

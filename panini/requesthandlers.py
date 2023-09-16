@@ -1,8 +1,22 @@
+"""
+The module that has all pratyaya-related response-functions i.e. handlers that prepare the response for the client
+"""
+
 import json
 
-from panini.sutras.common_definitions import sup_pratyayaaH, tiNg_pratyayaaH, taddhita_pratyayaaH, strii_pratyayaaH, kRit_pratyayaaH, next_possible_suffixes, lakaaras
+import panini.dhaatus as dh
+
+from panini.sutras.common_definitions import sup_pratyayaaH, tiNg_pratyayaaH, taddhita_pratyayaaH, kRit_pratyayaaH, next_possible_suffixes, lakaaras
 
 from panini.devanagari.convert import convert_to_devanagari
+
+def update_dict(original_dict, key, value):
+    original_dict[key]= value
+    return original_dict
+
+def get_all_dhaatus():
+    # append type = dhaatu to the values in dhaatu_meaning for response
+    return json.dumps(dict( (k,update_dict(v,'type','dhaatu')) for k,v in dh.dhaatus_meaning().items()) )
 
 
 def get_all_dict_types ():
