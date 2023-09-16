@@ -409,6 +409,8 @@ The function to provide next possible suffixes. This includes non-suffixes such 
 a given suffix-string.
 """
 def next_possible_suffixes(suffix_str):
+    if not isinstance(suffix_str,str):
+        raise ValueError("suffix input must be a str")
 
     subaadi = sup_pratyayaaH()
     taddhita = taddhita_pratyayaaH()
@@ -433,7 +435,7 @@ def next_possible_suffixes(suffix_str):
 
 
     if suffix_str not in next_values_dict:
-        raise ValueError("Unknown Suffix")
+        raise ValueError("Unknown Suffix: '"+ suffix_str+"'")
     next_suffixes = next_values_dict[suffix_str]
 
     if next_suffixes is None:
