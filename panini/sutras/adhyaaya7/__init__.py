@@ -333,9 +333,9 @@ class saarvadhaatukaardhadhaatukayoH_7030840:
                 if node._data._suffix[-1] in pratyaahaara('i','k'):
                     return anga_string[0:-1]+[guNna(anga_string[-1])]
         else:
-            if node._data._data and node.get_output() and node._data._data[-1] == node.get_output()[-1]:
+            if node._data._data and node.get_output() :
                 anga_string= node.get_output()
-                if node._data._data[-1] in pratyaahaara('i','k'):
+                if anga_string[-1] in pratyaahaara('i','k'):
                     return anga_string[0:-1]+[guNna(anga_string[-1])]
         
         return node.get_output()

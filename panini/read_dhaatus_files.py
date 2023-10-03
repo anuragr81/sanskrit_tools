@@ -20,14 +20,18 @@ def read_names_json():
     namedict = dict( (x.iloc[k].halantname,{'halantname': x.iloc[k].halantname, 'meaning':x.iloc[k].english,'upadeshaname':x.iloc[k].upadeshaname,'ascii': ''.join(cnv.parse_devanagari_to_ascii(x.iloc[k].halantname))  }) for k in range(x.shape[0]))
     return (json.dumps(namedict) ) 
 
-def read_aniXt_property():
+def read_aniXt_property(use_halanta):
     x = pd.read_csv('dhaatucols.csv')
     x = x [~pd.isnull(x.halantname)]
     x = x [~pd.isnull(x.upadeshaname)]
     x = x [~pd.isnull(x.english)]
     x["aniXt"]= (x.iXt !="सेट्")
     x["aniXt"]  = x.aniXt.apply(lambda t : "true" if t else "false")
-    dictraw = (dict((''.join(cnv.parse_devanagari_to_ascii( x.iloc[k].halantname )), {'aniXt':x.iloc[k].aniXt} ) for k in range(x.shape[0])))
+    if use_halanta:
+        dictraw = (dict((''.join(cnv.parse_devanagari_to_ascii( x.iloc[k].halantname )), {'aniXt':x.iloc[k].aniXt} ) for k in range(x.shape[0])))
+    else:
+        dictraw = (dict((''.join(cnv.parse_devanagari_to_ascii( x.iloc[k].upadeshaname)), {'aniXt':x.iloc[k].aniXt} ) for k in range(x.shape[0])))
+    
     return json.dumps(dictraw)
 
 
@@ -38,6 +42,6 @@ def unique_entries(entries):
 
 
 if __name__ == '__main__':
-    #print (read_aniXt_property())
-    print(read_names_json())
+    print (read_aniXt_property(False))
+    #print(read_names_json())
 
