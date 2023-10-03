@@ -83,6 +83,9 @@ class Suffix:
 
 class Dhaatu:
     def __init__(self,data):
+        # this suppresses aNN to NN
+        if data[-1]=='NN' and data[-2]=='a':
+            self._data = data[0:-2]+['NN']
         self._data= data
 
     def get_data(self):
