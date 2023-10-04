@@ -347,7 +347,10 @@ def apply_all_transformations(expression):
     return new_expression
 
 def process_until_finish(expr):
-    
+    """
+    The main function that applies process_list until no differences are reported
+    on to the expression
+    """
     old_string = output_processed_string (expr)
     new_expr = process_list(expr)
     if output_processed_string (new_expr)==old_string:
@@ -362,10 +365,13 @@ def process_until_finish(expr):
     
 def get_numconditions_dictionary(all_sutras,sutradf,expression):
     """
-     since the sutra function do not change the expression itself, a dry-run 
-     on the rules filters out only the sutras that cause a change (apply).
-     the function presents the applicable sutras arranged in an orderedict
-     indexed by the number of conditions
+     @description : since the sutra functions do not change the expression itself, a dry-run 
+     on the rules filters out only the sutras that cause a change (through apply). 
+     A rule may not meant to be applied repeatedly or it may not apply
+     when another relevant rule has already been applied - a logic that
+     is handled inside the rule implementation itself. 
+     @input: allsutrasdf and the expression
+     @output: the applicable sutras arranged in an orderedict indexed by the number of conditions
     """    
     
     listApplicableSutras=[]
@@ -397,6 +403,21 @@ def get_numconditions_dictionary(all_sutras,sutradf,expression):
             
     return numConditionsDict
             
+
+def check_apavaada_rule(applicablesutrasinfo):
+    """
+    @description: A subset rule that also applies would always have the same conditions(this can verified with a search and asserted in implementation). 
+    Comparing among rules that apply (i.e. cause a change), a more specific rule cannot have less conditions as that does not imply specificity. Regardless, a more specific rule with less
+    conditions would be both specific and with less-conditions and therefore selecting the more specific rule does not cause any issues.
+    Comparing among rules that apply(i.e. cause change), a more specific rule may have more conditions fulfilled. Here too, the specific rule must precede.
+    When numconditions are the same, then selecting the subset rule (apavaada) is trivially accepted.
+    Therefore, a more specific rule (apavaada) always precedes a less specific rule. All combinations of rules (for each change-causing or applied rule) must therefore be 
+    checked so that the most specific rule automatically precedes the generic rule. These preference pairs (i.e. each nitya-apavaada pair computed based on internal cond structure) are then passed 
+    on the next rule-selection phases so that the next possible-rule is rejected in favour a more specific rule whenever that exists.
+    """
+
+    return {'status':False}
+
 def process_list(expr):
     all_sutras= get_sutras_ordered()
     
@@ -422,12 +443,19 @@ def process_list(expr):
               ])
     itdf = itdf.sort_values('sutranum')
     
+    
     numConditionsDict = get_numconditions_dictionary(all_sutras=all_sutras, sutradf=itdf,expression=new_expr)
         
     if numConditionsDict.keys() :
         applicableSutrasInfo= numConditionsDict[min(numConditionsDict.keys())]
         if applicableSutrasInfo:
-            firstApplicableSutra = applicableSutrasInfo[0]
+            
+            apavaadaInfo = check_apavaada_rule(applicableSutrasInfo)
+            if not apavaadaInfo['status'] :
+                firstApplicableSutra = applicableSutrasInfo[0]
+            else:
+                # next possible-rule is rejected in favour a more specific rule if it exists                
+                firstApplicableSutra = {'type':apavaadaInfo ['type'], 'sutranum':apavaadaInfo['sutranum']}
         
             if firstApplicableSutra ['type'] == "insertion":
                 #old_string = output_processed_string(new_expr)                
