@@ -6,6 +6,13 @@ from ..common_definitions import find_eldest_parent1_of_condition,find_eldest_pa
 class yuvoranaakau_7010010:
     def __init__(self):
         self._numconditions = 1
+        self._condition = {'self':{
+                        'ORVEC':[
+                        {'ANDVEC':[ {'index':{-1:{'domain':['y']}}} ,{'index':{-2:{'domain':['u']}}} ]},
+                        {'ANDVEC':[ {'index':{-1:{'domain':['v']}}} ,{'index':{-2:{'domain':['u']}}} ]}
+                        ]
+                   }
+            }
     def __call__(self,node):
         if not isinstance(node,Node):
             raise ValueError("suffix must of type Node")
@@ -28,6 +35,8 @@ class yuvoranaakau_7010010:
 class XtaaNgasiNgasaaminaatsyaaH_7010120:
     def __init__(self):
         self._numconditions = 1
+        self._condition = {'self':{'data':{'domain':['Xtaa','Ngas','bhyaaM']}}
+                   }
     def __call__(self,node, anga_node):
         if not isinstance(node,Node):
             raise ValueError("suffix must of type Node")
@@ -51,7 +60,8 @@ class XtaaNgasiNgasaaminaatsyaaH_7010120:
 class NgeryaH_7010130:
     def __init__(self):
         self._numconditions = 1
-        
+        self._condition = {'self':{'data':{'domain':['Nge']}}
+                   }
     def __call__(self,node, anga_node):
         if not isinstance(node,Node):
             raise ValueError("suffix must of type Node")
@@ -77,6 +87,8 @@ class NgeryaH_7010130:
 class jhoantaH_7010030:
     def __init__(self):
         self._numconditions = 0
+        self._condition = {'self':{'data':{'domain':['jhi']}}
+                   }
     def __call__(self,node):
         if not isinstance(node,Node):
             raise ValueError("suffix must of type Node")
@@ -96,7 +108,8 @@ class aayaneyiiniiyiyaHphaXdhakhachchhaghaaMpratyayaadiinaaM_7010020:
 
     def __init__(self):
         self._numconditions = 1
-        
+        self._condition = {'self':{'index':{0 :{'domain':[('ph','Xdh','kh','chh','gh')]}}}
+                   }
     def __call__(self,anga_node ,node):        
         if not isinstance(node,Node):
             raise ValueError("suffix must of type Node")
@@ -108,7 +121,9 @@ class aayaneyiiniiyiyaHphaXdhakhachchhaghaaMpratyayaadiinaaM_7010020:
         if not isinstance(anga_node,Node):
             raise ValueError("anga_node must of type Node")
         pratyaya=node.get_output()
-        letter = [0]
+        if not pratyaya:
+            return pratyaya
+        letter = pratyaya[0]
         if letter== "ph":
             return ["aa","y","a","n"] + pratyaya[1:]
         elif letter == "Xdh":
@@ -126,6 +141,8 @@ class aayaneyiiniiyiyaHphaXdhakhachchhaghaaMpratyayaadiinaaM_7010020:
 class sichivRiddhiHparasmaipadeXshu_7020021:
     def __init__(self):
         self._numconditions = 2
+        self._condition = {'self':{'data':{'domain':['sNNch']},'pada':{'domain':['parasmaipada']}}
+                           }
         
     def __call__(self,node,suffix_node):
         
@@ -157,7 +174,8 @@ class sichivRiddhiHparasmaipadeXshu_7020021:
 class aardhadhaatukasyeXdvalaadeH_7020350:
     def __init__(self):
         self._numconditions = 2
-        
+        #TODO : add and / OR
+        self.condition = {'self':{'lakaara':{'domain':['liXt']}}}
         
     def __call__(self,prefix_node,suffix_node):
         """
@@ -171,7 +189,6 @@ class aardhadhaatukasyeXdvalaadeH_7020350:
         
         if isinstance(prefix_node._data,Dhaatu) and \
             isinstance(suffix_node._data,Suffix) :
-                #prefix_node_data=[x['output'] for x in prefix_node._output if 'new' in x and x['new']][-1]
                 suffix_node_data=[x['output'] for x in suffix_node._output if 'new' in x and x['new']][-1]       
                 suffix_node_output=suffix_node.get_output()
                 if suffix_node._data._lakaara == 'liXt' or not suffix_node._data.is_saarvadhaatuka() :
@@ -192,6 +209,7 @@ class aardhadhaatukasyeXdvalaadeH_7020350:
 class liNgaHsalopoanantyasya_7020790:
     def __init__(self):
         self._numconditions = 2
+        self._condition = {'self':{'lakaara':{'domain':['liNg1','liNg2']}}}
         
     def __call__(self,node,suffix_node):   
             
@@ -216,6 +234,25 @@ class liNgaHsalopoanantyasya_7020790:
 class atoyeyaH_7020800:
     def __init__(self):
         self._numconditions = 2
+        
+        
+        self._condition = {'prev1':{'index':{-1:{'domain':['a','aa']}}},
+                           'self':{'lakaara':{'domain':['liNg1','liNg2']},
+                                   {'ORVEC': [{'ANDVEC':[{'index':{-1:'a'}},
+                                                         {'index':{-2:'y'}}
+                                       ]},
+                                   
+                                   {'ANDVEC':[
+                                       {'index':{-1:'aa'}},
+                                       {'index':{-2:'y'}}
+                                       ]
+                                       
+                                     }
+                                     ]
+                                   }
+                                  }
+                           }
+        
         
     def __call__(self,anga_node,node):   
             

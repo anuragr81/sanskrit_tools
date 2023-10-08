@@ -141,8 +141,10 @@ class echoayavaayaavaH_6010750:
     def __init__(self):
         self._numconditions = 1
         achs = ['aa', 'ii', 'uu', 'Rii', 'lRii', 'a', 'i', 'ii', 'u', 'uu', 'Ri', 'Rii', 'lRi', 'lRii', 'e', 'o', 'ai', 'au']
-        self._condition = {'self':{'index': { -1 : { 'domain':['e','o','ai','au'] } ,
-                                              0 : achs }
+        self._condition = {'self':{'index': {'ANDVEC': [{ -1 : { 'domain':['e','o','ai','au'] }} ,
+                                              {0 : {'domain':achs}} 
+                                              ]
+                                             }
                                    
                                    }
                            }
@@ -460,7 +462,7 @@ class amipuurvaH_6011030:
 class luNglaNglRiNgkShvaXdudaattaH_6040710:
     def __init__(self):
         self._numconditions = 1
-        self._condition = {'next1':{'lakaara':['luNg','laNg','lRiNg']},
+        self._condition = {'next1':{'lakaara':{'domain':['luNg','laNg','lRiNg']} },
                            }
         
     def __call__(self,prefix_node,suffix_node):
@@ -531,9 +533,13 @@ class ataekahalmadhyeanaadeshaaderliXti_6041200:
         self._numconditions = 1
         self._condition = {'next1':{'lakaara':{'domain':['liXt']}
                                     }, 
-                           'self':{'index':{-2:{'domain': hal()}, -1:{'domain':hal()}}
-                                   }
+                           'self':{'ANDVEC': [{'index':{-2:{'domain': hal()}}},
+                                            {'index':{-1:{'domain':hal()}}}
+                                            ]
+                                            }
                            }
+                           
+                           
     def __call__(self,node,suffix_node):
         if not isinstance(suffix_node,Node):
             raise    ValueError ("suffix_node must be of type Node")

@@ -51,11 +51,13 @@ class aadirNciXtuXdavaH_1030050:
         self._numconditions=1
         #TODO : cleanup the weaker (non-equivalent to actual treatment) condition issue
         self._condition = {
-            'self':{'index':{0:{'domain':["Nc","Xt","Xd"]},
-                             1:{'domain':["i","u"]}
+            'self':{'ORVEC': [ {'ANDVEC':[{'index':{0:{'domain':['Nc']}}},{'index':{1:{'domain':['i']} }}] },
+                              {'ANDVEC':[{'index':{0:{'domain':['Xt']}}},{'index':{1:{'domain':['u']} }}] },
+                             { 'ANDVEC':[{'index':{0:{'domain':['Xd']}}},{'index':{1:{'domain':['u']} }}] },
+                              ]
                              }
-                    }
             }
+                    
                                         
             
     def __call__(self,node):
@@ -111,7 +113,7 @@ class lashakvataddhite_1030080:
         
         self._condition = {'self':{'index':{0:{'domain':["l","sh","k","kh","g","gh","NN"]}}
                                    },
-                           'suffixtype':list(set(all_pratyayas())-set(taddhita_pratyayaaH()))
+                           'data':list(set(all_pratyayas())-set(taddhita_pratyayaaH()))
                            }
     def __call__(self,node):
         if not isinstance(node,Node):

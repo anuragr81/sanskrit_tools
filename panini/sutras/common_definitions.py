@@ -236,23 +236,9 @@ def ach():
 
 def pratyaahaara(start,end):
     """
-    Parameters
-    ----------
-    start : character
-        The starting letter of the  pratyaahaara
-    end : character
-        The ending letter of the  pratyaahaara
-
-    Raises
-    ------
-    ValueError
-    RuntimeError
-
-    Returns
-    -------
-    list
-        characters in the pratyaahaara.
-
+    @param  start : character - starting letter of the  pratyaahaara
+    @param  end : character - ending letter of the  pratyaahaara
+    @output :     list - characters in the pratyaahaara.
     """
 
     plist= ({'letters':("a","i",'ii',"u",'uu',),'marker':'Nn'},{'letters':('Ri','Rii','lRi','lRii'),'marker':'k'},

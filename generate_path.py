@@ -406,14 +406,17 @@ def get_numconditions_dictionary(all_sutras,sutradf,expression):
 
 def check_apavaada_rule(applicablesutrasinfo):
     """
-    @description: A subset rule that also applies would always have the same conditions(this can verified with a search and asserted in implementation). 
-    Comparing among rules that apply (i.e. cause a change), a more specific rule cannot have less conditions as that does not imply specificity. Regardless, a more specific rule with less
-    conditions would be both specific and with less-conditions and therefore selecting the more specific rule does not cause any issues.
-    Comparing among rules that apply(i.e. cause change), a more specific rule may have more conditions fulfilled. Here too, the specific rule must precede.
-    When numconditions are the same, then selecting the subset rule (apavaada) is trivially accepted.
-    Therefore, a more specific rule (apavaada) always precedes a less specific rule. All combinations of rules (for each change-causing or applied rule) must therefore be 
-    checked so that the most specific rule automatically precedes the generic rule. These preference pairs (i.e. each nitya-apavaada pair computed based on internal cond structure) are then passed 
-    on the next rule-selection phases so that the next possible-rule is rejected in favour a more specific rule whenever that exists.
+    @description: A subset rule that also applies would always have the same conditions (this can verified with a search and also asserted in implementation). 
+    Comparing among rules that apply (i.e. cause a change), a more specific rule cannot as such have less num-conditions since the less num-condition goes against the idea of specificity. 
+    Further, a more specific rule with less num-conditions would be both specific and with less-conditions anyways and therefore selecting the more specific rule does not cause any issues.
+    A more specific rule with more conditions on the other hand, would also have higher precedence (as it's more specific).
+    As a result, while selecting a subset rule (apavaada) is trivially accepted when numconditions are the same,  a more specific rule (apavaada) always precedes a less specific rule even when num-conditions are different. 
+    The apavaada rule thus always dominates. 
+    
+    Assuming that the apavaada rule is the one to be applied before (regardless of num-conditions), we look at 
+    possible pairings of a given rule with all other rules (limiting to change-causing or applied rules). As the most specific rule precedes the more generic rule, the all apavaada possibilities are considered and sorted according to num-conditions. 
+    For all rules relevant in an expression, the apavaadas are prepared and instead of the candidate with 
+    min-conditions that would have otherwise been applied (if apavaada weren't available).
     """
 
     return {'status':False}
