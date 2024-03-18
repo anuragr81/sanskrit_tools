@@ -1,9 +1,8 @@
 from collections import OrderedDict
 
-import re, sys
 from copy import deepcopy
 from functools import reduce
-from pprint import pprint
+from panini.sutras.common_definitions import print_expr
 import inspect
 import pandas as pd
 
@@ -52,9 +51,11 @@ def padaanta_sutras():
     return [8020230]
 
 def transformation_sutras():
-    # TODO: add 6010640
+    
     ll = [2040850,3010331,3040820,3040860,3040870,3040890,3040990,3041000,3041010,
-          6010080,6010630, 6010750, 6040880, 6010940, 6010980, 
+          6010080,6010630, 6010640,
+          6010750, 6040880, 6010940, 6010980, 
+          
           6010840,6010841,6010850,6010851,
           6010970,6010971,6010990, 6041050, 6041200, 6041480, 7010030,7010010, 7010020, 7010120,7010130,
           
@@ -339,13 +340,6 @@ def apply_all_lopas(expression):
     return expression
 
 
-def apply_all_transformations(expression):
-    all_sutras= get_sutras_ordered()
-    for transformation_ruleid in transformation_sutras():        
-       new_expression= apply_transformation(all_sutras[transformation_ruleid],expression)
-    new_expression = apply_all_lopas(new_expression)
-    return new_expression
-
 def process_until_finish(expr):
     """
     The main function that applies process_list until no differences are reported
@@ -446,9 +440,10 @@ def process_list(expr):
               ])
     itdf = itdf.sort_values('sutranum')
     
-    
+        
     numConditionsDict = get_numconditions_dictionary(all_sutras=all_sutras, sutradf=itdf,expression=new_expr)
         
+
     if numConditionsDict.keys() :
         applicableSutrasInfo= numConditionsDict[min(numConditionsDict.keys())]
         if applicableSutrasInfo:

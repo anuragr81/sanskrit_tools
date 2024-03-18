@@ -104,36 +104,17 @@ class lopovyorvali_6010640:
             raise    ValueError ("node must be of type Node")
         if not isinstance   (suffix_node,Node):
             raise    ValueError ("suffix_node must be of type Node")
-        if suffix_node.get_output() :
-            if node.get_output() and node.get_output()[-1] in ('y','v') and suffix_node.get_output()[0] in pratyaahaara('v','l'):
+        if node.get_output() and node.get_output()[-1] in ('y','v') :
+            if suffix_node.get_output() :
+                effective_suffix_node= suffix_node
+            elif not suffix_node.get_output()  and suffix_node._parent2.get_output():
+                effective_suffix_node = suffix_node._parent2
+            else:
+                return node.get_output()
+                
+            if effective_suffix_node.get_output()[0] in pratyaahaara('v','l'):
                 return node.get_output()[0:-1]
-        else:
-            print("suffix is empty")
-            empty_node = suffix_node
-            # this treatment looks for the children after the current and any children thereafter that are non-empty
-            while True:
-                if empty_node._parent2: # must have parent otherwise return no action
-                    if empty_node ._parent2._children:
-                        # find first parent2 and then the child immediately after the current node
-                        children_after_empty = [(i+1) for (i,child_i) in enumerate(empty_node._parent2._children) if child_i==empty_node ]
-                        if children_after_empty[0] < len(empty_node._parent2._children):
-                            # only the child immediately after is considered 
-                            # children - after empty exist and are non-empty
-                            if empty_node._parent2._children[children_after_empty[0]].get_output():
-                                return empty_node._parent2._children[children_after_empty[0]].get_output()
-                        
-                    # no non-empty children found (if here) so try taking parent2 output
-                    if empty_node._parent2.get_output():
-                        return empty_node._parent2.get_output()
-                    else:
-                    # if parent2 is also empty then set empty_node to parent2 
-                        empty_node  = empty_node._parent2
-                else:
-                    return node.get_output()
-                    
-                    
-                    
-            # if such a child exists and is also empty then find the next non-empty node with the same loop
+            
         return node.get_output()
         
 

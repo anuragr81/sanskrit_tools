@@ -226,7 +226,9 @@ class liNgaHsalopoanantyasya_7020790:
         nodeliNgRelated= find_eldest_parent2_of_condition(node,lambda x : isinstance(x._data,Suffix) and x._data._lakaara in('liNg1','liNg2') )
         if nodeliNgRelated:
             # omit s
-            return [x for x in node.get_output() if x !='s']
+            output_data = [x for x in node.get_output() if x !='s']
+            if output_data  != node.get_output() : # only for debugging purposes
+                return output_data  
         
         return node.get_output()
     

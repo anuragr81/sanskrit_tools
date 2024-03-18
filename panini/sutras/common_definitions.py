@@ -1,5 +1,10 @@
 import re,json
 
+from functools import reduce
+
+def print_expr(expr):
+    return ''.join(reduce(lambda x ,y : x + y.get_output(),  expr, []))
+
 def hal():
     return ("kh","k","gh","g","Ng","Nc","NN","Nn","chh","ch","jh","j",
             "Xth","Xt","Xdh","Xd","Xsh","th","t","dh","d","n",
