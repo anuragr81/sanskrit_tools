@@ -238,7 +238,7 @@ class atoyeyaH_7020800:
         
         self._condition = {'prev1':{'index':{-1:{'domain':['a','aa']}}},
                            'self':{'lakaara':{'domain':['liNg1','liNg2']},
-                                   {'ORVEC': [{'ANDVEC':[{'index':{-1:'a'}},
+                                   'ORVEC': [{'ANDVEC':[{'index':{-1:'a'}},
                                                          {'index':{-2:'y'}}
                                        ]},
                                    
@@ -249,7 +249,7 @@ class atoyeyaH_7020800:
                                        
                                      }
                                      ]
-                                   }
+                                   
                                   }
                            }
         
