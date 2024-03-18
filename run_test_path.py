@@ -103,7 +103,7 @@ def test_siddhis ():
 #raise ValueError("Fix alaaviit - The lopa of s needs to be implemented in iXt iiXti")
 #raise ValueError("Fix path+jhi(luXt)")
 
-if F:
+if T:
     test_siddhis ()
     #print("Test")
     #f=Functor()

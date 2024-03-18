@@ -195,7 +195,8 @@ class tasthasthamipaamtaamtamtaamaH_3041010:
     def __call__(self,node):
         # loXtolaNgvat allows loXt 
         if isinstance(node._data,Suffix) and node._data._lakaara and (node._data._lakaara.endswith('Ng') or node._data._lakaara=='loXt' ):
-            if 3041010 not in list_past_rules_applied(node):
+            if not set(list_past_rules_applied(node)).intersection([3040860,3040870,3040890,3041010 ]):
+                
                 suffix_replacement_dict = {'tas':['t','aa','m'] , 'thas':['t','a','m'], 'tha':['t','a'], 'mip':['a','m']}
                 if ''.join(node._data._suffix) in suffix_replacement_dict :
                     return suffix_replacement_dict [''.join(node._data._suffix)]
