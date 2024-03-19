@@ -404,13 +404,16 @@ def check_apavaada_rule(applicablesutrasinfo):
     Comparing among rules that apply (i.e. cause a change), a more specific rule cannot as such have less num-conditions since the less num-condition goes against the idea of specificity. 
     Further, a more specific rule with less num-conditions would be both specific and with less-conditions anyways and therefore selecting the more specific rule does not cause any issues.
     A more specific rule with more conditions on the other hand, would also have higher precedence (as it's more specific).
-    As a result, while selecting a subset rule (apavaada) is trivially accepted when numconditions are the same,  a more specific rule (apavaada) always precedes a less specific rule even when num-conditions are different. 
+    As a result, while selecting a subset rule (apavaada) is trivially accepted when numconditions are the same,  a 
+    more specific rule (apavaada) always precedes a less specific rule even when num-conditions are different. 
     The apavaada rule thus always dominates. 
     
     Assuming that the apavaada rule is the one to be applied before (regardless of num-conditions), we look at 
-    possible pairings of a given rule with all other rules (limiting to change-causing or applied rules). As the most specific rule precedes the more generic rule, the all apavaada possibilities are considered and sorted according to num-conditions. 
-    For all rules relevant in an expression, the apavaadas are prepared and instead of the candidate with 
-    min-conditions that would have otherwise been applied (if apavaada weren't available).
+    possible pairings of a given rule with all other rules (limiting to change-causing or applied rules). 
+    As the most specific rule precedes the more generic rule, the all apavaada possibilities are considered 
+    and sorted according to num-conditions. For all rules relevant in an expression, the apavaadas are prepared 
+    and instead of the candidate with min-conditions that would have otherwise 
+    been applied (if apavaada weren't available).
     """
 
     return {'status':False}
