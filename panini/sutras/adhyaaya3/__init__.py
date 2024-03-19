@@ -186,6 +186,37 @@ class itashcha_3041000:
         
         return node.get_output()
 
+
+
+class jherjus_3041080:
+    
+    def __init__(self):
+        self._condition = {
+            'self':{'data':{'domain':['jhi']},
+                    'lakaara':{'domain':['liNg1','liNg2']}
+                   }
+        }
+        self._numconditions=2
+        self._sutranum =str(type(self).__name__).split("_")[-1]
+        
+    def __call__(self,node):
+        if not isinstance(node,Node):
+            raise ValueError("Must be Node")
+         
+        if not node.get_output():
+            return node.get_output()
+        if 3041080 in list_past_rules_applied(node):
+            return node.get_output()
+        
+        suffix=node._data
+        if not isinstance(suffix,Suffix):
+            raise ValueError("Must be Suffix")
+        if suffix._lakaara and suffix._lakaara in ('liNg1','liNg2') and ''.join(suffix._suffix) == 'jhi':
+            return {'output':["j","u","s"], 'mutate':True}
+            
+        
+        return node.get_output()
+    
 class tasthasthamipaamtaamtamtaamaH_3041010:
     def __init__(self):
         self._numconditions=1
