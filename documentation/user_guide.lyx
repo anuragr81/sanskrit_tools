@@ -100,7 +100,7 @@
 \output_sync 0
 \bibtex_command default
 \index_command default
-\paperfontsize default
+\paperfontsize 12
 \spacing single
 \use_hyperref false
 \papersize default
@@ -132,8 +132,8 @@
 \leftmargin 3cm
 \topmargin 2cm
 \rightmargin 3cm
-\bottommargin 1.5cm
-\headheight 1.5cm
+\bottommargin 2.5cm
+\headheight 2cm
 \headsep 3cm
 \footskip 2cm
 \secnumdepth 3
@@ -217,6 +217,20 @@ Node
 A suffix (one of vikaraṇa, kṛdanta, taddhita, subaadi or tibaadi suffixes),
  a verb-root (dhātu), a predefined noun (prātipadika) or a prefix that acts
  as unit has a modifiable textual content is referred to as a node.
+ The nodes are not stateless and therefore the application of a given rule
+ 
+\begin_inset Formula $\omega$
+\end_inset
+
+ may depend on the past history of application of 
+\begin_inset Formula $\omega$
+\end_inset
+
+ or any other rule 
+\begin_inset Formula $\omega'$
+\end_inset
+
+.
  
 \end_layout
 
@@ -316,6 +330,37 @@ f:\{N_{i}\}_{1\le i\le n}\rightarrow\{M_{j}\}_{1\le j\le m}
 
 \end_layout
 
+\begin_layout Standard
+Given that nodes are never removed from an expression two types of rules
+ are possible.
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Insertion rules 
+\series default
+- introduce another node based on the state of the nodes in an expression.
+ Since there are no rules in aṣṭādhyāyī that require an introduction of
+ more than one node in the expression, the insertion rules increase the
+ length of the input by exactly one node.
+ It may help to distinguish between rules that are inserted after a given
+ node and before the node.
+ It is worth noting that most rules in aṣṭādhyāyī introduce nodes after
+ a given node rather than before (except for a few rules such as luṅlaṅlṛṅkṣvaḍu
+dāttaḥ).
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Transformation rules 
+\series default
+- perform an in-place change in exactly one node.
+ Since there are many rules (ato guṇe etc.) that modify more than one node,
+ such rules are interpreted as multiple rules with same input (precondition).
+\end_layout
+
 \begin_layout Subsubsection
 Admissible sutra
 \end_layout
@@ -411,32 +456,33 @@ footnote{The kaumudii tradition however often does reject rules based on
  We do not know of a quantitative survey of the degree of success the derivation
  of rules have.
  One of the challenges to such a task is that the several extensions (vārtika)
- used to interpret aṣṭādhyāyī are not recorded as rigorously as the rules
- in aṣṭādhyāyī.
+ that are used to interpret aṣṭādhyāyī have not been recorded with as much
+ as rigour as the rules of aṣṭādhyāyī.
 \end_layout
 
 \begin_layout Standard
-It can be generally agreed that the adjustment of the order of rules based
- on the word that is being formed is discouraged in the aṣṭādhyāyī tradition.
- It needs to be emphasised however, that the two traditions (kaumudī and
- aṣṭādhyāyī) do not have much conflict between them.
- At least in the 20th century education of Sanskrit, it is often that kaumudī
- is adopted by everyone at the beginner levels while only grammarians tend
- to study aṣṭādhyāyī at advanced levels.
+It can be generally agreed however that the adjustment of the order of rules
+ based on the word being formed is discouraged in the aṣṭādhyāyī tradition.
+ The two traditions (kaumudī and aṣṭādhyāyī) may not have much conflict
+ between them and in so far as the 20th century instruction of Sanskrit
+ grammar, the kaumudī is adopted by nearly everyone at the intermediate
+ levels while the study of aṣṭādhyāyī is limited to grammarians at advanced
+ levels.
  It can be safely said therefore that the discussion in the kaumudī tradition
  of whether rule ought to be blocked due to it leading to an aniṣṭa (unintended)
- pada (word) or not is replaced in the aṣṭādhyāyī tradition with a discussion
- of the order of sutras to be applied.
+ pada (word) or is simply replaced by the discussion of order of sutras
+ to be applied in the aṣṭādhyāyī tradition.
 \end_layout
 
 \begin_layout Standard
-The engine attempts to formaiise the tradition's view of order of preference
+The engine attempts to formalise the tradition's view of order of preference
  of rules (nityaapavada...) and views the selection of an order of preference
  as a function of rule-functions.
- The tradition's view (nityaapavada...) is interpreted as the three-level sorting
- order to select the preferred rule to be applied.
- An explanation of the need for a three-level sorting order and a comparison
- with the literature on sequentiality of rules are provided in Section 
+ The engine inteprets tradition's view (nityaapavada...) as a three-level sorting
+ order - which is used to select the highest priority rule to be applied.
+ An explanation for why this three-level sorting order is needed and a survey
+ of literature's view on sequentiality of rules are provided in Section
+ 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "subsec:opposing-forces"
@@ -447,10 +493,6 @@ noprefix "false"
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-
 \end_layout
 
 \begin_layout Subsection
@@ -480,47 +522,100 @@ noindent
 \end_layout
 
 \begin_layout Standard
-The instruction of grammar is primarily oral and emphasises the committing
- all the rules to memory.
- Therefore, as the literature notes, therefore, elaborate attempts are made
- to maintain a stable sequence of rules.
+The importance of sequentiality or rules in Sanskrit grammar cannot be understat
+ed in a system of instruction that remains primarily oral in India to this
+ day.
+ It is not uncommon for students to commit nearly 4000 rules of the aṣṭādhyāyī
+ to their memory before they may know what the rules are about.
+ The elaborate attempts to maintain a stable sequence of rules - as the
+ literature notes - make perfect sense if one values a standard sequence
+ to be memorised for all grammar students.
+ This applies not only to aṣṭādhyāyī but to dhātupāṭha and uṇādikośa as
+ well - both of which are memorised by the students of grammar in the aṣṭādhyāyī
+ tradition.
 \end_layout
 
 \begin_layout Standard
-A few opposing forces that maintain a sequential are worth noting.
- While the general presentation of sutras is that a certain headliner rule
- (adhikaara sutra) introducing an over-arching theme (anuvRitti) of subsequent
- rules, the theme-does are not always top-down.
- More specifically, MaNDuukapluta-gati) is possible.
- In fact multiple themes (anuvRitti) are often simultaneously relevant for
- a particular sutra.
- The multiple themes prevent the organisation rules from being strictly
- hierarchical.
- 
+Given the width of topics in the aṣṭādhyāyī and the rules for optionality,
+ negations and hard-coding of words (nipātana), the limitations of a sequential
+ order are evident.
+ The general presentation of sutras is such that a certain headliner-rule
+ (adhikāra-sutra) introduces an over-arching theme (anuvṛtti) of subsequent
+ rules.
+ As such, the themse (anuvṛtti) pose two problems with the sequential order.
+ First, multiple themes (anuvṛtti) could be simultaneously relevant for
+ a given sutra.
+ Second, the theme that a rule is associated with need not be that of the
+ headliner-rule (adhikāra-sutra) immediately preceding the rule.
+ In other words, if 
+\begin_inset Formula $r(\omega)$
+\end_inset
+
+ denotes the position of the rule 
+\begin_inset Formula $\omega$
+\end_inset
+
+ in the aṣṭādhyāyī, and if rules 
+\begin_inset Formula $\omega'$
+\end_inset
+
+ and 
+\begin_inset Formula $\omega$
+\end_inset
+
+ are introduced by 
+\begin_inset Formula $\kappa$
+\end_inset
+
+ so that 
+\begin_inset Formula $r(\kappa)<r(\omega)<r(\omega')$
+\end_inset
+
+, then it possible that the relevant theme of 
+\begin_inset Formula $\omega'$
+\end_inset
+
+ is not 
+\begin_inset Formula $\kappa$
+\end_inset
+
+ but another rule 
+\begin_inset Formula $\kappa'$
+\end_inset
+
+ before 
+\begin_inset Formula $\kappa$
+\end_inset
+
+ (
+\begin_inset Formula $r(\kappa')<r(\kappa)$
+\end_inset
+
+).
+ This is referred to as maṇḍūkaplutagati (frog-leap) of anuvṛtti.
+ Simply, put the themes are not always top-down and make a lexicographic
+ (dictionary-like) order impossible for application of sutras.
 \end_layout
 
 \begin_layout Standard
-Indeed all nipaatana is (hard-coded selection of words while ignoring the
- rules to be applied) also occurs later.
- A strict interpretation of the sequential preference is thus inappropriate.
- 
+There has been some discussion in the literature on whether a strict preference
+ of later rules is appropriate or not.
+ Given that nipātana (hard-coded selection of words that ignore earlier
+ rules) and exception-rules (overruling the stated rules) are always stated
+ in the aṣṭādhyāyī after stating the main rules, the preference given to
+ the earlier rule would defeat the purpose of stating nipātana and exceptions.
+ The limitations of the sequential view we consider is one where later rules
+ are preferred over preceding rules.
 \end_layout
 
 \begin_layout Standard
-The forces can be seen as opposing because while the rules that are more
- generic should are set earlier in, there are several exception overruling
- the generic rules that are stated after the main generic rule.
- 
-\end_layout
-
-\begin_layout Standard
-The opposing mechanisms have been discussed in the literature.
- A multitude of interpretations of rules makes it difficult to assess claims
- of whether the sequence always leads to proper derivation of words or not.
- Since Panini himself uses hard-coded words (nipaatan) profusely, the tradition
- has accepted to live with multiple rules-interpretations arriving at varying
+Since Panini himself uses hard-coded words profusely, the tradition has
+ accepted to live with multiple rules-interpretations arriving at varying
  degrees of success in derivation.
- What can be generally agreed however is that the sequence of rules is taught
+\end_layout
+
+\begin_layout Standard
+What can be generally agreed however is that the sequence of rules is taught
  without the anuvRitti in any traditions.
  Even in the kaumudii tradition, which deals with only a subset of rules
  of aShTaadhyaayi, the themes (anuvRitti) from aShTaadhyaayi are taught
