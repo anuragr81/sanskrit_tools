@@ -1,0 +1,699 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\usepackage[T1]{fontenc}
+\usepackage{tgtermes}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{xparse}
+\usepackage{lscape}
+\usepackage[section]{placeins}
+\usepackage{apacite}
+\usepackage{etoolbox}
+\patchcmd{\thebibliography}{\section*{\refname}}{}{}{}
+
+\usepackage{titlesec}
+\usepackage{bbm}
+
+
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{sectsty}
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+
+\usepackage{color, colortbl}
+\usepackage[first=0,last=9]{lcg}
+\usepackage[left,modulo]{lineno}
+
+
+\usepackage{soul}
+\usepackage{color}
+
+\usepackage[absolute]{textpos}
+
+
+\newcommand{\hlc}[1]{{\sethlcolor{LightCyan}\hl{#1}}}
+\newcommand{\hly}[1]{{\sethlcolor{LightYellow}\hl{#1}}}
+\newcommand{\hlw}[1]{{\sethlcolor{White}\hl{#1}}}
+\newcommand{\hlg}[1]{{\sethlcolor{LightGreen}\hl{#1}}}
+
+\definecolor{Gray}{gray}{0.9}
+\definecolor{LightCyan}{rgb}{0.88,1,1}
+\definecolor{LightYellow}{RGB}{255,255,200}
+\definecolor{LightGreen}{RGB}{204,255,204}
+\definecolor{White}{RGB}{255,255,255}
+\newcommand{\ra}{\rand0.\arabic{rand}}
+
+
+\makeatletter
+\@addtoreset{section}{part}
+\def\@part[#1]#2{%
+    \ifnum \c@secnumdepth >\m@ne
+      \refstepcounter{part}%
+      \addcontentsline{toc}{part}{\thepart\hspace{1em}#1}%
+    \else
+      \addcontentsline{toc}{part}{#1}%
+    \fi
+    {\parindent \z@ \raggedright
+     \interlinepenalty \@M
+     \normalfont\centering
+     \ifnum \c@secnumdepth >\m@ne
+       \large\bfseries \partname\nobreakspace\thepart
+       \par\nobreak
+     \fi
+     \huge \bfseries #2%
+     \markboth{}{}\par}%
+    \nobreak
+    \vskip 3ex
+    \@afterheading}
+\renewcommand\partname{Topic}
+\makeatother
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 3cm
+\topmargin 2cm
+\rightmargin 3cm
+\bottommargin 1.5cm
+\headheight 1.5cm
+\headsep 3cm
+\footskip 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+The pāṇini compressor
+\end_layout
+
+\begin_layout Section
+Sutras as functions on expression
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The engine views sutras as functions that applied to a starting expression
+ of prefixes, suffixes and verb-roots.
+ The application of sutras on the expression closely follows the scheme
+ provided by pāṇini.
+ The definitions pertaining to this treatment of pāṇini's rules are listed
+ in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Definitions"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Definitions"
+
+\end_inset
+
+Definitions
+\end_layout
+
+\begin_layout Subsubsection
+Node
+\end_layout
+
+\begin_layout Standard
+A suffix (one of vikaraṇa, kṛdanta, taddhita, subaadi or tibaadi suffixes),
+ a verb-root (dhātu), a predefined noun (prātipadika) or a prefix that acts
+ as unit has a modifiable textual content is referred to as a node.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Invisibility
+\end_layout
+
+\begin_layout Standard
+The complete removal of the textual content of a node is referred to as
+ an invisible (adṛśya) node.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Expression 
+\end_layout
+
+\begin_layout Standard
+An incremental collection of 
+\begin_inset Formula $n$
+\end_inset
+
+ seqential nodes 
+\begin_inset Formula $\{N_{i}\}_{1\le i\le n}$
+\end_inset
+
+ is referred to as an expression.
+ Once defined or introduced, the nodes are not removed from the expression
+ but can become invisible or adṛśya (through lopa-rules - see Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Rules"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ New nodes can be introduced (ādeśa/āgama) and have their textual content
+ transformed through rules.
+ However, the order of nodes is stable and they're never removed from the
+ expression.
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Rules"
+
+\end_inset
+
+Rules
+\end_layout
+
+\begin_layout Standard
+A rule or a sutra is a function on an expression that maps to another expression.
+ Rules are thus defined on the entire collection 
+\begin_inset Formula $\{N_{i}\}_{1\le i\le n}$
+\end_inset
+
+ of 
+\begin_inset Formula $n$
+\end_inset
+
+ nodes i.e.
+ i.e.
+ 
+\begin_inset Formula $\{N_{1},N_{2},..,N_{n}\}$
+\end_inset
+
+ so that they map to another expression 
+\begin_inset Formula $\{M_{j}\}_{1\le j\le m}$
+\end_inset
+
+ of 
+\begin_inset Formula $m$
+\end_inset
+
+ nodes i.e.
+ 
+\begin_inset Formula $\{M_{1},M_{2},..,M_{m}\}$
+\end_inset
+
+ .
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{gather*}
+f:\{N_{i}\}_{1\le i\le n}\rightarrow\{M_{j}\}_{1\le j\le m}
+\end{gather*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Admissible sutra
+\end_layout
+
+\begin_layout Standard
+An admissible sutra is one that would cause a material change in the entire
+ expression.
+ All schemes that set an order of preference of functions on an expression
+ (see Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:SutrasSelection"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) apply only for admissible sutras.
+ As a result, a rule that applies to an expression but does not lead to
+ any material change (i.e.
+ if input 
+\begin_inset Formula $\{N_{i}\}_{1\le i\le n}$
+\end_inset
+
+ and output 
+\begin_inset Formula $\{M_{j}\}_{1\le j\le m}$
+\end_inset
+
+ of a rule 
+\begin_inset Formula $f$
+\end_inset
+
+ are element-wise the same) is no different from another that doesn't apply
+ to the expression.
+ In other words, no difference is assumed between a rule that is explicitly
+ barred (e.g.
+ because of having had a lower priority than another rule) and another whose
+ application is strictly prohibited (through niṣedha).
+ Neither of the cases correspond to an admissible sutra.
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:SutrasSelection"
+
+\end_inset
+
+Order of Applying Sutras
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The pāṇini grammar allows for multiple rules to be applicable to the same
+ expression.
+ In other words, the domain of sutras as functions would necessarily overlap.
+ The grammarians in the aṣṭādhyāyī tradition generally do not select the
+ order of rules or prevent a rule from being applied by looking up which
+ word is being formed
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+footnote{The kaumudii tradition however often does reject rules based on
+ whether it would result in an unintended form or not.}
+\end_layout
+
+\end_inset
+
+.
+ A commentary even describes rules as clouds - so that they can rain anytime
+ and anywhere (thus refusing the authority of selection of order to the
+ grammarian).
+ We do not know of a quantitative survey of the degree of success the derivation
+ of rules have.
+ One of the challenges to such a task is that the several extensions (vārtika)
+ used to interpret aṣṭādhyāyī are not recorded as rigorously as the rules
+ in aṣṭādhyāyī.
+\end_layout
+
+\begin_layout Standard
+It can be generally agreed that the adjustment of the order of rules based
+ on the word that is being formed is discouraged in the aṣṭādhyāyī tradition.
+ It needs to be emphasised however, that the two traditions (kaumudī and
+ aṣṭādhyāyī) do not have much conflict between them.
+ At least in the 20th century education of Sanskrit, it is often that kaumudī
+ is adopted by everyone at the beginner levels while only grammarians tend
+ to study aṣṭādhyāyī at advanced levels.
+ It can be safely said therefore that the discussion in the kaumudī tradition
+ of whether rule ought to be blocked due to it leading to an aniṣṭa (unintended)
+ pada (word) or not is replaced in the aṣṭādhyāyī tradition with a discussion
+ of the order of sutras to be applied.
+\end_layout
+
+\begin_layout Standard
+The engine attempts to formaiise the tradition's view of order of preference
+ of rules (nityaapavada...) and views the selection of an order of preference
+ as a function of rule-functions.
+ The tradition's view (nityaapavada...) is interpreted as the three-level sorting
+ order to select the preferred rule to be applied.
+ An explanation of the need for a three-level sorting order and a comparison
+ with the literature on sequentiality of rules are provided in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:opposing-forces"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:opposing-forces"
+
+\end_inset
+
+A sorting order for rules
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The instruction of grammar is primarily oral and emphasises the committing
+ all the rules to memory.
+ Therefore, as the literature notes, therefore, elaborate attempts are made
+ to maintain a stable sequence of rules.
+\end_layout
+
+\begin_layout Standard
+A few opposing forces that maintain a sequential are worth noting.
+ While the general presentation of sutras is that a certain headliner rule
+ (adhikaara sutra) introducing an over-arching theme (anuvRitti) of subsequent
+ rules, the theme-does are not always top-down.
+ More specifically, MaNDuukapluta-gati) is possible.
+ In fact multiple themes (anuvRitti) are often simultaneously relevant for
+ a particular sutra.
+ The multiple themes prevent the organisation rules from being strictly
+ hierarchical.
+ 
+\end_layout
+
+\begin_layout Standard
+Indeed all nipaatana is (hard-coded selection of words while ignoring the
+ rules to be applied) also occurs later.
+ A strict interpretation of the sequential preference is thus inappropriate.
+ 
+\end_layout
+
+\begin_layout Standard
+The forces can be seen as opposing because while the rules that are more
+ generic should are set earlier in, there are several exception overruling
+ the generic rules that are stated after the main generic rule.
+ 
+\end_layout
+
+\begin_layout Standard
+The opposing mechanisms have been discussed in the literature.
+ A multitude of interpretations of rules makes it difficult to assess claims
+ of whether the sequence always leads to proper derivation of words or not.
+ Since Panini himself uses hard-coded words (nipaatan) profusely, the tradition
+ has accepted to live with multiple rules-interpretations arriving at varying
+ degrees of success in derivation.
+ What can be generally agreed however is that the sequence of rules is taught
+ without the anuvRitti in any traditions.
+ Even in the kaumudii tradition, which deals with only a subset of rules
+ of aShTaadhyaayi, the themes (anuvRitti) from aShTaadhyaayi are taught
+ side-by-side with the rules.
+ 
+\end_layout
+
+\begin_layout Standard
+As far as the application of sutras to an expression is concerned, the sequentia
+lity matters only locally and the relevance of a certain rule is decided
+ foremost by its anuvritti.
+ In other words, the organisation of the rules is not hierarchical and it
+ is sequential albeit only locally.
+ While the sequence of the rules matters - it is relevant only because rules
+ within a given theme (anuvRitti) are stated in a particular order wherein
+ optionality (vibhaaShaa) is stated after the main rule and exceptions are
+ stated after optionality.
+ Because of the significance of themes and the subjective nature of their
+ relevance, the earlier occurrence of a sutra in aShTaadhyaayii does not
+ necessarily imply a higher or a lower order of preference.
+\end_layout
+
+\begin_layout Standard
+To explain with an example, consider jho-antaH and jherjus as two sutras
+ that can be applied to the derivation of paTheyuH by compressing paTh +
+ jhi (li~N).
+ Here, paTh is a dhaatu, jhi is a tibaadi (verb conjugation) suffix and
+ li~N is a lakaara (tense/mood).
+ jho-antaH suggests that all -jhi (suffix) should be replaced with -ant.
+ There are a couple of issues that arise when interpreting such a rule literally.
+ 
+\end_layout
+
+\begin_layout Standard
+Firstly, if -jhi is to be replaced by -ant suffix unconditionally, then
+ why not just use -ant as the suffix for third-person plural (jhi).
+ According to tradition, there are two problems with this strict intepretation.
+ First is due to the maxim of non-futility - which states that one cannot
+ interpret the rules in a way that even a single rule is made redundant.
+ According to this principle, if -jhi were to be replaced unconditionally
+ with -ant, then all other rules like jherjus would be made redundant.
+ Therefore, jhoanaH cannot be always applied unconditionally.
+ Secondly, tradition always maintains that rules are competing with each
+ other.
+ In formal terms, rules are applied in a certain order of preference.
+ 
+\end_layout
+
+\begin_layout Standard
+Thus, if jherjus in Chapter 3 is preferred over jhoantaH in Chapter 7 for
+ (e.g.
+ paTh + li~N) it's not because of jherjus being earlier in aShTaadhyaayi.
+ From the tradition's point of view, both are of material significance in
+ li~N lakaara, but the latter is preferred because it's a more specialised
+ rule.
+ This is the nityaapavad interpretation.
+ The sequential order would have mattered for the compression of paTh +
+ li~N if i) jherjus were not referring to a specialised case and ii) if
+ both rules had the same theme (anuvRitti).
+ The two being of different anuvRitti allows selection based on nitya-apavaaad
+ and antara~Nga-bahira~Nga.
+ Given the simplicity of paTh + jhi (li~N)g , jherjus is preferred because
+ of being a more specialised application.
+\end_layout
+
+\begin_layout Standard
+Much the way, sequentiality and specialty can become opposing forces in
+ rules, another set of opposing forces are implied in a certain interpretation
+ of tradition where rules of with least number of pre-conditions are applied.
+ More specifically, this interpretation of bahira~Nga/antara~Nga maintains
+ that in the absence of a special-case rule among a set of admissible rules,
+ the preference must be given to the rule that has least number of preconditions.
+ Since a special case would have always higher preconditions than the more
+ general case, the apavaada rules clearly go against the principle that
+ the rule with less number of conditions be selected.
+ This interpretation therefore lets an apavaada rule overrule the number-of-prec
+onditions criterion.
+ The selection of rules in interpretation is therefore decided with sequentialit
+y, specialty and precondition-cardinality.
+ We now define these more formally.
+\end_layout
+
+\begin_layout Subsection
+Three-phase selection of sutras
+\end_layout
+
+\begin_layout Standard
+The engine uses the three criteria of sequentiality, specialty and precondition-
+cardinality to implement a first sort order based on sequentiality.
+ The precondition-cardinality then supercedes this first sort order - followed
+ by the third sort order based on speciality.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Specialty
+\end_layout
+
+\begin_layout Standard
+It is worth emphasising foremost that only admissible sutras (those that
+ can cause a material change to an expression) are considered for three-way
+ conflict.
+ 
+\end_layout
+
+\begin_layout Standard
+Whether a rule is more special or not is determined using the specification
+ of the pre-conditions.
+ For 
+\begin_inset Formula $\Omega$
+\end_inset
+
+ as the set of all rules, every rule 
+\begin_inset Formula $\omega\in\Omega$
+\end_inset
+
+ would need to have conditions on an 
+\begin_inset Formula $n$
+\end_inset
+
+-node expression 
+\begin_inset Formula $\{N_{i}\}_{1\le i\le n}$
+\end_inset
+
+.
+ A rule 
+\begin_inset Formula $\omega$
+\end_inset
+
+ would be preferred over 
+\begin_inset Formula $\omega'$
+\end_inset
+
+ only if the set of preconditions within 
+\begin_inset Formula $\omega$
+\end_inset
+
+ are a subset of the set of preconditions within 
+\begin_inset Formula $\omega'$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Speciality is the topmost order of prefernce for application of sutras.
+ In other words, among a set of admissible sutras, a special rule 
+\begin_inset Formula $\omega$
+\end_inset
+
+ would be always chosen even if another rule 
+\begin_inset Formula $\omega'$
+\end_inset
+
+ had lower number of preconditions and occurred later in the sequence.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Precondition-Cardinality
+\end_layout
+
+\begin_layout Subsubsection
+Sequentiality
+\end_layout
+
+\begin_layout Standard
+The weakest order of preference is due to .
+ This matters only when there are no special case admissible rules and when
+ there is no admissible rule with lower number of pre-conditions.
+ 
+\end_layout
+
+\end_body
+\end_document
