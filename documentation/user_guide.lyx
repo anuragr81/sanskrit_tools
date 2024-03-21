@@ -184,9 +184,16 @@ noindent
 The engine views sutras as functions that applied to a starting expression
  of prefixes, suffixes and verb-roots.
  The application of sutras on the expression closely follows the scheme
- provided by pāṇini.
- The definitions pertaining to this treatment of pāṇini's rules are listed
- in Section 
+ provided by 
+\shape italic
+pāṇini
+\shape default
+.
+ The definitions pertaining to this treatment of 
+\shape italic
+pāṇini
+\shape default
+'s rules are listed in Section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "subsec:Definitions"
@@ -214,9 +221,36 @@ Node
 \end_layout
 
 \begin_layout Standard
-A suffix (one of vikaraṇa, kṛdanta, taddhita, subaadi or tibaadi suffixes),
- a verb-root (dhātu), a predefined noun (prātipadika) or a prefix that acts
- as unit has a modifiable textual content is referred to as a node.
+A suffix (one of 
+\shape italic
+vikaraṇa
+\shape default
+, 
+\shape italic
+kṛdanta
+\shape default
+, 
+\shape italic
+taddhita
+\shape default
+, 
+\shape italic
+subaadi
+\shape default
+ or 
+\shape italic
+tibaadi
+\shape default
+ suffixes), a verb-root (
+\shape italic
+dhātu
+\shape default
+), a predefined noun (
+\shape italic
+prātipadika
+\shape default
+) or a prefix that acts as unit has a modifiable textual content is referred
+ to as a node.
  The nodes are not stateless and therefore the application of a given rule
  
 \begin_inset Formula $\omega$
@@ -240,7 +274,11 @@ Invisibility
 
 \begin_layout Standard
 The complete removal of the textual content of a node is referred to as
- an invisible (adṛśya) node.
+ an invisible (
+\shape italic
+adṛśya
+\shape default
+) node.
  
 \end_layout
 
@@ -259,7 +297,11 @@ An incremental collection of
 
  is referred to as an expression.
  Once defined or introduced, the nodes are not removed from the expression
- but can become invisible or adṛśya (through lopa-rules - see Section 
+ but can become invisible or 
+\shape italic
+adṛśya
+\shape default
+ (through lopa-rules - see Section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "subsec:Rules"
@@ -347,8 +389,11 @@ Insertion rules
  It may help to distinguish between rules that are inserted after a given
  node and before the node.
  It is worth noting that most rules in aṣṭādhyāyī introduce nodes after
- a given node rather than before (except for a few rules such as luṅlaṅlṛṅkṣvaḍu
-dāttaḥ).
+ a given node rather than before (except for a few rules such as 
+\shape italic
+luṅlaṅlṛṅkṣvaḍudāttaḥ
+\shape default
+).
 \end_layout
 
 \begin_layout Enumerate
@@ -357,8 +402,12 @@ dāttaḥ).
 Transformation rules 
 \series default
 - perform an in-place change in exactly one node.
- Since there are many rules (ato guṇe etc.) that modify more than one node,
- such rules are interpreted as multiple rules with same input (precondition).
+ Since there are many rules (
+\shape italic
+ato guṇe
+\shape default
+ etc.) that modify more than one node, such rules are interpreted as multiple
+ rules with same input (precondition).
 \end_layout
 
 \begin_layout Subsubsection
@@ -399,7 +448,11 @@ noprefix "false"
  In other words, no difference is assumed between a rule that is explicitly
  barred (e.g.
  because of having had a lower priority than another rule) and another whose
- application is strictly prohibited (through niṣedha).
+ application is strictly prohibited (through 
+\shape italic
+niṣedha
+\shape default
+).
  Neither of the cases correspond to an admissible sutra.
 \end_layout
 
@@ -455,9 +508,16 @@ footnote{The kaumudii tradition however often does reject rules based on
  grammarian).
  We do not know of a quantitative survey of the degree of success the derivation
  of rules have.
- One of the challenges to such a task is that the several extensions (vārtika)
- that are used to interpret aṣṭādhyāyī have not been recorded with as much
- as rigour as the rules of aṣṭādhyāyī.
+ One of the challenges to such a task is that the several extensions (
+\shape italic
+vārtika
+\shape default
+) that are used to interpret aṣṭādhyāyī have not been recorded with as much
+ as rigour as the rules of 
+\shape italic
+aṣṭādhyāyī
+\shape default
+.
 \end_layout
 
 \begin_layout Standard
@@ -469,17 +529,25 @@ It can be generally agreed however that the adjustment of the order of rules
  levels while the study of aṣṭādhyāyī is limited to grammarians at advanced
  levels.
  It can be safely said therefore that the discussion in the kaumudī tradition
- of whether rule ought to be blocked due to it leading to an aniṣṭa (unintended)
- pada (word) or is simply replaced by the discussion of order of sutras
- to be applied in the aṣṭādhyāyī tradition.
+ of whether rule ought to be blocked due to it leading to an 
+\shape italic
+aniṣṭa
+\shape default
+ (unintended) 
+\shape italic
+pada
+\shape default
+ (word) or is simply replaced by the discussion of order of sutras to be
+ applied in the aṣṭādhyāyī tradition.
 \end_layout
 
 \begin_layout Standard
 The engine attempts to formalise the tradition's view of order of preference
  of rules (nityaapavada...) and views the selection of an order of preference
  as a function of rule-functions.
- The engine inteprets tradition's view (nityaapavada...) as a three-level sorting
- order - which is used to select the highest priority rule to be applied.
+ The engine interprets tradition's view (nityaapavada...) as a three-level
+ sorting order - which is used to select the highest priority rule to be
+ applied.
  An explanation for why this three-level sorting order is needed and a survey
  of literature's view on sequentiality of rules are provided in Section
  
@@ -542,20 +610,64 @@ Given the width of topics in the aṣṭādhyāyī and the rules for optionality
  The general presentation of sutras is such that a certain headliner-rule
  (adhikāra-sutra) introduces an over-arching theme (anuvṛtti) of subsequent
  rules.
- As such, the themse (anuvṛtti) pose two problems with the sequential order.
- First, multiple themes (anuvṛtti) could be simultaneously relevant for
- a given sutra.
- Second, the theme that a rule is associated with need not be that of the
- headliner-rule (adhikāra-sutra) immediately preceding the rule.
- In other words, if 
+ The identification of the anuvṛtti of any sutra is paramount in both kaumudī
+ and aṣṭādhyāyī traditions.
+ Even though the kaumudī tradition deals with only a subset of rules of
+ aṣṭādhyāyī, the anuvṛtti is always taught side-by-side with the rules.
+\end_layout
+
+\begin_layout Standard
+As such, the importance given to themes (
+\shape italic
+anuvṛtti
+\shape default
+) poses imposes constraints on the sequential order.
+ As multiple themes (anuvṛtti) can be simultaneously relevant for a given
+ sutra, the themes (
+\shape italic
+anuvṛtti
+\shape default
+) need to be organised hierarchically in a tree-like structure.
+ For example, 
+\shape italic
+upasargādasamāse'pi ṇopadeśasya
+\shape default
+ would be under the theme (
+\shape italic
+anuvṛtti
+\shape default
+) 
+\shape italic
+raṣābhyāṃ no ṇaḥ samānapade
+\shape default
+ - which in turn would be under the headliner-theme 
+\shape italic
+saṃhitāyām
+\shape default
+.
+ While the intent seems to be to maintain a lexicographic order (akin to
+ a dictionary or a table-of-contents), the organisation of sutras through
+ anuvṛtti is not strictly hierarchical.
+ This is because the theme (
+\shape italic
+anuvṛtti
+\shape default
+) which a rule is associated with need not be that of the theme announced
+ by the immediately preceding theme-indicator rule.
+ Consider 
 \begin_inset Formula $r(\omega)$
 \end_inset
 
- denotes the position of the rule 
+ denoting the position of the rule 
 \begin_inset Formula $\omega$
 \end_inset
 
- in the aṣṭādhyāyī, and if rules 
+ in the 
+\shape italic
+aṣṭādhyāyī
+\shape default
+.
+ If rules 
 \begin_inset Formula $\omega'$
 \end_inset
 
@@ -563,7 +675,7 @@ Given the width of topics in the aṣṭādhyāyī and the rules for optionality
 \begin_inset Formula $\omega$
 \end_inset
 
- are introduced by 
+ were introduced let's say by 
 \begin_inset Formula $\kappa$
 \end_inset
 
@@ -583,135 +695,393 @@ Given the width of topics in the aṣṭādhyāyī and the rules for optionality
 \begin_inset Formula $\kappa'$
 \end_inset
 
- before 
+ preceding 
 \begin_inset Formula $\kappa$
 \end_inset
 
- (
+ (so that (
 \begin_inset Formula $r(\kappa')<r(\kappa)$
 \end_inset
 
 ).
  This is referred to as maṇḍūkaplutagati (frog-leap) of anuvṛtti.
- Simply, put the themes are not always top-down and make a lexicographic
- (dictionary-like) order impossible for application of sutras.
+ Simply, the grammar allows the theme to jump away from a far-away sutra.
+ Thus, it can be safely said that the organisation of the rule is not always
+ top-down and make a lexicographic (dictionary-like) order impossible for
+ application of sutras.
 \end_layout
 
 \begin_layout Standard
-There has been some discussion in the literature on whether a strict preference
- of later rules is appropriate or not.
- Given that nipātana (hard-coded selection of words that ignore earlier
- rules) and exception-rules (overruling the stated rules) are always stated
- in the aṣṭādhyāyī after stating the main rules, the preference given to
- the earlier rule would defeat the purpose of stating nipātana and exceptions.
- The limitations of the sequential view we consider is one where later rules
- are preferred over preceding rules.
-\end_layout
-
-\begin_layout Standard
-Since Panini himself uses hard-coded words profusely, the tradition has
- accepted to live with multiple rules-interpretations arriving at varying
- degrees of success in derivation.
-\end_layout
-
-\begin_layout Standard
-What can be generally agreed however is that the sequence of rules is taught
- without the anuvRitti in any traditions.
- Even in the kaumudii tradition, which deals with only a subset of rules
- of aShTaadhyaayi, the themes (anuvRitti) from aShTaadhyaayi are taught
- side-by-side with the rules.
+While literature has also explained the issues with a sequential order,
+ we believe that the above constraint is enough to rule out strict adherence
+ to a sequential order.
+ There has also been some discussion in the literature on whether a strict
+ preference of later rules is appropriate or not.
+ Our view is that due to the 
+\shape italic
+nipātana
+\shape default
+ (hard-coded selection of words that ignore earlier rules) and exception-rules
+ (overruling the stated rules) are always stated in the 
+\shape italic
+aṣṭādhyāyī
+\shape default
+ after stating the main rules, a preference given to the earlier rule would
+ defeat the purpose of stating nipātana and exceptions in the end.
+ The bottom-line is that the tradition has accepted to live with multiple
+ rules-interpretations arriving at varying degrees of success in derivation.
+ One reason why that may be the case is that a quantitative comparison of
+ the explanatory power of various interpretations of the grammar (made evident
+ by several 
+\shape italic
+vārtika
+\shape default
+) - is not known to have been undertaken.
  
 \end_layout
 
 \begin_layout Standard
-As far as the application of sutras to an expression is concerned, the sequentia
-lity matters only locally and the relevance of a certain rule is decided
- foremost by its anuvritti.
- In other words, the organisation of the rules is not hierarchical and it
- is sequential albeit only locally.
- While the sequence of the rules matters - it is relevant only because rules
- within a given theme (anuvRitti) are stated in a particular order wherein
- optionality (vibhaaShaa) is stated after the main rule and exceptions are
- stated after optionality.
- Because of the significance of themes and the subjective nature of their
- relevance, the earlier occurrence of a sutra in aShTaadhyaayii does not
- necessarily imply a higher or a lower order of preference.
+Further, as far as the application of sutras to an expression is concerned,
+ the sequentiality matters only locally and the relevance of a certain rule
+ is decided foremost by the anuvṛtti.
+ The sequence of the rules does matter but only because rules within a given
+ theme (anuvṛtti) are stated in a particular order wherein optionality (vibhaaSh
+aa) is stated after the main rule and exceptions are stated after optionality
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The order of optionality and exception may be reversed in some cases to
+ assist derivations.
+\end_layout
+
+\end_inset
+
+.
+ Given the importance of anuvṛtti in the application of rules and the loose
+ connections between themes (anuvṛtti|), the sequential order is readily
+ broken when two related themes (anuvṛtti) are invoked for a given expression.
+ When sequential order is disrupted due to themes (anuvṛtti) far apart in
+ the 
+\shape italic
+aṣṭādhyāyī
+\shape default
+, the principle the tradition relies foremost on is the non-futility of
+ rules.
+ More specifically, this is the the maxim that one cannot interpret the
+ rules of anuvṛtti in a way that even a single rule is made redundant.
+ Given the effort made to maintain the brevity of sutras, the principle
+ has met fairly minimal opposition among the various schools of grammar
+ instruction.
 \end_layout
 
 \begin_layout Standard
-To explain with an example, consider jho-antaH and jherjus as two sutras
- that can be applied to the derivation of paTheyuH by compressing paTh +
- jhi (li~N).
- Here, paTh is a dhaatu, jhi is a tibaadi (verb conjugation) suffix and
- li~N is a lakaara (tense/mood).
- jho-antaH suggests that all -jhi (suffix) should be replaced with -ant.
- There are a couple of issues that arise when interpreting such a rule literally.
+To explain with an example, consider the sutra 
+\shape italic
+jho-antaḥ
+\shape default
+ and 
+\shape italic
+jherjus
+\shape default
+ as they are applied for the derivation of 
+\shape italic
+paṭheyuḥ
+\shape default
+ from 
+\shape italic
+paṭh
+\shape default
+ + 
+\shape italic
+jhi
+\shape default
+ (
+\shape italic
+liṅ
+\shape default
+).
+ Here, 
+\shape italic
+paṭh
+\shape default
+ is a 
+\shape italic
+dhātu
+\shape default
+, 
+\shape italic
+jhi
+\shape default
+ is a 
+\shape italic
+tibādi
+\shape default
+ (verb conjugation) suffix and 
+\shape italic
+liṅ
+\shape default
+ is a 
+\shape italic
+lakāra
+\shape default
+ (tense/mood).
  
+\shape italic
+jho-antaḥ
+\shape default
+ suggests that all -
+\shape italic
+jhi
+\shape default
+ (suffix) should be replaced with 
+\shape italic
+-ant
+\shape default
+.
+ The with interpreting such a rule literally if that if 
+\shape italic
+-jhi 
+\shape default
+were to be replaced by 
+\shape italic
+-ant
+\shape default
+ suffix unconditionally all through, then why not just use 
+\shape italic
+-ant
+\shape default
+ as the suffix for third-person plural (
+\shape italic
+-jhi
+\shape default
+).
+ The tradition treats this argument as the basis for the principle of non-futili
+ty.
+ According to the principle, if 
+\shape italic
+-jhi 
+\shape default
+were to be replaced unconditionally with 
+\shape italic
+-ant
+\shape default
+, then all other rules like 
+\shape italic
+jherjus
+\shape default
+ would be made redundant.
+ So the unconditional application of 
+\shape italic
+jho-antaḥ
+\shape default
+ is ruled out.
+ Its position with respect to other rules is in fact a secondary concern
+ - if one considers the importance of anuvṛtti.
+ The comparison with other rules pertaining to 
+\shape italic
+-jhi
+\shape default
+ in other chapters of the 
+\shape italic
+aṣṭādhyāyī
+\shape default
+ is necessary when one emphasises 
+\shape italic
+anuvṛtti
+\shape default
+ as part of the derivation.
 \end_layout
 
 \begin_layout Standard
-Firstly, if -jhi is to be replaced by -ant suffix unconditionally, then
- why not just use -ant as the suffix for third-person plural (jhi).
- According to tradition, there are two problems with this strict intepretation.
- First is due to the maxim of non-futility - which states that one cannot
- interpret the rules in a way that even a single rule is made redundant.
- According to this principle, if -jhi were to be replaced unconditionally
- with -ant, then all other rules like jherjus would be made redundant.
- Therefore, jhoanaH cannot be always applied unconditionally.
- Secondly, tradition always maintains that rules are competing with each
- other.
- In formal terms, rules are applied in a certain order of preference.
+
+\shape italic
+jherjus
+\shape default
+ is preferred over 
+\shape italic
+jho-antaḥ
+\shape default
+ rather incontrovertibly because despite the two rules being pertinent to
+ , the sutra 
+\shape italic
+jherjus
+\shape default
+ is a more specific rule than 
+\shape italic
+jho-antaḥ
+\shape default
+.
+ The role of the position of sutra in the entire 
+\shape italic
+aṣṭādhyāyī
+\shape default
+ sequence does not arise.
  
-\end_layout
-
-\begin_layout Standard
-Thus, if jherjus in Chapter 3 is preferred over jhoantaH in Chapter 7 for
- (e.g.
- paTh + li~N) it's not because of jherjus being earlier in aShTaadhyaayi.
+\shape italic
+jherjus
+\shape default
+ in Chapter 3 is preferred over 
+\shape italic
+jhoantaH
+\shape default
+ in Chapter 7 for not because of 
+\shape italic
+jherjus 
+\shape default
+being earlier in 
+\shape italic
+aṣṭādhyāyī
+\shape default
+ but because the former being more specific than the latter.
  From the tradition's point of view, both are of material significance in
- li~N lakaara, but the latter is preferred because it's a more specialised
- rule.
- This is the nityaapavad interpretation.
- The sequential order would have mattered for the compression of paTh +
- li~N if i) jherjus were not referring to a specialised case and ii) if
- both rules had the same theme (anuvRitti).
- The two being of different anuvRitti allows selection based on nitya-apavaaad
- and antara~Nga-bahira~Nga.
- Given the simplicity of paTh + jhi (li~N)g , jherjus is preferred because
- of being a more specialised application.
+ 
+\shape italic
+liṅ
+\shape default
+ 
+\shape italic
+lakāra
+\shape default
+, but the latter is preferred because it's a more specialised rule.
+ This nityaapavad interpretation is simply a consequence of the non-futility
+ principle.
+ It is worth noting that sequential order would have mattered for the compressio
+n of 
+\shape italic
+paṭh
+\shape default
+ + 
+\shape italic
+jhi
+\shape default
+ (
+\shape italic
+liṅ
+\shape default
+) if i) 
+\shape italic
+jherjus
+\shape default
+ were not referring to a specialised case and ii) if both rules had the
+ same theme (
+\shape italic
+anuvṛtti
+\shape default
+).
+ 
 \end_layout
 
 \begin_layout Standard
-Much the way, sequentiality and specialty can become opposing forces in
- rules, another set of opposing forces are implied in a certain interpretation
- of tradition where rules of with least number of pre-conditions are applied.
- More specifically, this interpretation of bahira~Nga/antara~Nga maintains
- that in the absence of a special-case rule among a set of admissible rules,
- the preference must be given to the rule that has least number of preconditions.
- Since a special case would have always higher preconditions than the more
- general case, the apavaada rules clearly go against the principle that
- the rule with less number of conditions be selected.
- This interpretation therefore lets an apavaada rule overrule the number-of-prec
-onditions criterion.
- The selection of rules in interpretation is therefore decided with sequentialit
-y, specialty and precondition-cardinality.
- We now define these more formally.
+As the tradition puts it, the sequentiality and specialty can become opposing
+ forces in order of application of rules.
+ Another set of opposing forces is acknowledged in a well-known tradition
+ that considers a conflict between speciality and cardinality of conditions.
+ More specifically, the nitayapavaada rule is interpreted (not without controver
+sy) the a conflict between specialty and number of pre-conditions.
+ If the pre-conditions of a rule 
+\begin_inset Formula $\omega$
+\end_inset
+
+ and 
+\begin_inset Formula $\omega'$
+\end_inset
+
+ , for example, are disjoint (and therefore no case can be made of one's
+ preconditions being the subset of another), then the preference is given
+ to the rule that requires less number of pre-conditions.
+ The pre-condition cardinality rules opposes the rule of specialty when
+ pre-conditions of 
+\begin_inset Formula $\omega$
+\end_inset
+
+ and 
+\begin_inset Formula $\omega'$
+\end_inset
+
+ were to overlap - because a more specialised rule would always have more
+ number of preconditions than the general one.
+ Whether the pre-conditions are disjoint or not, is a subjective yet crucial
+ matter that isn't formally encoded but is resolved with the help of 
+\shape italic
+vārtika
+\shape default
+.
+ As such, the speciality rule must override the number-of-preconditions
+ criterion.
+ The selection of rules in interpretation is therefore decided foremost
+ with specialty, then with precondition-cardinality and finally with sequentiali
+ty.
+ As we have argued before, sequentiality is the last order of preference
+ and is considered only locally significant.
+ Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Three-phase-sortorder"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ defines this order more formally.
 \end_layout
 
 \begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Three-phase-sortorder"
+
+\end_inset
+
 Three-phase selection of sutras
 \end_layout
 
 \begin_layout Standard
-The engine uses the three criteria of sequentiality, specialty and precondition-
-cardinality to implement a first sort order based on sequentiality.
- The precondition-cardinality then supercedes this first sort order - followed
- by the third sort order based on speciality.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As explain earlier, the engine uses the three criteria of specialty, preconditio
+n-cardinality and sequentiality to select among admissible rules.
+ The implementation first sorts the admissible rules based on sequentiality
+ in the first-pass.
+ The second pass then sorts the rules based on precondition-cardinality.
+ The third and last pass detects for special-cases and set them higher in
+ the order.
  
 \end_layout
 
 \begin_layout Subsubsection
 Specialty
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -777,6 +1147,22 @@ Speciality is the topmost order of prefernce for application of sutras.
 
 \begin_layout Subsubsection
 Precondition-Cardinality
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+noindent
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
