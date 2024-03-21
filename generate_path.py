@@ -5,6 +5,7 @@ from functools import reduce
 from panini.sutras.common_definitions import print_expr
 import inspect
 import pandas as pd
+from pprint import pprint
 
 
 
@@ -398,24 +399,23 @@ def get_numconditions_dictionary(all_sutras,sutradf,expression):
     return numConditionsDict
             
 
-def check_apavaada_rule(applicablesutrasinfo):
+def check_apavaada_rule(numConditionsDict):
     """
-    @description: A subset rule that also applies would always have the same conditions (this can verified with a search and also asserted in implementation). 
-    Comparing among rules that apply (i.e. cause a change), a more specific rule cannot as such have less num-conditions since the less num-condition goes against the idea of specificity. 
-    Further, a more specific rule with less num-conditions would be both specific and with less-conditions anyways and therefore selecting the more specific rule does not cause any issues.
-    A more specific rule with more conditions on the other hand, would also have higher precedence (as it's more specific).
-    As a result, while selecting a subset rule (apavaada) is trivially accepted when numconditions are the same,  a 
-    more specific rule (apavaada) always precedes a less specific rule even when num-conditions are different. 
-    The apavaada rule thus always dominates. 
+    @description: A subset rule that also applies would always have the same conditions. 
     
-    Assuming that the apavaada rule is the one to be applied before (regardless of num-conditions), we look at 
-    possible pairings of a given rule with all other rules (limiting to change-causing or applied rules). 
-    As the most specific rule precedes the more generic rule, the all apavaada possibilities are considered 
-    and sorted according to num-conditions. For all rules relevant in an expression, the apavaadas are prepared 
-    and instead of the candidate with min-conditions that would have otherwise 
-    been applied (if apavaada weren't available).
+    Since an apavaada rule is the one to be applied before regardless of num-conditions, the 
+    function looks at all possible pairings of admissible rules and then checks whether they belong 
+    to the list of known general-special pairings.
     """
-
+    
+    general_special_pairs = ( ( 7010030 , 3041080 ) , )
+    
+    candidateSutra= numConditionsDict[min(numConditionsDict.keys())][0]
+    alternatives_dict = dict((x['sutranum'],x) for x in reduce(lambda x , y: x+y , [v for k,v in numConditionsDict.items()], []) )
+    for alt_sutranum, alternative  in alternatives_dict .items():
+        if (candidateSutra['sutranum'], alt_sutranum  ) in general_special_pairs :
+            return {'status':True , 'type': alternative['type'], 'sutranum' : alternative['sutranum']}
+        
     return {'status':False}
 
 def process_list(expr):
@@ -451,7 +451,7 @@ def process_list(expr):
         applicableSutrasInfo= numConditionsDict[min(numConditionsDict.keys())]
         if applicableSutrasInfo:
             
-            apavaadaInfo = check_apavaada_rule(applicableSutrasInfo)
+            apavaadaInfo = check_apavaada_rule(numConditionsDict)
             if not apavaadaInfo['status'] :
                 firstApplicableSutra = applicableSutrasInfo[0]
             else:

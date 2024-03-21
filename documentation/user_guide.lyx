@@ -157,7 +157,61 @@
 \begin_body
 
 \begin_layout Title
-The pāṇini compressor
+A pāṇini derivation engine
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+newpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+The document propose an engine based on the traditional view of 
+\shape italic
+aṣṭādhyāyī.
+ 
+\shape default
+The scope of the engine is limited to words (
+\shape italic
+pada
+\shape default
+) derived without using rules in 
+\shape italic
+uṇādikośa
+\shape default
+ or using 
+\shape italic
+nipātana
+\shape default
+ in 
+\shape italic
+aṣṭādhyāyī
+\shape default
+.
 \end_layout
 
 \begin_layout Section
@@ -181,7 +235,7 @@ noindent
 \end_layout
 
 \begin_layout Standard
-The engine views sutras as functions that applied to a starting expression
+The engine views sutras as functions that are applied to a starting expression
  of prefixes, suffixes and verb-roots.
  The application of sutras on the expression closely follows the scheme
  provided by 
@@ -279,7 +333,6 @@ The complete removal of the textual content of a node is referred to as
 adṛśya
 \shape default
 ) node.
- 
 \end_layout
 
 \begin_layout Subsubsection
@@ -291,7 +344,7 @@ An incremental collection of
 \begin_inset Formula $n$
 \end_inset
 
- seqential nodes 
+ sequential nodes 
 \begin_inset Formula $\{N_{i}\}_{1\le i\le n}$
 \end_inset
 
@@ -301,7 +354,11 @@ An incremental collection of
 \shape italic
 adṛśya
 \shape default
- (through lopa-rules - see Section 
+ (through 
+\shape italic
+lopa
+\shape default
+-rules - see Section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "subsec:Rules"
@@ -312,9 +369,17 @@ noprefix "false"
 \end_inset
 
 ).
- New nodes can be introduced (ādeśa/āgama) and have their textual content
- transformed through rules.
- However, the order of nodes is stable and they're never removed from the
+ New nodes can be introduced (
+\shape italic
+ādeśa
+\shape default
+/
+\shape italic
+āgama
+\shape default
+) and have their textual content transformed through rules.
+ Two fundamental properties of an expression are i) the order of nodes is
+ stable and ii) the node within an expression are never removed from the
  expression.
 \end_layout
 
@@ -383,9 +448,12 @@ Given that nodes are never removed from an expression two types of rules
 Insertion rules 
 \series default
 - introduce another node based on the state of the nodes in an expression.
- Since there are no rules in aṣṭādhyāyī that require an introduction of
- more than one node in the expression, the insertion rules increase the
- length of the input by exactly one node.
+ Since there are no rules in 
+\shape italic
+aṣṭādhyāyī
+\shape default
+ that require an introduction of more than one node in the expression, the
+ insertion rules increase the length of the input by exactly one node.
  It may help to distinguish between rules that are inserted after a given
  node and before the node.
  It is worth noting that most rules in aṣṭādhyāyī introduce nodes after
@@ -601,15 +669,25 @@ aṣṭādhyāyī
  The elaborate attempts to maintain a stable sequence of rules - as the
  literature notes - make perfect sense if one values a standard sequence
  to be memorised for all grammar students.
- This applies not only to aṣṭādhyāyī but to dhātupāṭha and uṇādikośa as
- well - both of which are memorised by the students of grammar in the aṣṭādhyāyī
- tradition.
+ This applies not only to aṣṭādhyāyī but to 
+\shape italic
+dhātupāṭha 
+\shape default
+and 
+\shape italic
+uṇādikośa
+\shape default
+ as well - both of which are memorised by the students of grammar in the
+ aṣṭādhyāyī tradition.
 \end_layout
 
 \begin_layout Standard
 Given the width of topics in the aṣṭādhyāyī and the rules for optionality,
- negations and hard-coding of words (nipātana), the limitations of a sequential
- order are evident.
+ negations and hard-coding of words (
+\shape italic
+nipātana
+\shape default
+), the limitations of a sequential order are evident.
  The general presentation of sutras is such that a certain headliner-rule
  (adhikāra-sutra) introduces an over-arching theme (anuvṛtti) of subsequent
  rules.
@@ -1270,6 +1348,93 @@ The position of a rule
 
  matters only when there are no special case admissible rules and when there
  is no admissible rule with lower number of pre-conditions.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+newpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Glossary
+\end_layout
+
+\begin_layout Enumerate
+
+\shape italic
+pāṇini
+\shape default
+- a celebrated grammarian-sage and a historical figure who is supposed to
+ have laid the foundations of Sanskrit grammar and known to have authored
+ 
+\shape italic
+aṣṭādhyāyī
+\shape default
+.
+ 
+\end_layout
+
+\begin_layout Enumerate
+
+\shape italic
+aṣṭādhyāyī
+\shape default
+ - an eight-chapter treatise written 
+\shape italic
+by pāṇini 
+\shape default
+that enlists all rules of Sanskrit grammar and attempts to make it a closed
+ and generative mathematical structure.
+\end_layout
+
+\begin_layout Enumerate
+
+\shape italic
+ādeśa - 
+\shape default
+an introduction of a suffix or a similar unit that does not upset the original
+ structure of an expression
+\end_layout
+
+\begin_layout Enumerate
+
+\shape italic
+āgama - 
+\shape default
+an introduction a suffix or a similar unit that may overrule the original
+ structure of an expression
+\end_layout
+
+\begin_layout Enumerate
+
+\shape italic
+sutra 
+\shape default
+- a grammatical rule that governs the modification of suffixes
+\end_layout
+
+\begin_layout Enumerate
+
+\shape italic
+pada
+\shape default
+ - The entire word that is typically either a conjugated verb or a declensed
+ noun (as described by the sutra 
+\shape italic
+suptiṅantaṃ padam
+\shape default
+).
 \end_layout
 
 \end_body
