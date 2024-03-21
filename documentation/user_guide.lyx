@@ -593,7 +593,10 @@ noindent
 The importance of sequentiality or rules in Sanskrit grammar cannot be understat
 ed in a system of instruction that remains primarily oral in India to this
  day.
- It is not uncommon for students to commit nearly 4000 rules of the aṣṭādhyāyī
+ It is not uncommon for students to commit nearly 4000 rules of the 
+\shape italic
+aṣṭādhyāyī
+\shape default
  to their memory before they may know what the rules are about.
  The elaborate attempts to maintain a stable sequence of rules - as the
  literature notes - make perfect sense if one values a standard sequence
@@ -611,7 +614,11 @@ Given the width of topics in the aṣṭādhyāyī and the rules for optionality
  (adhikāra-sutra) introduces an over-arching theme (anuvṛtti) of subsequent
  rules.
  The identification of the anuvṛtti of any sutra is paramount in both kaumudī
- and aṣṭādhyāyī traditions.
+ and 
+\shape italic
+aṣṭādhyāyī
+\shape default
+ traditions.
  Even though the kaumudī tradition deals with only a subset of rules of
  aṣṭādhyāyī, the anuvṛtti is always taught side-by-side with the rules.
 \end_layout
@@ -715,6 +722,13 @@ aṣṭādhyāyī
 While literature has also explained the issues with a sequential order,
  we believe that the above constraint is enough to rule out strict adherence
  to a sequential order.
+ The tradition does seem aware of the state-based preconditions of rules
+ (as Kiparksy notes in circularity condition) and therefore the order of
+ application (rather than rank of a sutra in the 
+\shape italic
+aṣṭādhyāyī
+\shape default
+ sequence) is of significant concern for grammarians.
  There has also been some discussion in the literature on whether a strict
  preference of later rules is appropriate or not.
  Our view is that due to the 
@@ -839,7 +853,7 @@ jhi
 -ant
 \shape default
 .
- The with interpreting such a rule literally if that if 
+ The problem with interpreting such a rule literally if that if 
 \shape italic
 -jhi 
 \shape default
@@ -856,8 +870,8 @@ were to be replaced by
 -jhi
 \shape default
 ).
- The tradition treats this argument as the basis for the principle of non-futili
-ty.
+ The tradition treats this objection as the basis for the principle of non-futil
+ity.
  According to the principle, if 
 \shape italic
 -jhi 
@@ -870,14 +884,27 @@ were to be replaced unconditionally with
 \shape italic
 jherjus
 \shape default
- would be made redundant.
- So the unconditional application of 
+ would need to be made redundant.
+ This rules out the unconditional application of 
 \shape italic
 jho-antaḥ
 \shape default
- is ruled out.
- Its position with respect to other rules is in fact a secondary concern
- - if one considers the importance of anuvṛtti.
+.
+ The position of the rule in the 
+\shape italic
+aṣṭādhyāyī
+\shape default
+ sequence with respect to other rules is in fact a secondary concern when
+ one considers the importance of 
+\shape italic
+anuvṛtti
+\shape default
+.
+ Any rules of the same theme (
+\shape italic
+anuvṛtti
+\shape default
+) would need be applicable (as the cloud-analogy explains).
  The comparison with other rules pertaining to 
 \shape italic
 -jhi
@@ -886,11 +913,8 @@ jho-antaḥ
 \shape italic
 aṣṭādhyāyī
 \shape default
- is necessary when one emphasises 
-\shape italic
-anuvṛtti
-\shape default
- as part of the derivation.
+ is thus necessary.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -903,7 +927,11 @@ jherjus
 jho-antaḥ
 \shape default
  rather incontrovertibly because despite the two rules being pertinent to
- , the sutra 
+ 
+\shape italic
+liṅ
+\shape default
+, the sutra 
 \shape italic
 jherjus
 \shape default
@@ -916,8 +944,7 @@ jho-antaḥ
 \shape italic
 aṣṭādhyāyī
 \shape default
- sequence does not arise.
- 
+ sequence does not arise - as 
 \shape italic
 jherjus
 \shape default
@@ -925,7 +952,8 @@ jherjus
 \shape italic
 jhoantaH
 \shape default
- in Chapter 7 for not because of 
+ in Chapter 7.
+ This happens not because of 
 \shape italic
 jherjus 
 \shape default
@@ -934,20 +962,10 @@ being earlier in
 aṣṭādhyāyī
 \shape default
  but because the former being more specific than the latter.
- From the tradition's point of view, both are of material significance in
- 
-\shape italic
-liṅ
-\shape default
- 
-\shape italic
-lakāra
-\shape default
-, but the latter is preferred because it's a more specialised rule.
- This nityaapavad interpretation is simply a consequence of the non-futility
- principle.
- It is worth noting that sequential order would have mattered for the compressio
-n of 
+ It's worth highlighting that the specialty rule (nityaapavad..) is merely
+ a consequence of the non-futility principle.
+ Note that the sequential order would have mattered for two sutras used
+ in the compression of 
 \shape italic
 paṭh
 \shape default
@@ -973,45 +991,57 @@ anuvṛtti
 \end_layout
 
 \begin_layout Standard
-As the tradition puts it, the sequentiality and specialty can become opposing
- forces in order of application of rules.
- Another set of opposing forces is acknowledged in a well-known tradition
- that considers a conflict between speciality and cardinality of conditions.
- More specifically, the nitayapavaada rule is interpreted (not without controver
-sy) the a conflict between specialty and number of pre-conditions.
- If the pre-conditions of a rule 
-\begin_inset Formula $\omega$
-\end_inset
-
- and 
-\begin_inset Formula $\omega'$
-\end_inset
-
- , for example, are disjoint (and therefore no case can be made of one's
- preconditions being the subset of another), then the preference is given
- to the rule that requires less number of pre-conditions.
- The pre-condition cardinality rules opposes the rule of specialty when
- pre-conditions of 
-\begin_inset Formula $\omega$
-\end_inset
-
- and 
-\begin_inset Formula $\omega'$
-\end_inset
-
- were to overlap - because a more specialised rule would always have more
- number of preconditions than the general one.
- Whether the pre-conditions are disjoint or not, is a subjective yet crucial
- matter that isn't formally encoded but is resolved with the help of 
+The tradition views the sequentiality and specialty are two opposing forces
+ in order of application of rules.
+ A later rule would be applied in a local context but when sutras from chapters
+ far apart are brought together, the 
 \shape italic
-vārtika
+anuvṛtti
 \shape default
-.
- As such, the speciality rule must override the number-of-preconditions
- criterion.
- The selection of rules in interpretation is therefore decided foremost
- with specialty, then with precondition-cardinality and finally with sequentiali
-ty.
+ rather than sequence becomes important.
+ The specialty rule - however - cannot compare rule whose respective preconditio
+ns are disjoint i.e.
+ it is not possible to argue that one rule is a special case of another.
+ In such a case, the tradition resorts the antaranga-bahiranga rule.
+ One rather controversial interpretation of the antaranga-bahiranga is based
+ on the number of preconditions.
+ In other words, this tradition permits selecting a more general rule (with
+ less preconditions) than one with more preconditions.
+ Since a more specialised rule would always have more preconditions than
+ a general rule, the precondition-cardinality rule is only invoked when
+ there is no rule whose precodnitions are a subset of the rule that is to
+ be applied.
+ For example, if the pre-conditions of a rule 
+\begin_inset Formula $\omega$
+\end_inset
+
+ and 
+\begin_inset Formula $\omega'$
+\end_inset
+
+ are disjoint (and therefore no case can be made of one's preconditions
+ being the subset of another), then the preference is given to the rule
+ that requires less number of preconditions.
+ If on the other hand, the pre-conditions of 
+\begin_inset Formula $\omega$
+\end_inset
+
+ and 
+\begin_inset Formula $\omega'$
+\end_inset
+
+ were to overlap, then a more specialised rule would always have priority.
+ Whether the pre-conditions are disjoint or not, is often a debatable yet
+ crucial matter.
+ While not everyone agrees with the precondition-cardinality interpretation
+ of antaranga-bahiranga, it is not under doubt that the specialty rule must
+ override the antarange-bahiranga order.
+ 
+\end_layout
+
+\begin_layout Standard
+The selection of rules in interpretation is therefore decided foremost with
+ specialty, then with precondition-cardinality and finally with sequentiality.
  As we have argued before, sequentiality is the last order of preference
  and is considered only locally significant.
  Section 
@@ -1054,13 +1084,13 @@ noindent
 \end_layout
 
 \begin_layout Standard
-As explain earlier, the engine uses the three criteria of specialty, preconditio
-n-cardinality and sequentiality to select among admissible rules.
+As explained earlier, the engine uses the three criteria of specialty, precondit
+ion-cardinality and sequentiality to select among admissible rules.
  The implementation first sorts the admissible rules based on sequentiality
  in the first-pass.
  The second pass then sorts the rules based on precondition-cardinality.
- The third and last pass detects for special-cases and set them higher in
- the order.
+ The third and final pass searches for special-cases and sets them higher
+ in the order to be selected.
  
 \end_layout
 
@@ -1085,24 +1115,34 @@ noindent
 \end_layout
 
 \begin_layout Standard
-It is worth emphasising foremost that only admissible sutras (those that
- can cause a material change to an expression) are considered for three-way
- conflict.
- 
-\end_layout
-
-\begin_layout Standard
-Whether a rule is more special or not is determined using the specification
- of the pre-conditions.
- For 
+It is worth highlighting that only admissible sutras specific to an expression
+ (i.e.
+ sutras that can cause a material change to an expression) are considered
+ for the tri-order sorting of rules.
+ Whether a rule is more special or not is determined using the specification
+ of the preconditions.
+ Let 
 \begin_inset Formula $\Omega$
 \end_inset
 
- as the set of all rules, every rule 
+ be the set of all rules in the 
+\shape italic
+aṣṭādhyāyī 
+\shape default
+and 
+\begin_inset Formula $\Delta_{\omega}$
+\end_inset
+
+ the set of preconditions for a rule 
 \begin_inset Formula $\omega\in\Omega$
 \end_inset
 
- would need to have conditions on an 
+.
+ The preconditions 
+\begin_inset Formula $\Delta_{\omega}$
+\end_inset
+
+ are relevant for a given 
 \begin_inset Formula $n$
 \end_inset
 
@@ -1110,8 +1150,8 @@ Whether a rule is more special or not is determined using the specification
 \begin_inset Formula $\{N_{i}\}_{1\le i\le n}$
 \end_inset
 
-.
- A rule 
+ at any particular stage of derivation.
+ The specialty rule states that a rule 
 \begin_inset Formula $\omega$
 \end_inset
 
@@ -1127,13 +1167,19 @@ Whether a rule is more special or not is determined using the specification
 \begin_inset Formula $\omega'$
 \end_inset
 
-.
+ i.e.
+ if 
+\begin_inset Formula $\Delta_{\omega}\subset\Delta_{\omega'}$
+\end_inset
+
+ .
  
 \end_layout
 
 \begin_layout Standard
-Speciality is the topmost order of prefernce for application of sutras.
- In other words, among a set of admissible sutras, a special rule 
+As we have explained earlier, specialty is the topmost order of preference
+ for application of sutras.
+ Among a set of admissible sutras, therefore, a special rule 
 \begin_inset Formula $\omega$
 \end_inset
 
@@ -1142,6 +1188,43 @@ Speciality is the topmost order of prefernce for application of sutras.
 \end_inset
 
  had lower number of preconditions and occurred later in the sequence.
+ 
+\end_layout
+
+\begin_layout Standard
+Since the engine only performs the comparison between admissible sutras,
+ it maintains a list of all pairs 
+\begin_inset Formula $(\omega,\pi)$
+\end_inset
+
+ where 
+\begin_inset Formula $\omega$
+\end_inset
+
+ is a general rule and 
+\begin_inset Formula $\pi$
+\end_inset
+
+ is special-case of 
+\begin_inset Formula $\omega$
+\end_inset
+
+.
+ When comparing the admissible sutras, the engine only needs to if any of
+ the combinations of admissible rules belong to this list of pairs.
+ When two admissible rules 
+\begin_inset Formula $(\omega\pi)$
+\end_inset
+
+) belong to the list, then the genera-case rule 
+\begin_inset Formula $\omega$
+\end_inset
+
+ is rejected in favour of 
+\begin_inset Formula $\pi$
+\end_inset
+
+.
  
 \end_layout
 
@@ -1165,15 +1248,28 @@ noindent
 
 \end_layout
 
+\begin_layout Standard
+The precondition cardinality is the overall number of conditions that are
+ specific to a particular sutra 
+\begin_inset Formula $\omega\in\Omega$
+\end_inset
+
+.
+ The sort-order prioritises rules that ask for less preconditions.
+ 
+\end_layout
+
 \begin_layout Subsubsection
 Sequentiality
 \end_layout
 
 \begin_layout Standard
-The weakest order of preference is due to .
- This matters only when there are no special case admissible rules and when
- there is no admissible rule with lower number of pre-conditions.
- 
+The position of a rule 
+\begin_inset Formula $\omega\in\Omega$
+\end_inset
+
+ matters only when there are no special case admissible rules and when there
+ is no admissible rule with lower number of pre-conditions.
 \end_layout
 
 \end_body
