@@ -56,7 +56,8 @@ class liXtidhaatoranabhyaasasya_6010080:
                     if hals:
                         if len(hals)==1 and hals[0] >1 and node.get_output()[hals[0]-1] in ('a',): # ekahalmadhye achaH, asaMyoga 
                             if len([x for x in node._output if 'new' in x])==1: # no adesha
-                                if 'inputs' in effective_suffix_node._output[-1] and effective_suffix_node._output[-1]['inputs']['state']._data._lakaara  == 'liXt': # check on suffix
+                                if ('inputs' in effective_suffix_node._output[-1] and effective_suffix_node._output[-1]['inputs']['state']._data._lakaara  == 'liXt') \
+                                     or ('new' in effective_suffix_node._output[-1] and effective_suffix_node._data._lakaara=='liXt') : # check on suffix
                                     last_adesha = [x for x in effective_suffix_node._output if 'new' in x][-1]
                                     if 'output' in last_adesha and last_adesha['output']==['th','a','l']:
                                         return node.get_output()[:hals[0]-1] + ['e'] + node.get_output()[hals[0]:]
@@ -133,8 +134,13 @@ class echoayavaayaavaH_6010750:
         if not node.get_output():
             return node.get_output()
         if not suffix_node.get_output():
-            return node.get_output()
-        if suffix_node.get_output()[0] not in ach():
+            effective_suffix_node =find_eldest_parent2_of_condition(suffix_node,lambda x : isinstance(x ,Node) and isinstance(x._data,Suffix) and x.get_output() )
+            if not effective_suffix_node :
+                return node.get_output()
+        else:
+            effective_suffix_node = suffix_node
+            
+        if effective_suffix_node .get_output()[0] not in ach():
             return node.get_output()
     
         
