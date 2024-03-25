@@ -86,19 +86,21 @@ class chuXtuu_103070:
         # Need not apply chuXtuu on an empty string
         if not node.get_output():
             return node.get_output()
-        antyam = node.get_output()[-1]                
+        #antyam = node.get_output()[-1]                
 
         #navibhaktautusmaaH_1030040
-        if antyam in ('t','s','m'):
-            if ''.join(node._data._suffix) in tiNg_pratyayaaH() or ''.join(node._data._suffix) in sup_pratyayaaH():
-                return node.get_output()
+        #if antyam in ('t','s','m'):
+        #    if ''.join(node._data._suffix) in tiNg_pratyayaaH() or ''.join(node._data._suffix) in sup_pratyayaaH():
+        #        return node.get_output()
             
-        # output of syataasilRiluXtoH also treated as vibhakti
+        # output of syataasilRiluXtoH also treated as vibhakti and thus the skipping is interpreted as
+        # navibhaktautusmaaH_1030040
         if list_past_rules_applied(node) and list_past_rules_applied(node)[0]==3010330:
             return node.get_output()
 
         if not node.get_output():
             return node.get_output()
+        
         if node._output[-1]['output'] [0] in  chu() or node._output[-1]['output'][0] in Xtu():
             return node.get_output()[1:]
         

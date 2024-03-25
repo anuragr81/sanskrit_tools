@@ -409,13 +409,16 @@ def check_apavaada_rule(numConditionsDict):
     """
     
     general_special_pairs = ( ( 7010030 , 3041080 ) , )
+    nitya_rules  = ( 3041030,)
     
     candidateSutra= numConditionsDict[min(numConditionsDict.keys())][0]
     alternatives_dict = dict((x['sutranum'],x) for x in reduce(lambda x , y: x+y , [v for k,v in numConditionsDict.items()], []) )
     for alt_sutranum, alternative  in alternatives_dict .items():
         if (candidateSutra['sutranum'], alt_sutranum  ) in general_special_pairs :
             return {'status':True , 'type': alternative['type'], 'sutranum' : alternative['sutranum']}
-        
+    for _, alternative  in alternatives_dict .items():
+        if alternative['sutranum'] in nitya_rules:
+            return {'status':True , 'type': alternative['type'], 'sutranum' : alternative['sutranum']}
     return {'status':False}
 
 def process_list(expr):

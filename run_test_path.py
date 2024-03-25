@@ -145,13 +145,8 @@ else:
 
     output_processed_string = lambda expr: ''.join(reduce(lambda x ,y : x + y.get_output(),  expr, []))
     print(output_processed_string (pe))
-    print("DONE")
-    if F:
-        print("===")
-        pprint(pe[0]._output)
-        print("===")
-        pprint(pe[1]._output)
-        
-        
+    
+    if T:
         print("===")
         pprint(pe[2]._output)
+    print("DONE")   
