@@ -408,7 +408,7 @@ def check_apavaada_rule(numConditionsDict):
     to the list of known general-special pairings.
     """
     
-    general_special_pairs = ( ( 7010030 , 3041080 ) , )
+    general_special_pairs = ( ( 7010030 , 3041080 ) , (7030840, 7020021) , ( 6010971, 6010940) )
     nitya_rules  = ( 3041030,)
     
     candidateSutra= numConditionsDict[min(numConditionsDict.keys())][0]
@@ -444,7 +444,7 @@ def process_list(expr):
               pd.DataFrame({'sutranum':[x for x in insertion_sutras()],'type':'insertion'})
               
               ])
-    itdf = itdf.sort_values('sutranum')
+    itdf = itdf.sort_values('sutranum',ascending=False)
     
         
     numConditionsDict = get_numconditions_dictionary(all_sutras=all_sutras, sutradf=itdf,expression=new_expr)

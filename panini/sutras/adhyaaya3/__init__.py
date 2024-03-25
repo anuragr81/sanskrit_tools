@@ -154,7 +154,7 @@ class nityaMNgitaH_3040990:
                                    'data':{'domain':['mip','vas','mas',"iXt","vahi","mahiNg"] }}}
         self._sutranum =str(type(self).__name__).split("_")[-1]
     def __call__(self,node):
-        cond_langvat = (node._data._lakaara  and node._data._lakaara.endswith('Ng') or node._data._lakaara == 'loXt' )
+        cond_langvat = node._data._lakaara  and ( node._data._lakaara.endswith('Ng') or node._data._lakaara.endswith('Ng1') or node._data._lakaara.endswith('Ng2') or node._data._lakaara == 'loXt' )
         if isinstance(node._data,Suffix) and node._data._lakaara and cond_langvat and ''.join(node._data._suffix) in ('mip','vas','mas',"iXt","vahi","mahiNg"):
             if 3040990 not in list_past_rules_applied(node):
                 if node.get_output()[-1]=='s':
@@ -249,8 +249,8 @@ class yaasuXtparasmaipadeXshuudaattoNgichchha_3041030:
             raise ValueError("suffix_node must be of Node type")
                  
         # yaasuXt should not be introduced after suXt has been added through suXttithoH
-        if isinstance(prefix_node._data,Suffix) and ''.join(prefix_node._data._suffix) != 'yaasuXt' and not set([3041030 ,3041070]).intersection( set(list_past_rules_applied(prefix_node))) :
-            if suffix_node._data._lakaara in ('liNg1','ling2',):
+        if   ( (isinstance(prefix_node._data,Suffix) and ''.join(prefix_node._data._suffix) != 'yaasuXt') or ( isinstance(prefix_node._data,Dhaatu)) ) and not set([3041030 ,3041070]).intersection( set(list_past_rules_applied(prefix_node))) :
+            if suffix_node._data._lakaara in ('liNg1','liNg2',):
                 print("yaasuXt created and should be considered Ngitvat")
                 return Suffix('yaasNNXt')
                                 

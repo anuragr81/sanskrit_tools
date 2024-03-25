@@ -80,23 +80,31 @@ def test_siddhis ():
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("sip",lakaara='loXt'),parent1=None)]) == "paXtha"
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("thas",lakaara='loXt'),parent1=None)]) == "paXthatam"
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tha",lakaara='loXt'),parent1=None)]) == "paXthata"
-    
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("mip",lakaara='loXt'),parent1=None)]) == "paXthaani"
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("vas",lakaara='loXt'),parent1=None)]) == "paXthaava"
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("mas",lakaara='loXt'),parent1=None)]) == "paXthaama"    
     
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tip",lakaara='liNg1'),parent1=None)]) == "paXthet"
-
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tas",lakaara='liNg1'),parent1=None)]) == "paXthetaam"
-    if False:
-        assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("jhi",lakaara='liNg1'),parent1=None)]) == "paXtheyus"
-    if False:
-        assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("sip",lakaara='liNg1'),parent1=None)]) == ""
-        assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("thas",lakaara='liNg1'),parent1=None)]) == ""
-        assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tha",lakaara='liNg1'),parent1=None)]) == ""
-        assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("mip",lakaara='liNg1'),parent1=None)]) == ""
-        assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("vas",lakaara='liNg1'),parent1=None)]) == ""
-        assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("mas",lakaara='liNg1'),parent1=None)]) == ""
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("jhi",lakaara='liNg1'),parent1=None)]) == "paXtheyus"
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("sip",lakaara='liNg1'),parent1=None)]) == "paXthes"    
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("thas",lakaara='liNg1'),parent1=None)]) == "paXthetam"
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tha",lakaara='liNg1'),parent1=None)]) == "paXtheta"
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("mip",lakaara='liNg1'),parent1=None)]) == "paXtheyam"
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("vas",lakaara='liNg1'),parent1=None)]) == "paXtheva"
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("mas",lakaara='liNg1'),parent1=None)]) == "paXthema"
+
+
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tip",lakaara='liNg1'),parent1=None)]) == "paXthyaat"
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tas",lakaara='liNg1'),parent1=None)]) == "paXthyaastaam"
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("jhi",lakaara='liNg1'),parent1=None)]) == "paXthyaasus"
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("sip",lakaara='liNg1'),parent1=None)]) == "paXthyaas"    
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("thas",lakaara='liNg1'),parent1=None)]) == "paXthyaastam"
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tha",lakaara='liNg1'),parent1=None)]) == "paXthyaasta"
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("mip",lakaara='liNg1'),parent1=None)]) == "paXthyaasam"
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("vas",lakaara='liNg1'),parent1=None)]) == "paXthyaasva"
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("mas",lakaara='liNg1'),parent1=None)]) == "paXthyaasma"
+
 
     #####################################################################################
     
@@ -123,7 +131,7 @@ else:
         sys.exit(0)
     
     else:        
-        expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix('jhi',lakaara='liNg1'),parent1=None)]
+        expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix('tas',lakaara='liXt'),parent1=None)]
         #expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix('ghaNc'),parent1=None),Node(Suffix('sNN'),parent1=None)]
         #expression=[Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix('tip',lakaara="luNg"),parent1=None)]
         #expression=[Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix('tip'),parent1=None)]
@@ -146,7 +154,8 @@ else:
     output_processed_string = lambda expr: ''.join(reduce(lambda x ,y : x + y.get_output(),  expr, []))
     print(output_processed_string (pe))
     
-    if T:
+    if F:
         print("===")
         pprint(pe[2]._output)
+    
     print("DONE")   
