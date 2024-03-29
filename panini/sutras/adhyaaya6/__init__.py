@@ -5,7 +5,11 @@ from ..common_definitions import vriddhi, list_past_rules_applied
 from ..common_definitions import find_eldest_parent1_of_condition 
 from ..common_definitions import find_eldest_parent2_of_condition
 
-
+def hrasvaH(charlist):
+    #if charlist[-1] in 
+    hrasva_map = {"aa":'a',"ii":'i',"uu":'u',"Rii":'Ri','lRii':'lRi','e':'i','o':'u','ai':'i','au':'u'}
+    
+    return charlist[0:-1]+[hrasva_map.get(charlist[-1],charlist[-1])]
 
 class liXtidhaatoranabhyaasasya_6010080:
     """
@@ -70,7 +74,9 @@ class liXtidhaatoranabhyaasasya_6010080:
                                         
                             
                         # ignore hals after second
-                        return node.get_output()[:hals[0]]+node.get_output()
+                        # use bhavateraH, hrasvaH, abhyaasecharchcha 
+                        charchh_reduced = hrasvaH  ( node.get_output()[:hals[0]] )
+                        return charchh_reduced +node.get_output()
         return node.get_output()
 
 class NnonaH_6010630:

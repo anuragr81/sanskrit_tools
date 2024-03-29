@@ -278,7 +278,7 @@ class atoyeyaH_7020800:
         return node.get_output()
 
 
-class ataSupadhaayaaH_7021160:
+class ataupadhaayaaH_7021160:
     def __init__(self):
         self._numconditions = 1
         
