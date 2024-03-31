@@ -1,4 +1,4 @@
-from ..common_definitions import Suffix, Node, Dhaatu,tiNg_pratyayaaH, all_pratyayas, ach,list_past_rules_applied
+from ..common_definitions import Suffix, Node, Dhaatu,tiNg_pratyayaaH, all_pratyayas, ach,list_past_rules_applied,Aagama
 
     
 class kartarishap_3010680:
@@ -143,7 +143,7 @@ class aaXduttamasyapichchha_3040920:
             raise ValueError("prefix_node must be of Node type")
         
         if 3040920 not in list_past_rules_applied(prefix_node) and 3040920 not in list_past_rules_applied(suffix_node)  and isinstance(suffix_node._data,Suffix) and suffix_node._data._lakaara == 'loXt' and ''.join(suffix_node._data._suffix) in ('mip','vas','mas','iXt','vahi','mahiNg'):
-            return Suffix('aaXt')
+            return Aagama('aaXt')
             
         return []
     

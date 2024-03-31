@@ -1,5 +1,5 @@
 from functools import reduce
-from ..common_definitions import Suffix,Node, Dhaatu, ach, hal, sup_pratyayaaH, taddhita_pratyayaaH
+from ..common_definitions import Suffix, Aagama, Node, Dhaatu, ach, hal, sup_pratyayaaH, taddhita_pratyayaaH
 from ..common_definitions import pratyaahaara, make_diirgha, guna_letters_for_aat
 from ..common_definitions import vriddhi, list_past_rules_applied
 from ..common_definitions import find_eldest_parent1_of_condition 
@@ -8,8 +8,17 @@ from ..common_definitions import find_eldest_parent2_of_condition
 def hrasvaH(charlist):
     #if charlist[-1] in 
     hrasva_map = {"aa":'a',"ii":'i',"uu":'u',"Rii":'Ri','lRii':'lRi','e':'i','o':'u','ai':'i','au':'u'}
-    
     return charlist[0:-1]+[hrasva_map.get(charlist[-1],charlist[-1])]
+
+def abhyaasecharchcha (charlist):
+    charchcha_map = {'bh':'b', 'jh':'j','gh':'g','Xdh':'Xd','dh':'d','kh':'k','ph':'p','chh':'ch','Xth':'Xt','th':'t'}
+    return [charchcha_map .get(charlist[0],charlist[0])]+charlist[1:]
+
+
+def bhavateraH(charlist,node):
+    if node._data._data[0:2]==['bh','uu'] and charlist[-1] in ('u','uu'):
+        return charlist[0:-1]+['a']
+    return charlist
 
 class liXtidhaatoranabhyaasasya_6010080:
     """
@@ -75,8 +84,9 @@ class liXtidhaatoranabhyaasasya_6010080:
                             
                         # ignore hals after second
                         # use bhavateraH, hrasvaH, abhyaasecharchcha 
-                        charchh_reduced = hrasvaH  ( node.get_output()[:hals[0]] )
-                        return charchh_reduced +node.get_output()
+                        charchh_reduced = abhyaasecharchcha  ( hrasvaH  ( node.get_output()[:hals[0]] ) )
+                        dhaatu_checked = bhavateraH(charchh_reduced,node)
+                        return dhaatu_checked +node.get_output()
         return node.get_output()
 
 class NnonaH_6010630:
@@ -496,8 +506,8 @@ class bhuvovugluNgliXtoH_6040880:
             raise    ValueError ("node must be of type Node")
     
         if isinstance(node._data,Dhaatu) and node.get_output()==["bh","uu"] \
-            and ( suffix_node._data._lakaara in ('luNg','liXt') or suffix_node._data._suffix[0] in ach()):
-            return ['bh','uu','v']            
+            and ( suffix_node._data._lakaara in ('luNg','liXt') or ( not isinstance(suffix_node._data,Aagama) and suffix_node._data._suffix[0] in ach()) ):
+            return ['bh','uu','v']
     
             
         return  node.get_output()

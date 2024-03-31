@@ -90,6 +90,8 @@ class Suffix:
     def __repr__(self):
         return str(self._suffix)
 
+class Aagama (Suffix):
+    pass
 
 class Dhaatu:
     def __init__(self,data):
