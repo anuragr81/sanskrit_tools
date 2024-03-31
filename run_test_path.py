@@ -177,33 +177,35 @@ def test_siddhis ():
 #raise ValueError("Fix alaaviit - The lopa of s needs to be implemented in iXt iiXti")
 #raise ValueError("Fix path+jhi(luXt)")
 
-if F:
-    test_siddhis ()
-    #print("Test")
-    #f=Functor()
-    #f(2)
-    
-else:   
-
-    #pprint(generate_tibaadi("paXthNN"))   ;sys.exit(0)
+def test_subaadi():
+    sup_expr = [Node(Dhaatu(parse_string("rajNN")),parent1=None),Node(Suffix("ghaNc"),parent1=None)]
+    #pprint(generate_subaadi(sup_expr ,linga=1))   ;
+    expression = sup_expr  + [Node(Suffix('jas',linga=1),parent1=None) ]
+    pe=process_until_finish(expression)
+    output_processed_string = lambda expr: ''.join(reduce(lambda x ,y : x + y.get_output(),  expr, []))
+    print(output_processed_string (pe))
     if F:
-        #sup_expr = [Node(Dhaatu(parse_string("rajNN")),parent1=None),Node(Suffix("ghaNc"),parent1=None)]
-        pprint(generate_subaadi(sup_expr ,linga=1))   ;
-        #pprint(generate_tibaadi("paXthNN"))   ;
-        sys.exit(0)
+        print("===")
+        pprint(pe[2]._output)
     
-    else:        
-        expression=[Node(Dhaatu(parse_string("bhuu")),parent1=None),Node(Suffix('mip',lakaara='loXt'),parent1=None)]
-        #expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix('ghaNc'),parent1=None),Node(Suffix('sNN'),parent1=None)]
-        #expression=[Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix('tip',lakaara="luNg"),parent1=None)]
-        #expression=[Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix('tip'),parent1=None)]
-        #raise ValueError("tasthamipaaMtaaMtamTaamaH cannot be applied on mip - it needs to be verified how this is a nitya-apavaada scenario")
-        #expression=[Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tip",lakaara='luNg'),parent1=None)]
+    print("DONE")   
+    
+    
+    
+def test_tibaadi():
+    #pprint(generate_tibaadi("paXthNN"))   ;sys.exit(0)
+ 
+    expression=[Node(Dhaatu(parse_string("bhuu")),parent1=None),Node(Suffix('mip',lakaara='loXt'),parent1=None)]
+    #expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix('ghaNc'),parent1=None),Node(Suffix('sNN'),parent1=None)]
+    #expression=[Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix('tip',lakaara="luNg"),parent1=None)]
+    #expression=[Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix('tip'),parent1=None)]
+    #raise ValueError("tasthamipaaMtaaMtamTaamaH cannot be applied on mip - it needs to be verified how this is a nitya-apavaada scenario")
+    #expression=[Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tip",lakaara='luNg'),parent1=None)]
+    
+    #expression=[Node(Dhaatu(parse_string("rajNN")),parent1=None),Node(Suffix("ghaNc"),parent1=None),Node(Suffix("am",linga=1),parent1=None)]
+    
+    #expression=[Node(Dhaatu(parse_string("bhuu")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]
         
-        #expression=[Node(Dhaatu(parse_string("rajNN")),parent1=None),Node(Suffix("ghaNc"),parent1=None),Node(Suffix("am",linga=1),parent1=None)]
-        
-        #expression=[Node(Dhaatu(parse_string("bhuu")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]
-            
     # sorting order is increasing in general but can be superseded by nitya condition (if nitya occurs in a later sutra then that later sutra takes advantage) 
     # which in turn would be superseded by the minimal condition criteria (antaraNga) 
     # The only exception is when there is a an exception that prevents application
@@ -220,3 +222,8 @@ else:
         pprint(pe[2]._output)
     
     print("DONE")   
+    
+if F:
+    test_siddhis ()
+else:   
+    test_subaadi()

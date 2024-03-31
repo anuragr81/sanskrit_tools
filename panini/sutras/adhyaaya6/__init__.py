@@ -418,6 +418,31 @@ class prathamayoHpuurvasavarNnaH_6010980:
             
         return node_output
 
+class prathamayoHpuurvasavarNnaH_6010981:
+    def __init__(self):
+        self._numconditions = 1
+        self._condition = {
+                           'self':{'index':{-1:{'domain':ach()}}},
+                           'next1':{'index':{0:{'domain':ach()}},
+                                   'data':{'domain':sup_pratyayaaH()[0:6]}
+                                   }
+                           }
+        
+    def __call__(self,node,suffix_node):
+        node_output= node.get_output()
+        if not node.get_output():
+            return node.get_output()
+        
+        if isinstance(suffix_node._data,Suffix):
+            pratyaya =''.join(suffix_node._data._suffix)
+            if pratyaya in sup_pratyayaaH()[0:6] : # only prathhama and dvitiiyaa considered
+                # suffix is sup
+                    if node.get_output()[-1] in ach() and suffix_node.get_output()[0] in ach():
+                       if suffix_node.get_output()[0] not in pratyaahaara('i', 'ch'): ## naadichi
+                           return node.get_output()[0:-1]+[diirgha_mapper()[node.get_output()[-1]]['diirgha']]
+            
+        return node_output
+    
 class tasmaatchhasonaHpuMsi_6010990:
     def __init__(self):
         self._numconditions = 2
