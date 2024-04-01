@@ -180,11 +180,11 @@ def test_siddhis ():
 def test_subaadi():
     sup_expr = [Node(Dhaatu(parse_string("rajNN")),parent1=None),Node(Suffix("ghaNc"),parent1=None)]
     
-    if True:
+    if False:
         pprint(generate_subaadi(sup_expr ,linga=1))   ;
         
     else:
-        expression = sup_expr  + [Node(Suffix('bhis',linga=1),parent1=None) ]
+        expression = sup_expr  + [Node(Suffix('am',linga=1),parent1=None) ]
         pe=process_until_finish(expression)
         output_processed_string = lambda expr: ''.join(reduce(lambda x ,y : x + y.get_output(),  expr, []))
         print(output_processed_string (pe))

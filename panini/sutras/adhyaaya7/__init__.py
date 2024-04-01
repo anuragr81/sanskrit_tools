@@ -430,12 +430,9 @@ class supicha_7031020:
         suffix_string = ''.join(suffix_node._data._suffix)
         if suffix_data and node.get_output()[-1] =='a' and list_past_rules_applied (node)[-1]!=7031020: # a-ending
             #yaNc sup
-            if suffix_data[0]  in pratyaahaara('y','Nc') and suffix_string  in sup_pratyayaaH():
-                if suffix_string  == 'am':
-                    # amipuurvaH
-                    return node.get_output()
-                else:
-                    return node.get_output()[0:-1] + ['aa']
+            # if suffix_data[0]  in pratyaahaara('y','Nc') and suffix_string  in sup_pratyayaaH():
+            if suffix_string  in ('bhyaam','bhis','bhyas','Nge',):
+                return node.get_output()[0:-1] + ['aa']
         return node.get_output()
 
    
