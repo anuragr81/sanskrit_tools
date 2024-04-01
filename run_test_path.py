@@ -179,23 +179,27 @@ def test_siddhis ():
 
 def test_subaadi():
     sup_expr = [Node(Dhaatu(parse_string("rajNN")),parent1=None),Node(Suffix("ghaNc"),parent1=None)]
-    #pprint(generate_subaadi(sup_expr ,linga=1))   ;
-    expression = sup_expr  + [Node(Suffix('jas',linga=1),parent1=None) ]
-    pe=process_until_finish(expression)
-    output_processed_string = lambda expr: ''.join(reduce(lambda x ,y : x + y.get_output(),  expr, []))
-    print(output_processed_string (pe))
-    if F:
-        print("===")
-        pprint(pe[2]._output)
     
-    print("DONE")   
-    
+    if True:
+        pprint(generate_subaadi(sup_expr ,linga=1))   ;
+        
+    else:
+        expression = sup_expr  + [Node(Suffix('bhis',linga=1),parent1=None) ]
+        pe=process_until_finish(expression)
+        output_processed_string = lambda expr: ''.join(reduce(lambda x ,y : x + y.get_output(),  expr, []))
+        print(output_processed_string (pe))
+        if F:
+            print("===")
+            pprint(pe[2]._output)
+        
+        print("DONE")   
+        
     
     
 def test_tibaadi():
     #pprint(generate_tibaadi("paXthNN"))   ;sys.exit(0)
  
-    expression=[Node(Dhaatu(parse_string("bhuu")),parent1=None),Node(Suffix('mip',lakaara='loXt'),parent1=None)]
+    expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix('tip',lakaara='liNg1'),parent1=None)]
     #expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix('ghaNc'),parent1=None),Node(Suffix('sNN'),parent1=None)]
     #expression=[Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix('tip',lakaara="luNg"),parent1=None)]
     #expression=[Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix('tip'),parent1=None)]
@@ -226,4 +230,5 @@ def test_tibaadi():
 if F:
     test_siddhis ()
 else:   
+    #test_tibaadi()
     test_subaadi()

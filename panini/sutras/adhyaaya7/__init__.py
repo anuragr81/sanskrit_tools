@@ -3,6 +3,11 @@ from ..common_definitions import get_dhaatu_properties,pratyaahaara, guNna, Dhaa
 from ..common_definitions import parasmaidpada_pratyayaaH, sup_pratyayaaH,list_past_rules_applied 
 from ..common_definitions import find_eldest_parent1_of_condition,find_eldest_parent2_of_condition
 
+
+
+
+
+
 class yuvoranaakau_7010010:
     def __init__(self):
         self._numconditions = 1
@@ -30,6 +35,30 @@ class yuvoranaakau_7010010:
                 return suffix_string[0:-2] + ["a","k","a"]
     
         return suffix_string
+
+class atobhisaais_70101090:
+    def __init__(self):
+        self._numconditions = 1
+        self._condition = {'self':{'data':{'domain':['bhis']}}}
+                           
+    def __call__(self,anga_node, node):
+        if not isinstance(node,Node):
+            raise ValueError("suffix must of type Node")
+        
+        if not isinstance(node._data,Suffix):
+            raise ValueError("suffix must of type Suffix")
+            
+        if not node.get_output() : 
+            return node.get_output()
+        elif node._data._suffix==['bh','i','s']:
+            if not anga_node.get_output():
+                effective_anga_node = find_eldest_parent1_of_condition(anga_node,lambda x: x.get_output() )
+            else:
+                effective_anga_node = anga_node
+            if 70101090 not in list_past_rules_applied(node) and effective_anga_node.get_output()[-1] in ('a','aa',) :
+                return ['ai','s']
+            
+        return node.get_output()
 
 
 class XtaaNgasiNgasaaminaatsyaaH_7010120:
@@ -439,7 +468,30 @@ class atodiirghoyaNci_7031010:
                 return node.get_output()[0:-1]+['aa']
         return node.get_output()
     
+class bahuvachanejhalyet_7031030:
+    def __init__(self):
+        self._numconditions = 1
+        
+    def __call__(self,node,suffix_node):
     
+        if not isinstance(node,Node):
+            raise ValueError("node must of type Node")
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix_node must of type Node")
+            
+        if not isinstance(suffix_node._data, Suffix):
+            raise ValueError("Must be suffix")
+            
+        # if there suffix has become invisible - no changes would be necessary
+        
+        if not suffix_node.get_output() or not node.get_output():
+            return node.get_output()
+        
+        if suffix_node._data._suffix in (['bh','i','s'],['bh','y','a','s'],['s','u','p'], ):
+            if 7031030 not in list_past_rules_applied(node) and node.get_output()[-1] in ('a','aa',) :
+                return node.get_output()[0:-1] + ['e']
+        
+        return node.get_output()
     
 class astisichoapRikte_7030960:
     def __init__(self):
