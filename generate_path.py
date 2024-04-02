@@ -423,6 +423,41 @@ def check_apavaada_rule(numConditionsDict):
             return {'status':True , 'type': alternative['type'], 'sutranum' : alternative['sutranum']}
     return {'status':False}
 
+
+def check_group_sutra(sutranum):
+    """
+    @description : returns other sutras in the group if the sutranum is part of a group-operation
+    """
+    group_sutra_dict = {6010971: ({'type':'transformation', 'sutranum':6010970.0},{'type':'transformation', 'sutranum':6010971.0},),
+                        6010970: ({'type':'transformation', 'sutranum':6010970.0},{'type':'transformation', 'sutranum':6010971.0},)
+                        }
+                        
+    if sutranum not in group_sutra_dict :
+        return (False,())
+    else:
+        return (True,group_sutra_dict [sutranum] )
+
+def apply_sutra_on_expression(objSutra,expression,all_sutras):
+    """
+    @description : apply a particular sutra based on whether it's an insertion, transformation or prepend type
+    """
+
+    if objSutra ['type'] == "insertion":              
+        expression = apply_insertion(all_sutras[objSutra['sutranum']],expression)
+        # apply lopa and transformation after insertion       
+        expression = apply_all_lopas(expression)
+
+    elif objSutra ['type'] == "prepend":                
+        expression= apply_prepend(all_sutras[objSutra['sutranum']],expression)        
+        expression = apply_all_lopas(expression)
+
+    elif objSutra ['type'] == "transformation":
+        expression = apply_transformation(all_sutras[objSutra ['sutranum']],expression)
+        expression = apply_all_lopas(expression)
+    else:
+        raise ValueError("Unkonwn type : %s" % objSutra['type'])
+    return expression
+
 def process_list(expr):
     all_sutras= get_sutras_ordered()
     
@@ -462,22 +497,14 @@ def process_list(expr):
             else:
                 # next possible-rule is rejected in favour a more specific rule if it exists                
                 firstApplicableSutra = {'type':apavaadaInfo ['type'], 'sutranum':apavaadaInfo['sutranum']}
-        
-            if firstApplicableSutra ['type'] == "insertion":
-                #old_string = output_processed_string(new_expr)                
-                new_expr = apply_insertion(all_sutras[firstApplicableSutra ['sutranum']],new_expr)
-                # apply lopa and transformation after insertion       
-                new_expr = apply_all_lopas(new_expr)
-    
-            elif firstApplicableSutra ['type'] == "prepend":                
-                new_expr= apply_prepend(all_sutras[firstApplicableSutra ['sutranum']],new_expr)        
-                new_expr = apply_all_lopas(new_expr)
-    
-            elif firstApplicableSutra ['type'] == "transformation":
-                new_expr = apply_transformation(all_sutras[firstApplicableSutra ['sutranum']],new_expr)
-                new_expr = apply_all_lopas(new_expr)
+                
+            (is_group_sutra, sutra_group) = check_group_sutra(firstApplicableSutra['sutranum'])
+            if is_group_sutra:
+                for sutra in sutra_group:
+                    new_expr =apply_sutra_on_expression(objSutra=sutra,expression=new_expr,all_sutras=all_sutras)
             else:
-                raise ValueError("Unkonwn type : %s" % objSutra.type)
+                new_expr =apply_sutra_on_expression(objSutra=firstApplicableSutra,expression=new_expr,all_sutras=all_sutras)
+
         
     return new_expr
 
