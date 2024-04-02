@@ -36,7 +36,7 @@ class yuvoranaakau_7010010:
     
         return suffix_string
 
-class atobhisaais_70101090:
+class atobhisaais_7010090:
     def __init__(self):
         self._numconditions = 1
         self._condition = {'self':{'data':{'domain':['bhis']}}}
@@ -55,7 +55,7 @@ class atobhisaais_70101090:
                 effective_anga_node = find_eldest_parent1_of_condition(anga_node,lambda x: x.get_output() )
             else:
                 effective_anga_node = anga_node
-            if 70101090 not in list_past_rules_applied(node) and effective_anga_node.get_output()[-1] in ('a','aa',) :
+            if 7010090 not in list_past_rules_applied(node) and effective_anga_node.get_output()[-1] in ('a','aa',) :
                 return ['ai','s']
             
         return node.get_output()
@@ -165,6 +165,17 @@ class aayaneyiiniiyiyaHphaXdhakhachchhaghaaMpratyayaadiinaaM_7010020:
             return ["i","y"]+ pratyaya[1:]
         else:
             return pratyaya
+
+class hrasvanadyaaponuXt_7010540:
+
+    def __init__(self):
+        self._numconditions = 1
+        self._condition = {'prev1':{'index':{-1 :{'domain':['a','i','u','Ri','aa','ii','uu']}}}
+                   }
+    def __call__(self,node,suffix_node):        
+        if not isinstance(node,Node):
+            raise ValueError("suffix must of type Node")
+        return node.get_output()
 
 
 class sichivRiddhiHparasmaipadeXshu_7020021:
@@ -465,7 +476,7 @@ class atodiirghoyaNci_7031010:
                 return node.get_output()[0:-1]+['aa']
         return node.get_output()
     
-class bahuvachanejhalyet_7031030:
+class bahuvachanejhalyetosicha_7031030:
     def __init__(self):
         self._numconditions = 1
         
@@ -484,11 +495,12 @@ class bahuvachanejhalyet_7031030:
         if not suffix_node.get_output() or not node.get_output():
             return node.get_output()
         
-        if suffix_node._data._suffix in (['bh','i','s'],['bh','y','a','s'],['s','u','p'], ):
+        if suffix_node._data._suffix in (['bh','i','s'],['bh','y','a','s'],['s','u','p'], ['o','s']):
             if 7031030 not in list_past_rules_applied(node) and node.get_output()[-1] in ('a','aa',) :
                 return node.get_output()[0:-1] + ['e']
         
         return node.get_output()
+
     
 class astisichoapRikte_7030960:
     def __init__(self):
