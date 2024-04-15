@@ -1,4 +1,4 @@
-from ..common_definitions import vriddhi,upadhaa, ach, Suffix, Node , hal
+from ..common_definitions import vriddhi,upadhaa, ach, Suffix, Aagama, Node , hal
 from ..common_definitions import get_dhaatu_properties,pratyaahaara, guNna, Dhaatu
 from ..common_definitions import parasmaidpada_pratyayaaH, sup_pratyayaaH,list_past_rules_applied 
 from ..common_definitions import find_eldest_parent1_of_condition,find_eldest_parent2_of_condition
@@ -170,13 +170,21 @@ class hrasvanadyaaponuXt_7010540:
 
     def __init__(self):
         self._numconditions = 1
-        self._condition = {'prev1':{'index':{-1 :{'domain':['a','i','u','Ri','aa','ii','uu']}}}
+        self._condition = {'next':{'data':['aam']}
                    }
     def __call__(self,prefix_node,suffix_node):
         if not isinstance(suffix_node,Node):
             raise ValueError("suffix_node must of type Node")
         if not isinstance(prefix_node,Node):
             raise ValueError("prefix_node must of type Node")
+           
+        if suffix_node.get_output():
+            if 7010540 not in list_past_rules_applied(suffix_node) and isinstance(suffix_node._data,Suffix) and suffix_node._data._suffix==['aa','m']:
+                # find effective prefix_node if prefix_node is empty
+                effective_prefix_node = prefix_node if prefix_node.get_output() else find_eldest_parent1_of_condition(prefix_node,lambda x : x.get_output() is not None)
+                if effective_prefix_node.get_output()[-1] in ('a','i','ii','u','uu','Ri',):
+                    return Aagama('nNNXt')
+                
 
         return []
 
