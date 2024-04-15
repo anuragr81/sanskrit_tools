@@ -59,7 +59,7 @@ def transformation_sutras():
           
           6010840,6010841,6010850,6010851,
           6010970,6010971,6010990, 6041050, 6041200, 6041480, 
-          7010030,7010010, 7010020, 7010540, 7010090, 7010120,7010130,
+          7010030,7010010, 7010020, 7010090, 7010120,7010130,
           
           7020021, 7020790,7020800, 7021150, 7021160, 7030520, 7030840,7031010,7031020,
           7031030, 7040500,7040501,
@@ -73,7 +73,7 @@ def prepend_sutras():
 
 def insertion_sutras():
 #   to be considered: 601008
-    ll=[3010460,3010680,3040920,3010330,3041030,3041070,7020350,7030960,7030961]
+    ll=[3010460,3010680,3040920,3010330,3041030,3041070,7010540,7020350,7030960,7030961]
     return sorted(float(x) for x in ll)
 
 def apply_transformation_at_end(transformation_rule,new_expr):
@@ -410,7 +410,8 @@ def check_apavaada_rule(numConditionsDict):
     to the list of known general-special pairings.
     """
     
-    general_special_pairs = ( ( 7010030 , 3041080 ) , (7030840, 7020021) , ( 6010971, 6010940) )
+    general_special_pairs = ( ( 7010030 , 3041080 ) , (7030840, 7020021) , ( 6010971, 6010940) , 
+                             (7031030, 7010090) )
     nitya_rules  = ( 3041030,)
     
     candidateSutra= numConditionsDict[min(numConditionsDict.keys())][0]

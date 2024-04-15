@@ -172,10 +172,13 @@ class hrasvanadyaaponuXt_7010540:
         self._numconditions = 1
         self._condition = {'prev1':{'index':{-1 :{'domain':['a','i','u','Ri','aa','ii','uu']}}}
                    }
-    def __call__(self,node,suffix_node):        
-        if not isinstance(node,Node):
-            raise ValueError("suffix must of type Node")
-        return node.get_output()
+    def __call__(self,prefix_node,suffix_node):
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix_node must of type Node")
+        if not isinstance(prefix_node,Node):
+            raise ValueError("prefix_node must of type Node")
+
+        return []
 
 
 class sichivRiddhiHparasmaipadeXshu_7020021:
@@ -496,7 +499,9 @@ class bahuvachanejhalyetosicha_7031030:
             return node.get_output()
         
         if suffix_node._data._suffix in (['bh','i','s'],['bh','y','a','s'],['s','u','p'], ['o','s']):
-            if 7031030 not in list_past_rules_applied(node) and node.get_output()[-1] in ('a','aa',) :
+            ## 7010090 i.e. ato bhisa ais is an apavaada sutra hence it needs to be checked whether it has been
+            #  applied or not
+            if 7031030 not in list_past_rules_applied(node) and 7010090 not in  list_past_rules_applied(suffix_node) and node.get_output()[-1] in ('a','aa',) :
                 return node.get_output()[0:-1] + ['e']
         
         return node.get_output()
