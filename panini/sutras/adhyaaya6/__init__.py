@@ -487,6 +487,30 @@ class amipuurvaH_6011030:
 
 """
 
+
+
+class naami_6040030:
+    def __init__(self):
+        self._numconditions = 1
+        self._condition = {'next':{'domain':['n']},
+                           'next2':{'domain':['aam']},
+                           }
+        
+    def __call__(self,node,suffix_node):
+        if not isinstance(node,Node):
+            raise ValueError("node must be of Node type")
+
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix_node must be of Node type")
+        
+        if node.get_output():
+            if suffix_node.get_output()==['n'] and isinstance(suffix_node._parent2._data,Suffix) and suffix_node._parent2._data._suffix==['aa','m']:
+                if node.get_output()[-1] in ('a','i','u','Ri','lRi',):
+                    return node.get_output()[:-1]+[make_diirgha(node.get_output()[-1])]
+                
+        return node.get_output()
+
+
 class luNglaNglRiNgkShvaXdudaattaH_6040710:
     def __init__(self):
         self._numconditions = 1
