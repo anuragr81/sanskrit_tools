@@ -503,7 +503,7 @@ class naami_6040030:
         if not isinstance(suffix_node,Node):
             raise ValueError("suffix_node must be of Node type")
         
-        if node.get_output():
+        if node.get_output() and suffix_node.get_output() and suffix_node._parent2 is not None:
             if suffix_node.get_output()==['n'] and isinstance(suffix_node._parent2._data,Suffix) and suffix_node._parent2._data._suffix==['aa','m']:
                 if node.get_output()[-1] in ('a','i','u','Ri','lRi',):
                     return node.get_output()[:-1]+[make_diirgha(node.get_output()[-1])]

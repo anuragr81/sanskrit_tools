@@ -1,5 +1,6 @@
 import re
-from ..common_definitions import pratyaahaara, ach, hal, Node, Suffix
+from ..common_definitions import pratyaahaara, ach, hal, Node, Suffix, list_past_rules_applied
+from ..common_definitions import find_eldest_parent1_of_condition,find_eldest_parent2_of_condition
 
 class kharavasaanayorvisarjaniiyaH_8010150:
     def __init__(self):
@@ -123,4 +124,25 @@ class aadeshapratyayoH_8030059:
                 
                 
         return node.get_output()
+
+
+class raXshaabhyaaMnoXnaHsamaanapadeaXtkupvaaNgnumvyavaayeapi_8040010:
+    def __init__(self):
+        self._numconditions = 2
+        
+    def __call__(self,anga_node ,node):        
+        if not isinstance(node,Node):
+            raise ValueError("suffix must of type Node")
+        
+        if not isinstance(node._data,Suffix):
+            raise ValueError("suffix must of type Suffix")
+            
+        if node.get_output() and 8040010 not in list_past_rules_applied(node): 
+            if node.get_output()[0] == 'n':
+                effective_anga_node = anga_node if anga_node.get_output() else find_eldest_parent1_of_condition(anga_node, lambda x : x.get_output() )
+                if effective_anga_node.get_output()[-1] in ( pratyaahaara('a','Xt') + ('aa','r','Xsh') ) :
+                    return ['Xn'] + node.get_output()[1:]
+            
+        return node.get_output()
+
         

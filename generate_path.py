@@ -63,7 +63,8 @@ def transformation_sutras():
           
           7020021, 7020790,7020800, 7021150, 7021160, 7030520, 7030840,7031010,7031020,
           7031030, 7040500,7040501,
-          8010150, 8020280, 8020660, 8030059]
+          8010150, 8020280, 8020660, 8030059 #] 
+          ,8040010]
     return sorted(float(x) for x in ll)
 
 
@@ -531,6 +532,7 @@ def generate_tibaadi(dhaatu_string):
     
 
 def generate_subaadi(sup_expression,linga):
+    debug_on = False
     if not isinstance(sup_expression,list):
         raise ValueError("sup_expression must be a list of Nodes")
     if any (not isinstance(x,Node) for x in sup_expression):
@@ -538,15 +540,19 @@ def generate_subaadi(sup_expression,linga):
     res = []
     sups = ('sNN','au','jas','am','auXt','shas', 'Xtaa','bhyaam','bhis',
             'Nge','bhyaam','bhyas','Ngasi','bhyaam','bhyas',
-            'Ngas','os','am','Ngi','os','sup')
+            'Ngas','os','aam','Ngi','os','sup')
     
 
     for sup_string in sups :
         cur_sup_expression=deepcopy(sup_expression)
+        
+        if debug_on :
+            print("Feeding : " + sup_string)
         cur_sup_expression.append(Node(Suffix(sup_string,linga=linga),parent1=None))        
         
         result = output_string (cur_sup_expression)
-        #print(sup_string + " gives " +result )
+        if debug_on :
+            print(sup_string + " gives " +result )
         #print(result)
         res.append(result)
     return res
