@@ -157,11 +157,11 @@ def list_past_rules_applied (nd):
     return [int(x['rule'].__name__.split("_")[-1]) for x in nd._output if 'rule' in x]
 
 class Node:
-    def __init__(self,data,parent1,parent2=None):
+    def __init__(self,data,parent1,parent2=None,inserted=False):
         if all ( not isinstance(data,x) for x in list(get_supported_types()) + [list] ):
             raise ValueError("Unsupported type %s" % type(data))
         self._children=[]
-
+        self._inserted = inserted
         self._parent1 = parent1
         self._parent2 = parent2
 

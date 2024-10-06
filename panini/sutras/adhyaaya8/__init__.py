@@ -114,9 +114,9 @@ class aadeshapratyayoH_8030059:
         
         # the 's' to be replaced in the node needs to be aadesha e.g. from sutras 3010460,7020350        
         # the test for aadesha only checks if both parents are there (which happens for all inserted nodes)
-        isaadesha = node._parent1 and node._parent2 
-        if node.get_output() and node.get_output()[0] == 's' and isaadesha :
-            if anga_node.get_output()[-1] in ('i','ii','u','uu','Ri','Rii','lRi','lRii') :
+        #isaadesha = node._parent1 and node._parent2 
+        if node.get_output() and node.get_output()[0] == 's' and node._inserted:
+            if anga_node.get_output()[-1] in ('i','ii','u','uu','Ri','Rii','lRi','lRii','e','o','ai','au','h','y','v','r','l') :
                 return ['Xsh'] + node.get_output()[1:]
             
         #vriddhi may also be needed 7020021

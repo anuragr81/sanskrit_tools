@@ -316,7 +316,7 @@ def apply_insertion(insertion_rule, new_expr):
     for pos in reversed(new_inserts):
         
         dat=new_inserts[pos]
-        new_node = Node(dat['node_data'],parent1=new_expr[dat['input_indices'][0]],parent2=new_expr[dat['input_indices'][1]])
+        new_node = Node(dat['node_data'],inserted=True, parent1=new_expr[dat['input_indices'][0]],parent2=new_expr[dat['input_indices'][1]])
         #assigning properties to both sides of the insertion
         new_node._assign_output_properties(rule=dat['rule'])
         #new_expr[pos]._assign_output_properties(rule=dat['rule'])
@@ -367,7 +367,7 @@ def get_numconditions_dictionary(all_sutras,sutradf,expression):
      on the rules filters out only the sutras that cause a change (through apply). 
      A rule may not meant to be applied repeatedly or it may not apply
      when another relevant rule has already been applied - a logic that
-     is handled inside the rule implementation itself. 
+     is handled inside the rule implementation. 
      @input: allsutrasdf and the expression
      @output: the applicable sutras arranged in an orderedict indexed by the number of conditions
     """    
@@ -401,7 +401,7 @@ def get_numconditions_dictionary(all_sutras,sutradf,expression):
             
     return numConditionsDict
             
-
+#, (8040010,3040890)
 def check_apavaada_rule(numConditionsDict):
     """
     @description: A subset rule that also applies would always have the same conditions. 
