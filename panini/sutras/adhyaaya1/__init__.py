@@ -101,6 +101,10 @@ class chuXtuu_103070:
         if not node.get_output():
             return node.get_output()
         
+        # chha gets special treatment (based on suutra-vyartha arguments)
+        if ''.join(node._data._suffix)=='chha':
+            return node.get_output()
+        
         if node._output[-1]['output'] [0] in  chu() or node._output[-1]['output'][0] in Xtu():
             return node.get_output()[1:]
         

@@ -1,6 +1,6 @@
 from generate_path import *
 from generate_path import output_string
-from panini.sutras.common_definitions import Dhaatu,Node,Suffix, parse_string,print_expr
+from panini.sutras.common_definitions import Dhaatu,Node,Suffix, Praatipadika, parse_string,print_expr
 from pprint import pprint
 
 # TODO: use https://everythingfonts.com/unicode/devanagari to output devanagari
@@ -24,19 +24,24 @@ def test_siddhis ():
 
 
 def test_subaadi():
-    sup_expr = [Node(Dhaatu(parse_string("rajNN")),parent1=None),Node(Suffix("ghaNc"),parent1=None)]
     
-    if True:
+    
+    if False:
+        sup_expr = [Node(Dhaatu(parse_string("rajNN")),parent1=None),Node(Suffix("ghaNc"),parent1=None)]
         pprint(generate_subaadi(sup_expr ,linga=1))   ;
         
     else:
+        sup_expr = [Node(Dhaatu(parse_string("ramNN")),parent1=None),Node(Suffix("Nnich"),parent1=None),Node(Suffix("ach"),parent1=None)]
+        #sup_expr = [Node(Dhaatu(parse_string("vRishNN")),parent1=None),Node(Suffix("ach"),parent1=None),Node(Suffix("Xtaap"),parent1=None) ]
+        
         expression = sup_expr  + [Node(Suffix('sup',linga=1),parent1=None) ]
         pe=process_until_finish(expression)
         output_processed_string = lambda expr: ''.join(reduce(lambda x ,y : x + y.get_output(),  expr, []))
         print(output_processed_string (pe))
         if F:
             print("===")
-            pprint(pe[2]._output)
+            for k in (pe[2]._output):
+                pprint(k)
         
         print("DONE")   
         
@@ -214,8 +219,12 @@ def test_expmt():
     
     #expression=[Node(Dhaatu(parse_string("rajNN")),parent1=None),Node(Suffix("ghaNc"),parent1=None),Node(Suffix("am",linga=1),parent1=None)]
     
-    expression=[Node(Dhaatu(parse_string("bhuu")),parent1=None),Node(Suffix("mip",lakaara='loXt'),parent1=None)]
-        
+    #expression=[Node(Dhaatu(parse_string("bhuu")),parent1=None),Node(Suffix("mip",lakaara='loXt'),parent1=None)]
+    
+    expression=[Node(Praatipadika("shaalaa",1),parent1=None),
+                Node(Suffix("chha"),parent1=None),
+                Node(Suffix("sNN"),parent1=None)]
+    
     # sorting order is increasing in general but can be superseded by nitya condition (if nitya occurs in a later sutra then that later sutra takes advantage) 
     # which in turn would be superseded by the minimal condition criteria (antaraNga) 
     # The only exception is when there is a an exception that prevents application
@@ -226,10 +235,11 @@ def test_expmt():
 
     output_processed_string = lambda expr: ''.join(reduce(lambda x ,y : x + y.get_output(),  expr, []))
     print(output_processed_string (pe))
+    print(pe[0]._output)
+    print("DONE")
     
-    print("DONE")   
-    
-if T:
+if F:
     test_siddhis ()
 else:   
     test_expmt()
+    #test_subaadi()

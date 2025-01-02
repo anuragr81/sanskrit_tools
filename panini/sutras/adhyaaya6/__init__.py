@@ -1,5 +1,7 @@
 from functools import reduce
-from ..common_definitions import Suffix, Aagama, Node, Dhaatu, ach, hal, sup_pratyayaaH, taddhita_pratyayaaH
+
+
+from ..common_definitions import Suffix, Aagama, Node, Dhaatu, ach, hal, sup_pratyayaaH, taddhita_pratyayaaH, kRit_pratyayaaH,san_pratyayaaH
 from ..common_definitions import pratyaahaara, make_diirgha, guna_letters_for_aat
 from ..common_definitions import vriddhi, list_past_rules_applied
 from ..common_definitions import find_eldest_parent1_of_condition 
@@ -618,13 +620,15 @@ class yasyeticha_6041480:
     def __call__(self,node,suffix_node):
     
         suffix = suffix_node._data
+        suffix_data = ''.join(suffix._suffix)
         anga_str=node.get_output()
         if not isinstance(suffix ,Suffix):
             raise ValueError("suffix must be of Suffix type")
         
         #pick last value
         suffix_data=[x['output'] for x in suffix_node._output if 'new' in x and x['new']][-1]
-        if False: # TODO: re-enable
-            if suffix.is_taddhita or suffix_data[0] in ('i','ii'):
-                 return anga_str[0:-1]
+        
+        if anga_str and anga_str[-1] in ach(): # worry about yasyeticha only when anga ends in ach
+            if suffix.is_taddhita or (suffix_data[0] in ('i','ii') and suffix_data in (sup_pratyayaaH()+kRit_pratyayaaH()+san_pratyayaaH()) ) :
+                return anga_str[0:-1]
         return anga_str
