@@ -18,6 +18,8 @@ class kharavasaanayorvisarjaniiyaH_8010150:
         return pada
 
 
+    
+    
 class saMyogaantasyalopaH_8020230:
     def __init__(self):
         self._numconditions = 1
@@ -51,25 +53,28 @@ class iXtaiiXti_8020280:
         
     def __call__(self,anga_node ,node):        
         
-        #raise ValueError("Unimplemented")
+        
         
         if not isinstance(node,Node):
             raise ValueError("node must of type Node")
         if not isinstance(anga_node,Node):
-            raise ValueError("suffix_node must of type Node")
-        #if not isinstance(suffix_node._data,Suffix):
-        #    raise ValueError("suffix_node._data must be of type Suffix")
+            raise ValueError("anga_node must of type Node")
+        if not isinstance(node._data,Suffix):
+            raise ValueError("node._data must be of type Suffix")
     
     
         if not node.get_output():
             return node.get_output()
-        #raise ValueError("Check should be node.get_output() =='s'") 
-        if isinstance(node._data,Suffix)   and ''.join(node._data._suffix )== 'sNNch':
-            print("FOUND")
         
-        # if current 's' gave birth to iiXt and iXt then omit/lopa s
-        #node._children[1]._data == ['ii', 'Xt']
-        #node._children[0]._data == ['i', 'Xt']
+        ## return [] if the node is sNNch, node._children[0]._output is iiXt and node._parent1._children[-1]._suffix is iXt
+        ## 0, -1 in indices are important since the rule relies on original names (not later states of output)
+
+        if isinstance(node._data,Suffix)   and ''.join(node._data._suffix )== 'sNNch':
+            if node._children and isinstance(node._children[0]._data,Suffix) and node._children[0]._data._suffix==['ii','Xt']:
+                if node._parent1 and node._parent1._children and isinstance(node._parent1._children[-1]._data,Suffix) and node._parent1._children[-1]._data._suffix==['i','Xt']:
+                    return []
+                
+        
         
             
         return node.get_output()

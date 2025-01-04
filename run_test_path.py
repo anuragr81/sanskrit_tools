@@ -211,23 +211,24 @@ def test_tibaadi():
     
 
 def test_expmt():
-    pending= False
+    pending= True
     
     if not pending:
         expression=[Node(Praatipadika("upagu",1),parent1=None),
-                    Node(Suffix("aNn"),parent1=None)]
+                    Node(Suffix("aNn"),parent1=None),Node(Suffix("sNN"),parent1=None)]
     else:
-        
+        #
+        #expression = [Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tip",lakaara='luNg'),parent1=None)]
         expression = [Node(Dhaatu(parse_string("luuNcNN")),parent1=None),Node(Suffix("tip",lakaara='luNg'),parent1=None)]
     # for paXtheta - we need to have for liNg : yaasuXtparasmaipadeXshuudaatto Ngichcha 3.4.103 and then ato yeyaH (because of a-ending paXtha after shap)    
     pe=process_until_finish(expression)
 
     output_processed_string = lambda expr: ''.join(reduce(lambda x ,y : x + y.get_output(),  expr, []))
     print(output_processed_string (pe))
-    print(pe[0]._output)
+    print(pe[2]._output)
     print("DONE")
     
-if T:
+if F:
     test_siddhis ()
 else:   
     test_expmt()
