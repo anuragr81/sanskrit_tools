@@ -2,7 +2,7 @@ from collections import OrderedDict
 
 from copy import deepcopy
 from functools import reduce
-from panini.sutras.common_definitions import print_expr
+from panini.sutras.common_definitions import print_expr, general_special_pairs
 import inspect
 import pandas as pd
 from pprint import pprint
@@ -61,7 +61,7 @@ def transformation_sutras():
           6010970,6010971,6010990, 6040030, 6041050, 6041200, 6041480, 
           7010030,7010010, 7010020, 7010090, 7010120,7010130,
           
-          7020021, 7020790,7020800, 7021150, 7021160, 7030520, 7030840,7031010,7031020,
+          7020021, 7020790,7020800, 7021150, 7021160, 7021170, 7030520, 7030840,7031010,7031020,
           7031030, 7040500,7040501,
           8010150, 8020280, 8020660, 8030059 #] 
           ,8040010]
@@ -411,14 +411,12 @@ def check_apavaada_rule(numConditionsDict):
     to the list of known general-special pairings.
     """
     
-    general_special_pairs = ( ( 7010030 , 3041080 ) , (7030840, 7020021) , ( 6010971, 6010940) , 
-                             (7031030, 7010090) )
     nitya_rules  = ( 3041030,)
     
     candidateSutra= numConditionsDict[min(numConditionsDict.keys())][0]
     alternatives_dict = dict((x['sutranum'],x) for x in reduce(lambda x , y: x+y , [v for k,v in numConditionsDict.items()], []) )
     for alt_sutranum, alternative  in alternatives_dict .items():
-        if (candidateSutra['sutranum'], alt_sutranum  ) in general_special_pairs :
+        if (candidateSutra['sutranum'], alt_sutranum  ) in general_special_pairs() :
             return {'status':True , 'type': alternative['type'], 'sutranum' : alternative['sutranum']}
     for _, alternative  in alternatives_dict .items():
         if alternative['sutranum'] in nitya_rules:

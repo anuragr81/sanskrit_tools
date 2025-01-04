@@ -1,6 +1,6 @@
 from ..common_definitions import vriddhi,upadhaa, ach, Suffix, Aagama, Node , hal
 from ..common_definitions import get_dhaatu_properties,pratyaahaara, guNna, Dhaatu
-from ..common_definitions import parasmaidpada_pratyayaaH, sup_pratyayaaH,list_past_rules_applied 
+from ..common_definitions import parasmaidpada_pratyayaaH, sup_pratyayaaH,list_past_rules_applied , general_special_pairs
 from ..common_definitions import find_eldest_parent1_of_condition,find_eldest_parent2_of_condition
 
 
@@ -328,6 +328,31 @@ class atoyeyaH_7020800:
 
         return node.get_output()
 
+class acho_NcNniti_7021150:
+    def __init__(self):
+        self._numconditions = 1
+        
+    def __call__(self,node,suffix_node):
+        if not isinstance(node,Node):
+            raise ValueError("anga_node must of type Node")
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix must of type Node")
+        
+        if not isinstance(suffix_node._data,Suffix):
+            raise ValueError("suffix must of type Suffix")
+            
+        # if a more specific rule pertaining to 7021150 has been applied, then do not apply 7021150
+        
+        if set(y for (x,y) in general_special_pairs() if x == 7021150).intersection(list_past_rules_applied(node)):
+            return node.get_output()
+        
+        suffix_data=[x['output'] for x in suffix_node._output if 'new' in x and x['new']][-1]
+        anga_string= node.get_output()
+        if anga_string and suffix_data:
+            if anga_string[-1] in ach() and (suffix_data[-1] in ('Nc','Nn') or suffix_data[0] in ('Nc','Nn')):
+                return anga_string[0:-1] + [vriddhi(anga_string[-1])]
+        return node.get_output() 
+
 
 class ataupadhaayaaH_7021160:
     def __init__(self):
@@ -359,7 +384,7 @@ class ataupadhaayaaH_7021160:
         
         return node.get_output()
 
-class acho_NcNniti_7021150:
+class taddhiteXshvachamaadeH_7021170:
     def __init__(self):
         self._numconditions = 1
         
@@ -374,9 +399,10 @@ class acho_NcNniti_7021150:
         suffix_data=[x['output'] for x in suffix_node._output if 'new' in x and x['new']][-1]
         anga_string= node.get_output()
         if anga_string and suffix_data:
-            if anga_string[-1] in ach() and (suffix_data[-1] in ('Nc','Nn') or suffix_data[0] in ('Nc','Nn')):
-                return anga_string[0:-1] + [vriddhi(anga_string[-1])]
+            if anga_string[0] in ach() and suffix_node._data.is_taddhita:
+                return [vriddhi(anga_string[0])] + anga_string[1:] 
         return node.get_output() 
+
 
 class chajoHkughiNnNnyatoH_7030520:
     def __init__(self):
@@ -416,7 +442,7 @@ class saarvadhaatukaardhadhaatukayoH_7030840:
         if isinstance(node._data,Suffix):
     
             if not node.get_output():
-                print("saarvadhaatukaardhadhaatukayoH_7030840: Returned due to sarvaahaari lopa")
+                #print("saarvadhaatukaardhadhaatukayoH_7030840: Returned due to sarvaahaari lopa")
                 return node.get_output()
             if node._data._suffix[-1] == node.get_output()[-1]:
                 anga_string= node.get_output()

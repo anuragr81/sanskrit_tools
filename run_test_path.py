@@ -18,6 +18,9 @@ def test_siddhis ():
     
     assert output_string ([Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tip",lakaara='luNg'),parent1=None)] ) == "achaiXshiit"
     
+    assert output_string ([Node(Praatipadika("shaalaa",1),parent1=None), Node(Suffix("chha"),parent1=None),Node(Suffix("sNN"),parent1=None)] ) == "shaaliiyas"
+    
+    
     test_tibaadi()
     
     print("Tests Done")
@@ -208,28 +211,14 @@ def test_tibaadi():
     
 
 def test_expmt():
-    #pprint(generate_tibaadi("paXthNN"))   ;sys.exit(0)
- 
-    #expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix('mip',lakaara='loXt'),parent1=None)]
-    #expression=[Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix('ghaNc'),parent1=None),Node(Suffix('sNN'),parent1=None)]
-    #expression=[Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix('tip',lakaara="luNg"),parent1=None)]
-    #expression=[Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix('tip'),parent1=None)]
-    #raise ValueError("tasthamipaaMtaaMtamTaamaH cannot be applied on mip - it needs to be verified how this is a nitya-apavaada scenario")
-    #expression=[Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tip",lakaara='luNg'),parent1=None)]
+    pending= False
     
-    #expression=[Node(Dhaatu(parse_string("rajNN")),parent1=None),Node(Suffix("ghaNc"),parent1=None),Node(Suffix("am",linga=1),parent1=None)]
-    
-    #expression=[Node(Dhaatu(parse_string("bhuu")),parent1=None),Node(Suffix("mip",lakaara='loXt'),parent1=None)]
-    
-    expression=[Node(Praatipadika("shaalaa",1),parent1=None),
-                Node(Suffix("chha"),parent1=None),
-                Node(Suffix("sNN"),parent1=None)]
-    
-    # sorting order is increasing in general but can be superseded by nitya condition (if nitya occurs in a later sutra then that later sutra takes advantage) 
-    # which in turn would be superseded by the minimal condition criteria (antaraNga) 
-    # The only exception is when there is a an exception that prevents application
-    
-
+    if not pending:
+        expression=[Node(Praatipadika("upagu",1),parent1=None),
+                    Node(Suffix("aNn"),parent1=None)]
+    else:
+        
+        expression = [Node(Dhaatu(parse_string("luuNcNN")),parent1=None),Node(Suffix("tip",lakaara='luNg'),parent1=None)]
     # for paXtheta - we need to have for liNg : yaasuXtparasmaipadeXshuudaatto Ngichcha 3.4.103 and then ato yeyaH (because of a-ending paXtha after shap)    
     pe=process_until_finish(expression)
 
@@ -238,7 +227,7 @@ def test_expmt():
     print(pe[0]._output)
     print("DONE")
     
-if F:
+if T:
     test_siddhis ()
 else:   
     test_expmt()

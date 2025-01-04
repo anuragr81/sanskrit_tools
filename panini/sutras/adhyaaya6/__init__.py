@@ -628,7 +628,7 @@ class yasyeticha_6041480:
         #pick last value
         suffix_data=[x['output'] for x in suffix_node._output if 'new' in x and x['new']][-1]
         
-        if anga_str and anga_str[-1] in ach(): # worry about yasyeticha only when anga ends in ach
+        if anga_str and anga_str[-1] in ('i', 'ii', 'a', 'aa'): # worry about yasyeticha only when anga ends in i,ii,a,aa
             if suffix.is_taddhita or (suffix_data[0] in ('i','ii') and suffix_data in (sup_pratyayaaH()+kRit_pratyayaaH()+san_pratyayaaH()) ) :
                 return anga_str[0:-1]
         return anga_str
