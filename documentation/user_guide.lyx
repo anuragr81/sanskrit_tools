@@ -157,7 +157,7 @@
 \begin_body
 
 \begin_layout Title
-A pāṇini derivation engine
+pāṇini compression engine - a parsimonious view of Sanskrit grammar
 \end_layout
 
 \begin_layout Standard
@@ -476,6 +476,47 @@ ato guṇe
 \shape default
  etc.) that modify more than one node, such rules are interpreted as multiple
  rules with same input (precondition).
+\end_layout
+
+\begin_layout Subsubsection
+Node-specific and Group Rules
+\end_layout
+
+\begin_layout Standard
+While the Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Rules"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ defines a rule as one that applies to an entire expression, the intent
+ for most rules in the 
+\shape italic
+aṣṭādhyāyī
+\shape default
+ is to modify a particular node.
+ There are several rules however - such as 
+\shape italic
+akaḥ savarṇe dīrghaḥ 
+\shape default
+- that end up modifying adjacent nodes.
+ Such rules would be referred to as group-rules as they'are applied at once
+ - without considering the order respect to other rules (described further
+ in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:SutrasSelection"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Subsubsection
@@ -1408,8 +1449,8 @@ that enlists all rules of Sanskrit grammar and attempts to make it a closed
 \shape italic
 ādeśa - 
 \shape default
-an introduction of a suffix or a similar unit that does not upset the original
- structure of an expression
+an introduction of a suffix or a similar unit that does not upset the pre-existi
+ng contents of an expression
 \end_layout
 
 \begin_layout Enumerate
@@ -1417,8 +1458,8 @@ an introduction of a suffix or a similar unit that does not upset the original
 \shape italic
 āgama - 
 \shape default
-an introduction a suffix or a similar unit that may overrule the original
- structure of an expression
+an introduction a suffix or a similar unit that may overrule the contents
+ of an expression
 \end_layout
 
 \begin_layout Enumerate
@@ -1434,8 +1475,8 @@ sutra
 \shape italic
 pada
 \shape default
- - The entire word that is typically either a conjugated verb or a declensed
- noun (as described by the sutra 
+ - The entire word that is either classified as a conjugated verb or a declensed
+ noun (defined by the sutra 
 \shape italic
 suptiṅantaṃ padam
 \shape default

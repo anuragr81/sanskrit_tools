@@ -190,7 +190,6 @@ def apply_dhaatu_lopa(dhaatu_node):
     if not isinstance(dhaatu_node._data,Dhaatu):
         raise ValueError("Need Dhaatu")
         
-    MAX_TIMES=10000
     lopa_functions = [halantyam_1030030]
     
     for lopafunc in  lopa_functions :

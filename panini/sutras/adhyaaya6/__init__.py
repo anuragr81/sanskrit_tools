@@ -312,24 +312,17 @@ class atoguNne_6010940:
 
 
 """
-
-Two classes implement this because the output of the rule affects two 
+A group sutra.
+Two classes implement the rule because the output of the rule affects two 
 different nodes. The first implementation - which is invoked before the 
 latter - changes the node only so no material changes is caused
-to the preconditions for the second implementation 
+to the preconditions for the second implementation. 
 """
 class akaHsavarNnediirghaH_6010970:
 
     def __init__(self):
         self._numconditions = 1
-        # the issue that a condition B might depend on whether condition A has 
-        # been satisfied or not has not been handled. We're considering conditions A and B as being independently matched 
-        # e.g. by consider a weaker condition in this case
-        self._condition = { 'self':{'index': {-1:{'domain': list(diirgha_mapper().keys()) }}
-                                    } ,
-                            'next1':{'index':{0:{'domain':list(set(reduce(lambda x, y: x + y , [v['match'] for _,v in diirgha_mapper().items()]))) }}
-                                    }
-                           }
+        
     def __call__(self,node, suffix_node):
         if not isinstance(node,Node):
             raise ValueError("node must be of Node type")
@@ -344,10 +337,15 @@ class akaHsavarNnediirghaH_6010970:
         
         if set(ak_keys) - set(ak_mapper.keys()):
             raise ValueError("Missing mapping for diirgha")
+            
+        if not suffix_node.get_output() and suffix_node._children:
+            effective_suffix_node = suffix_node._children[0]
+        else:
+            effective_suffix_node = suffix_node
         
-        if node.get_output()  and node.get_output() [-1] in ak_mapper and suffix_node.get_output() and suffix_node.get_output()[0] in ak_mapper[node.get_output() [-1] ]['match']:
-            if isinstance(suffix_node._data,Suffix):
-                pratyaya  = ''.join(suffix_node._data._suffix)
+        if node.get_output()  and node.get_output() [-1] in ak_mapper and effective_suffix_node.get_output() and effective_suffix_node.get_output()[0] in ak_mapper[node.get_output() [-1] ]['match']:
+            if isinstance(effective_suffix_node._data,Suffix):
+                pratyaya  = ''.join(effective_suffix_node._data._suffix)
                 # ami puurvaH
                 if pratyaya in sup_pratyayaaH() and pratyaya == 'am' :
                     return node.get_output()
@@ -359,11 +357,6 @@ class akaHsavarNnediirghaH_6010970:
 class akaHsavarNnediirghaH_6010971:
     def __init__(self):
         self._numconditions = 1
-        self._condition = { 'self':{'index': {-1:{'domain': list(diirgha_mapper().keys()) }}
-                                    } ,
-                            'next1':{'index':{0:{'domain':list(set(reduce(lambda x, y: x + y , [v['match'] for _,v in diirgha_mapper().items()]))) }}
-                                    }
-                           }
 
     def __call__(self,node, anga_node):
         if not isinstance(node,Node):
@@ -382,8 +375,12 @@ class akaHsavarNnediirghaH_6010971:
         
         if set(ak_keys) - set(ak_mapper.keys()):
             raise ValueError("Missing mapping for diirgha")
-        
-        if anga_node.get_output() and anga_node.get_output() [-1] in ak_mapper and node.get_output()[0] in ak_mapper[anga_node.get_output() [-1]]['match']:
+        if not anga_node.get_output() and anga_node._parent1._children:
+            effective_anga_node = anga_node._parent1._children[-1]
+        else:
+            effective_anga_node  = anga_node
+            
+        if effective_anga_node.get_output() and effective_anga_node.get_output() [-1] in ak_mapper and node.get_output()[0] in ak_mapper[effective_anga_node.get_output() [-1]]['match']:
             if isinstance(node._data,Suffix):
                 pratyaya  = ''.join(node._data._suffix)
                 # ami puurvaH

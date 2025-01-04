@@ -224,7 +224,9 @@ def test_expmt():
     pe=process_until_finish(expression)
 
     output_processed_string = lambda expr: ''.join(reduce(lambda x ,y : x + y.get_output(),  expr, []))
+    print ("=====")
     print(output_processed_string (pe))
+    print ("=====")
     print(pe[2]._output)
     print("DONE")
     
