@@ -338,7 +338,7 @@ class akaHsavarNnediirghaH_6010970:
         if set(ak_keys) - set(ak_mapper.keys()):
             raise ValueError("Missing mapping for diirgha")
             
-        if not suffix_node.get_output() and suffix_node._children:
+        if not suffix_node.get_output() and suffix_node._children and suffix_node._children[0]!=node:
             effective_suffix_node = suffix_node._children[0]
         else:
             effective_suffix_node = suffix_node
@@ -375,7 +375,7 @@ class akaHsavarNnediirghaH_6010971:
         
         if set(ak_keys) - set(ak_mapper.keys()):
             raise ValueError("Missing mapping for diirgha")
-        if not anga_node.get_output() and anga_node._parent1._children:
+        if not anga_node.get_output() and anga_node._parent1._children and anga_node._parent1._children[-1]!=node:
             effective_anga_node = anga_node._parent1._children[-1]
         else:
             effective_anga_node  = anga_node

@@ -220,6 +220,7 @@ def test_expmt():
         #
         #expression = [Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tip",lakaara='luNg'),parent1=None)]
         expression = [Node(Dhaatu(parse_string("luuNcNN")),parent1=None),Node(Suffix("tip",lakaara='luNg'),parent1=None)]
+
     # for paXtheta - we need to have for liNg : yaasuXtparasmaipadeXshuudaatto Ngichcha 3.4.103 and then ato yeyaH (because of a-ending paXtha after shap)    
     pe=process_until_finish(expression)
 
@@ -227,7 +228,7 @@ def test_expmt():
     print ("=====")
     print(output_processed_string (pe))
     print ("=====")
-    print(pe[2]._output)
+    #print(pe[2]._output)
     print("DONE")
     
 if F:
