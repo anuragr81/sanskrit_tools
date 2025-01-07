@@ -166,6 +166,27 @@ def find_eldest_parent2_of_condition(node,cond):
         return None
 
 
+def find_recentmost_child_of_condition(node,cond):
+    
+    if node and node._children:
+        for child_ in node._children:
+            # if cond is met, recursion ends
+            if cond(child_):
+                return child_
+            
+        # the function could be written in one pass loop but the second pass is 
+        # implements bfs
+        
+        for child_ in node._children:
+            #if cond is not met, recursion follows for child
+            if not cond(child_): 
+                foundChild_ = find_recentmost_child_of_condition(child_,cond)
+                if foundChild_:
+                    return foundChild_
+    
+    return None
+
+
 def list_past_rules_applied (nd):
     """
     Returns list of rules applied so far for the node:nd

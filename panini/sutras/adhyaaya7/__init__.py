@@ -1,7 +1,7 @@
 from ..common_definitions import vriddhi,upadhaa, ach, Suffix, Aagama, Node , hal
 from ..common_definitions import get_dhaatu_properties,pratyaahaara, guNna, Dhaatu
 from ..common_definitions import parasmaidpada_pratyayaaH, sup_pratyayaaH,list_past_rules_applied , general_special_pairs
-from ..common_definitions import find_eldest_parent1_of_condition,find_eldest_parent2_of_condition
+from ..common_definitions import find_eldest_parent1_of_condition,find_eldest_parent2_of_condition,find_recentmost_child_of_condition
 
 
 
@@ -192,8 +192,6 @@ class hrasvanadyaaponuXt_7010540:
 class sichivRiddhiHparasmaipadeXshu_7020021:
     def __init__(self):
         self._numconditions = 2
-        self._condition = {'self':{'data':{'domain':['sNNch']},'pada':{'domain':['parasmaipada']}}
-                           }
         
     def __call__(self,node,suffix_node):
         
@@ -206,19 +204,28 @@ class sichivRiddhiHparasmaipadeXshu_7020021:
         if not isinstance(suffix_node._data,Suffix):
             raise ValueError("suffix must of type Suffix")
         
-        anga_string= node.get_output()
-        if not anga_string : 
-            return anga_string 
+        # return without doing anything if node is empty
+        if not node.get_output(): 
+            return node.get_output()
         
-        past_sich_on_left = find_eldest_parent1_of_condition(node,lambda x: 7020021 in list_past_rules_applied(x))
-        past_sich_on_right = find_eldest_parent2_of_condition(node,lambda x: 7020021 in list_past_rules_applied(x))
-        past_sich = past_sich_on_right  or past_sich_on_left
+        # the sutra acts only on dhaatu itself otherwise we would have aluuNcait (not alaaviit)
         
-        if not past_sich and anga_string[-1] in ach() and ''.join(suffix_node._data._suffix)=='sNNch': 
-            found_parasmaipadaH = find_eldest_parent2_of_condition(suffix_node,lambda x : isinstance(x.get_parent2()._data,Suffix) \
-                                             and ''.join(x.get_parent2()._data._suffix) in parasmaidpada_pratyayaaH() )
-            if found_parasmaipadaH:
-                return anga_string[0:-1] + [vriddhi(anga_string[-1])]
+        # no need for find_eldest_parent1_of_condition(node,lambda x: isinstance(x._data,Dhaatu))
+        
+        if isinstance(node._data,Dhaatu) :
+            achIndices = [i for i,x in enumerate(node.get_output()) if x in ach()]
+            if achIndices:
+                foundSich = find_recentmost_child_of_condition(node,lambda x : isinstance(x._data,Suffix) and ''.join(x._data._suffix)=='sNNch')
+                if foundSich:                    
+                    foundParasmaipadaH = find_eldest_parent2_of_condition(suffix_node,lambda x : isinstance(x.get_parent2()._data,Suffix) \
+                                                     and ''.join(x.get_parent2()._data._suffix) in parasmaidpada_pratyayaaH() )
+                    if foundParasmaipadaH :
+                        # find if sNNch has been applied before in any of the dhaatu progeny (children , children of children etc.)
+                        past_sich= find_recentmost_child_of_condition(node,lambda x: 7020021 in list_past_rules_applied(x)) is not None
+                        if not past_sich :
+                            return node.get_output()[0:achIndices[-1]] + [vriddhi(node.get_output()[achIndices[-1]])] +node.get_output()[achIndices[-1]+1:] 
+                
+        
         return node.get_output() 
     
        
