@@ -190,8 +190,9 @@ def apply_dhaatu_lopa(dhaatu_node):
     if not isinstance(dhaatu_node._data,Dhaatu):
         raise ValueError("Need Dhaatu")
         
-    lopa_functions = [halantyam_1030030]
-    
+    lopa_functions = [halantyam_1030030, aadirNciXtuXdavaH_1030050, \
+                      ]
+    #chuXtuu_103070
     for lopafunc in  lopa_functions :
         not_done=True
         while not_done:

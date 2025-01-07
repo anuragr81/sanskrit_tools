@@ -49,22 +49,14 @@ class halantyam_1030030:
 class aadirNciXtuXdavaH_1030050:
     def __init__(self):
         self._numconditions=1
-        #TODO : cleanup the weaker (non-equivalent to actual treatment) condition issue
-        self._condition = {
-            'self':{'ORVEC': [ {'ANDVEC':[{'index':{0:{'domain':['Nc']}}},{'index':{1:{'domain':['i']} }}] },
-                              {'ANDVEC':[{'index':{0:{'domain':['Xt']}}},{'index':{1:{'domain':['u']} }}] },
-                             { 'ANDVEC':[{'index':{0:{'domain':['Xd']}}},{'index':{1:{'domain':['u']} }}] },
-                              ]
-                             }
-            }
                     
                                         
             
     def __call__(self,node):
         if not isinstance(node,Node):
             raise ValueError("Must be Node")
-        if not isinstance(node._data,Suffix):
-            raise ValueError("Must be Suffix")
+#        if not isinstance(node._data,Suffix):
+#            raise ValueError("Must be Suffix")
         if node.get_output()[0:2] in  (["Nc","i"],["Xt","u"],["Xd","u"]):
             return node.get_output()[2:]
         else:
@@ -81,8 +73,8 @@ class chuXtuu_103070:
         if not isinstance(node,Node):
             raise ValueError("Must be Node")
         suffix=node._data
-        if not isinstance(suffix,Suffix):
-            raise ValueError("Must be Suffix")
+#        if not isinstance(suffix,Suffix):
+#            raise ValueError("Must be Suffix")
         # Need not apply chuXtuu on an empty string
         if not node.get_output():
             return node.get_output()
@@ -102,7 +94,7 @@ class chuXtuu_103070:
             return node.get_output()
         
         # chha gets special treatment (based on suutra-vyartha arguments)
-        if ''.join(node._data._suffix)=='chha':
+        if isinstance(node._data,Suffix) and ''.join(node._data._suffix)=='chha':
             return node.get_output()
         
         if node._output[-1]['output'] [0] in  chu() or node._output[-1]['output'][0] in Xtu():
