@@ -408,6 +408,10 @@ def vriddhi(x):
         return 'au'
     elif x=='uu':
         return 'au'
+    elif x=='Ri':
+        return 'aar'
+    elif x=='Rii':
+        return 'aar'
     else:
         return x
 

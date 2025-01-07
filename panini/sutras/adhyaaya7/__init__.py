@@ -2,7 +2,7 @@ from ..common_definitions import vriddhi,upadhaa, ach, Suffix, Aagama, Node , ha
 from ..common_definitions import get_dhaatu_properties,pratyaahaara, guNna, Dhaatu
 from ..common_definitions import parasmaidpada_pratyayaaH, sup_pratyayaaH,list_past_rules_applied , general_special_pairs
 from ..common_definitions import find_eldest_parent1_of_condition,find_eldest_parent2_of_condition,find_recentmost_child_of_condition
-
+from ..common_definitions import parse_string
 
 
 
@@ -357,7 +357,7 @@ class acho_NcNniti_7021150:
         anga_string= node.get_output()
         if anga_string and suffix_data:
             if anga_string[-1] in ach() and (suffix_data[-1] in ('Nc','Nn') or suffix_data[0] in ('Nc','Nn')):
-                return anga_string[0:-1] + [vriddhi(anga_string[-1])]
+                return anga_string[0:-1] + parse_string(vriddhi(anga_string[-1]))
         return node.get_output() 
 
 

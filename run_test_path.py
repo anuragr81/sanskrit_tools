@@ -11,13 +11,13 @@ T=True
 def test_siddhis ():
     
     assert output_string ([Node(Dhaatu(parse_string("NniiNN")),parent1=None),Node(Suffix("Nnvul"),parent1=None)]) == "naayaka"
-    
+    assert output_string ([Node(Dhaatu(parse_string("XdukRiNc")),parent1=None),Node(Suffix("Nnvul"),parent1=None)]) == 'kaaraka'
     assert output_string ([Node(Dhaatu(parse_string("bhajNN")),parent1=None),Node(Suffix("ghaNc"),parent1=None)]) == "bhaaga"
     
     assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("tip",lakaara='luXt'),parent1=None)]) == "paXthitaa"
     
     assert output_string ([Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tip",lakaara='luNg'),parent1=None)] ) == "achaiXshiit"
-    
+    assert output_string ([Node(Dhaatu(parse_string("XdukRiNc")),parent1=None),Node(Suffix("tip",lakaara='luNg'),parent1=None)]) == "akaarXshiit"
     assert output_string ([Node(Dhaatu(parse_string("luuNN")),parent1=None),Node(Suffix("tip",lakaara='luNg'),parent1=None)]) == "alaaviit"
     assert output_string ([Node(Praatipadika("shaalaa",1),parent1=None), Node(Suffix("chha"),parent1=None),Node(Suffix("sNN"),parent1=None)] ) == "shaaliiyas"
     
@@ -220,9 +220,9 @@ def test_expmt():
     else:
         #
         #expression = [Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tip",lakaara='luNg'),parent1=None)]
-        expression = [Node(Dhaatu(parse_string("XdukRiNc")),parent1=None),Node(Suffix("tip",lakaara='luNg'),parent1=None)]
-        #expression = [Node(Dhaatu(parse_string("NniiNN")),parent1=None),Node(Suffix("Nnvul"),parent1=None)]
-
+        
+        expression = [Node(Dhaatu(parse_string("XdukRiNc")),parent1=None),Node(Suffix("Nnvul"),parent1=None)]
+      
     # for paXtheta - we need to have for liNg : yaasuXtparasmaipadeXshuudaatto Ngichcha 3.4.103 and then ato yeyaH (because of a-ending paXtha after shap)    
     pe=process_until_finish(expression)
 
@@ -233,7 +233,7 @@ def test_expmt():
     #print(pe[2]._output)
     print("DONE")
     
-if F:
+if T:
     test_siddhis ()
 else:   
     test_expmt()
