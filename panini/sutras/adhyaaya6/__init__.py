@@ -113,12 +113,7 @@ class NnonaH_6010630:
 class lopovyorvali_6010640:
     def __init__(self):
         self._numconditions = 2
-        pratyaaharaval= ['v', 'r', 'l', 'Nc', 'm', 'Ng', 'Nn', 'n', 'jh', 'bh', 'gh', 'Xdh', 'dh', 'j', 'b', 'g', 'Xd', 'd', 'kh', 'ph', 'chh', 'Xth', 'th', 'ch', 'Xt', 't', 'k', 'p', 'sh', 'Xsh', 's', 'h']
-        self._condition = {'self':{'index': { -1 : {'domain:':['y','v']}} 
-                                   },
-                           'next1':{ 'index': {0 : {'domain': pratyaaharaval}}
-                                    }
-                           }
+
     def __call__(self,node,suffix_node):    
         if not isinstance   (node,Node):
             raise    ValueError ("node must be of type Node")
@@ -137,6 +132,34 @@ class lopovyorvali_6010640:
             
         return node.get_output()
         
+
+class halNgyaabhyodiirghaatsutisyapraktaMhal_6010660:
+    def __init__(self):
+        self._numconditions = 1
+
+    def __call__(self,anga_node,node):
+        
+        """
+        invoked when two conditions are met. 
+        1. First, the suffix_node is apRikta (single-letter-remaining) with the original 
+        suffix being one of sNN,  ti(p), si(p). 
+        2. Second, the anga before apRikta has a { hal-ending , aa-ending , Ngi-iending } and the second-last ending is diirgha.
+        """
+        
+        if not isinstance   (node,Node):
+            raise    ValueError ("node must be of type Node")
+        if not isinstance   (anga_node,Node):
+            raise    ValueError ("anga_node must be of type Node")
+        
+        if isinstance(node._data,Suffix) and ''.join(node._data._suffix) in ('sNN'): #TODO: Revisit ti, si or 'tip','sip' when imeplementing abibharbhavaan, abhinoatra 
+            if node.get_output() and len(node.get_output())==1 and len(anga_node.get_output())>1 :
+                if anga_node.get_output()[-1] in hal() : # TODO: Revisit aap,Ngiip or ('aa','ii',) when imeplementing kumaarii , khatvaa, ) 
+                    return []
+                                                      
+                
+        
+        return node.get_output()
+
 
 class echoayavaayaavaH_6010750:
     def __init__(self):
