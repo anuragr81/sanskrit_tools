@@ -1,11 +1,12 @@
 from functools import reduce
 
 
-from ..common_definitions import Suffix, Aagama, Node, Dhaatu, ach, hal, sup_pratyayaaH, taddhita_pratyayaaH, kRit_pratyayaaH,san_pratyayaaH
+from ..common_definitions import ach, hal, sup_pratyayaaH, taddhita_pratyayaaH, kRit_pratyayaaH,san_pratyayaaH
 from ..common_definitions import pratyaahaara, make_diirgha, guna_letters_for_aat
 from ..common_definitions import vriddhi, list_past_rules_applied
 from ..common_definitions import find_eldest_parent1_of_condition 
 from ..common_definitions import find_eldest_parent2_of_condition
+from ..common_definitions import Suffix, Aagama, Node, Dhaatu, Praatipadika
 
 def hrasvaH(charlist):
     #if charlist[-1] in 
@@ -491,9 +492,6 @@ class amipuurvaH_6011030:
 class naami_6040030:
     def __init__(self):
         self._numconditions = 1
-        self._condition = {'next':{'domain':['n']},
-                           'next2':{'domain':['aam']},
-                           }
         
     def __call__(self,node,suffix_node):
         if not isinstance(node,Node):
@@ -507,6 +505,49 @@ class naami_6040030:
                 if node.get_output()[-1] in ('a','i','u','Ri','lRi',):
                     return node.get_output()[:-1]+[make_diirgha(node.get_output()[-1])]
                 
+        return node.get_output()
+
+
+class aptRintRichsvasRinaptRineXshXtRitvaXshXtRikXshatRihotRipotRiprashaastRiiXnaam_6040110:
+    def __init__(self):
+        self._numconditions = 1
+        
+    def __call__(self,node,suffix_node):
+        """
+        rule applies when the suffix is sarvanaama (i.e. one of 'sNN', 'au','jas','am','auXt')
+        
+        """
+        if not isinstance(node,Node):
+            raise ValueError("node must be of Node type")
+
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix_node must be of Node type")
+        
+        if node.get_output() and isinstance(suffix_node._data,Suffix) and \
+            ''.join(suffix_node._data._suffix) in ('sNN', 'au','jas','am','auXt'):
+            if isinstance(node._data,Praatipadika):
+                if (''.join(node.get_output()) in ('svasRi','naptRi','neXshXtRi',\
+                  'tvaXshXtRi','kXshatRi','hotRi','potRi','prashaastRi',) ):
+                    return node.get_output()[0:-1] + ['aa']
+            if isinstance(node._data,Suffix): 
+                if ''.join(node._data._suffix) in ('ap','tRich','tRin',):
+                    # check if there is an ach in upadhaa
+                    # which is the last ach when output ends in hal and 
+                    # the second-last ach when output ends in ach,
+                    achsInNode = [i for i, x in enumerate(node.get_output()) if x in ach()]
+                    if len(node.get_output())>2:
+                        if node.get_output()[-1] not in ach() :
+                            posUpdhaa= achsInNode[-1]
+                        elif len(achsInNode)>1:
+                            posUpdhaa = achsInNode[-2]
+                        else:
+                            posUpdhaa = None
+                        if posUpdhaa is not None:
+                           return node.get_output() [ 0:posUpdhaa ] + \
+                               [make_diirgha (node.get_output()[posUpdhaa])] +\
+                                   node.get_output() [ posUpdhaa +1:]
+                            
+            
         return node.get_output()
 
 

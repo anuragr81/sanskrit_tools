@@ -186,25 +186,23 @@ class RidushanaspurudansoanehasaaNccha_7010940:
     def __call__(self,node,suffix_node):
         
         """ 
-        invoked when node is either a praatipadika or a
-        suffix and suffix_node is a suNN 
-        since anaNg aadesha is Ngit, it's applied at the end (rule: 1.1.52 Ngichcha)
+        invoked when node is either a praatipadika or a suffix and suffix_node 
+        is a suNN. Since anaNg aadesha is Ngit, it's applied at the end (due 
+        to rule: 1.1.52 Ngichcha)
         """
-
 
         if not isinstance(suffix_node,Node):
             raise ValueError("suffix_node must of type Node")
         if not isinstance(node,Node):
             raise ValueError("node must of type Node")
             
-        if isinstance(suffix_node._data,Suffix) and ''.join(suffix_node._data._suffix)=='sNN':
+        if node.get_output() and isinstance(suffix_node._data,Suffix) and ''.join(suffix_node._data._suffix)=='sNN':
             if isinstance(node._data,Praatipadika) or isinstance(node._data,Suffix): 
                 if node.get_output()[-1]=='Ri' or \
                     (''.join(node.get_output()) in \
                      ('purudaMsas','purudansas','purudaMshas',\
                       'purudanshas','ushanas','anehas') ):
-                        return node.get_output()[0:-1]+parse_string('ana')
-        
+                        return node.get_output()[0:-1]+parse_string('an')
         
         return node.get_output()
 
