@@ -456,12 +456,29 @@ aṣṭādhyāyī
  insertion rules increase the length of the input by exactly one node.
  It may help to distinguish between rules that are inserted after a given
  node and before the node.
- It is worth noting that most rules in aṣṭādhyāyī introduce nodes after
- a given node rather than before (except for a few rules such as 
+ It is worth noting that most rules in 
+\shape italic
+aṣṭādhyāyī
+\shape default
+ introduce nodes after a given node rather than before (except for a few
+ rules such as 
 \shape italic
 luṅlaṅlṛṅkṣvaḍudāttaḥ
 \shape default
 ).
+ In terms of the definitions commoly used in instruction of 
+\shape italic
+aṣṭādhyāyī
+\shape default
+, the 
+\shape italic
+aagama
+\shape default
+ transitions are to be treated as insertions while 
+\shape italic
+aadesha 
+\shape default
+transitions are treated as transformations (in-place changes).
 \end_layout
 
 \begin_layout Enumerate

@@ -109,6 +109,9 @@ class Praatipadika:
 class Aagama (Suffix):
     pass
 
+class Aadesha (Suffix):
+    pass
+
 class Dhaatu:
     def __init__(self,data):
         # this suppresses aNN to NN
@@ -323,7 +326,7 @@ def Xtu():
 
 
 def unclassified_pratyayaaH():
-    return ('sNNch','chlNN','shap','taas','sya','aXt','iiXt','aaXt','yaasNNXt','sNNXt','nNNXt')
+    return ('sNNch','chlNN','shap','taas','sya','aXt','iiXt','aaXt','yaasNNXt','sNNXt','nNNXt','anaNg')
 
 def san_pratyayaaH():
     return ("san","kyach","kaamyach","kyaNg","kyaXsh",

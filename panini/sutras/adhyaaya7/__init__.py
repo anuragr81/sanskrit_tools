@@ -1,4 +1,5 @@
-from ..common_definitions import vriddhi,upadhaa, ach, Suffix, Aagama, Node , hal
+from ..common_definitions import vriddhi,upadhaa, ach, Suffix, Aagama, Node 
+from ..common_definitions import hal, Praatipadika, Aadesha
 from ..common_definitions import get_dhaatu_properties,pratyaahaara, guNna, Dhaatu
 from ..common_definitions import parasmaidpada_pratyayaaH, sup_pratyayaaH,list_past_rules_applied , general_special_pairs
 from ..common_definitions import find_eldest_parent1_of_condition,find_eldest_parent2_of_condition,find_recentmost_child_of_condition
@@ -11,13 +12,7 @@ from ..common_definitions import parse_string
 class yuvoranaakau_7010010:
     def __init__(self):
         self._numconditions = 1
-        self._condition = {'self':{
-                        'ORVEC':[
-                        {'ANDVEC':[ {'index':{-1:{'domain':['y']}}} ,{'index':{-2:{'domain':['u']}}} ]},
-                        {'ANDVEC':[ {'index':{-1:{'domain':['v']}}} ,{'index':{-2:{'domain':['u']}}} ]}
-                        ]
-                   }
-            }
+        
     def __call__(self,node):
         if not isinstance(node,Node):
             raise ValueError("suffix must of type Node")
@@ -64,8 +59,7 @@ class atobhisaais_7010090:
 class XtaaNgasiNgasaaminaatsyaaH_7010120:
     def __init__(self):
         self._numconditions = 1
-        self._condition = {'self':{'data':{'domain':['Xtaa','Ngas','bhyaaM']}}
-                   }
+                   
     def __call__(self,node, anga_node):
         if not isinstance(node,Node):
             raise ValueError("suffix must of type Node")
@@ -116,8 +110,7 @@ class NgeryaH_7010130:
 class jhoantaH_7010030:
     def __init__(self):
         self._numconditions = 0
-        self._condition = {'self':{'data':{'domain':['jhi']}}
-                   }
+                   
     def __call__(self,node):
         if not isinstance(node,Node):
             raise ValueError("node must of type Node")
@@ -137,8 +130,7 @@ class aayaneyiiniiyiyaHphaXdhakhachchhaghaaMpratyayaadiinaaM_7010020:
 
     def __init__(self):
         self._numconditions = 1
-        self._condition = {'self':{'index':{0 :{'domain':[('ph','Xdh','kh','chh','gh')]}}}
-                   }
+
     def __call__(self,anga_node ,node):        
         if not isinstance(node,Node):
             raise ValueError("suffix must of type Node")
@@ -170,8 +162,7 @@ class hrasvanadyaaponuXt_7010540:
 
     def __init__(self):
         self._numconditions = 1
-        self._condition = {'next':{'data':['aam']}
-                   }
+                   
     def __call__(self,prefix_node,suffix_node):
         if not isinstance(suffix_node,Node):
             raise ValueError("suffix_node must of type Node")
@@ -188,7 +179,36 @@ class hrasvanadyaaponuXt_7010540:
 
         return []
 
+class RidushanaspurudansoanehasaaNccha_7010940:
+    def __init__(self):
+        self._numconditions = 1
+                   
+    def __call__(self,node,suffix_node):
+        
+        """ 
+        invoked when node is either a praatipadika or a
+        suffix and suffix_node is a suNN 
+        since anaNg aadesha is Ngit, it's applied at the end (rule: 1.1.52 Ngichcha)
+        """
 
+
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix_node must of type Node")
+        if not isinstance(node,Node):
+            raise ValueError("node must of type Node")
+            
+        if isinstance(suffix_node._data,Suffix) and ''.join(suffix_node._data._suffix)=='sNN':
+            if isinstance(node._data,Praatipadika) or isinstance(node._data,Suffix): 
+                if node.get_output()[-1]=='Ri' or \
+                    (''.join(node.get_output()) in \
+                     ('purudaMsas','purudansas','purudaMshas',\
+                      'purudanshas','ushanas','anehas') ):
+                        return node.get_output()[0:-1]+parse_string('ana')
+        
+        
+        return node.get_output()
+
+ 
 class sichivRiddhiHparasmaipadeXshu_7020021:
     def __init__(self):
         self._numconditions = 2
@@ -232,8 +252,6 @@ class sichivRiddhiHparasmaipadeXshu_7020021:
 class aardhadhaatukasyeXdvalaadeH_7020350:
     def __init__(self):
         self._numconditions = 2
-        #TODO : add and / OR
-        self.condition = {'self':{'lakaara':{'domain':['liXt']}}}
         
     def __call__(self,prefix_node,suffix_node):
         """
@@ -267,7 +285,6 @@ class aardhadhaatukasyeXdvalaadeH_7020350:
 class liNgaHsalopoanantyasya_7020790:
     def __init__(self):
         self._numconditions = 2
-        self._condition = {'self':{'lakaara':{'domain':['liNg1','liNg2']}}}
         
     def __call__(self,node,suffix_node):   
             
@@ -294,25 +311,7 @@ class liNgaHsalopoanantyasya_7020790:
 class atoyeyaH_7020800:
     def __init__(self):
         self._numconditions = 2
-        
-        
-        self._condition = {'prev1':{'index':{-1:{'domain':['a','aa']}}},
-                           'self':{'lakaara':{'domain':['liNg1','liNg2']},
-                                   'ORVEC': [{'ANDVEC':[{'index':{-1:'a'}},
-                                                         {'index':{-2:'y'}}
-                                       ]},
-                                   
-                                   {'ANDVEC':[
-                                       {'index':{-1:'aa'}},
-                                       {'index':{-2:'y'}}
-                                       ]
-                                       
-                                     }
-                                     ]
-                                   
-                                  }
-                           }
-        
+       
         
     def __call__(self,anga_node,node):   
             
@@ -428,8 +427,6 @@ class chajoHkughiNnNnyatoH_7030520:
         chakaar_to_ku = lambda y : 'k' if y=='ch' else y
         jakaar_to_ku = lambda y : 'g' if y=='j' else y
         if suffix_data[0] in ('gh',) or suffix_data[-1] in ('gh',) or ''.join(suffix_data) == "Nnyat":
-            #return ''.join(jakaar_to_ku(chakaar_to_ku(j)) for j in x)
-            # print ("chajoHkughiNnNnyatoH_7030520= %s"%[jakaar_to_ku(chakaar_to_ku(j)) for j in node.get_output()])
             return [jakaar_to_ku(chakaar_to_ku(j)) for j in node.get_output()]
         
         return node.get_output()
