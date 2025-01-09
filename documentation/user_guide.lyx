@@ -658,6 +658,61 @@ argument.
  
 \end_layout
 
+\begin_layout Standard
+The state in which rules are applied is important.
+ In general, the rules in 
+\shape italic
+aṣṭādhyāyī
+\shape default
+ are state-congizant.
+ This has implications for the order in which sutras are to be applied.
+ Considering the example of 
+\shape italic
+ñimidā 
+\shape default
+again, the rule 
+\shape italic
+divādibhyaḥ śyan
+\shape default
+ applies to all members of 
+\shape italic
+ñimidā 
+\shape default
+immediately but a related sutra 
+\shape italic
+miderguṇaḥ
+\shape default
+ concerns only the form 
+\shape italic
+mid
+\shape default
+ (which is arrived at after applying lopa sutras).
+ The question of order in which sutras need to be applied is clarfiied by
+ this instance alone - since the 
+\shape italic
+lopa sutras 
+\shape default
+(
+\shape italic
+anubandha
+\shape default
+) - which occur before 
+\shape italic
+miderguṇaḥ
+\shape default
+- are applied before 
+\shape italic
+miderguṇaḥ
+\shape default
+.
+ What decides the order of application of rules is not order, but the relevance
+ (anuvṛtti) of the sutra to a particular term/
+\shape italic
+pada
+\shape default
+.
+\end_layout
+
 \begin_layout Section
 \begin_inset CommandInset label
 LatexCommand label

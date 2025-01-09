@@ -429,6 +429,22 @@ class chajoHkughiNnNnyatoH_7030520:
         
         return node.get_output()
 
+
+class miderguNaH_7030820:
+    def __init__(self):
+        self._numconditions = 1
+    def __call__(self,node,suffix_node):
+    
+        if not isinstance(node,Node):
+            raise ValueError("anga_node must of type Node")
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix must of type Node")    
+        if isinstance(suffix_node._data,Suffix) and isinstance(node._data,Dhaatu) :
+            if ''.join(node.get_output())=='mid':
+                return ['m','e','d']
+        return node.get_output()
+
+
 class saarvadhaatukaardhadhaatukayoH_7030840:
     def __init__(self):
         self._numconditions = 2
