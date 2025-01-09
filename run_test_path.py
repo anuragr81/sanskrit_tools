@@ -29,6 +29,7 @@ def test_siddhis ():
     
     assert output_string ([Node(Dhaatu(parse_string("NcimidNN")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)])=='medyati' 
     
+    assert output_string ([Node(Dhaatu(parse_string("mRijNN")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]) == 'maarXshXti'
     test_tibaadi()
     
     print("Tests Done")
@@ -235,7 +236,7 @@ def test_expmt():
     print ("=====")
     print(output_processed_string (pe))
     print ("=====")
-    print(pe[0]._output)
+    print(pe[1]._output)
     print("DONE")
     
 if F:

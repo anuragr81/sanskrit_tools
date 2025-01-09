@@ -195,4 +195,24 @@ class raXshaabhyaaMnoXnaHsamaanapadeaXtkupvaaNgnumvyavaayeapi_8040010:
             
         return node.get_output()
 
+class XshtunaaXshtuH_8040400:
+    def __init__(self):
+        self._numconditions = 2
+        
+    def __call__(self,anga_node ,node):        
+        if not isinstance(node,Node):
+            raise ValueError("suffix must of type Node")
+        mapXshXtunaa = {'s':'Xsh',
+                        't':'Xt',
+                        'th':'Xth',
+                        'd':'Xd',
+                        'dh':'Xdh',
+                        'n':'Nn'}
+        
+        if isinstance(node._data,Suffix):    
+            if node.get_output() and anga_node.get_output() and 8040400 not in list_past_rules_applied(node):
+                if anga_node.get_output()[-1] in ( 'Xsh','Xt'):
+                    return [mapXshXtunaa.get(node.get_output()[0],node.get_output()[0])]+ node.get_output()[1:]
+        return node.get_output()
+
         
