@@ -3,7 +3,7 @@ from collections import OrderedDict
 from copy import deepcopy
 from functools import reduce
 from panini.sutras.common_definitions import print_expr, general_special_pairs
-import inspect
+import inspect, re
 import pandas as pd
 from pprint import pprint
 
@@ -62,9 +62,9 @@ def transformation_sutras():
           6040030, 6040110, 6041050, 6041200, 6041480, 
           7010030,7010010, 7010020, 7010090, 7010120,7010130,7010940,
           
-          7020021, 7020790,7020800, 7021150, 7021160, 7021170, 
+          7020021, 7020790,7020800, 7021140, 7021150, 7021160, 7021170, 
           7030520, 7030820, 7030840,7031010,7031020, 7031030, 7040500,7040501,
-          8010150, 8020070, 8020280, 8020660, 8030059,
+          8010150, 8020070, 8020280,8020360, 8020660, 8030059,
           8040010]
     return sorted(float(x) for x in ll)
 

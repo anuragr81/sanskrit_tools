@@ -226,7 +226,7 @@ def test_expmt():
                     Node(Suffix("aNn"),parent1=None),Node(Suffix("sNN"),parent1=None)]
     else:
         #
-        expression = [Node(Dhaatu(parse_string("NcimidNN")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]        
+        expression = [Node(Dhaatu(parse_string("mRijNN")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]        
         
     # for paXtheta - we need to have for liNg : yaasuXtparasmaipadeXshuudaatto Ngichcha 3.4.103 and then ato yeyaH (because of a-ending paXtha after shap)
     pe=process_until_finish(expression)
@@ -238,7 +238,7 @@ def test_expmt():
     print(pe[0]._output)
     print("DONE")
     
-if T:
+if F:
     test_siddhis ()
 else:   
     test_expmt()

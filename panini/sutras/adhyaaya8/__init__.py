@@ -1,5 +1,6 @@
 import re
-from ..common_definitions import pratyaahaara, ach, hal, Node, Suffix, Praatipadika
+from ..common_definitions import pratyaahaara, ach, hal, Node, Dhaatu
+from ..common_definitions import Suffix, Praatipadika
 from ..common_definitions import list_past_rules_applied
 from ..common_definitions import find_eldest_parent1_of_condition,find_eldest_parent2_of_condition
 from ..common_definitions import tiNg_pratyayaaH, sup_pratyayaaH
@@ -71,6 +72,29 @@ class saMyogaantasyalopaH_8020230:
         return node.get_output()
     
 
+class vrashchabhrasjasRijamRijayajaraajabhraajachchhashaaMXshaH_8020360:
+    def __init__(self):
+        self._numconditions = 2
+        
+    def __call__(self,node,suffix_node):        
+                
+        if not isinstance(node,Node):
+            raise ValueError("node must of type Node")
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix_node must of type Node")
+            
+        dhaatulist = ('vraschNN','bhrasjNN','sRijNN','mRijNN','yajNN','raajRiNN','XtubhraajRiNN')
+        if isinstance(node._data,Dhaatu) and suffix_node.get_output() and \
+            (''.join(node._data._data) in dhaatulist or node._data._data[-1] in ('sh','chh',)) :
+            if (suffix_node.get_output()[0] in pratyaahaara('jh','l')) or \
+                (isinstance(suffix_node._data,Suffix) and \
+                 ''.join(suffix_node._data._suffix) in (tiNg_pratyayaaH()+sup_pratyayaaH())): 
+                    return node.get_output()[0:-1]+['Xsh']
+        
+        return node.get_output()
+
+
+
 class iXtaiiXti_8020280:
     def __init__(self):
         self._numconditions = 1
@@ -97,9 +121,6 @@ class iXtaiiXti_8020280:
             if node._children and isinstance(node._children[0]._data,Suffix) and node._children[0]._data._suffix==['ii','Xt']:
                 if node._parent1 and node._parent1._children and isinstance(node._parent1._children[-1]._data,Suffix) and node._parent1._children[-1]._data._suffix==['i','Xt']:
                     return []
-                
-        
-        
             
         return node.get_output()
 

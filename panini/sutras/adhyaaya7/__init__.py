@@ -332,6 +332,25 @@ class atoyeyaH_7020800:
 
         return node.get_output()
 
+
+
+class mRijervRiddhiH_7021140:
+    
+    def __init__(self):
+        self._numconditions = 1
+        
+    def __call__(self,node,suffix_node):
+        
+        if not isinstance(node,Node):
+            raise ValueError("anga_node must of type Node")
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix must of type Node")
+        # applies to all suffixes
+        if isinstance(suffix_node._data,Suffix)  and \
+        isinstance(node._data,Dhaatu) and ''.join(node.get_output()) == 'mRij' :
+            return ['m','aa','r','j']
+        return node.get_output()
+            
 class acho_NcNniti_7021150:
     def __init__(self):
         self._numconditions = 1

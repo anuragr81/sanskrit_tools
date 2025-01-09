@@ -1,5 +1,5 @@
 from ..common_definitions import Suffix, Node, Dhaatu, tiNg_pratyayaaH 
-from ..common_definitions import divaadigaXna, all_pratyayas, ach
+from ..common_definitions import divaadigaNna, adaadigaNna, all_pratyayas, ach
 from ..common_definitions import list_past_rules_applied,Aagama
 
     
@@ -8,7 +8,11 @@ class kartarishap_3010680:
         self._numconditions=1
         
     def __call__(self,prefix_node,suffix_node):
+        """
+        adaadigaNna (2.4.72) and divaadigaNna (3.1.69) are exceptions
+        """
         if isinstance(prefix_node._data,Dhaatu) and \
+            ''.join(prefix_node._data._data) not in divaadigaNna()+adaadigaNna() and \
             isinstance(suffix_node._data,Suffix) and \
                 suffix_node._data.is_saarvadhaatuka() and \
                     suffix_node._data._lakaara in ('laXt','loXt','laNg','liNg1') and \
@@ -24,7 +28,7 @@ class divaadibhyaHshyan_3010690:
         
     def __call__(self,prefix_node,suffix_node):
         if isinstance(prefix_node._data,Dhaatu) and \
-            ''.join(prefix_node._data._data) in divaadigaXna() and \
+            ''.join(prefix_node._data._data) in divaadigaNna() and \
             isinstance(suffix_node._data,Suffix) and \
                 suffix_node._data.is_saarvadhaatuka() and \
                     suffix_node._data._lakaara in ('laXt','loXt','laNg','liNg1') and \

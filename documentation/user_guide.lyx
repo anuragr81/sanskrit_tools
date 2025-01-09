@@ -583,7 +583,7 @@ niṣedha
 \end_layout
 
 \begin_layout Section
-Rationale an order of sutras
+Rationale for sequentiality of sutras
 \end_layout
 
 \begin_layout Standard
@@ -656,6 +656,17 @@ sūtra vyartha
 \shape default
 argument.
  
+\end_layout
+
+\begin_layout Standard
+mrijervriddhiH is applied before vraschabhrasja...
+ through conditions - but simply because former offers a stronger conditions.
+ It doesn't depend on whether Xsha aadesha is done or not, it'll still be
+ applied.
+ In many ways, this is the loose condition of order.
+ This is important because without this, mrijervriddhi would be applied
+ after vraschbhrasja and result in mRij (there would be no mrij remaining
+ if mrij becomes mRiXsh).
 \end_layout
 
 \begin_layout Standard
@@ -754,7 +765,10 @@ status open
 
 \backslash
 footnote{The kaumudii tradition however often does reject rules based on
- whether it would result in an unintended form or not.}
+ whether it would result in an unintended form or not.
+ However, this is only used for instruction purposes.
+ Teachers of the kaumudi tradition also assign the ultimate authority to
+ panini's ashtadhyayi.}
 \end_layout
 
 \end_inset
