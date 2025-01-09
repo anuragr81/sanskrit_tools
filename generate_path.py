@@ -53,9 +53,9 @@ def padaanta_sutras():
 
 def transformation_sutras():
     
-    ll = [2040850,3010331,3040820,3040860,3040870,3040890,3040990,3041000,3041080,3041010,
-          6010080,6010630, 6010640,6010660,
-          6010750, 6040880, 6010940, 6010980,6010981, 
+    ll = [2040850, 3010331, 3040820, 3040860, 3040870, 3040890, 3040990, 3041000, 3041080, 3041010,
+          6010080, 6010090, 6010630, 6010640, 6010660,
+          6010750, 6040880, 6010940, 6010980, 6010981, 
           
           6010840, 6010841, 6010850, 6010851,
           6010970, 6010971, 6010990, 
@@ -430,7 +430,9 @@ def check_group_sutra(sutranum):
     @description : returns other sutras in the group if the sutranum is part of a group-operation
     """
     group_sutra_dict = {6010971: ({'type':'transformation', 'sutranum':6010970.0},{'type':'transformation', 'sutranum':6010971.0},),
-                        6010970: ({'type':'transformation', 'sutranum':6010970.0},{'type':'transformation', 'sutranum':6010971.0},)
+                        6010970: ({'type':'transformation', 'sutranum':6010970.0},{'type':'transformation', 'sutranum':6010971.0},),
+                        6010090: ({'type':'transformation', 'sutranum':6010090.0},{'type':'transformation', 'sutranum':6010091.0},),
+                        6010091: ({'type':'transformation', 'sutranum':6010970.0},{'type':'transformation', 'sutranum':6010091.0},)
                         }
                         
     if sutranum not in group_sutra_dict :

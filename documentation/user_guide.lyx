@@ -214,6 +214,14 @@ aṣṭādhyāyī
 .
 \end_layout
 
+\begin_layout Standard
+There are a few goals that the tool achieves.
+ First, it ...
+ .
+ Finally, the computer-science interpretation of the grammar translates
+ the issues of Sanskrit grammar into software issues of regression testing.
+\end_layout
+
 \begin_layout Section
 Sutras as functions on expression
 \end_layout
@@ -722,6 +730,54 @@ miderguṇaḥ
 pada
 \shape default
 .
+\end_layout
+
+\begin_layout Standard
+The position of sutra in the entire order of sutras is only 
+\shape italic
+locally 
+\shape default
+relelvant.
+ Sutras are applied foremost based on their relevance and the preference
+ is given to a sutra foremost based on the applicable conditions.
+ A stronger condition i.e.
+ a rule whose preconditions match the operand strongly is given the preference.
+ As another example, consider how luuNN + yaNg + suNN would turn into luuloH
+ if not for sanyaNgoH.
+ sanyaNgoH is applied because yaNg makes sanyaNgoH relevant.
+ The position of sanyaNgoH in the entire sequence is of no significance.
+\end_layout
+
+\begin_layout Subsection
+A conceptual classification of sutras
+\end_layout
+
+\begin_layout Standard
+While the sutras have been classified based on their application (sutras
+ related to exception, optionality, definition, operation etc.).
+ we find it useful to consider a finer classification in based on the nodes
+ indicating the intent of the sutras.
+ These classes are
+\end_layout
+
+\begin_layout Enumerate
+dvitva - sutras concerning the dvitva of dhaatus
+\end_layout
+
+\begin_layout Enumerate
+sandhi - sutras concerning the starting and ending of nodes.
+ 
+\end_layout
+
+\begin_layout Enumerate
+verb-to-noun-conversion sutras - sutras turning a dhaatu into a noun (these
+ are primarily kRidanta sutras).
+ 
+\end_layout
+
+\begin_layout Enumerate
+noun-modifications - sutras that associate a particular meaning to a given
+ modification of noun (these are primarily taddhita sutras).
 \end_layout
 
 \begin_layout Section

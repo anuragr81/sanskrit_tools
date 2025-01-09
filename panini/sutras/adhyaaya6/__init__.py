@@ -31,12 +31,6 @@ class liXtidhaatoranabhyaasasya_6010080:
     """
     def __init__(self):
         self._numconditions = 1
-        # conditions are only used for nitya-apavaada comparison
-        self._condition= {'self':{'lakaara':{
-                                            'domain':['liXt']
-                                            }
-                                }
-                          }
         
     def __call__(self,node,suffix_node):
         if not isinstance(suffix_node,Node):
@@ -92,6 +86,56 @@ class liXtidhaatoranabhyaasasya_6010080:
                         return dhaatu_checked +node.get_output()
         return node.get_output()
 
+class sanyaNgoH_6010090:
+    def __init__(self):
+        self._numconditions = 1
+        
+    def __call__(self,node,suffix_node):
+        """
+        yaNg or san inputs combine with the dhaatu on which dvitva is applied
+        yaNg must therefore disappear - requiring a separate rule (group-sutra) to be made
+        part of the san-yaNg group for simultaneous application.
+        
+        """
+        if not isinstance(suffix_node,Node):
+            raise    ValueError ("suffix_node must be of type Node")
+        if not isinstance(node,Node):
+            raise    ValueError ("node must be of type Node")
+            
+        if isinstance   (node._data,Dhaatu) and node.get_output() \
+            and not set(list_past_rules_applied(node)).intersection(set((6010090,6010091))):
+            if isinstance(suffix_node._data,Suffix) and ''.join(suffix_node._data._suffix) in ('san','yaNg',):
+                tobeDoubled = node.get_output() + [suffix_node._data._suffix[0]]
+                hals=[i for i,x in enumerate(tobeDoubled) if x in hal() and i>0]
+                if hals:
+                    return bhavateraH(abhyaasecharchcha  ( hrasvaH  ( tobeDoubled[:hals[0]] ) ),node)+tobeDoubled
+                
+            
+        return node.get_output()
+
+
+class sanyaNgoH_6010091:
+    def __init__(self):
+        self._numconditions = 1
+        
+    def __call__(self,node,suffix_node):
+        """
+        yaNg or san inputs combine with the dhaatu on which dvitva is applied
+        yaNg must therefore disappear - requiring a separate rule (group-sutra) to be made
+        part of the san-yaNg group for simultaneous application.
+        
+        """
+        if not isinstance(suffix_node,Node):
+            raise    ValueError ("suffix_node must be of type Node")
+        if not isinstance(node,Node):
+            raise    ValueError ("node must be of type Node")
+            
+        if isinstance (node._data,Suffix) and ''.join(node._data._suffix) in ('yaNg','san',) and not set(list_past_rules_applied(node)).intersection(set((6010091,))):
+            return []
+            
+        return node.get_output()
+
+    
 class NnonaH_6010630:
     def __init__(self):
         self._numconditions = 0
@@ -122,7 +166,7 @@ class lopovyorvali_6010640:
         if node.get_output() and node.get_output()[-1] in ('y','v') :
             if suffix_node.get_output() :
                 effective_suffix_node= suffix_node
-            elif not suffix_node.get_output()  and suffix_node._parent2.get_output():
+            elif not suffix_node.get_output()  and suffix_node._parent2 and suffix_node._parent2.get_output():
                 effective_suffix_node = suffix_node._parent2
             else:
                 return node.get_output()
@@ -399,7 +443,8 @@ class akaHsavarNnediirghaH_6010971:
         
         if set(ak_keys) - set(ak_mapper.keys()):
             raise ValueError("Missing mapping for diirgha")
-        if not anga_node.get_output() and anga_node._parent1._children and anga_node._parent1._children[-1]!=node:
+        
+        if not anga_node.get_output() and anga_node._parent1 and anga_node._parent1._children and anga_node._parent1._children[-1]!=node:
             effective_anga_node = anga_node._parent1._children[-1]
         else:
             effective_anga_node  = anga_node
