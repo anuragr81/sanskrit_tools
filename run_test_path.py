@@ -22,6 +22,12 @@ def test_siddhis ():
     assert output_string ([Node(Praatipadika("shaalaa",1),parent1=None), Node(Suffix("chha"),parent1=None),Node(Suffix("sNN"),parent1=None)] ) == "shaaliiyas"
     
     
+    assert output_string ([Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tRich"),parent1=None),Node(Suffix("sNN"),parent1=None)])=='chetaa'
+    assert output_string ([Node(Dhaatu(parse_string("ji")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)])=='jayati'
+    assert output_string ([Node(Dhaatu(parse_string("XdupachaXsh")),parent1=None),Node(Suffix("jhi",lakaara='laXt'),parent1=None)])=='pachanti'
+    assert output_string ([Node(Dhaatu(parse_string("XdupachaXsh")),parent1=None),Node(Suffix("iXt",lakaara='laXt'),parent1=None)])=='pache'
+    
+    
     test_tibaadi()
     
     print("Tests Done")
@@ -219,9 +225,8 @@ def test_expmt():
                     Node(Suffix("aNn"),parent1=None),Node(Suffix("sNN"),parent1=None)]
     else:
         #
-        #expression = [Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tip",lakaara='luNg'),parent1=None)]        
-        expression = [Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tRich"),parent1=None),Node(Suffix("sNN"),parent1=None)]
-      
+        expression = [Node(Dhaatu(parse_string("XdupachaXsh")),parent1=None),Node(Suffix("iXt",lakaara='laXt'),parent1=None)]        
+        
     # for paXtheta - we need to have for liNg : yaasuXtparasmaipadeXshuudaatto Ngichcha 3.4.103 and then ato yeyaH (because of a-ending paXtha after shap)
     pe=process_until_finish(expression)
 
@@ -232,7 +237,7 @@ def test_expmt():
     #print(pe[2]._output)
     print("DONE")
     
-if T:
+if F:
     test_siddhis ()
 else:   
     test_expmt()

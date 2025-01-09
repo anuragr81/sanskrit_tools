@@ -4,10 +4,7 @@ from ..common_definitions import Suffix, Node, Dhaatu,tiNg_pratyayaaH, all_praty
 class kartarishap_3010680:
     def __init__(self):
         self._numconditions=1
-        itbeingshpratyayas = [p for p in all_pratyayas() if p[0:2]=='sh' or p[-2:]=="sh"]
-        self._condition = {'self':{'lakaara':{'domain':['laXt','loXt','laNg','liNg1']},
-            'data':{'domain':itbeingshpratyayas+list(tiNg_pratyayaaH()) }
-                                   }}
+        
     def __call__(self,prefix_node,suffix_node):
         if isinstance(prefix_node._data,Dhaatu) and \
             isinstance(suffix_node._data,Suffix) and \
