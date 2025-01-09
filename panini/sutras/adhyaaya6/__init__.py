@@ -460,7 +460,8 @@ class prathamayoHpuurvasavarNnaH_6010981:
             pratyaya =''.join(suffix_node._data._suffix)
             if pratyaya in sup_pratyayaaH()[0:6] : # only prathhama and dvitiiyaa considered
                 # suffix is sup
-                    if node.get_output()[-1] in ach() and suffix_node.get_output()[0] in ach():
+                    if node.get_output() and suffix_node.get_output() and \
+                        node.get_output()[-1] in ach() and suffix_node.get_output()[0] in ach():
                        if suffix_node.get_output()[0] not in pratyaahaara('i', 'ch'): ## naadichi
                            return node.get_output()[0:-1]+[diirgha_mapper()[node.get_output()[-1]]['diirgha']]
             

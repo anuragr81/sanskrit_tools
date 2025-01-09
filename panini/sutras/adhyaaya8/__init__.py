@@ -1,6 +1,8 @@
 import re
-from ..common_definitions import pratyaahaara, ach, hal, Node, Suffix, list_past_rules_applied
+from ..common_definitions import pratyaahaara, ach, hal, Node, Suffix, Praatipadika
+from ..common_definitions import list_past_rules_applied
 from ..common_definitions import find_eldest_parent1_of_condition,find_eldest_parent2_of_condition
+from ..common_definitions import tiNg_pratyayaaH, sup_pratyayaaH
 
 class kharavasaanayorvisarjaniiyaH_8010150:
     def __init__(self):
@@ -12,13 +14,35 @@ class kharavasaanayorvisarjaniiyaH_8010150:
             raise ValueError("node must of type Node")
         pada = node.get_output()
         return pada
-        khar = pratyaahaara('kh','r')
-        if pada[-1]=="r" and (pada[-2] in khar or pada[-2] in ach()):
-            return pada[0:-1] + ['H']
-        return pada
+        #khar = pratyaahaara('kh','r')
+        #if pada[-1]=="r" and (pada[-2] in khar or pada[-2] in ach()):
+        #    return pada[0:-1] + ['H']
+        #return pada
 
 
-    
+class nalopaHpraatipaadikaantasya_8020070:
+    def __init__(self):
+        self._numconditions = 2 # conditions being two ensures that 
+                                # the sutra isn't applied when chetan is formed 
+                                # and halNgyaabhyosutisyapraktamhal (6.1.66) is applied
+                                # (alternatively, this sutra 
+                                # could be explored as a post-processing sutra)
+        
+    def __call__(self,node,suffix_node):
+        #
+        
+        if not isinstance(node,Node):
+            raise ValueError("node must of type Node")
+        
+        if not isinstance(node,Node):
+            raise ValueError("suffix_node must of type Node")
+        
+        if node.get_output() and node.get_output()[-1]=='n' and isinstance(suffix_node._data,Suffix) \
+            and ''.join(suffix_node._data._suffix) in tiNg_pratyayaaH()+sup_pratyayaaH():
+            if isinstance(node._data,Praatipadika) or isinstance(node._data,Suffix):
+                return node.get_output()[0:-1]
+        return node.get_output()
+
     
 class saMyogaantasyalopaH_8020230:
     def __init__(self):

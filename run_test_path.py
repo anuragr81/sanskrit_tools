@@ -232,7 +232,7 @@ def test_expmt():
     #print(pe[2]._output)
     print("DONE")
     
-if F:
+if T:
     test_siddhis ()
 else:   
     test_expmt()
