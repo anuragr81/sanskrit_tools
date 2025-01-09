@@ -583,6 +583,82 @@ niṣedha
 \end_layout
 
 \begin_layout Section
+Rationale an order of sutras
+\end_layout
+
+\begin_layout Standard
+The basic rules for 
+\shape italic
+pada
+\shape default
+ formation are few in Sanskrit grammar.
+ The vast majority of rules listed in the 
+\shape italic
+aṣṭādhyāyī
+\shape default
+ are in fact exception-rules which detail the conditions under which the
+ more common-rules are to be circumvented.
+ A simple example is that of 
+\shape italic
+medyati
+\shape default
+.
+ If the regular 
+\shape italic
+shap 
+\shape default
+was to be applied, the word formed with 
+\shape italic
+ñimidā 
+\shape default
+and 
+\shape italic
+tip 
+\shape default
+would be 
+\shape italic
+midāti
+\shape default
+.
+ The suffix that is brought in instead of 
+\shape italic
+shap
+\shape default
+ for 
+\shape italic
+śyan
+\shape default
+, however, is 
+\shape italic
+shyan 
+\shape default
+(through the rule 
+\shape italic
+divādibhyaḥ śyan
+\shape default
+).
+ This results in the form 
+\shape italic
+medyati
+\shape default
+.
+ The rules of 
+\shape italic
+aṣṭādhyāyī
+\shape default
+ always present the common-rules before the exception rules.
+ This automatically means that exception rules (which occur after common
+ rules) are of a higher priority.
+ Otherwise, exceptions would be ignored.
+ This argument is commonly referred to as the 
+\shape italic
+sūtra vyartha 
+\shape default
+argument.
+ 
+\end_layout
+
+\begin_layout Section
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:SutrasSelection"

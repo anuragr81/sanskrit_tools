@@ -1,4 +1,6 @@
-from ..common_definitions import Suffix, Node, Dhaatu,tiNg_pratyayaaH, all_pratyayas, ach,list_past_rules_applied,Aagama
+from ..common_definitions import Suffix, Node, Dhaatu, tiNg_pratyayaaH 
+from ..common_definitions import divaadigaXna, all_pratyayas, ach
+from ..common_definitions import list_past_rules_applied,Aagama
 
     
 class kartarishap_3010680:
@@ -13,6 +15,22 @@ class kartarishap_3010680:
                     ''.join(suffix_node._data._suffix) != 'shap':
                     # kartari shap is applied only in certain lakaaras
                  return Suffix("shap")
+        return []
+    
+
+class divaadibhyaHshyan_3010690:
+    def __init__(self):
+        self._numconditions=1
+        
+    def __call__(self,prefix_node,suffix_node):
+        if isinstance(prefix_node._data,Dhaatu) and \
+            ''.join(prefix_node._data._data) in divaadigaXna() and \
+            isinstance(suffix_node._data,Suffix) and \
+                suffix_node._data.is_saarvadhaatuka() and \
+                    suffix_node._data._lakaara in ('laXt','loXt','laNg','liNg1') and \
+                    ''.join(suffix_node._data._suffix) not in ( 'shap','shyan'):
+                    # applied only in certain lakaaras
+                 return Suffix("shyan")
         return []
 
 class chliLuNgi_3010460:

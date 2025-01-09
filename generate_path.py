@@ -75,7 +75,7 @@ def prepend_sutras():
 
 def insertion_sutras():
 #   to be considered: 601008
-    ll=[3010460,3010680,3040920,3010330,3041030,3041070,7010540,7020350,7030960,7030961]
+    ll=[3010460,3010680,3010690,3040920,3010330,3041030,3041070,7010540,7020350,7030960,7030961]
     return sorted(float(x) for x in ll)
 
 def apply_transformation_at_end(transformation_rule,new_expr):
