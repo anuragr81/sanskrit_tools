@@ -149,13 +149,15 @@ def is_transformation_applicable(transformation_rule,new_expr):
                 new_output = transformation_rule()(node=new_expr[i])
                 if new_output  != old_output:
                     return True
-
-            
-                    
+                
     return False
 
 
 def apply_transformation(transformation_rule,new_expr):
+    """
+    A transformation rule is applied on the entire sequence starting from left to right.
+    """
+    
     sig_params = inspect.signature(transformation_rule.__call__).parameters
     for i in range(0,len(new_expr)):
         if isinstance(new_expr[i]._data,Suffix):
@@ -344,12 +346,24 @@ def apply_all_lopas(expression):
        
     return expression
 
+def run_preprocessing_checks(expr):
+    for i in range(len(expr)-1):
+        left = expr[i]
+        right = expr[i+1]
+        if isinstance(left._data,Dhaatu) and isinstance(right._data,Suffix):
+            # check if suffixes are permitted for the respective dhaatu
+            return True
+        
+    return True
 
 def process_until_finish(expr):
     """
     The main function that applies process_list until no differences are reported
     on to the expression
     """
+    if not run_preprocessing_checks(expr):
+        raise RuntimeError("Preprocesssing checks validation failed")
+    
     old_string = output_processed_string (expr)
     new_expr = process_list(expr)
     if output_processed_string (new_expr)==old_string:
@@ -462,6 +476,12 @@ def apply_sutra_on_expression(objSutra,expression,all_sutras):
     return expression
 
 def process_list(expr):
+    """
+    On order of lopas: the important bit about applying the "it"-lopa is that 
+     all suffixes are searched before lopa-application. The lopa does indeed 
+     change the suffix's state (i.e. self._output)).
+    """
+
     all_sutras= get_sutras_ordered()
     
     if any(not isinstance(entry,Node) for entry in expr):
@@ -469,10 +489,6 @@ def process_list(expr):
         
     new_expr = expr.copy()
     
-    # the logic for applying it-lopa is that 
-    # all suffixes are searched and then lopa-application is applied
-    # the lopa changes the suffix's state
-
 
     # apply lopa and transformation before insertion
     new_expr = apply_all_lopas(new_expr)        
@@ -504,11 +520,10 @@ def process_list(expr):
             (is_group_sutra, sutra_group) = check_group_sutra(firstApplicableSutra['sutranum'])
             if is_group_sutra:
                 for sutra in sutra_group:
-                    new_expr =apply_sutra_on_expression(objSutra=sutra,expression=new_expr,all_sutras=all_sutras)
+                    new_expr = apply_sutra_on_expression(objSutra=sutra,expression=new_expr,all_sutras=all_sutras)
             else:
-                new_expr =apply_sutra_on_expression(objSutra=firstApplicableSutra,expression=new_expr,all_sutras=all_sutras)
+                new_expr = apply_sutra_on_expression(objSutra=firstApplicableSutra,expression=new_expr,all_sutras=all_sutras)
 
-        
     return new_expr
 
 def output_string (expr):

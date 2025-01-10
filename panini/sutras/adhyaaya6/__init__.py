@@ -3,10 +3,12 @@ from functools import reduce
 
 from ..common_definitions import ach, hal, sup_pratyayaaH, taddhita_pratyayaaH, kRit_pratyayaaH,san_pratyayaaH
 from ..common_definitions import pratyaahaara, make_diirgha, guna_letters_for_aat
-from ..common_definitions import vriddhi, list_past_rules_applied
+from ..common_definitions import vriddhi, guNna, list_past_rules_applied
 from ..common_definitions import find_eldest_parent1_of_condition 
 from ..common_definitions import find_eldest_parent2_of_condition
 from ..common_definitions import Suffix, Aagama, Node, Dhaatu, Praatipadika
+from ..common_definitions import nandyaadi_dhaatus, grahaadi_dhaatus, pachaadi_dhaatus
+
 
 def hrasvaH(charlist):
     #if charlist[-1] in 
@@ -108,7 +110,11 @@ class sanyaNgoH_6010090:
                 tobeDoubled = node.get_output() + [suffix_node._data._suffix[0]]
                 hals=[i for i,x in enumerate(tobeDoubled) if x in hal() and i>0]
                 if hals:
-                    return bhavateraH(abhyaasecharchcha  ( hrasvaH  ( tobeDoubled[:hals[0]] ) ),node)+tobeDoubled
+                    firstPart=bhavateraH(abhyaasecharchcha  ( hrasvaH  ( tobeDoubled[:hals[0]] ) ),node)
+                    if ''.join(suffix_node._data._suffix) :
+                        if firstPart[-1] in ach():
+                            return firstPart[0:-1] + [guNna(firstPart[-1])] +tobeDoubled
+                        return firstPart+tobeDoubled
                 
             
         return node.get_output()
@@ -118,19 +124,32 @@ class sanyaNgoH_6010091:
     def __init__(self):
         self._numconditions = 1
         
-    def __call__(self,node,suffix_node):
+    def __call__(self,node,anga_node):
         """
         yaNg or san inputs combine with the dhaatu on which dvitva is applied
         yaNg must therefore disappear - requiring a separate rule (group-sutra) to be made
         part of the san-yaNg group for simultaneous application.
         
+        also implements nandigrahipachaadibhyolyuNninyachaH 3.1.134
+        
         """
-        if not isinstance(suffix_node,Node):
-            raise    ValueError ("suffix_node must be of type Node")
+        
+        if not isinstance(anga_node,Node):
+            raise    ValueError ("anga_node must be of type Node")
         if not isinstance(node,Node):
             raise    ValueError ("node must be of type Node")
             
+        
         if isinstance (node._data,Suffix) and ''.join(node._data._suffix) in ('yaNg','san',) and not set(list_past_rules_applied(node)).intersection(set((6010091,))):
+            if isinstance(anga_node._data,Dhaatu) :
+                if ''.join(anga_node._data._data) in nandyaadi_dhaatus():
+                    return  {'output':['l','y','u'],'mutate':True}
+                if ''.join(anga_node._data._data) in grahaadi_dhaatus():
+                    return {'output':['Nn','i','n','i'],'mutate':True}
+                if ''.join(anga_node._data._data) in pachaadi_dhaatus():
+                    return {'output':['a','ch'],'mutate':True}
+                return []
+            
             return []
             
         return node.get_output()
