@@ -228,7 +228,7 @@ As Rajpopat rightly points out (add references), not much has surveied from
  While Rajpopat provides some alternative views, his methods also suffer
  with many of the issues that he highlights.
  We take the opportunity to derive the examples provided by Rajpopat and
- clarify how tradition derives 
+ clarify how tradition derives these rp
 \end_layout
 
 \begin_layout Standard
@@ -518,6 +518,9 @@ ato guṇe
 \shape default
  etc.) that modify more than one node, such rules are interpreted as multiple
  rules with same input (precondition).
+ Some transformation rules are classified as mutation rules.
+ These are treated as new nodes completely and therefore the anubandha lopa
+ is applied on them before they become eligible for other rules to be applied.
 \end_layout
 
 \begin_layout Subsubsection
@@ -692,6 +695,13 @@ mrijervriddhiH is applied before vraschabhrasja...
  This is important because without this, mrijervriddhi would be applied
  after vraschbhrasja and result in mRij (there would be no mrij remaining
  if mrij becomes mRiXsh).
+ 
+\end_layout
+
+\begin_layout Standard
+Similarly, achishnudhaatubhruvaam yvoriNguvaNgau would turn ji jaye into
+ jiyati.
+ But the conditions ajayati 
 \end_layout
 
 \begin_layout Standard
@@ -778,7 +788,9 @@ While the sutras have been classified based on their application (sutras
 \end_layout
 
 \begin_layout Enumerate
-dvitva - sutras concerning the dvitva of dhaatus
+dvitva - sutras concerning the dvitva of dhaatus.
+ As per the rules of ashtadhyayi, the compression engine treats the dvitva-resul
+t as a regular dhaatu.
 \end_layout
 
 \begin_layout Enumerate

@@ -30,6 +30,8 @@ def test_siddhis ():
     assert output_string ([Node(Dhaatu(parse_string("NcimidNN")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)])=='medyati' 
     
     assert output_string ([Node(Dhaatu(parse_string("mRijNN")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]) == 'maarXshXti'
+    
+    assert output_string ([Node(Dhaatu(parse_string("luuNN")),parent1=None),Node(Suffix('yaNg'),parent1=None),Node(Suffix('sNN'),parent1=None)]) == 'loluvas'
     test_tibaadi()
     
     print("Tests Done")
@@ -228,7 +230,7 @@ def test_expmt():
     else:
         #
         expression = [Node(Dhaatu(parse_string("luuNN")),parent1=None),Node(Suffix('yaNg'),parent1=None),Node(Suffix('sNN'),parent1=None)]
-        
+        #expression = [Node(Dhaatu(parse_string("ji")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]
     # for paXtheta - we need to have for liNg : yaasuXtparasmaipadeXshuudaatto Ngichcha 3.4.103 and then ato yeyaH (because of a-ending paXtha after shap)
     pe=process_until_finish(expression)
 
@@ -236,10 +238,10 @@ def test_expmt():
     print ("=====")
     print(output_processed_string (pe))
     print ("=====")
-    print(pe[1]._output)
+    print(pe[0]._output)
     print("DONE")
     
-if F:
+if T:
     test_siddhis ()
 else:   
     test_expmt()

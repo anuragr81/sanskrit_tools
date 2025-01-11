@@ -666,6 +666,33 @@ class luNglaNglRiNgkShvaXdudaattaH_6040710:
                         return Suffix("aXt")
         return []
   
+    
+class achishnudhaatubhruvaaMyvoriyaNguvaNgau_6040770:
+      def __init__(self):
+          self._numconditions = 1
+      def __call__(self,node,suffix_node):
+          if not isinstance(suffix_node,Node):
+              raise ValueError("suffix_node must be of Node type")
+
+          if not isinstance(node,Node):
+              raise ValueError("node must be of Node type")
+          lastAadeshaInSuffix = [x['output'] for x in suffix_node._output if 'new' in x and x['new']][-1]
+          
+          if lastAadeshaInSuffix == ['a','ch']:
+              if isinstance(suffix_node._data,Suffix) and suffix_node.get_output():
+                  if isinstance(node._data,Suffix):
+                      if ''.join(node._data._suffix)== 'shnu':
+                          return node.get_output()[0:-1] + ['u','v']
+                  if isinstance(node._data,Dhaatu) : 
+                      if node.get_output()[-1] in ('i','ii'):
+                          return node.get_output()[0:-1] + ['i','y']
+                      
+                      if node.get_output()[-1] in ('u','uu'):
+                          return node.get_output()[0:-1] + ['u','v']
+              
+              
+          return node.get_output()
+
 class bhuvovugluNgliXtoH_6040880:
     def __init__(self):
         self._numconditions = 1
@@ -693,8 +720,7 @@ class bhuvovugluNgliXtoH_6040880:
 class atoheH_6041050:
     def __init__(self):
         self._numconditions = 1
-        self._condition = {'self':{'lakaara':{'domain':['loXt']},'data':{'domain':['hi']}  },
-                           'prev1':{'index':{-1:{'domain':['a'] }}}}
+
     def __call__(self,node,anga_node):
         if not isinstance(anga_node,Node):
             raise ValueError("anga_node must be of Node type")
@@ -706,6 +732,8 @@ class atoheH_6041050:
                 if anga_node.get_output() and anga_node.get_output()[-1]=='a' and suffix_data==['h','i']:
                     return []
         return node.get_output()
+
+
 
 
 class ataekahalmadhyeanaadeshaaderliXti_6041200:

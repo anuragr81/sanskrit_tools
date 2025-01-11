@@ -467,6 +467,7 @@ class miderguNaH_7030820:
 class saarvadhaatukaardhadhaatukayoH_7030840:
     def __init__(self):
         self._numconditions = 2
+        
     def __call__(self,node,suffix_node):
     
         if not isinstance(node,Node):
@@ -475,21 +476,22 @@ class saarvadhaatukaardhadhaatukayoH_7030840:
             raise ValueError("suffix must of type Node")    
         if not isinstance(suffix_node._data,Suffix):
             raise ValueError("suffix must of type Suffix")
+            
+        suffixConsumerSutras = (2040740,)
         
         if isinstance(node._data,Suffix):
     
             if not node.get_output():
-                #print("saarvadhaatukaardhadhaatukayoH_7030840: Returned due to sarvaahaari lopa")
                 return node.get_output()
             if node._data._suffix[-1] == node.get_output()[-1]:
-                anga_string= node.get_output()
                 if node._data._suffix[-1] in pratyaahaara('i','k'):
-                    return anga_string[0:-1]+[guNna(anga_string[-1])]
+                    if not set(list_past_rules_applied(node)).intersection(suffixConsumerSutras):
+                        return node.get_output()[0:-1]+[guNna(node.get_output()[-1])]
         else:
             if node._data._data and node.get_output() :
-                anga_string= node.get_output()
-                if anga_string[-1] in pratyaahaara('i','k'):
-                    return anga_string[0:-1]+[guNna(anga_string[-1])]
+                if node.get_output()[-1] in pratyaahaara('i','k'):
+                    if not set(list_past_rules_applied(node)).intersection(suffixConsumerSutras):
+                        return node.get_output()[0:-1]+[guNna(node.get_output()[-1])]
         
         return node.get_output()
     
