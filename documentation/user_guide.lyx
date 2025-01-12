@@ -695,13 +695,20 @@ mrijervriddhiH is applied before vraschabhrasja...
  This is important because without this, mrijervriddhi would be applied
  after vraschbhrasja and result in mRij (there would be no mrij remaining
  if mrij becomes mRiXsh).
- 
+ Further, the if we add yaNg to mRij then sanyaNgoH takes immediate priority
+ to precede mRijervRiddhiH too.
+ The relevance of sanyangoH before mRijervRiddhih does not raise any concerns.
+ In the current implementation, we just hardcode this order.
+ Instead of imposing a rule, we use the compressor to extract such a rule.
+ It is also worth noting that vRiddhih such as mRijervRiddhiH is subject
+ to blocking (rather inconveniently) through na dhaatulopa aardhaatuke (as
+ in mariimRijaH).
 \end_layout
 
 \begin_layout Standard
 Similarly, achishnudhaatubhruvaam yvoriNguvaNgau would turn ji jaye into
  jiyati.
- But the conditions ajayati 
+ 
 \end_layout
 
 \begin_layout Standard

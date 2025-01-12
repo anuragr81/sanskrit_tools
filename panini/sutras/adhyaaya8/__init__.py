@@ -74,7 +74,7 @@ class saMyogaantasyalopaH_8020230:
 
 class vrashchabhrasjasRijamRijayajaraajabhraajachchhashaaMXshaH_8020360:
     def __init__(self):
-        self._numconditions = 2
+        self._numconditions = 3
         
     def __call__(self,node,suffix_node):        
                 

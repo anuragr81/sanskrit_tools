@@ -3,11 +3,11 @@ from functools import reduce
 
 from ..common_definitions import ach, hal, sup_pratyayaaH, taddhita_pratyayaaH, kRit_pratyayaaH,san_pratyayaaH
 from ..common_definitions import pratyaahaara, make_diirgha, guna_letters_for_aat
-from ..common_definitions import vriddhi, guNna, list_past_rules_applied
+from ..common_definitions import vriddhi, guNna, list_past_rules_applied, node_upadhaa
 from ..common_definitions import find_eldest_parent1_of_condition 
 from ..common_definitions import find_eldest_parent2_of_condition
 from ..common_definitions import Suffix, Aagama, Node, Dhaatu, Praatipadika
-from ..common_definitions import nandyaadi_dhaatus, grahaadi_dhaatus, pachaadi_dhaatus
+from ..common_definitions import nandyaadi_dhaatus, grahaadi_dhaatus, pachaadi_dhaatus, ach_permitted_temp_dhaatus
 
 
 def hrasvaH(charlist):
@@ -88,6 +88,18 @@ class liXtidhaatoranabhyaasasya_6010080:
                         return dhaatu_checked +node.get_output()
         return node.get_output()
 
+
+def urat(x):
+    if not isinstance(x,list):
+        raise ValueError("input must be a list")
+    if x and len(x)>1 :
+        if x[-1] == 'Ri':
+            return x[0:-1] + ['a','r']
+        if x[-1] == 'Rii':
+            return x[0:-1]+ ['aa','r']
+    
+    return x
+        
 class sanyaNgoH_6010090:
     def __init__(self):
         self._numconditions = 1
@@ -98,6 +110,8 @@ class sanyaNgoH_6010090:
         yaNg must therefore disappear - requiring a separate rule (group-sutra) to be made
         part of the san-yaNg group for simultaneous application.
         
+        also implements nandigrahipachaadibhyolyuNninyachaH 3.1.134
+                        riigRidupadhasyacha 7.4.90
         """
         if not isinstance(suffix_node,Node):
             raise    ValueError ("suffix_node must be of type Node")
@@ -110,10 +124,18 @@ class sanyaNgoH_6010090:
                 tobeDoubled = node.get_output() + [suffix_node._data._suffix[0]]
                 hals=[i for i,x in enumerate(tobeDoubled) if x in hal() and i>0]
                 if hals:
-                    firstPart=bhavateraH(abhyaasecharchcha  ( hrasvaH  ( tobeDoubled[:hals[0]] ) ),node)
-                    if ''.join(suffix_node._data._suffix) :
-                        if firstPart[-1] in ach():
-                            return firstPart[0:-1] + [guNna(firstPart[-1])] +tobeDoubled
+                    postUratToBeDoubled = urat(tobeDoubled[:hals[0]])
+                    # applying riigRidupadhasyacha
+                    if ''.join(suffix_node._data._suffix)  == 'yaNg' and node_upadhaa(node) == 'Ri':
+                        postRiikUratTobeDouled = postUratToBeDoubled[0:-1] + ['r','ii']
+                        # no hrasvaH applied because of Riik aadesha
+                        firstPart = bhavateraH(abhyaasecharchcha  (  postRiikUratTobeDouled  ),node)
+                        return firstPart+tobeDoubled
+                    else:
+                        firstPart = bhavateraH(abhyaasecharchcha  ( hrasvaH  ( postUratToBeDoubled ) ),node)
+                        if ''.join(suffix_node._data._suffix) :
+                            if firstPart[-1] in ach():
+                                return firstPart[0:-1] + [guNna(firstPart[-1])] +tobeDoubled
                         return firstPart+tobeDoubled
                 
             
@@ -131,6 +153,7 @@ class sanyaNgoH_6010091:
         part of the san-yaNg group for simultaneous application.
         
         also implements nandigrahipachaadibhyolyuNninyachaH 3.1.134
+                        riigRidupadhasyacha 7.4.90
         
         """
         
@@ -146,7 +169,7 @@ class sanyaNgoH_6010091:
                     return  {'output':['l','y','u'],'mutate':True}
                 if ''.join(anga_node._data._data) in grahaadi_dhaatus():
                     return {'output':['Nn','i','n','i'],'mutate':True}
-                if ''.join(anga_node._data._data) in pachaadi_dhaatus():
+                if ''.join(anga_node._data._data) in pachaadi_dhaatus() + ach_permitted_temp_dhaatus():
                     return {'output':['a','ch'],'mutate':True}
                 return []
             

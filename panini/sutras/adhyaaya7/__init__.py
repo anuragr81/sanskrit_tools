@@ -1,10 +1,9 @@
 from ..common_definitions import vriddhi,upadhaa, ach, Suffix, Aagama, Node 
-from ..common_definitions import hal, Praatipadika, Aadesha
+from ..common_definitions import hal, Praatipadika
 from ..common_definitions import get_dhaatu_properties,pratyaahaara, guNna, Dhaatu
 from ..common_definitions import parasmaidpada_pratyayaaH, sup_pratyayaaH,list_past_rules_applied , general_special_pairs
 from ..common_definitions import find_eldest_parent1_of_condition,find_eldest_parent2_of_condition,find_recentmost_child_of_condition
 from ..common_definitions import parse_string
-
 
 
 
@@ -337,7 +336,7 @@ class atoyeyaH_7020800:
 class mRijervRiddhiH_7021140:
     
     def __init__(self):
-        self._numconditions = 1
+        self._numconditions = 2
         
     def __call__(self,node,suffix_node):
         
@@ -611,9 +610,7 @@ class astisichoapRikte_7030961:
                     if ''.join(prefix_node._data._suffix)=='sNNch' :
                         return Suffix("iiXt")
                     
-                    
         return []
-
 
 
 class taasastyorlopaH_7040500:
@@ -637,3 +634,4 @@ class taasastyorlopaH_7040501:
                 if node.get_output()[0]=='s'  and 7040501 not in list_past_rules_applied(node):
                     return node.get_output()[:-1] # omit the last s
         return node.get_output()
+

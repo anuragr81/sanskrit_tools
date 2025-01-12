@@ -378,7 +378,19 @@ def upadhaa(x):
     else:
         raise ValueError("Insufficient length for upadhaa")
 
-
+def node_upadhaa(node):
+    if len(node.get_output())>2:
+        achsInNode = [i for i, x in enumerate(node.get_output()) if x in ach()]
+        if node.get_output()[-1] not in ach() :
+            posUpdhaa= achsInNode[-1]
+        elif len(achsInNode)>1:
+            posUpdhaa = achsInNode[-2]
+        else:
+            posUpdhaa = None
+        if posUpdhaa is not None:
+           return node.get_output()[posUpdhaa]
+    return None
+    
 def diirgha(x):
     if x =="a":
         return "aa"
@@ -505,6 +517,9 @@ def grahaadi_dhaatus():
 
 def pachaadi_dhaatus():
     return ('XdupachaXsh','luuNN',)
+
+def ach_permitted_temp_dhaatus():
+    return ('mRijNN',)
 
 def general_special_pairs ():
     return ( ( 7010030 , 3041080 ) , (7030840, 7020021) , ( 6010971, 6010940) , 
