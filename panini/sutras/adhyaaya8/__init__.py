@@ -1,6 +1,6 @@
 import re
 from ..common_definitions import pratyaahaara, ach, hal, Node, Dhaatu
-from ..common_definitions import Suffix, Praatipadika
+from ..common_definitions import Suffix, Praatipadika, kRit_pratyayaaH
 from ..common_definitions import list_past_rules_applied
 from ..common_definitions import find_eldest_parent1_of_condition,find_eldest_parent2_of_condition
 from ..common_definitions import tiNg_pratyayaaH, sup_pratyayaaH
@@ -165,7 +165,8 @@ class aadeshapratyayoH_8030059:
         # the 's' to be replaced in the node needs to be aadesha e.g. from sutras 3010460,7020350        
         # the test for aadesha only checks if both parents are there (which happens for all inserted nodes)
         #isaadesha = node._parent1 and node._parent2 
-        if node.get_output() and node.get_output()[0] == 's' and node._inserted:
+        permittedSuffixes = kRit_pratyayaaH()
+        if node.get_output() and node.get_output()[0] == 's' and (node._inserted or ''.join(node._data._suffix) in permittedSuffixes):
             if anga_node.get_output()[-1] in ('i','ii','u','uu','Ri','Rii','lRi','lRii','e','o','ai','au','h','y','v','r','l') :
                 return ['Xsh'] + node.get_output()[1:]
             

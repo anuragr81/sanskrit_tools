@@ -464,6 +464,8 @@ class miderguNaH_7030820:
 
 
 class saarvadhaatukaardhadhaatukayoH_7030840:
+    # also implements kNgiticha and n dhaatulopa aardhadhaatuke
+    
     def __init__(self):
         self._numconditions = 2
         
@@ -474,11 +476,15 @@ class saarvadhaatukaardhadhaatukayoH_7030840:
         if not isinstance(suffix_node,Node):
             raise ValueError("suffix must of type Node")    
         if not isinstance(suffix_node._data,Suffix):
-            raise ValueError("suffix must of type Suffix")
-            
+            return node.get_output()
+        
+        if suffix_node._data._suffix[0] in ('k','Ng','g') or suffix_node._data._suffix[-1] in ('k','Ng','g'):
+            return node.get_output()
+        
         suffixConsumerSutras = (2040740,)
         
-        if isinstance(node._data,Suffix):
+        
+        if isinstance(node._data,Suffix) :
     
             if not node.get_output():
                 return node.get_output()

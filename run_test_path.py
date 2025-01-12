@@ -1,6 +1,7 @@
 from generate_path import *
 from generate_path import output_string
 from panini.sutras.common_definitions import Dhaatu,Node,Suffix, Praatipadika, parse_string,print_expr
+from panini.sutras.common_definitions import get_suffix_for_context
 from pprint import pprint
 
 # TODO: use https://everythingfonts.com/unicode/devanagari to output devanagari
@@ -224,16 +225,18 @@ def test_tibaadi():
 
 def test_expmt():
     pending= True
+    
     # pending questions
     # 1. aupagavaH
     # 2. is mRijuuXsh in pachaadi? If not, how nandigrahipachaadibhyolyuNninyachaH apply to it?
-    
+    # 3. why isn't saarvadhaatukaardhaatukayoH not applied in saadhuH or jiXshnu (why doesn't it become saadhoH and jiXshnoH with sNN)?
+    # 4. 
     if not pending:
         expression=[Node(Praatipadika("upagu",1),parent1=None),
                     Node(Suffix("aNn"),parent1=None),Node(Suffix("sNN"),parent1=None)]
     else:
         #
-        expression = [Node(Dhaatu(parse_string("mRijNN")),parent1=None),Node(Suffix('yaNg'),parent1=None),Node(Suffix('sNN'),parent1=None)]
+        expression = [Node(Dhaatu(parse_string("ji")),parent1=None),Node(get_suffix_for_context(contextName="tachchhiila",dhaatu="ji"),parent1=None),Node(Suffix('sNN'),parent1=None)]
         #expression = [Node(Dhaatu(parse_string("mRijNN")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]
         #expression = [Node(Dhaatu(parse_string("luuNN")),parent1=None),Node(Suffix('yaNg'),parent1=None),Node(Suffix('sNN'),parent1=None)]
     # for paXtheta - we need to have for liNg : yaasuXtparasmaipadeXshuudaatto Ngichcha 3.4.103 and then ato yeyaH (because of a-ending paXtha after shap)
@@ -243,10 +246,10 @@ def test_expmt():
     print ("=====")
     print(output_processed_string (pe))
     print ("=====")
-    print(pe[0]._output)
+    print(pe[1]._output)
     print("DONE")
     
-if T:
+if F:
     test_siddhis ()
 else:   
     test_expmt()
