@@ -126,7 +126,8 @@ class sanyaNgoH_6010090:
                 if hals:
                     postUratToBeDoubled = urat(tobeDoubled[:hals[0]])
                     # applying riigRidupadhasyacha
-                    if ''.join(suffix_node._data._suffix)  == 'yaNg' and node_upadhaa(node) == 'Ri':
+                    nodeUpadhaa = node_upadhaa(node)
+                    if nodeUpadhaa  is not None and ''.join(suffix_node._data._suffix)  == 'yaNg' and nodeUpadhaa ['char'] == 'Ri':
                         postRiikUratTobeDouled = postUratToBeDoubled[0:-1] + ['r','ii']
                         # no hrasvaH applied because of Riik aadesha
                         firstPart = bhavateraH(abhyaasecharchcha  (  postRiikUratTobeDouled  ),node)
@@ -659,6 +660,36 @@ class aptRintRichsvasRinaptRineXshXtRitvaXshXtRikXshatRihotRipotRiprashaastRiiXn
                                    node.get_output() [ posUpdhaa +1:]
                             
             
+        return node.get_output()
+
+class atvasantasyachaadhaatoH_6040140:
+    
+    def __init__(self):
+        self._numconditions = 1
+        
+    def __call__(self,node,suffix_node):
+        """
+        rule applies when the suffix is sarvanaama (i.e. one of 'sNN', 'au','jas','am','auXt')
+        
+        """
+        if not isinstance(node,Node):
+            raise ValueError("node must be of Node type")
+
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix_node must be of Node type")
+        
+        if node.get_output() and len(node.get_output()) > 1 and not isinstance(node._data,Dhaatu):
+            # adhaatoH
+            if len(node.get_output()) >= 3:
+                if node.get_output()[-3:] == ['a','t','u'] or node.get_output()[-2:] == ['a','s']:
+                    nodeUpadhaa = node_upadhaa(node)
+                    if nodeUpadhaa is not None :
+                        return node.get_output() [0:nodeUpadhaa['pos']] + \
+                            [make_diirgha(nodeUpadhaa['char'])] + \
+                                node.get_output()[nodeUpadhaa['pos']+1:]
+            
+            return node.get_output()
+        
         return node.get_output()
 
 

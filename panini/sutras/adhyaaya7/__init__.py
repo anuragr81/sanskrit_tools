@@ -515,9 +515,9 @@ class supicha_7031020:
             raise ValueError("suffix must of type Suffix")
             
         if not node.get_output():
-                print("supicha_7031020: Returned due to sarvaahaari lopa")
-                return node.get_output()            
-        
+            #print("supicha_7031020: Returned due to sarvaahaari lopa")
+            return node.get_output()            
+    
         suffix_data = suffix_node.get_output()
         suffix_string = ''.join(suffix_node._data._suffix)
         if suffix_data and node.get_output() and (not list_past_rules_applied (node) or list_past_rules_applied (node)[-1]!=7031020):
@@ -550,7 +550,7 @@ class atodiirghoyaNci_7031010:
             raise ValueError("Must be suffix")
             
         if not node.get_output():
-            print("Returning due to sarvaahaari lopa")
+            #print("Returning due to sarvaahaari lopa")
             return node.get_output()
         if node.get_output()[-1] == 'a':
             # instead of checking suffix_node._data._suffix[0] , just check the output

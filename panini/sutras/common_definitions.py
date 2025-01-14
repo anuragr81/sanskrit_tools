@@ -407,7 +407,7 @@ def node_upadhaa(node):
         else:
             posUpdhaa = None
         if posUpdhaa is not None:
-           return node.get_output()[posUpdhaa]
+           return {'pos':posUpdhaa, 'char':node.get_output()[posUpdhaa]}
     return None
     
 def diirgha(x):
