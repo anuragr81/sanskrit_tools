@@ -60,9 +60,9 @@ def transformation_sutras():
           6010840, 6010841, 6010850, 6010851,
           6010970, 6010971, 6010990, 
           6040030, 6040110, 6040140, 6040770, 6041050, 6041200, 6041480, 
-          7010030, 7010010, 7010020, 7010090, 7010120, 7010130, 7010940,
+          7010030, 7010010, 7010020, 7010090, 7010120, 7010130, 7010700, 7010940,
           
-          7020021, 7020790,7020800, 7021140, 7021150, 7021160, 7021170, 
+          7020021, 7020790, 7020800, 7021140, 7021150, 7021160, 7021170, 
           7030520, 7030820, 7030840,7031010,7031020, 7031030, 7040500,7040501,
           8010150, 8020070, 8020280,8020360, 8020660, 8030059,
           8040010]
@@ -75,13 +75,18 @@ def prepend_sutras():
 
 def insertion_sutras():
 #   to be considered: 601008
-    ll=[3010460,3010680,3010690,3040920,3010330,3041030,3041070,7010540,7020350,7030960,7030961]
+    ll=[3010460, 3010680, 3010690, 3040920, 3010330, 3041030, 3041070,\
+        7010540, 7020350, 7030960, 7030961]
     return sorted(float(x) for x in ll)
 
 def apply_transformation_at_end(transformation_rule,new_expr):
     #print(transformation_rule.__name__)
     sig_params = inspect.signature(transformation_rule.__call__).parameters
-    i =len(new_expr)-1    
+    nonEmptyNodePositions = [i for i,x in enumerate(new_expr) if x.get_output()]
+    
+    i = nonEmptyNodePositions[-1] if nonEmptyNodePositions else len(new_expr)-1    
+    # find last non-empty index
+    
     if i>0 and isinstance(new_expr[i]._data,Suffix):
         if i>0 :
             if isinstance(new_expr[i-1]._data,Dhaatu):

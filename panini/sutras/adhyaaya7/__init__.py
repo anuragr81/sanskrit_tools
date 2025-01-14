@@ -178,6 +178,42 @@ class hrasvanadyaaponuXt_7010540:
 
         return []
 
+
+class ugidachaaMsarvanaamasthaaneadhaatoH_7010700:
+    def __init__(self):
+        self._numconditions = 1
+                   
+    def __call__(self,node,suffix_node):
+        """
+        insertion rule for num when suffix is sarvanaamasthaana and prefix-node is u-ending 
+        """
+        if not isinstance(node,Node):
+            raise ValueError("node must of type Node")
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix_node must of type Node")
+        
+        # adhaatoH or aNcchu dhaatu
+        
+        if (not isinstance(node._data,Dhaatu) or \
+            (isinstance(node._data,Dhaatu) and ''.join(node._data._data)=='aNchNN')) \
+            and node.get_output() :            
+                if isinstance(suffix_node._data,Suffix) \
+                    and ''.join(suffix_node._data._suffix) in ('sNN', 'au','jas','am','auXt'):# sarvanaamasthaana
+                    if node.get_output()[-1] == 'u' or node.get_output()[0] == 'u':
+                        # find last hal
+                        halPositions = [i for i,x in enumerate(node.get_output()) if x in hal()]
+                        if  halPositions :
+                            # skipping last 'u'
+                            return node.get_output()[0:halPositions [-1]]+['n']+node.get_output()[halPositions [-1]:-1]
+                        else :
+                            return ['n'] + node.get_output()[0:-1]
+            
+        return node.get_output()
+    
+
+
+
+    
 class RidushanaspurudansoanehasaaNccha_7010940:
     def __init__(self):
         self._numconditions = 1

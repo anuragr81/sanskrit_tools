@@ -680,8 +680,22 @@ class atvasantasyachaadhaatoH_6040140:
         
         if node.get_output() and len(node.get_output()) > 1 and not isinstance(node._data,Dhaatu):
             # adhaatoH
-            if len(node.get_output()) >= 3:
-                if node.get_output()[-3:] == ['a','t','u'] or node.get_output()[-2:] == ['a','s']:
+            node_data  = None
+            if isinstance(node._data,Praatipadika) :
+                node_data = node._data._data 
+            elif isinstance(node._data,Suffix):
+                node_data = node._data._suffix
+            else:
+                node_data = None
+                
+            if node_data  :
+                sutra_applicable = False
+                if len(node_data ) >= 3:
+                    if node_data [-3:] == ['a','t','u'] :
+                        sutra_applicable = True
+                elif len(node_data)>=2 and node_data [-2:] == ['a','s']:
+                    sutra_applicable = True
+                if sutra_applicable :                    
                     nodeUpadhaa = node_upadhaa(node)
                     if nodeUpadhaa is not None :
                         return node.get_output() [0:nodeUpadhaa['pos']] + \
