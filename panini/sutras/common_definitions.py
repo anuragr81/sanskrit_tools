@@ -341,7 +341,7 @@ def Xtu():
 
 
 def unclassified_pratyayaaH():
-    return ('sNNch','chlNN','shap','shyan','taas','sya','aXt','iiXt','aaXt','yaasNNXt','sNNXt','nNNXt','anaNg')
+    return ('sNNch','chlNN','shap','shyan','shnu','taas','sya','aXt','iiXt','aaXt','yaasNNXt','sNNXt','nNNXt','anaNg')
 
 def san_pratyayaaH():
     return ("san","kyach","kaamyach","kyaNg","kyaXsh",
@@ -528,6 +528,9 @@ def divaadigaNna():
 
 def adaadigaNna():
     return ('mRijNN','adNN','hanNN','dviXshNN')
+
+def svaadigaNna():
+    return ('chiNN',)
 
 def nandyaadi_dhaatus():
     return ('XtunadNN',)

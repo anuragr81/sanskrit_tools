@@ -75,7 +75,7 @@ def prepend_sutras():
 
 def insertion_sutras():
 #   to be considered: 601008
-    ll=[3010460, 3010680, 3010690, 3040920, 3010330, 3041030, 3041070,\
+    ll=[3010330, 3010460, 3010680, 3010690, 3010730, 3040920, 3041030, 3041070,\
         7010540, 7020350, 7030960, 7030961]
     return sorted(float(x) for x in ll)
 
@@ -84,8 +84,9 @@ def apply_transformation_at_end(transformation_rule,new_expr):
     sig_params = inspect.signature(transformation_rule.__call__).parameters
     nonEmptyNodePositions = [i for i,x in enumerate(new_expr) if x.get_output()]
     
-    i = nonEmptyNodePositions[-1] if nonEmptyNodePositions else len(new_expr)-1    
     # find last non-empty index
+    i = nonEmptyNodePositions[-1] if nonEmptyNodePositions else len(new_expr)-1    
+    
     
     if i>0 and isinstance(new_expr[i]._data,Suffix):
         if i>0 :

@@ -527,12 +527,15 @@ class saarvadhaatukaardhadhaatukayoH_7030840:
             if node._data._suffix[-1] == node.get_output()[-1]:
                 if node._data._suffix[-1] in pratyaahaara('i','k'):
                     if not set(list_past_rules_applied(node)).intersection(suffixConsumerSutras):
-                        return node.get_output()[0:-1]+[guNna(node.get_output()[-1])]
-        else:
+                        # saarvadhaatuka and apit would not have guNa (1.2.4 saarvadhaatukamapit makes them Ngitvat)
+                        if not (suffix_node._data.is_saarvadhaatuka() and (suffix_node._data._suffix[0] != 'p' and suffix_node._data._suffix[-1] != 'p')):
+                            return node.get_output()[0:-1]+[guNna(node.get_output()[-1])]
+        elif isinstance(node._data,Praatipadika) or isinstance(node._data,Dhaatu):
             if node._data._data and node.get_output() :
                 if node.get_output()[-1] in pratyaahaara('i','k'):
                     if not set(list_past_rules_applied(node)).intersection(suffixConsumerSutras):
-                        return node.get_output()[0:-1]+[guNna(node.get_output()[-1])]
+                        if not (suffix_node._data.is_saarvadhaatuka() and (suffix_node._data._suffix[0] != 'p' and suffix_node._data._suffix[-1] != 'p')):
+                            return node.get_output()[0:-1]+[guNna(node.get_output()[-1])]
         
         return node.get_output()
     

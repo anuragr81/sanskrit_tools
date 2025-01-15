@@ -181,7 +181,12 @@ class raXshaabhyaaMnoXnaHsamaanapadeaXtkupvaaNgnumvyavaayeapi_8040010:
     def __init__(self):
         self._numconditions = 2
         
-    def __call__(self,anga_node ,node):        
+    def __call__(self,anga_node ,node):
+        """
+        aXtkupvaaNgnumvyavaayeapi means that even if last letter is in aXt but 
+        it's the second last letter of anga that is r/Xsh, then the n of node
+        becomes Nn
+        """
         if not isinstance(node,Node):
             raise ValueError("suffix must of type Node")
         
@@ -191,7 +196,9 @@ class raXshaabhyaaMnoXnaHsamaanapadeaXtkupvaaNgnumvyavaayeapi_8040010:
         if node.get_output() and 8040010 not in list_past_rules_applied(node): 
             if node.get_output()[0] == 'n':
                 effective_anga_node = anga_node if anga_node.get_output() else find_eldest_parent1_of_condition(anga_node, lambda x : x.get_output() )
-                if effective_anga_node.get_output()[-1] in ( pratyaahaara('a','Xt') + ('aa','r','Xsh') ) :
+                if effective_anga_node.get_output()[-1] in ('r','Xsh')  \
+                    or (len(effective_anga_node.get_output())>1 and effective_anga_node.get_output()[-2] in \
+                           ('r','Xsh') and effective_anga_node.get_output()[-1] in pratyaahaara('a','Xt') + ('aa')):    
                     return ['Xn'] + node.get_output()[1:]
             
         return node.get_output()

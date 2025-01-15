@@ -224,6 +224,7 @@ def test_siddhis ():
     assert output_string ([Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("kta"),parent1=None),Node(Suffix('sNN'),parent1=None)]) == 'chitas'
     
     assert output_string ([Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("ktavatu"),parent1=None),Node(Suffix('sNN'),parent1=None)]) == 'chitavaan'
+    assert output_string ([Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tas",lakaara='laXt'),parent1=None)]) == 'chinutas'
     test_tibaadi()
     
     print("Tests Done")
@@ -236,15 +237,16 @@ def test_expmt():
     # 1. aupagavaH
     # 2. is mRijuuXsh in pachaadi? If not, how nandigrahipachaadibhyolyuNninyachaH apply to it?
     # 3. why isn't saarvadhaatukaardhaatukayoH not applied in saadhuH or jiXshnu (why doesn't it become saadhoH and jiXshnoH with sNN)?
-    # 4. 
+    # 4. why isn't raXshaabhyaaMnoNnaHsamaanapade applied in chinutaH end of chi  is in aXt
     if not pending:
         expression=[Node(Praatipadika("upagu",1),parent1=None),
                     Node(Suffix("aNn"),parent1=None),Node(Suffix("sNN"),parent1=None)]
     else:
-        expression = [Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("ktavatu"),parent1=None),Node(Suffix('sNN'),parent1=None)]
+        expression = [Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tas",lakaara='laXt'),parent1=None)]
         #expression = [Node(Dhaatu(parse_string("ji")),parent1=None),Node(get_suffix_for_context(contextName="tachchhiila",dhaatu="ji"),parent1=None),Node(Suffix('sNN'),parent1=None)]
         #expression = [Node(Dhaatu(parse_string("mRijNN")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]
         #expression = [Node(Dhaatu(parse_string("luuNN")),parent1=None),Node(Suffix('yaNg'),parent1=None),Node(Suffix('sNN'),parent1=None)]
+        
     # for paXtheta - we need to have for liNg : yaasuXtparasmaipadeXshuudaatto Ngichcha 3.4.103 and then ato yeyaH (because of a-ending paXtha after shap)
     pe=process_until_finish(expression)
 
