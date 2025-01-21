@@ -389,9 +389,13 @@ class mRijervRiddhiH_7021140:
             
 class acho_NcNniti_7021150:
     def __init__(self):
+        
         self._numconditions = 1
         
     def __call__(self,node,suffix_node):
+        """
+        also implements diidhiiveviiXtaam
+        """
         if not isinstance(node,Node):
             raise ValueError("anga_node must of type Node")
         if not isinstance(suffix_node,Node):
@@ -405,6 +409,10 @@ class acho_NcNniti_7021150:
         if set(y for (x,y) in general_special_pairs() if x == 7021150).intersection(list_past_rules_applied(node)):
             return node.get_output()
         
+        # diidhiiveviiXtaam
+        if isinstance(node._data,Dhaatu) and ''.join(node._data._data) in ('diidhiiNN','veviiNN',):
+            return node.get_output() 
+            
         suffix_data=[x['output'] for x in suffix_node._output if 'new' in x and x['new']][-1]
         anga_string= node.get_output()
         if anga_string and suffix_data:

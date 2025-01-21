@@ -782,7 +782,7 @@ class achishnudhaatubhruvaaMyvoriyaNguvaNgau_6040770:
                       if ''.join(node._data._suffix)== 'shnu':
                           listAchPos = list_achpos(node.get_output())
                           if listAchPos is not None:
-                              # anekaach or asaMyoga anga with 'u' ending
+                              # anekaach or asaMyoga anga with 'u','uu' ending
                               if len(listAchPos)>1 :
                                   return node.get_output()
                               if len(node.get_output())>2:
@@ -798,7 +798,7 @@ class achishnudhaatubhruvaaMyvoriyaNguvaNgau_6040770:
                       if node.get_output()[-1] in ('i','ii'):
                           listAchPos = list_achpos(node.get_output())
                           if listAchPos is not None:
-                              # anekaach or asaMyoga anga with 'u' ending
+                              # anekaach or asaMyoga anga with 'i'/'ii' ending
                               if len(listAchPos)>1 :
                                   return node.get_output()
                               if len(node.get_output())>2:
@@ -811,19 +811,6 @@ class achishnudhaatubhruvaaMyvoriyaNguvaNgau_6040770:
                           return node.get_output()[0:-1] + ['i','y']
                       
                       if node.get_output()[-1] in ('u','uu'):
-                          
-                          listAchPos = list_achpos(node.get_output())
-                          if listAchPos is not None:
-                              # anekaach or asaMyoga anga with 'u' ending
-                              if len(listAchPos)>1 :
-                                  return node.get_output()
-                              if len(node.get_output())>2:
-                                  # asaMyoga
-                                  if node.get_output()[-2] in ach() or node.get_output()[-3] in ach():
-                                      return node.get_output()
-                              elif len(node.get_output())==2 and not node.get_output()[-2] in ach() :
-                                  return node.get_output()
-                            
                           return node.get_output()[0:-1] + ['u','v']
               
               

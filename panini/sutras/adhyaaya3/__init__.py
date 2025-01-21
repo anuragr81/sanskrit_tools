@@ -28,7 +28,7 @@ class kartarishap_3010680:
 
 class divaadibhyaHshyan_3010690:
     def __init__(self):
-        self._numconditions=1
+        self._numconditions=0
         
     def __call__(self,prefix_node,suffix_node):
         if isinstance(prefix_node._data,Dhaatu) and \
@@ -43,7 +43,7 @@ class divaadibhyaHshyan_3010690:
 
 class svaadibhyaHshnuH_3010730:
     def __init__(self):
-        self._numconditions=1
+        self._numconditions=0
         
     def __call__(self,prefix_node,suffix_node):
         if isinstance(prefix_node._data,Dhaatu) and \

@@ -226,7 +226,9 @@ def test_siddhis ():
     assert output_string ([Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("ktavatu"),parent1=None),Node(Suffix('sNN'),parent1=None)]) == 'chitavaan'
     assert output_string ([Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tas",lakaara='laXt'),parent1=None)]) == 'chinutas'
     assert output_string([Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("jhi",lakaara='laXt'),parent1=None)]) == 'chinvanti'
-    test_tibaadi()
+    assert output_string([Node(Dhaatu(parse_string("diidhiiNN")),parent1=None),Node(Suffix("lyuXt"),parent1=None),Node(Suffix("sNN"),parent1=None)]) == 'diidhyanas'
+    assert output_string([Node(Dhaatu(parse_string("diidhiiNN")),parent1=None),Node(Suffix("Nnvul"),parent1=None),Node(Suffix("sNN"),parent1=None)]) == 'diidhyakas'
+    #test_tibaadi()
     
     print("Tests Done")
 
@@ -245,13 +247,8 @@ def test_expmt():
                     Node(Suffix("aNn"),parent1=None),Node(Suffix("sNN"),parent1=None)]
         expression2 = [Node(Dhaatu(parse_string("ji")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]
     else:
-        expression = [Node(Dhaatu(parse_string("diidhiiNN")),parent1=None),Node(Suffix("lyuXt"),parent1=None),Node(Suffix("sNN"),parent1=None)]
-        
-        #expression = [Node(Dhaatu(parse_string("ji")),parent1=None),Node(get_suffix_for_context(contextName="tachchhiila",dhaatu="ji"),parent1=None),Node(Suffix('sNN'),parent1=None)]
-        #expression = [Node(Dhaatu(parse_string("mRijNN")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]
-        #expression = [Node(Dhaatu(parse_string("luuNN")),parent1=None),Node(Suffix('yaNg'),parent1=None),Node(Suffix('sNN'),parent1=None)]
-        
-        #expression = [Node(Dhaatu(parse_string("bhuu")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]
+        expression = [Node(Dhaatu(parse_string("diidhiiNN")),parent1=None),Node(Suffix("Nnvul"),parent1=None),Node(Suffix("sNN"),parent1=None)]
+        #expression = [Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("jhi",lakaara='laXt'),parent1=None)]
 
     # for paXtheta - we need to have for liNg : yaasuXtparasmaipadeXshuudaatto Ngichcha 3.4.103 and then ato yeyaH (because of a-ending paXtha after shap)
 
