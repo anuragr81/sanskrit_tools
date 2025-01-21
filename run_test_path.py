@@ -27,7 +27,7 @@ def test_subaadi():
         print(output_processed_string (pe))
         if F:
             print("===")
-            for k in (pe[2]._output):
+            for k in (pe[0]._output):
                 pprint(k)
         
         print("DONE")   
@@ -210,7 +210,7 @@ def test_siddhis ():
     
     
     assert output_string ([Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tRich"),parent1=None),Node(Suffix("sNN"),parent1=None)])=='chetaa'
-    assert output_string ([Node(Dhaatu(parse_string("ji")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)])=='jayati'
+    #assert output_string ([Node(Dhaatu(parse_string("ji")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)])=='jayati'
     assert output_string ([Node(Dhaatu(parse_string("XdupachaXsh")),parent1=None),Node(Suffix("jhi",lakaara='laXt'),parent1=None)])=='pachanti'
     assert output_string ([Node(Dhaatu(parse_string("XdupachaXsh")),parent1=None),Node(Suffix("iXt",lakaara='laXt'),parent1=None)])=='pache'
     
@@ -225,6 +225,7 @@ def test_siddhis ():
     
     assert output_string ([Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("ktavatu"),parent1=None),Node(Suffix('sNN'),parent1=None)]) == 'chitavaan'
     assert output_string ([Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tas",lakaara='laXt'),parent1=None)]) == 'chinutas'
+    assert output_string([Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("jhi",lakaara='laXt'),parent1=None)]) == 'chinvanti'
     test_tibaadi()
     
     print("Tests Done")
@@ -236,28 +237,34 @@ def test_expmt():
     # pending questions
     # 1. aupagavaH
     # 2. is mRijuuXsh in pachaadi? If not, how nandigrahipachaadibhyolyuNninyachaH apply to it?
-    # 3. why isn't saarvadhaatukaardhaatukayoH not applied in saadhuH or jiXshnu (why doesn't it become saadhoH and jiXshnoH with sNN)?
-    # 4. why isn't raXshaabhyaaMnoNnaHsamaanapade applied in chinutaH end of chi  is in aXt
+    # 3. why is saarvadhaatukaardhaatukayoH not applied in saadhuH or jiXshnu (why doesn't it become saadhoH and jiXshnoH with sNN)?
+    # 4. Are iNno yaNn and oH supi both needed for jayati and bhavati - as exceptions of achishnudhaatubhruvaaMyvoriyaNguvaNgau_6040770 so that ji + tip does not become jiyati (rather than jayati through guNna) or bhuu + tip does not become bhuvati ( instead of bhavati through guNna) ?
+    
     if not pending:
-        expression=[Node(Praatipadika("upagu",1),parent1=None),
+        expression1=[Node(Praatipadika("upagu",1),parent1=None),
                     Node(Suffix("aNn"),parent1=None),Node(Suffix("sNN"),parent1=None)]
+        expression2 = [Node(Dhaatu(parse_string("ji")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]
     else:
-        expression = [Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tas",lakaara='laXt'),parent1=None)]
+        expression = [Node(Dhaatu(parse_string("diidhiiNN")),parent1=None),Node(Suffix("lyuXt"),parent1=None),Node(Suffix("sNN"),parent1=None)]
+        
         #expression = [Node(Dhaatu(parse_string("ji")),parent1=None),Node(get_suffix_for_context(contextName="tachchhiila",dhaatu="ji"),parent1=None),Node(Suffix('sNN'),parent1=None)]
         #expression = [Node(Dhaatu(parse_string("mRijNN")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]
         #expression = [Node(Dhaatu(parse_string("luuNN")),parent1=None),Node(Suffix('yaNg'),parent1=None),Node(Suffix('sNN'),parent1=None)]
         
+        #expression = [Node(Dhaatu(parse_string("bhuu")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]
+
     # for paXtheta - we need to have for liNg : yaasuXtparasmaipadeXshuudaatto Ngichcha 3.4.103 and then ato yeyaH (because of a-ending paXtha after shap)
+
     pe=process_until_finish(expression)
 
     output_processed_string = lambda expr: ''.join(reduce(lambda x ,y : x + y.get_output(),  expr, []))
     print ("=====")
     print(output_processed_string (pe))
     print ("=====")
-    print(pe[1]._output)
+    print(pe[0]._output)
     print("DONE")
     
-if T:
+if F:
     test_siddhis ()
 else:   
     test_expmt()

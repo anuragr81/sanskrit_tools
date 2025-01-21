@@ -2,9 +2,9 @@ from functools import reduce
 
 
 from ..common_definitions import ach, hal, sup_pratyayaaH, taddhita_pratyayaaH, kRit_pratyayaaH,san_pratyayaaH
-from ..common_definitions import pratyaahaara, make_diirgha, guna_letters_for_aat
+from ..common_definitions import pratyaahaara, make_diirgha, yaNn, guna_letters_for_aat
 from ..common_definitions import vriddhi, guNna, list_past_rules_applied, node_upadhaa
-from ..common_definitions import find_eldest_parent1_of_condition 
+from ..common_definitions import find_eldest_parent1_of_condition ,list_achpos
 from ..common_definitions import find_eldest_parent2_of_condition
 from ..common_definitions import Suffix, Aagama, Node, Dhaatu, Praatipadika
 from ..common_definitions import nandyaadi_dhaatus, grahaadi_dhaatus, pachaadi_dhaatus, ach_permitted_temp_dhaatus
@@ -248,17 +248,36 @@ class halNgyaabhyodiirghaatsutisyapraktaMhal_6010660:
         return node.get_output()
 
 
+class ikoyaNnachi_6010740:
+    def __init__(self):
+        self._numconditions = 1
+
+    def __call__(self,node, suffix_node):
+        
+        if not isinstance(node,Node):
+            raise ValueError("node must be of Node type")
+            
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix_node must be of Node type")
+        
+        if not node.get_output():
+            return node.get_output()
+        
+        if not suffix_node.get_output() and suffix_node._children :
+            
+            effective_suffix_node =  suffix_node._children [-1]
+        else:
+            effective_suffix_node =  suffix_node
+        
+        if effective_suffix_node.get_output() and effective_suffix_node.get_output()[0] =='a':
+            if node.get_output()[-1] in pratyaahaara('i','k'):
+                return node.get_output()[0:-1] + [yaNn(node.get_output()[-1])]
+        return node.get_output()
+
 class echoayavaayaavaH_6010750:
     def __init__(self):
         self._numconditions = 1
-        achs = ['aa', 'ii', 'uu', 'Rii', 'lRii', 'a', 'i', 'ii', 'u', 'uu', 'Ri', 'Rii', 'lRi', 'lRii', 'e', 'o', 'ai', 'au']
-        self._condition = {'self':{'index': {'ANDVEC': [{ -1 : { 'domain':['e','o','ai','au'] }} ,
-                                              {0 : {'domain':achs}} 
-                                              ]
-                                             }
-                                   
-                                   }
-                           }
+
     def __call__(self,node, suffix_node):
         if not node.get_output():
             return node.get_output()
@@ -736,26 +755,75 @@ class luNglaNglRiNgkShvaXdudaattaH_6040710:
   
     
 class achishnudhaatubhruvaaMyvoriyaNguvaNgau_6040770:
+
       def __init__(self):
           self._numconditions = 1
       def __call__(self,node,suffix_node):
+          """
+          also implements eranekaacho-asaMyogapuurvasya, hushnuvoHsaarvadhaatuke by suppressing iy,uv aadesha
+          
+          Notice however that only shnu's part of hushnuvoHsaarvadhaatuke has been implemented. The hu
+          part may need to be implemented separately.
+          """
           if not isinstance(suffix_node,Node):
               raise ValueError("suffix_node must be of Node type")
 
           if not isinstance(node,Node):
               raise ValueError("node must be of Node type")
-          lastAadeshaInSuffix = [x['output'] for x in suffix_node._output if 'new' in x and x['new']][-1]
+          #lastAadeshaInSuffix = [x['output'] for x in suffix_node._output if 'new' in x and x['new']][-1]
           
-          if lastAadeshaInSuffix == ['a','ch']:
+          # don't apply twice
+          if 6040770 in list_past_rules_applied(node):
+              return node.get_output()
+          
+          if suffix_node.get_output() and suffix_node.get_output()[0] in pratyaahaara('a','ch'): #lastAadeshaInSuffix == ['a','ch']:
               if isinstance(suffix_node._data,Suffix) and suffix_node.get_output():
                   if isinstance(node._data,Suffix):
                       if ''.join(node._data._suffix)== 'shnu':
+                          listAchPos = list_achpos(node.get_output())
+                          if listAchPos is not None:
+                              # anekaach or asaMyoga anga with 'u' ending
+                              if len(listAchPos)>1 :
+                                  return node.get_output()
+                              if len(node.get_output())>2:
+                                  # asaMyoga
+                                  if node.get_output()[-2] in ach() or node.get_output()[-3] in ach():
+                                      return node.get_output()
+                              elif len(node.get_output())==2 and not node.get_output()[-2] in ach() :
+                                  return node.get_output()
+                            
                           return node.get_output()[0:-1] + ['u','v']
-                  if isinstance(node._data,Dhaatu) : 
+                      
+                  if isinstance(node._data,Dhaatu) :
                       if node.get_output()[-1] in ('i','ii'):
+                          listAchPos = list_achpos(node.get_output())
+                          if listAchPos is not None:
+                              # anekaach or asaMyoga anga with 'u' ending
+                              if len(listAchPos)>1 :
+                                  return node.get_output()
+                              if len(node.get_output())>2:
+                                  # asaMyoga
+                                  if node.get_output()[-2] in ach() or node.get_output()[-3] in ach():
+                                      return node.get_output()
+                              elif len(node.get_output())==2 and not node.get_output()[-2] in ach() :
+                                  return node.get_output()
+                            
                           return node.get_output()[0:-1] + ['i','y']
                       
                       if node.get_output()[-1] in ('u','uu'):
+                          
+                          listAchPos = list_achpos(node.get_output())
+                          if listAchPos is not None:
+                              # anekaach or asaMyoga anga with 'u' ending
+                              if len(listAchPos)>1 :
+                                  return node.get_output()
+                              if len(node.get_output())>2:
+                                  # asaMyoga
+                                  if node.get_output()[-2] in ach() or node.get_output()[-3] in ach():
+                                      return node.get_output()
+                              elif len(node.get_output())==2 and not node.get_output()[-2] in ach() :
+                                  return node.get_output()
+                            
                           return node.get_output()[0:-1] + ['u','v']
               
               

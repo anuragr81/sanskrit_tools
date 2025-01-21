@@ -10,7 +10,9 @@ from ..common_definitions import parse_string
 
 class yuvoranaakau_7010010:
     def __init__(self):
-        self._numconditions = 1
+        # zero conditions are important
+        self._numconditions = 0
+        
         
     def __call__(self,node):
         if not isinstance(node,Node):
@@ -20,8 +22,7 @@ class yuvoranaakau_7010010:
             raise ValueError("suffix must of type Suffix")
             
         suffix_string= node.get_output()
-        if suffix_string is None:
-            print("NONE")
+
         if len(suffix_string)>=2:
             if suffix_string[-2:] == ["y","u"]:
                 return suffix_string[0:-2] + ["a","n","a"]

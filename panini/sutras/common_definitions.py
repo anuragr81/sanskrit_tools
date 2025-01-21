@@ -158,6 +158,23 @@ def get_dhaatu_properties(string):
     else:
         raise ValueError("%s not found as in dhaatu-store" % string)
 
+def list_achpos(x):
+    if not isinstance(x,list) :
+        raise ValueError("input must be a list of strings")
+    if any(j for j in x if not isinstance(j,str)):
+        raise ValueError("input must be a list of strings")
+    if x :
+        listAchs = [i for i,k in enumerate(x) if k in ach()]
+        return listAchs
+    return None
+
+def find_last_ach_pos(x):
+    listAchs=list_achpos(x)
+    if listAchs:
+        return listAchs[-1]
+    else:
+        return None
+    
 def find_eldest_parent1_of_condition(node,cond):
 
     if node and node.get_parent1():
@@ -421,8 +438,21 @@ def diirgha(x):
         return x
 
 
+def yaNn(x):
+    if x =="i" or x=="ii":
+        return "y"
+    elif x == "u" or x=="uu":
+        return "v"
+    elif x == 'Ri' or x == 'Rii':
+        return 'r'
+    elif x == 'lRi' or x == 'lRii':
+        return 'l'
+    else:
+        return x
+
+
 def guNna(x):
-    if x =="i" or x=="i":
+    if x =="i" or x=="ii":
         return "e"
     elif x == "u" or x=="uu":
         return "o"

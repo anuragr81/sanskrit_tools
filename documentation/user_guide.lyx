@@ -562,6 +562,18 @@ noprefix "false"
 \end_inset
 
 ).
+ 
+\end_layout
+
+\begin_layout Standard
+The input for rules also requires some clarification.
+ The majority of rules concern adjacent nodes and also consider the historical
+ application.
+ Several rules explicitly state that they are to be only once for pada formation.
+ There are only a few rules that are concern themselves with three nodes
+ (examples to be added by looking for conditions involving _parent1, _parent2
+ in code).
+ 
 \end_layout
 
 \begin_layout Subsubsection
@@ -780,6 +792,42 @@ relelvant.
  if not for sanyaNgoH.
  sanyaNgoH is applied because yaNg makes sanyaNgoH relevant.
  The position of sanyaNgoH in the entire sequence is of no significance.
+\end_layout
+
+\begin_layout Standard
+hushnuvoHsaarvadhaatuke is another example of how latter takes precedence.
+ This is a simpler case of special rules being mentioned after general rules.
+ This however is more interesting.
+ If one were to look at a basic form such as chinvanti, then it appears
+ that iko yaNnachi is applied.
+ It appears that it gets barred due to saarvadhaatukamapit (Ngitvat due)
+ and so is given the uvaNg treatment through achishnudhaatubhruvaaMyvoriyaNguvaN
+gau - which then invokes hushnuvoH saarvadhaatuke.
+ The markers and the classification based on them provide allow a control
+ or a filter for some words to through a particular treatment while barring
+ others.
+ The grammar applies multiple filters to direct the treatment in different
+ directions.
+\end_layout
+
+\begin_layout Standard
+If the order was that explicit in tradition, then a lot of redundancy may
+ not have been there.
+ For example, hushnuvoH saarvadhaatuke explicitly allows yaNnaadesha.
+\end_layout
+
+\begin_layout Standard
+For yuvoranaakau, the replacement is immediate otherwise.
+ Aadiidhyana would not be formed and (7010700 - ugidachaaMsarvanaamasthaaneadhaa
+toH would be applied since lyuXt is not a dhaatu).
+\end_layout
+
+\begin_layout Standard
+In terms of the application, both iko yaNnachi and achishnudhaatubhruvaaMyvoriya
+NguvaNgau would act upon aadiidhii-ana.
+ Without eranekaachoasaMyogapuurvasya, iyaNg would be applied through achishnudh
+aatubhruvaaMyvoriyaNguvaNgau.
+ 
 \end_layout
 
 \begin_layout Subsection
