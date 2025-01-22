@@ -228,6 +228,8 @@ def test_siddhis ():
     assert output_string([Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("jhi",lakaara='laXt'),parent1=None)]) == 'chinvanti'
     assert output_string([Node(Dhaatu(parse_string("diidhiiNN")),parent1=None),Node(Suffix("lyuXt"),parent1=None),Node(Suffix("sNN"),parent1=None)]) == 'diidhyanas'
     assert output_string([Node(Dhaatu(parse_string("diidhiiNN")),parent1=None),Node(Suffix("Nnvul"),parent1=None),Node(Suffix("sNN"),parent1=None)]) == 'diidhyakas'
+    assert output_string([Node(Dhaatu(parse_string("paXthaNN")),parent1=None),Node(Suffix("tip",lakaara='luXt'),parent1=None)]) == "paXthitaa"
+    assert output_string([Node(Praatipadika(parse_string("go"),linga=0),parent1=None),Node(Suffix("matNNp"),parent1=None),Node(Suffix("sNN"),parent1=None)]) == 'gomaan'
     #test_tibaadi()
     
     print("Tests Done")
@@ -247,8 +249,8 @@ def test_expmt():
                     Node(Suffix("aNn"),parent1=None),Node(Suffix("sNN"),parent1=None)]
         expression2 = [Node(Dhaatu(parse_string("ji")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]
     else:
-        expression = [Node(Dhaatu(parse_string("diidhiiNN")),parent1=None),Node(Suffix("Nnvul"),parent1=None),Node(Suffix("sNN"),parent1=None)]
-        #expression = [Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("jhi",lakaara='laXt'),parent1=None)]
+        #expression = [Node(Dhaatu(parse_string("diidhiiNN")),parent1=None),Node(Suffix("Nnvul"),parent1=None),Node(Suffix("sNN"),parent1=None)]
+        expression = [Node(Praatipadika(parse_string("go"),linga=0),parent1=None),Node(Suffix("matNNp"),parent1=None),Node(Suffix("sNN"),parent1=None)]
 
     # for paXtheta - we need to have for liNg : yaasuXtparasmaipadeXshuudaatto Ngichcha 3.4.103 and then ato yeyaH (because of a-ending paXtha after shap)
 
@@ -258,10 +260,10 @@ def test_expmt():
     print ("=====")
     print(output_processed_string (pe))
     print ("=====")
-    print(pe[0]._output)
+    print(pe[1]._output)
     print("DONE")
     
-if F:
+if T:
     test_siddhis ()
 else:   
     test_expmt()

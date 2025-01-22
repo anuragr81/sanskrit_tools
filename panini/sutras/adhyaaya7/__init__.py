@@ -187,6 +187,7 @@ class ugidachaaMsarvanaamasthaaneadhaatoH_7010700:
     def __call__(self,node,suffix_node):
         """
         insertion rule for num when suffix is sarvanaamasthaana and prefix-node is u-ending 
+        since this is an insertion rule, it is not to be applied twice
         """
         if not isinstance(node,Node):
             raise ValueError("node must of type Node")
@@ -194,12 +195,15 @@ class ugidachaaMsarvanaamasthaaneadhaatoH_7010700:
             raise ValueError("suffix_node must of type Node")
         
         # adhaatoH or aNcchu dhaatu
+        if 7010700 in list_past_rules_applied(node):
+            return node.get_output()
         
         if (not isinstance(node._data,Dhaatu) or \
             (isinstance(node._data,Dhaatu) and ''.join(node._data._data)=='aNchNN')) \
             and node.get_output() :            
                 if isinstance(suffix_node._data,Suffix) \
                     and ''.join(suffix_node._data._suffix) in ('sNN', 'au','jas','am','auXt'):# sarvanaamasthaana
+                    ugit = False
                     if node.get_output()[-1] == 'u' or node.get_output()[0] == 'u':
                         # find last hal
                         halPositions = [i for i,x in enumerate(node.get_output()) if x in hal()]
@@ -208,7 +212,16 @@ class ugidachaaMsarvanaamasthaaneadhaatoH_7010700:
                             return node.get_output()[0:halPositions [-1]]+['n']+node.get_output()[halPositions [-1]:-1]
                         else :
                             return ['n'] + node.get_output()[0:-1]
-            
+                    # suffix where u is not explicit but is an anunaasika/NN (which would be deleted) is 
+                    # handled separately where the end is not 'u' and therefore does not need to be skipped 
+                    
+                    ugitaSuffixes = ('matNNp',)
+                    if isinstance(node._data,Suffix) and ''.join(node._data._suffix) in ugitaSuffixes:
+                        halPositions = [i for i,x in enumerate(node.get_output()) if x in hal()]
+                        if  halPositions :
+                            return node.get_output()[0:halPositions [-1]]+['n']+node.get_output()[halPositions [-1]:]
+                        else :
+                            return ['n'] + node.get_output()
         return node.get_output()
     
 

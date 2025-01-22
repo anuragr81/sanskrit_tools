@@ -709,8 +709,12 @@ class atvasantasyachaadhaatoH_6040140:
                 
             if node_data  :
                 sutra_applicable = False
+                if len(node_data ) >= 4:
+                    if node_data [-4:] in (['a','t','NN','p'],) :
+                        sutra_applicable = True
+
                 if len(node_data ) >= 3:
-                    if node_data [-3:] == ['a','t','u'] :
+                    if node_data [-3:] in (['a','t','u'],) :
                         sutra_applicable = True
                 elif len(node_data)>=2 and node_data [-2:] == ['a','s']:
                     sutra_applicable = True
