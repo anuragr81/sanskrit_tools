@@ -1,10 +1,8 @@
-from functools import reduce
-
 
 from ..common_definitions import ach, hal, sup_pratyayaaH, taddhita_pratyayaaH, kRit_pratyayaaH,san_pratyayaaH
-from ..common_definitions import pratyaahaara, make_diirgha, yaNn, guna_letters_for_aat
+from ..common_definitions import pratyaahaara, make_diirgha, yaNn, guna_letters_for_aat, juhotyaadi_dhaatus
 from ..common_definitions import vriddhi, guNna, list_past_rules_applied, node_upadhaa
-from ..common_definitions import find_eldest_parent1_of_condition ,list_achpos
+from ..common_definitions import find_eldest_parent1_of_condition, list_achpos
 from ..common_definitions import find_eldest_parent2_of_condition
 from ..common_definitions import Suffix, Aagama, Node, Dhaatu, Praatipadika
 from ..common_definitions import nandyaadi_dhaatus, grahaadi_dhaatus, pachaadi_dhaatus, ach_permitted_temp_dhaatus
@@ -176,6 +174,35 @@ class sanyaNgoH_6010091:
             
             return []
             
+        return node.get_output()
+
+class shlau_6010100:
+    """
+    Since shlu is never input by the user and shlu is an intermediate step, the suffix shlu is never
+    explicitly maintained - except as historical application of rules involving shlu (including shlau)
+    """
+    def __init__(self):
+        self._numconditions = 1
+        
+    def __call__(self,node,suffix_node):
+        """
+        """
+        if not isinstance(suffix_node,Node):
+            raise    ValueError ("suffix_node must be of type Node")
+        if not isinstance(node,Node):
+            raise    ValueError ("node must be of type Node")
+        if 6010100 in list_past_rules_applied(node):
+            return node.get_output()
+        
+        if isinstance(suffix_node._data,Suffix):
+            if isinstance(node._data,Dhaatu) and ''.join(node._data._data) in juhotyaadi_dhaatus():
+                tobeDoubled = node.get_output() 
+                hals=[i for i,x in enumerate(tobeDoubled) if x in hal() and i>0]
+                postUratToBeDoubled = urat(tobeDoubled[:hals[0]]) if hals else urat(tobeDoubled)
+                firstPart = bhavateraH(abhyaasecharchcha  ( hrasvaH  ( postUratToBeDoubled ) ),node)
+                return firstPart+tobeDoubled                
+
+
         return node.get_output()
 
     
@@ -543,7 +570,9 @@ class prathamayoHpuurvasavarNnaH_6010980:
             if pratyaya in sup_pratyayaaH()[0:6] : # only prathhama and dvitiiyaa considered
                 # suffix is sup
                     if anga_node.get_output() and anga_node.get_output()[-1] in ach() and node.get_output()[0] in ach():
-                       if node.get_output()[0] not in pratyaahaara('i', 'ch'): ## naadichi
+                       if anga_node.get_output()[-1] in ('a','aa',) and node.get_output()[0] in pratyaahaara('i', 'ch'): ## naadichi
+                           return node_output
+                       else:
                            return node_output[1:]
             
         return node_output
@@ -569,8 +598,10 @@ class prathamayoHpuurvasavarNnaH_6010981:
                 # suffix is sup
                     if node.get_output() and suffix_node.get_output() and \
                         node.get_output()[-1] in ach() and suffix_node.get_output()[0] in ach():
-                       if suffix_node.get_output()[0] not in pratyaahaara('i', 'ch'): ## naadichi
-                           return node.get_output()[0:-1]+[diirgha_mapper()[node.get_output()[-1]]['diirgha']]
+                            if node.get_output()[-1] in ('a','aa',) and suffix_node.get_output()[0] in pratyaahaara('i', 'ch'): ## naadichi
+                                return node.get_output()
+                            else:
+                                return node.get_output()[0:-1]+[diirgha_mapper()[node.get_output()[-1]]['diirgha']]
             
         return node_output
     
@@ -814,7 +845,7 @@ class achishnudhaatubhruvaaMyvoriyaNguvaNgau_6040770:
                             
                           return node.get_output()[0:-1] + ['i','y']
                       
-                      if node.get_output()[-1] in ('u','uu'):
+                      if node.get_output()[-1] in ('u',):# skipping 'uu' because bhuu + tip should not become bhuvati
                           return node.get_output()[0:-1] + ['u','v']
               
               

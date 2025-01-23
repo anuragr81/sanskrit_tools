@@ -230,7 +230,7 @@ def test_siddhis ():
     assert output_string([Node(Dhaatu(parse_string("diidhiiNN")),parent1=None),Node(Suffix("Nnvul"),parent1=None),Node(Suffix("sNN"),parent1=None)]) == 'diidhyakas'
     assert output_string([Node(Dhaatu(parse_string("paXthaNN")),parent1=None),Node(Suffix("tip",lakaara='luXt'),parent1=None)]) == "paXthitaa"
     assert output_string([Node(Praatipadika(parse_string("go"),linga=0),parent1=None),Node(Suffix("matNNp"),parent1=None),Node(Suffix("sNN"),parent1=None)]) == 'gomaan'
-    #test_tibaadi()
+    test_tibaadi()
     
     print("Tests Done")
 
@@ -241,16 +241,24 @@ def test_expmt():
     # pending questions
     # 1. aupagavaH
     # 2. is mRijuuXsh in pachaadi? If not, how nandigrahipachaadibhyolyuNninyachaH apply to it?
-    # 3. why is saarvadhaatukaardhaatukayoH not applied in saadhuH or jiXshnu (why doesn't it become saadhoH and jiXshnoH with sNN)?
+    # 3. why is saarvadhaatukaardhaatukayoH not applied in saadhuH or jiXshnu or agnau (why doesn't it become saadhoH, jiXshnoH, agne with sNN)?
     # 4. Are iNno yaNn and oH supi both needed for jayati and bhavati - as exceptions of achishnudhaatubhruvaaMyvoriyaNguvaNgau_6040770 so that ji + tip does not become jiyati (rather than jayati through guNna) or bhuu + tip does not become bhuvati ( instead of bhavati through guNna) ?
+    # 5. Why isn't vRiddhi not given to i of Ngi in vipaash+Ngi+aNn.
+    # 6. why isn't iko yaNnachi applied to bhu + ati - letting it become bhvati
+    
+    
     
     if not pending:
         expression1=[Node(Praatipadika("upagu",1),parent1=None),
                     Node(Suffix("aNn"),parent1=None),Node(Suffix("sNN"),parent1=None)]
         expression2 = [Node(Dhaatu(parse_string("ji")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]
+        expression3 = [Node(Praatipadika(parse_string("vipaash"),linga=0),parent1=None),Node(Suffix("Ngi"),parent1=None),Node(Suffix("aNn"),parent1=None),Node(Suffix("sNN"),parent1=None)]
+
+
     else:
         #expression = [Node(Dhaatu(parse_string("diidhiiNN")),parent1=None),Node(Suffix("Nnvul"),parent1=None),Node(Suffix("sNN"),parent1=None)]
-        expression = [Node(Praatipadika(parse_string("go"),linga=0),parent1=None),Node(Suffix("matNNp"),parent1=None),Node(Suffix("sNN"),parent1=None)]
+        #expression = [Node(Praatipadika(parse_string("agni"),linga=0),parent1=None),Node(Suffix("auXt"),parent1=None)]
+        expression = [Node(Dhaatu(parse_string("XdudaaNc")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]
 
     # for paXtheta - we need to have for liNg : yaasuXtparasmaipadeXshuudaatto Ngichcha 3.4.103 and then ato yeyaH (because of a-ending paXtha after shap)
 
@@ -260,10 +268,10 @@ def test_expmt():
     print ("=====")
     print(output_processed_string (pe))
     print ("=====")
-    print(pe[1]._output)
+    print(pe[0]._output)
     print("DONE")
     
-if T:
+if F:
     test_siddhis ()
 else:   
     test_expmt()
