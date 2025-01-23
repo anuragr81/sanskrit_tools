@@ -36,6 +36,8 @@ def parse_string(input_str):
 def lakaaras():
     return ('laXt','loXt','lRiXt','laNg','luNg','lRiNg','liNg1','liNg2','liXt','luXt')
 
+def valid_moods():
+    return ('bhaava','karma','karttaa')
 
 def all_pratyayas() :
     return kRit_pratyayaaH()+tiNg_pratyayaaH()+san_pratyayaaH()+strii_pratyayaaH()+sup_pratyayaaH()+taddhita_pratyayaaH() + unclassified_pratyayaaH()
@@ -56,20 +58,47 @@ def get_suffix_for_context(contextName,**kwargs):
             
         raise ValueError("Unknown meaning/context")
         
+def check_mood_compatibility(mood, suffix):
+    dictpermittedSuffixesForMood = {'karma':aatmanepada_pratyayaaH(),
+                                    'bhaava':aatmanepada_pratyayaaH(),
+                                    'karttaa':parasmaidpada_pratyayaaH()+aatmanepada_pratyayaaH()}
+    
+    if mood is not None:
+        if mood not in dictpermittedSuffixesForMood:
+            raise ValueError("No valid suffixes known for mood %s" % mood)
+        if suffix not in dictpermittedSuffixesForMood[mood]:
+            raise ValueError("Suffix %s Invalid for mood %s" % (suffix,mood) )
+    
+    return True
 
 class Suffix:
-    def __init__(self,suffix,lakaara=None,linga=None):
+    
+    def __init__(self, suffix, lakaara=None, linga=None, mood=None):
 
+        if not suffix :
+            raise ValueError("suffix cannot be empty")
+            
         if lakaara is not None:
             if lakaara not in lakaaras():
                 raise ValueError("Unknown lakaara")
+                
         self._lakaara=lakaara
 
-
+        # default mood is karttaa
+        if mood is not None:
+            if mood not in valid_moods():
+                raise ValueError("Unknown mood")
+            self._mood = mood
+        else:
+            # prefer lazy initialisation instead of setting default karttaa mood
+            self._mood = None
+        
+        
         if linga is not None:
             if linga not in (0,1,2):
+                # 0 is masc, 1 is fem, 2 is neuter
                 raise ValueError("Invalid linga")
-        self._linga=linga
+        self._linga = linga
 
 
         if isinstance(suffix,str):
@@ -81,8 +110,11 @@ class Suffix:
             raise ValueError("suffix must be a string")
 
         all_pratyayaaH = all_pratyayas()
+        
         if ''.join(self._suffix) not in all_pratyayaaH:
             raise ValueError("Unknown suffix %s" % ''.join(self._suffix))
+        if ''.join(self._suffix) in tiNg_pratyayaaH():
+            check_mood_compatibility(mood=self._mood, suffix=''.join(self._suffix))
 
         self.is_taddhita = ''.join(self._suffix) in taddhita_pratyayaaH()
 
@@ -104,6 +136,7 @@ class Suffix:
 
     def __repr__(self):
         return str(self._suffix)
+
 
 class Praatipadika:
     def __init__(self,data,linga):

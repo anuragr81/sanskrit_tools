@@ -6,6 +6,9 @@ from ..common_definitions import list_past_rules_applied,Aagama, shap_equivalent
 
     
 class kartarishap_3010680:
+    """
+    also implements saarvadhaatuke yak
+    """
     def __init__(self):
         self._numconditions=1
         
@@ -21,11 +24,18 @@ class kartarishap_3010680:
                     suffix_node._data._lakaara in ('laXt','loXt','laNg','liNg1') and \
                     ''.join(suffix_node._data._suffix) != 'shap':
                     # kartari shap is applied only in certain lakaaras
-                 return Suffix("shap")
+                    if suffix_node._data._mood is None or suffix_node._data._mood in ('karttaa',):
+                        return Suffix("shap")
+                    elif suffix_node._data._mood in ('karma','bhaava'):
+                        return Suffix("yak")
+
         return []
     
 
 class divaadibhyaHshyan_3010690:
+    """
+    also implements saarvadhaatuke yak
+    """
     def __init__(self):
         self._numconditions=0
         
@@ -36,8 +46,12 @@ class divaadibhyaHshyan_3010690:
                 suffix_node._data.is_saarvadhaatuka() and \
                     suffix_node._data._lakaara in ('laXt','loXt','laNg','liNg1') and \
                     ''.join(suffix_node._data._suffix) not in tuple(shap_equivalents().keys()):
-                    # applied only in certain lakaaras
-                 return Suffix("shyan")
+                    # applied only in certain lakaaras/moods
+                    if suffix_node._data._mood is None or suffix_node._data._mood in ('karttaa',):
+                        return Suffix("shyan")
+                    elif suffix_node._data._mood in ('karma','bhaava'):
+                        return Suffix("yak")
+
         return []
 
 class svaadibhyaHshnuH_3010730:
@@ -51,8 +65,12 @@ class svaadibhyaHshnuH_3010730:
                 suffix_node._data.is_saarvadhaatuka() and \
                     suffix_node._data._lakaara in ('laXt','loXt','laNg','liNg1') and \
                     ''.join(suffix_node._data._suffix) not in tuple(shap_equivalents().keys()):
-                    # applied only in certain lakaaras
-                 return Suffix("shnu")
+                    # applied only in certain lakaaras/moods
+                 if suffix_node._data._mood is None or suffix_node._data._mood in ('karttaa',):
+                     return Suffix("shnu")
+                 elif suffix_node._data._mood in ('karma','bhaava'):
+                     return Suffix("yak")
+                 
         return []
 
 
