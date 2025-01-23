@@ -54,7 +54,7 @@ def padaanta_sutras():
 def transformation_sutras():
     
     ll = [2040740, 2040850, 3010331, 3040820, 3040860, 3040870, 3040890, 3040990, 3041000, 3041080, 3041010,
-          6010080, 6010090, 6010100, 6010630, 6010640, 6010660,
+          6010080, 6010090, 6010100, 6010101, 6010630, 6010640, 6010660,
           6010740, 6010750, 6040880, 6010940, 6010980, 6010981, 
           
           6010840, 6010841, 6010850, 6010851,
@@ -75,7 +75,7 @@ def prepend_sutras():
 
 def insertion_sutras():
 #   to be considered: 601008
-    ll=[3010330, 3010460, 3010680, 3010690, 3010730, 3040920, 3041030, 3041070,\
+    ll=[2040750, 3010330, 3010460, 3010680, 3010690, 3010730, 3040920, 3041030, 3041070,\
         7010540, 7020350, 7030960, 7030961]
     return sorted(float(x) for x in ll)
 
@@ -452,7 +452,9 @@ def check_group_sutra(sutranum):
     group_sutra_dict = {6010971: ({'type':'transformation', 'sutranum':6010970.0},{'type':'transformation', 'sutranum':6010971.0},),
                         6010970: ({'type':'transformation', 'sutranum':6010970.0},{'type':'transformation', 'sutranum':6010971.0},),
                         6010090: ({'type':'transformation', 'sutranum':6010090.0},{'type':'transformation', 'sutranum':6010091.0},),
-                        6010091: ({'type':'transformation', 'sutranum':6010970.0},{'type':'transformation', 'sutranum':6010091.0},)
+                        6010091: ({'type':'transformation', 'sutranum':6010090.0},{'type':'transformation', 'sutranum':6010091.0},),
+                        6010100: ({'type':'transformation', 'sutranum':6010100.0},{'type':'transformation', 'sutranum':6010101.0},),
+                        6010101: ({'type':'transformation', 'sutranum':6010100.0},{'type':'transformation', 'sutranum':6010101.0},),
                         }
                         
     if sutranum not in group_sutra_dict :

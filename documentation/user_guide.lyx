@@ -157,7 +157,7 @@
 \begin_body
 
 \begin_layout Title
-pāṇini compression engine
+A pāṇini compressor and the illusion of sequentiality
 \end_layout
 
 \begin_layout Standard
@@ -822,11 +822,21 @@ For yuvoranaakau, the replacement is immediate otherwise.
 toH would be applied since lyuXt is not a dhaatu).
  This is similar to jhoantaH where to direct mention precedes all considerations
  of order of application.
- Another issues is that insertion rules themselves need to be ordered.
+ 
+\end_layout
+
+\begin_layout Standard
+Another issue is that 
+\series bold
+insertion
+\series default
+ rules themselves need to be ordered.
  Often insertion takes priority over transformation otherwise chi-anti (would
  lead to chvanti) - before num is brought from achishnudhaatubhruvaaMyvoriyaNguv
 aNgau.
- 
+ This also means that all exceptions and dependencies of the insertion would
+ need to be given priority over other exceptions.
+ Once again, the context takes precedence over global sequence.
 \end_layout
 
 \begin_layout Standard
@@ -834,7 +844,7 @@ In terms of the application, both iko yaNnachi and achishnudhaatubhruvaaMyvoriya
 NguvaNgau would act upon aadiidhii-ana.
  Without eranekaachoasaMyogapuurvasya, iyaNg would be applied through achishnudh
 aatubhruvaaMyvoriyaNguvaNgau.
- It's interesting that eranekaachoasaMyogapuurvasya does not apply u/uu
+ It's interesting that eranekaachoasaMyogapuurvasya does not apply to u/uu
  endings (otherwise loluvaH would become lolvaH).
  
 \end_layout
@@ -878,6 +888,28 @@ verb-to-noun-conversion sutras - sutras turning a dhaatu into a noun (these
 \begin_layout Enumerate
 noun-modifications - sutras that associate a particular meaning to a given
  modification of noun (these are primarily taddhita sutras).
+\end_layout
+
+\begin_layout Subsection
+Treatment of Prefixes
+\end_layout
+
+\begin_layout Standard
+Prefixes are surprisingly less in Sanskrit.
+ The explicit treatment of prefixes in the grammar are even fewer.
+ The users of the language are thus permitted to apply the prefixes successively
+ without being concerned with the rules of grammar.
+ One does not - for example - need to know a lot about grammar - to invent
+ a word such as nirvirodha (much like the equivalent word un-op-posed in
+ English).
+ It seems by design that very few rules concern themselves with prefixes.
+ 
+\end_layout
+
+\begin_layout Enumerate
+dadaati - is the regular conjugation.
+ But pra + ni + dadaati - does transform ni to Nni because of the ghu-status
+ of XdudaaNc.
 \end_layout
 
 \begin_layout Section
@@ -1714,6 +1746,51 @@ The position of a rule
  is no admissible rule with lower number of pre-conditions.
 \end_layout
 
+\begin_layout Section
+Software Details
+\end_layout
+
+\begin_layout Subsection
+Inputs
+\end_layout
+
+\begin_layout Enumerate
+Dhaatu or Praatipadika
+\end_layout
+
+\begin_layout Enumerate
+Suffixes
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+kRit - These are meaning-driven.
+ The user needs to select a particular group.
+ The group of suffixes are set up to minimise disallowed verb-suffix combination
+s and to minimise the meaning-groups themselves.
+ In other words, the classification prefers a more general meaning in the
+ mapping from meaning -> suffixes.
+\end_layout
+
+\begin_layout Enumerate
+taddhita - As for kRit, these are also meaning-driven.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Pada ending
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+tibaadi
+\end_layout
+
+\begin_layout Enumerate
+subaadi
+\end_layout
+
+\end_deeper
 \begin_layout Standard
 \begin_inset ERT
 status open

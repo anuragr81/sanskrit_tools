@@ -1,4 +1,4 @@
-from ..common_definitions import Suffix, Node, Dhaatu
+from ..common_definitions import Suffix, Node, Dhaatu, juhotyaadi_dhaatus, shap_equivalents
 
 
 class yaNgoachicha_2040740:
@@ -25,7 +25,23 @@ class yaNgoachicha_2040740:
                     return node.get_output()[:-1]
 
         return node.get_output()
-    
+
+class juhotyaadibhyaHshluH_2040750:
+    def __init__(self):
+        self._numconditions=0
+        
+    def __call__(self,prefix_node,suffix_node):
+        if isinstance(prefix_node._data,Dhaatu) and \
+            ''.join(prefix_node._data._data) in juhotyaadi_dhaatus() and \
+            isinstance(suffix_node._data,Suffix) and \
+                suffix_node._data.is_saarvadhaatuka() and \
+                    suffix_node._data._lakaara in ('laXt','loXt','laNg','liNg1') and \
+                    ''.join(suffix_node._data._suffix) not in tuple(shap_equivalents().keys()):
+                    # applied only in certain lakaaras
+                 return Suffix("shlu")
+        return []
+
+
 class luXtaHprathamasyaXdaaraurasaH_2040850:
     def __init__(self):
         self._numconditions=1

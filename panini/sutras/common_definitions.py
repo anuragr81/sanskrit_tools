@@ -356,9 +356,11 @@ def Xtu():
     return ("Xt","Xth","Xd","Xdh","Nn")
 
 
+def intermediate_pratyayaaH():
+    return ('shap','shyan','shlu','shnu',)
 
 def unclassified_pratyayaaH():
-    return ('sNNch','chlNN','shap','shyan','shnu','taas','sya','aXt','iiXt','aaXt','yaasNNXt','sNNXt','nNNXt','anaNg')
+    return ('sNNch','chlNN','taas','sya','aXt','iiXt','aaXt','yaasNNXt','sNNXt','nNNXt','anaNg') + intermediate_pratyayaaH()
 
 def san_pratyayaaH():
     return ("san","kyach","kaamyach","kyaNg","kyaXsh",
@@ -554,6 +556,10 @@ def next_possible_suffixes(suffix_str):
     else:
         return next_suffixes
 
+
+def shap_equivalents():
+    return {'shyan':divaadigaNna(),'shnu':adaadigaNna(), 'shlu':juhotyaadi_dhaatus()}
+    
 
 def divaadigaNna():
     return ('NcimidNN',)

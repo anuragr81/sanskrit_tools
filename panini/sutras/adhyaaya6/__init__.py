@@ -3,7 +3,7 @@ from ..common_definitions import ach, hal, sup_pratyayaaH, taddhita_pratyayaaH, 
 from ..common_definitions import pratyaahaara, make_diirgha, yaNn, guna_letters_for_aat, juhotyaadi_dhaatus
 from ..common_definitions import vriddhi, guNna, list_past_rules_applied, node_upadhaa
 from ..common_definitions import find_eldest_parent1_of_condition, list_achpos
-from ..common_definitions import find_eldest_parent2_of_condition
+from ..common_definitions import find_eldest_parent2_of_condition, parasmaidpada_pratyayaaH
 from ..common_definitions import Suffix, Aagama, Node, Dhaatu, Praatipadika
 from ..common_definitions import nandyaadi_dhaatus, grahaadi_dhaatus, pachaadi_dhaatus, ach_permitted_temp_dhaatus
 
@@ -178,11 +178,11 @@ class sanyaNgoH_6010091:
 
 class shlau_6010100:
     """
-    Since shlu is never input by the user and shlu is an intermediate step, the suffix shlu is never
-    explicitly maintained - except as historical application of rules involving shlu (including shlau)
+    shlu is never input by the user and is effectively an intermediate step that causes dvitva. Since,
+    treatment of shlu takes priority over guNna etc. (i.e. bars them), the numConditions are set to 0. 
     """
     def __init__(self):
-        self._numconditions = 1
+        self._numconditions = 0
         
     def __call__(self,node,suffix_node):
         """
@@ -191,17 +191,40 @@ class shlau_6010100:
             raise    ValueError ("suffix_node must be of type Node")
         if not isinstance(node,Node):
             raise    ValueError ("node must be of type Node")
-        if 6010100 in list_past_rules_applied(node):
+        if set(list_past_rules_applied(node)).intersection(set([6010100]) ):
             return node.get_output()
         
-        if isinstance(suffix_node._data,Suffix):
-            if isinstance(node._data,Dhaatu) and ''.join(node._data._data) in juhotyaadi_dhaatus():
+        if isinstance(suffix_node._data,Suffix)  and ''.join(suffix_node._data._suffix) == 'shlu' :
+            if isinstance(node._data,Dhaatu):
                 tobeDoubled = node.get_output() 
                 hals=[i for i,x in enumerate(tobeDoubled) if x in hal() and i>0]
                 postUratToBeDoubled = urat(tobeDoubled[:hals[0]]) if hals else urat(tobeDoubled)
                 firstPart = bhavateraH(abhyaasecharchcha  ( hrasvaH  ( postUratToBeDoubled ) ),node)
-                return firstPart+tobeDoubled                
+                return firstPart+tobeDoubled
 
+
+        return node.get_output()
+
+    
+class shlau_6010101:
+    """
+    6010100 handles the dvitva while the second group-constituent sutra 6010101 removes shlu output
+    """
+    def __init__(self):
+        self._numconditions = 0
+        
+    def __call__(self,node,anga_node):
+        """
+        """
+        if not isinstance(anga_node,Node):
+            raise    ValueError ("anga_node must be of type Node")
+        if not isinstance(node,Node):
+            raise    ValueError ("node must be of type Node")
+        if set(list_past_rules_applied(node)).intersection(set([6010101]) ):
+            return node.get_output()
+        
+        if isinstance(node._data,Suffix)  and ''.join(node._data._suffix) == 'shlu' :
+            return []
 
         return node.get_output()
 

@@ -1,11 +1,9 @@
+from functools import reduce
 from ..common_definitions import Suffix, Node, Dhaatu, tiNg_pratyayaaH 
-from ..common_definitions import divaadigaNna, adaadigaNna, svaadigaNna
+from ..common_definitions import divaadigaNna, adaadigaNna, svaadigaNna, juhotyaadi_dhaatus
 from ..common_definitions import all_pratyayas, ach
-from ..common_definitions import list_past_rules_applied,Aagama
+from ..common_definitions import list_past_rules_applied,Aagama, shap_equivalents
 
-    
-def shap_equivalents():
-    return ( 'shap','shyan','shnu',)
     
 class kartarishap_3010680:
     def __init__(self):
@@ -15,8 +13,9 @@ class kartarishap_3010680:
         """
         adaadigaNna (2.4.72) and divaadigaNna (3.1.69) are exceptions
         """
+        shapEquivalentsInputs = reduce(lambda x,y : x + y , shap_equivalents().values(), ())
         if isinstance(prefix_node._data,Dhaatu) and \
-            ''.join(prefix_node._data._data) not in divaadigaNna()+adaadigaNna() and \
+            ''.join(prefix_node._data._data) not in ('shap',)+ shapEquivalentsInputs and \
             isinstance(suffix_node._data,Suffix) and \
                 suffix_node._data.is_saarvadhaatuka() and \
                     suffix_node._data._lakaara in ('laXt','loXt','laNg','liNg1') and \
@@ -36,7 +35,7 @@ class divaadibhyaHshyan_3010690:
             isinstance(suffix_node._data,Suffix) and \
                 suffix_node._data.is_saarvadhaatuka() and \
                     suffix_node._data._lakaara in ('laXt','loXt','laNg','liNg1') and \
-                    ''.join(suffix_node._data._suffix) not in shap_equivalents():
+                    ''.join(suffix_node._data._suffix) not in tuple(shap_equivalents().keys()):
                     # applied only in certain lakaaras
                  return Suffix("shyan")
         return []
@@ -51,12 +50,13 @@ class svaadibhyaHshnuH_3010730:
             isinstance(suffix_node._data,Suffix) and \
                 suffix_node._data.is_saarvadhaatuka() and \
                     suffix_node._data._lakaara in ('laXt','loXt','laNg','liNg1') and \
-                    ''.join(suffix_node._data._suffix) not in shap_equivalents():
+                    ''.join(suffix_node._data._suffix) not in tuple(shap_equivalents().keys()):
                     # applied only in certain lakaaras
                  return Suffix("shnu")
         return []
 
 
+    
 class chliLuNgi_3010460:
     def __init__(self):
         self._numconditions=1
