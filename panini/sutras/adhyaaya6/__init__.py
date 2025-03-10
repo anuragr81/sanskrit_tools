@@ -2,7 +2,7 @@
 from ..common_definitions import ach, hal, sup_pratyayaaH, taddhita_pratyayaaH, kRit_pratyayaaH,san_pratyayaaH
 from ..common_definitions import pratyaahaara, make_diirgha, yaNn, guna_letters_for_aat, juhotyaadi_dhaatus
 from ..common_definitions import vriddhi, guNna, list_past_rules_applied, node_upadhaa
-from ..common_definitions import find_eldest_parent1_of_condition, list_achpos
+from ..common_definitions import find_eldest_parent1_of_condition, list_achpos, ghu_dhaatus
 from ..common_definitions import find_eldest_parent2_of_condition, parasmaidpada_pratyayaaH
 from ..common_definitions import Suffix, Aagama, Node, Dhaatu, Praatipadika
 from ..common_definitions import nandyaadi_dhaatus, grahaadi_dhaatus, pachaadi_dhaatus, ach_permitted_temp_dhaatus
@@ -920,13 +920,6 @@ class atoheH_6041050:
 class ataekahalmadhyeanaadeshaaderliXti_6041200:
     def __init__(self):
         self._numconditions = 1
-        self._condition = {'next1':{'lakaara':{'domain':['liXt']}
-                                    }, 
-                           'self':{'ANDVEC': [{'index':{-2:{'domain': hal()}}},
-                                            {'index':{-1:{'domain':hal()}}}
-                                            ]
-                                            }
-                           }
                            
                            
     def __call__(self,node,suffix_node):
@@ -944,14 +937,47 @@ class ataekahalmadhyeanaadeshaaderliXti_6041200:
             
         return node.get_output()
 
+class ghumaasthaagaapaajahaatisaaMhali_6040660:
+    """
+    jahaati has been ignored.
+    """
+    def __init__(self):
+        self._numconditions = 1
+                           
+                           
+    def __call__(self,node,suffix_node):
+        if not isinstance(suffix_node,Node):
+            raise    ValueError ("suffix_node must be of type Node")
+        if not isinstance(node,Node):
+            raise    ValueError ("node must be of type Node")
+        if not node.get_output():
+            return node.get_output()
+        
+        
+        
+        if isinstance(suffix_node._data,Suffix):
+            kitOrNgit = True if suffix_node._data._suffix[0] in ('k','Ng') or suffix_node._data._suffix[-1] in ('k','Ng') else False
+            if  kitOrNgit :
+                sthaaetc=False
+                if node.get_output() and not suffix_node._data.is_saarvadhaatuka():
+        #            if ''.join(node.get_output()) == "jahaati":
+        #                sthaaetc = True
+                    if len(node.get_output())>=3 and ''.join(node.get_output()[-3:]) == 'sthaa':
+                        sthaaetc = True
+                    elif len(node.get_output())>=2 and ''.join(node.get_output()[-2:]) in ('maa','gaa','paa','saa',):
+                        sthaaetc = True
+                        
+                    if (isinstance(node._data,Dhaatu) and ''.join(node._data._data) in (ghu_dhaatus() + ("XshoNN", "haaNN",))) or sthaaetc:
+                        return node.get_output()[0:-1] + ['ii']
+                
+        return node.get_output()
+
 
 class yasyeticha_6041480:
     def __init__(self):
         self._numconditions = 1
         taddhitas = list(taddhita_pratyayaaH ())
-        self._condition = {'next1':{'data':{'domain':taddhitas }},
-                           'index':{0:{'domain':['i','ii']}}
-                           }
+
     def __call__(self,node,suffix_node):
     
         suffix = suffix_node._data

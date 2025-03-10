@@ -1,7 +1,7 @@
 from functools import reduce
 from ..common_definitions import Suffix, Node, Dhaatu, tiNg_pratyayaaH 
 from ..common_definitions import divaadigaNna, adaadigaNna, svaadigaNna, juhotyaadi_dhaatus
-from ..common_definitions import all_pratyayas, ach
+from ..common_definitions import all_pratyayas, ach, aatmanepada_pratyayaaH
 from ..common_definitions import list_past_rules_applied,Aagama, shap_equivalents
 
     
@@ -111,8 +111,6 @@ class syataasiilRiluXtoH_3010330:
 class XdityabhasyaapianubandhakaraNnasaamarthyaat_3010331:
     def __init__(self):
         self._numconditions=1
-        Xditsuffixes = [ x for x in  all_pratyayas() if x[0:2]=='Xd']
-        self._condition = {'self': {'data':{'domain':Xditsuffixes}}}
     def __call__(self,node,suffix_node):
         if isinstance(node._data,Suffix) and isinstance(suffix_node._data,Suffix):
 
@@ -124,6 +122,21 @@ class XdityabhasyaapianubandhakaraNnasaamarthyaat_3010331:
                     return node.get_output()[:ach_indices_in_output[-1]]
             
         return node.get_output()
+
+class XtitaatmandepadaaMXtere_3040790:
+    def __init__(self):
+        self._numconditions=1
+    def __call__(self,node):
+        if node.get_output() and isinstance(node._data,Suffix) and node._data._lakaara is not None:
+            if node._data._lakaara in ('liXt','laXt','luXt','lRiXt','leXt','loXt',) and \
+                ''.join(node._data._suffix) in aatmanepada_pratyayaaH():
+                achsInOutput=[i for (i,x) in enumerate(node.get_output()) if x in ach()]
+                if achsInOutput:
+                    lastAchPos = achsInOutput[-1]
+                    return node.get_output()[0:lastAchPos ]+['e']+node.get_output()[lastAchPos +1:]
+            
+        return node.get_output()
+    
 
 class parasmaipadaanaaMNnalatususthalathusaNnalvamaaH_3040820:
     def __init__(self):

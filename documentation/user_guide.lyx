@@ -285,6 +285,13 @@ noprefix "false"
 .
 \end_layout
 
+\begin_layout Standard
+While the language used in tradtiional instruction for specification of
+ rules is precise, the intention of these rules was not to control a finite-stat
+e machine.
+ Some conflict among rules has therefore been a subject of several commentaries.
+\end_layout
+
 \begin_layout Subsection
 \begin_inset CommandInset label
 LatexCommand label

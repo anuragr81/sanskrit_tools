@@ -273,7 +273,7 @@ def test_expmt():
     print(pe[1]._output)
     print("DONE")
     
-if F:
+if T:
     test_siddhis ()
 else:   
     test_expmt()
