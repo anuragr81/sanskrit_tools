@@ -381,6 +381,37 @@ class atoyeyaH_7020800:
 
         return node.get_output()
 
+class tyadaadiinaamaH_7021020:
+    
+    def __init__(self):
+        self._numconditions = 1
+        
+    def __call__(self,node,suffix_node):
+        
+        if not isinstance(node,Node):
+            raise ValueError("anga_node must of type Node")
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix must of type Node")
+        tyadaadimap = {'tyad':'tya',
+         'idam':['i','d','a'],
+         'etad':['e','t','a'],
+         'yad':['y','a'],
+         'tad':['t','a'],
+         'tyat':['t','y','a'],
+         'etat':['e','t','a'],
+         'yat':['y','a'],
+         'tat':['t','a'],
+         }
+        
+        halilopamap ={'idam':['a']}
+        if node.get_output() and 7021020 not in list_past_rules_applied(node) :
+            if isinstance(node._data,Praatipadika) and ''.join(node._data._data) in tyadaadimap :
+                if ''.join(suffix_node._data._suffix) in sup_pratyayaaH():
+                    if suffix_node._data._suffix[0] in hal() and ''.join(node._data._data) in halilopamap :
+                        return halilopamap [''.join(node._data._data)]
+                    else:
+                        return tyadaadimap[''.join(node._data._data)]
+        return node.get_output()
 
 
 class mRijervRiddhiH_7021140:
