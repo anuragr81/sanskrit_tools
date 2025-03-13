@@ -177,7 +177,7 @@ class eruH_3040860:
 
 class serhyapichcha_3040870:
     def __init__(self):
-        self._numconditions=1
+        self._numconditions=0
         self._condition = {'self':{'data':{'domain':['sip']},'lakaara':{'domain':['loXt']}}}
         self._sutranum =str(type(self).__name__).split("_")[-1]
     def __call__(self,node):

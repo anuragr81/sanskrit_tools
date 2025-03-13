@@ -234,6 +234,7 @@ def test_siddhis ():
     assert output_string([Node(Dhaatu(parse_string("XdudaaNc")),parent1=None),Node(Suffix("ta",lakaara='laXt',mood='karma'),parent1=None)]) == 'diiyate'
     assert output_string([Node(Dhaatu(parse_string("daaNN")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]) == 'yachchhati'
     assert output_string([Node(Dhaatu(parse_string("doNN")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]) == 'dyati'
+    assert output_string([Node(Dhaatu(parse_string("XdudaaNc")),parent1=None),Node(Suffix("sip",lakaara='loXt'),parent1=None)]) == 'dehi'
     
     
     #test_tibaadi()
@@ -265,7 +266,7 @@ def test_expmt():
     else:
         #expression = [Node(Dhaatu(parse_string("diidhiiNN")),parent1=None),Node(Suffix("Nnvul"),parent1=None),Node(Suffix("sNN"),parent1=None)]
         #expression = [Node(Praatipadika(parse_string("agni"),linga=0),parent1=None),Node(Suffix("auXt"),parent1=None)]
-        expression = [Node(Dhaatu(parse_string("doNN")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]
+        expression = [Node(Dhaatu(parse_string("XdudaaNc")),parent1=None),Node(Suffix("sip",lakaara='loXt'),parent1=None)]
         
     # for paXtheta - we need to have for liNg : yaasuXtparasmaipadeXshuudaatto Ngichcha 3.4.103 and then ato yeyaH (because of a-ending paXtha after shap)
 

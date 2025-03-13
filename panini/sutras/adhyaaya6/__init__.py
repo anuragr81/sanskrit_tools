@@ -178,8 +178,10 @@ class sanyaNgoH_6010091:
 
 class shlau_6010100:
     """
-    shlu is never input by the user and is effectively an intermediate step that causes dvitva. Since,
-    treatment of shlu takes priority over guNna etc. (i.e. bars them), the numConditions are set to 0. 
+    shlu is never input by the user and is effectively an intermediate step that causes dvitva. 
+    Since the treatment of shlu takes priority over guNna etc. (i.e. it could bar them), the numConditions is set to 0.
+    Also implements the exception ghvasoreddhaavabhyaasalopashcha 6.4.119 - which prevents dvitva. Since the rule is 
+    dependent on serhyapichcha, the numconditions is also set to 0 in rule serhyapichcha.
     """
     def __init__(self):
         self._numconditions = 0
@@ -196,11 +198,17 @@ class shlau_6010100:
         
         if isinstance(suffix_node._data,Suffix)  and ''.join(suffix_node._data._suffix) == 'shlu' :
             if isinstance(node._data,Dhaatu):
-                tobeDoubled = node.get_output() 
-                hals=[i for i,x in enumerate(tobeDoubled) if x in hal() and i>0]
-                postUratToBeDoubled = urat(tobeDoubled[:hals[0]]) if hals else urat(tobeDoubled)
-                firstPart = bhavateraH(abhyaasecharchcha  ( hrasvaH  ( postUratToBeDoubled ) ),node)
-                return firstPart+tobeDoubled
+                if ''.join(node._data._data) in ghu_dhaatus() and suffix_node._parent2 \
+                    and isinstance(suffix_node._parent2._data,Suffix) \
+                        and suffix_node._parent2.get_output() == ['h','i']:
+                    return node.get_output()[0:-1]+['e']
+                else:
+                    tobeDoubled = node.get_output() 
+                    hals=[i for i,x in enumerate(tobeDoubled) if x in hal() and i>0]
+                    postUratToBeDoubled = urat(tobeDoubled[:hals[0]]) if hals else urat(tobeDoubled)
+                    firstPart = bhavateraH(abhyaasecharchcha  ( hrasvaH  ( postUratToBeDoubled ) ),node)
+                    
+                    return firstPart+tobeDoubled
 
 
         return node.get_output()
