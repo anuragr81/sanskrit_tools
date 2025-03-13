@@ -505,6 +505,37 @@ class chajoHkughiNnNnyatoH_7030520:
         
         return node.get_output()
 
+class paaghraadhmaasthaamnaadaaNndRishyartisarttishadasadaaMpibajighradhamatitXshXthamanayachchhapashyarchchhadhaushiiyasiidaaH_7030780:
+    def __init__(self):
+        self._numconditions = 1
+        
+    def __call__(self,node,suffix_node):
+        if not isinstance(node,Node):
+            raise ValueError("node must of type Node")
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix must of type Node")
+            
+        if isinstance(node._data,Dhaatu) and isinstance(suffix_node._data,Suffix) :
+            if node.get_output() and 7030780 not in list_past_rules_applied(node):
+                dhaatumap = {'paaNN':['p','i','b','a'],
+                 'ghraaNN':['j','i','gh','r','a'],
+                 'dhmaaNN':['dh','a','m','a'],
+                 'XshXthaaNN':['t','i','Xsh','Xth','a'],
+                 'mnaaNN':['m','a','n','a'],
+                 'daaNN':['y','a','ch','chh','a'],
+                 'dRishNN':['p','a','sh','y','a'],
+                 'RiNN':['R','i','ch','chh','a'],
+                 'sRiNN':['dh','au'],
+                 'shadlRiNN':['sh','ii','y','a'],
+                 'XshadlRiNN':['s','ii','d','a'],
+                 }
+                if ''.join(node._data._data) in dhaatumap :
+                    return dhaatumap[''.join(node._data._data)]
+            
+           
+        
+        return node.get_output()
+
 
 class miderguNaH_7030820:
     def __init__(self):
