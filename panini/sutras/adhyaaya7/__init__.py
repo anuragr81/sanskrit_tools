@@ -490,7 +490,7 @@ class chajoHkughiNnNnyatoH_7030520:
         
     def __call__(self,node,suffix_node):
         if not isinstance(node,Node):
-            raise ValueError("anga_node must of type Node")
+            raise ValueError("node must of type Node")
         if not isinstance(suffix_node,Node):
             raise ValueError("suffix must of type Node")
         
@@ -504,6 +504,23 @@ class chajoHkughiNnNnyatoH_7030520:
             return [jakaar_to_ku(chakaar_to_ku(j)) for j in node.get_output()]
         
         return node.get_output()
+
+class otaHshyani_7030710:
+    def __init__(self):
+        self._numconditions = 1
+        
+    def __call__(self,node,suffix_node):
+        if not isinstance(node,Node):
+            raise ValueError("node must of type Node")
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix must of type Node")
+        
+        if node.get_output() and isinstance(suffix_node._data,Suffix) and ''.join(suffix_node._data._suffix) == 'shyan':
+            if node.get_output()[-1] == 'o' and 7030710 not in list_past_rules_applied(node):
+                return node.get_output()[0:-1]
+           
+        return node.get_output()
+
 
 class paaghraadhmaasthaamnaadaaNndRishyartisarttishadasadaaMpibajighradhamatitXshXthamanayachchhapashyarchchhadhaushiiyasiidaaH_7030780:
     def __init__(self):
