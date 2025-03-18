@@ -256,17 +256,23 @@ def test_expmt():
     # 5. Why isn't vRiddhi not given to i of Ngi in vipaash+Ngi+aNn.
     # 6. why isn't iko yaNnachi applied to bhu + ati and loluu + as - letting them become bhvati and lolvas
     # 7. are there tip possibilities for karma or bhaava? More generally, is this worth supporting?
+    # 8. Since lashakvataddhite doesn't handle Ngiip (which is taddhita), what sutra gets rid of Ng in Ngiip?
+    # 9. Why isn't yasyeti cha applied after aa sarvanaamnaH - so that t + aa + vat becomes tvat?
+    
+    
     
     if not pending:
         expression1=[Node(Praatipadika("upagu",1),parent1=None),
                     Node(Suffix("aNn"),parent1=None),Node(Suffix("sNN"),parent1=None)]
         expression2 = [Node(Dhaatu(parse_string("ji")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]
         expression3 = [Node(Praatipadika(parse_string("vipaash"),linga=0),parent1=None),Node(Suffix("Ngi"),parent1=None),Node(Suffix("aNn"),parent1=None),Node(Suffix("sNN"),parent1=None)]
-
+        expression4 = [Node(Praatipadika("kumaar",1),parent1=None), Node(Suffix("Ngiip"),parent1=None), Node(Suffix("tarap"),parent1=None),Node(Suffix("Xtaap"),parent1=None),Node(Suffix("sNN"),parent1=None)] 
+        expression5 = [Node(Praatipadika("tad",1),parent1=None), Node(Suffix("vatNNp"),parent1=None), ] 
+        
     else:
         #expression = [Node(Dhaatu(parse_string("diidhiiNN")),parent1=None),Node(Suffix("Nnvul"),parent1=None),Node(Suffix("sNN"),parent1=None)]
         #expression = [Node(Praatipadika(parse_string("agni"),linga=0),parent1=None),Node(Suffix("auXt"),parent1=None)]
-        expression = [Node(Praatipadika("idam",1),parent1=None), Node(Suffix("bhyaam"),parent1=None)]
+        expression = [Node(Praatipadika("kim",1),parent1=None), Node(Suffix("Xdati"),parent1=None), ] 
     # for paXtheta - we need to have for liNg : yaasuXtparasmaipadeXshuudaatto Ngichcha 3.4.103 and then ato yeyaH (because of a-ending paXtha after shap)
 
     pe=process_until_finish(expression)
@@ -278,7 +284,7 @@ def test_expmt():
     print(pe[0]._output)
     print("DONE")
     
-if T:
+if F:
     test_siddhis ()
 else:   
     test_expmt()

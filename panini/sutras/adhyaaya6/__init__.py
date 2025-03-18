@@ -681,6 +681,41 @@ class amipuurvaH_6011030:
 """
 
 
+class gharuupakalpachelaXdbruvagotramatahateXshuNgyoanekaachaohrasvaH_6030420:
+    def __init__(self):
+        self._numconditions = 1
+        
+    def __call__(self,node,suffix_node):
+        if not isinstance(node,Node):
+            raise ValueError("node must be of Node type")
+
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix_node must be of Node type")
+        
+        if node.get_output() and 6030420 not in list_past_rules_applied(node):
+            #raise RuntimeError("Work under progress")
+            return node.get_output()
+        return node.get_output()
+
+
+class aasarvanaamnaH_6030900:
+    def __init__(self):
+        self._numconditions = 1
+        
+    def __call__(self,node,suffix_node):
+        if not isinstance(node,Node):
+            raise ValueError("node must be of Node type")
+
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix_node must be of Node type")
+        sarvanaamaMap = {'tad':['t','aa'],}
+        if isinstance(node._data,Praatipadika) and ''.join(node._data._data) in sarvanaamaMap:
+            if node.get_output() and 6030900 not in list_past_rules_applied(node):
+                if ''.join(suffix_node._data._suffix) in ('vatNNp','dRik','dRish','vatNN'):
+                    return sarvanaamaMap[''.join(node._data._data)]
+        return node.get_output()
+    
+    
 
 class naami_6040030:
     def __init__(self):
@@ -980,11 +1015,27 @@ class ghumaasthaagaapaajahaatisaaMhali_6040660:
                 
         return node.get_output()
 
+class XteH_6041430:
+    def __init__(self):
+        self._numconditions = 1
+
+    def __call__(self,node,suffix_node):
+        if not isinstance(suffix_node,Node):
+            raise    ValueError ("suffix_node must be of type Node")
+        if not isinstance(node,Node):
+            raise    ValueError ("node must be of type Node")
+        if node.get_output() and 6041430 not in list_past_rules_applied(node):
+            if isinstance(node._data,Praatipadika) and (suffix_node._data._suffix[0] == 'Xd' or suffix_node._data._suffix[-1] == 'Xd') :
+                nodeAchs = [i for i,x in enumerate(node.get_output()) if x in ach()]
+                if nodeAchs:
+                    return node.get_output()[0:nodeAchs[-1]]
+        return node.get_output()
+
+
 
 class yasyeticha_6041480:
     def __init__(self):
         self._numconditions = 1
-        taddhitas = list(taddhita_pratyayaaH ())
 
     def __call__(self,node,suffix_node):
     

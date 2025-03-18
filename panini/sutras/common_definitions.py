@@ -393,7 +393,7 @@ def intermediate_pratyayaaH():
     return ('shap','shyan','shlu','shnu',)
 
 def unclassified_pratyayaaH():
-    return ('sNNch','chlNN','taas','sya','aXt','iiXt','aaXt','yaasNNXt','sNNXt','nNNXt','anaNg') + intermediate_pratyayaaH()
+    return ('sNNch','chlNN','taas','sya','aXt','iiXt','aaXt','yaasNNXt','sNNXt','nNNXt','anaNg','tarap','tamap') + intermediate_pratyayaaH()
 
 def san_pratyayaaH():
     return ("san","kyach","kaamyach","kyaNg","kyaXsh",
@@ -440,7 +440,17 @@ def sup_pratyayaaH():
 
 
 def taddhita_pratyayaaH ():
-    return ('ghan', 'khaNc', 'aNn', 'a', 'tyak', 'chhas', 'kan', 'Xdya', 'vuk', 'chphaNc', 'ti', 'chhaNn', 'snaNc', 'Nca', 'XdhakaNc', 'NgiiXsh', 'airak', 'vun', 'NciXtha', 'Xtaap', 'yan', 'phak', 'mayaXt', 'lup', 'chha', 'yat', 'phiNc', 'Xshpha', 'vuNc', 'Xdhak', 'Xdyat', 'ra', 'tyap', 'Ngiip', 'NcyaNg', 'phin', 'Xdmatup', 'ka', 'eNnya', 'Xtyul', 'ila', 'Xthach', 'iNc', 'Xthak', 'sa', 'XshXthan', 'Nna', 'phaNc', 'XdhaNc', 'XthaNc', 'valach', 'ini', 'Xdhrak', 'naNc', 'Nnya', 'aNc', 'Xtyu', 'Ncya', 'XshyaNg', 'bhaktal', 'uuNg', 'Ngiin', 'ruupya', 'Xthap', 'yaNc', 'vidhal', 'Xdaap', 'chaap', 'Xdvalach', 'gha', 'matup', 'vyan', 'Xshphak', 'luk', 'tal', 'ma', 'ya', 'kak', 'kha',) + reduce(lambda x ,y : x + y , tadasyaastyasmin_pratyayaaH().values(),())
+    return ('ghan', 'khaNc', 'aNn', 'a', 'tyak', 'chhas', 'kan', 'Xdya', 'vuk', 'chphaNc', 'ti', \
+            'chhaNn', 'snaNc', 'Nca', 'XdhakaNc', 'NgiiXsh', 'airak', 'vun', 'NciXtha', 'Xtaap', \
+                'yan', 'phak', 'mayaXt', 'lup', 'chha', 'yat', 'phiNc', 'Xshpha', 'vuNc', 'Xdhak',\
+                    'Xdyat', 'ra', 'tyap', 'Ngiip', 'NcyaNg', 'phin', 'Xdmatup', 'ka', 'eNnya',\
+                        'Xtyul', 'ila', 'Xthach', 'iNc', 'Xthak', 'sa', 'XshXthan', 'Nna',\
+                            'phaNc', 'XdhaNc', 'XthaNc', 'valach', 'ini', 'Xdhrak', 'naNc',\
+                                'Nnya', 'aNc', 'Xtyu', 'Ncya', 'XshyaNg', 'bhaktal', 'uuNg',\
+                                    'Ngiin', 'ruupya', 'Xthap', 'yaNc', 'vidhal', 'Xdaap', 'chaap', \
+                                        'Xdvalach', 'gha', 'matup', 'vyan', 'Xshphak', 'luk', 'tal', 'ma', 'ya', \
+                                            'vatNNp','matNNp','Xdati', \
+                                            'kak', 'kha',) + reduce(lambda x ,y : x + y , tadasyaastyasmin_pratyayaaH().values(),())
 
 
 
@@ -571,10 +581,21 @@ def next_possible_suffixes(suffix_str):
     'ktin':suptaddhita,'a': subaadi, 'yuch':suptaddhita, 'shatRi':suptaddhita, 'shaanach': suptaddhita, 'ka': suptaddhita,
     'Nnini':suptaddhita,'kvip':suptaddhita,'ghan':suptaddhita,'khaNc':suptaddhita,'aNn':subaadi,'a':subaadi,'tyak':subaadi,
     'chhas':subaadi,'kan':suptaddhita, 'Xthak':suptaddhita,'kan':suptaddhita,'Xdya':suptaddhita,'vuk':subaadi,'chphaNc':subaadi,'ti':subaadi,
-    'chhaNn':subaadi, 'snaNc': subaadi, 'Nca': subaadi, 'XdhakaNc': subaadi, 'NgiiXsh': subaadi, 'airak': subaadi, 'vun': subaadi, 'NciXtha': subaadi, 'Xtaap': subaadi, 'yan': subaadi, 'phak': subaadi, 'mayaXt': subaadi, 'lup': subaadi, 'chha': subaadi,  'phiNc': subaadi, 'Xshpha': subaadi, 'vuNc': subaadi, 'Xdhak': subaadi, 'Xdyat': subaadi, 'ra': subaadi, 'tyap': subaadi, 'Ngiip': subaadi, 'NcyaNg': subaadi, 'phin': subaadi, 'Xdmatup': subaadi, 'eNnya': subaadi, 'Xtyul': subaadi, 'ila': subaadi, 'Xthach': subaadi, 'iNc': subaadi, 'sa': subaadi, 'XshXthan': subaadi, 'Nna': subaadi, 'phaNc': subaadi, 'XdhaNc': subaadi, 'XthaNc': subaadi, 'valach': subaadi, 'ini': subaadi, 'Xdhrak': subaadi, 'naNc': subaadi, 'Nnya': subaadi, 'aNc': subaadi, 'Xtyu': subaadi, 'Ncya': subaadi, 'XshyaNg': subaadi, 'bhaktal': subaadi, 'uuNg': subaadi, 'Ngiin': subaadi, 'ruupya': subaadi, 'Xthap': subaadi, 'yaNc': subaadi, 'vidhal': subaadi, 'Xdaap': subaadi, 'chaap': subaadi, 'Xdvalach': subaadi, 'gha': subaadi, 'matup': subaadi, 'vyan': subaadi, 'Xshphak': subaadi, 'luk': subaadi, 'tal': subaadi, 'ma': subaadi, 'ya': subaadi, 'kak': subaadi, 'kha': subaadi,
+    'chhaNn':subaadi, 'snaNc': subaadi, 'Nca': subaadi, 'XdhakaNc': subaadi, 'NgiiXsh': subaadi, 'airak': subaadi, 
+    'vun': subaadi, 'NciXtha': subaadi, 'Xtaap': subaadi, 'yan': subaadi, 'phak': subaadi, 'mayaXt': subaadi, 
+    'lup': subaadi, 'chha': subaadi,  'phiNc': subaadi, 'Xshpha': subaadi, 'vuNc': subaadi, 'Xdhak': subaadi, 
+    'Xdyat': subaadi, 'ra': subaadi, 'tyap': subaadi, 'Ngiip': subaadi, 'NcyaNg': subaadi, 'phin': subaadi, 
+    'Xdmatup': subaadi, 'eNnya': subaadi, 'Xtyul': subaadi, 'ila': subaadi, 'Xthach': subaadi, 'iNc': subaadi,
+    'sa': subaadi, 'XshXthan': subaadi, 'Nna': subaadi, 'phaNc': subaadi, 'XdhaNc': subaadi, 'XthaNc': subaadi, 
+    'valach': subaadi, 'ini': subaadi, 'Xdhrak': subaadi, 'naNc': subaadi, 'Nnya': subaadi, 'aNc': subaadi,
+    'Xtyu': subaadi, 'Ncya': subaadi, 'XshyaNg': subaadi, 'bhaktal': subaadi, 'uuNg': subaadi, 'Ngiin': subaadi, 
+    'ruupya': subaadi, 'Xthap': subaadi, 'yaNc': subaadi, 'vidhal': subaadi, 'Xdaap': subaadi, 'chaap': subaadi, 
+    'Xdvalach': subaadi, 'gha': subaadi, 'vyan': subaadi, 'Xshphak': subaadi, 'luk': subaadi,
+    'tal': subaadi, 'ma': subaadi, 'ya': subaadi, 'kak': subaadi, 'kha': subaadi,
     'sNN': None, 'au': None, 'jas': None, 'am': None, 'auXt': None, 'shas': None, 'Xtaa': None, 'bhyaam': None, 'bhis': None, 'Nge': None, 'bhyas': None, 'Ngasi': None, 'Ngas': None, 'os': None, 'aam': None, 'Ngi': None, 'sup': None,
     'tip': lakaara, 'tas': lakaara, 'jhi': lakaara, 'sip': lakaara, 'thas': lakaara, 'tha': lakaara, 'mip': lakaara, 'vas': lakaara, 'mas': lakaara, 'ta': lakaara, 'aataam': lakaara, 'jha': lakaara, 'thaas': lakaara, 'aathaam': lakaara, 'dhvam': lakaara, 'iXt': lakaara, 'vahi': lakaara, 'mahiNg': lakaara,
     'laXt':None, 'loXt':None, 'lRiXt':None ,'laNg':None ,'luNg':None ,'lRiNg':None ,'liNg1':None ,'liNg2':None ,'liXt':None ,'luXt':None,
+    'vatNNp':suptaddhita, 'matNNp':suptaddhita
     }
 
 
