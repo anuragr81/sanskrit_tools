@@ -427,6 +427,9 @@ def kRit_pratyayaaH():
 def niXshXthaa_pratyayaaH():
     return ("kta","ktavatu",)
     
+def sarvanaama_praatipadikaaH():
+    return ("sarva","tad",)
+
 def upasargaaH():
     return ("abhi","prati","pari","upa","pra","apa",
             "sam","anu","ava","nis","nir","dus",
