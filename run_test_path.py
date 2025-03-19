@@ -224,6 +224,8 @@ def test_siddhis ():
     assert output_string ([Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("kta"),parent1=None),Node(Suffix('sNN'),parent1=None)]) == 'chitas'
     
     assert output_string ([Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("ktavatu"),parent1=None),Node(Suffix('sNN'),parent1=None)]) == 'chitavaan'
+    assert output_string ([Node(Dhaatu(parse_string("paXthNN")),parent1=None),Node(Suffix("ktavatu"),parent1=None),Node(Suffix('sNN'),parent1=None)]) == "paXthitavaan"
+    
     assert output_string ([Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tas",lakaara='laXt'),parent1=None)]) == 'chinutas'
     assert output_string([Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("jhi",lakaara='laXt'),parent1=None)]) == 'chinvanti'
     assert output_string([Node(Dhaatu(parse_string("diidhiiNN")),parent1=None),Node(Suffix("lyuXt"),parent1=None),Node(Suffix("sNN"),parent1=None)]) == 'diidhyanas'
@@ -236,7 +238,9 @@ def test_siddhis ():
     assert output_string([Node(Dhaatu(parse_string("doNN")),parent1=None),Node(Suffix("tip",lakaara='laXt'),parent1=None)]) == 'dyati'
     assert output_string([Node(Dhaatu(parse_string("XdudaaNc")),parent1=None),Node(Suffix("sip",lakaara='loXt'),parent1=None)]) == 'dehi'
     assert output_string([Node(Praatipadika("idam",1),parent1=None), Node(Suffix("bhyaam"),parent1=None)]) == 'aabhyaam'
-    
+    assert output_string([Node(Praatipadika("kim",1),parent1=None), Node(Suffix("Xdati"),parent1=None)] ) == "kati"
+    assert output_string([Node(Praatipadika("bahu",1),parent1=None), Node(Suffix("kan"),parent1=None),Node(Suffix("sNN"),parent1=None)] ) == "bahukas"
+    assert output_string([Node(Dhaatu(parse_string("XdupachNN")),parent1=None),Node(Suffix("kta"),parent1=None),Node(Suffix('sNN'),parent1=None)]) == 'pakvas'
     #test_tibaadi()
     if not disabled_tests:
         assert output_string ([Node(Dhaatu(parse_string("luuNN")),parent1=None),Node(Suffix('yaNg'),parent1=None),Node(Suffix('sNN'),parent1=None)]) == 'loluvas'
@@ -258,8 +262,9 @@ def test_expmt():
     # 7. are there tip possibilities for karma or bhaava? More generally, is this worth supporting?
     # 8. Since lashakvataddhite doesn't handle Ngiip (which is taddhita), what sutra gets rid of Ng in Ngiip?
     # 9. Why isn't yasyeti cha applied after aa sarvanaamnaH - so that t + aa + vat becomes tvat?
-    
-    
+    # 10. Why is taddhiteXshu-achaamaadeH and yasyeticha not applied on bahu + kati+ kRitvasNNch - so that bahukaatkRitvas is formed?
+    # 11. Why is lashakvataddhite not applied in bahu + shas - so that bahu + as is formed?
+    # 12. Why isn't choH kuH applied on maarXshXti so that mRiXshXti is formed?
     
     if not pending:
         expression1=[Node(Praatipadika("upagu",1),parent1=None),
@@ -268,11 +273,13 @@ def test_expmt():
         expression3 = [Node(Praatipadika(parse_string("vipaash"),linga=0),parent1=None),Node(Suffix("Ngi"),parent1=None),Node(Suffix("aNn"),parent1=None),Node(Suffix("sNN"),parent1=None)]
         expression4 = [Node(Praatipadika("kumaar",1),parent1=None), Node(Suffix("Ngiip"),parent1=None), Node(Suffix("tarap"),parent1=None),Node(Suffix("Xtaap"),parent1=None),Node(Suffix("sNN"),parent1=None)] 
         expression5 = [Node(Praatipadika("tad",1),parent1=None), Node(Suffix("vatNNp"),parent1=None), ] 
-        
+        expression6 = [Node(Praatipadika("kim",1),parent1=None), Node(Suffix("Xdati"),parent1=None),Node(Suffix("kRitvasNNch"),parent1=None)] 
+        expression7 = [Node(Praatipadika("bahu",1),parent1=None), Node(Suffix("shas"),parent1=None),Node(Suffix("sNN"),parent1=None)] 
+        expression8 = [Node(Dhaatu(parse_string("XdupachNN")),parent1=None),Node(Suffix("ktavatu"),parent1=None),Node(Suffix('sNN'),parent1=None)]
     else:
         #expression = [Node(Dhaatu(parse_string("diidhiiNN")),parent1=None),Node(Suffix("Nnvul"),parent1=None),Node(Suffix("sNN"),parent1=None)]
         #expression = [Node(Praatipadika(parse_string("agni"),linga=0),parent1=None),Node(Suffix("auXt"),parent1=None)]
-        expression = [Node(Praatipadika("kim",1),parent1=None), Node(Suffix("Xdati"),parent1=None), ] 
+        expression = [Node(Dhaatu(parse_string("XdupachNN")),parent1=None),Node(Suffix("kta"),parent1=None),Node(Suffix('sNN'),parent1=None)]
     # for paXtheta - we need to have for liNg : yaasuXtparasmaipadeXshuudaatto Ngichcha 3.4.103 and then ato yeyaH (because of a-ending paXtha after shap)
 
     pe=process_until_finish(expression)
@@ -284,7 +291,7 @@ def test_expmt():
     print(pe[0]._output)
     print("DONE")
     
-if F:
+if T:
     test_siddhis ()
 else:   
     test_expmt()

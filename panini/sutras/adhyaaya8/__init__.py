@@ -3,7 +3,7 @@ from ..common_definitions import pratyaahaara, ach, hal, Node, Dhaatu
 from ..common_definitions import Suffix, Praatipadika, kRit_pratyayaaH
 from ..common_definitions import list_past_rules_applied
 from ..common_definitions import find_eldest_parent1_of_condition,find_eldest_parent2_of_condition
-from ..common_definitions import tiNg_pratyayaaH, sup_pratyayaaH
+from ..common_definitions import tiNg_pratyayaaH, sup_pratyayaaH, niXshXthaa_pratyayaaH
 
 class kharavasaanayorvisarjaniiyaH_8010150:
     def __init__(self):
@@ -72,6 +72,23 @@ class saMyogaantasyalopaH_8020230:
         return node.get_output()
     
 
+class choHkuH_8020300:
+    def __init__(self):
+        self._numconditions = 3
+        
+    def __call__(self,node,suffix_node):        
+        
+        if not isinstance(node,Node):
+            raise ValueError("node must of type Node")
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix_node must of type Node")
+        chumap = {'ch':'k','chh':'kh','j':'g','jh':'gh','Nc':'Ng'}
+        if node.get_output() and node.get_output()[-1] in chumap :
+            if suffix_node.get_output() and suffix_node.get_output()[0] in pratyaahaara('jh','l'):
+                return node.get_output()[0:-1] + [chumap[node.get_output()[-1]]]
+        
+        return node.get_output()
+    
 class vrashchabhrasjasRijamRijayajaraajabhraajachchhashaaMXshaH_8020360:
     def __init__(self):
         self._numconditions = 3
@@ -122,6 +139,26 @@ class iXtaiiXti_8020280:
                 if node._parent1 and node._parent1._children and isinstance(node._parent1._children[-1]._data,Suffix) and node._parent1._children[-1]._data._suffix==['i','Xt']:
                     return []
             
+        return node.get_output()
+
+
+class pachovaH_8020520:
+    def __init__(self):
+        self._numconditions = 4
+        
+        
+    def __call__(self,anga_node,node):        
+        
+        if not isinstance(node,Node):
+            raise ValueError("node must of type Node")
+        if not isinstance(anga_node,Node):
+            raise ValueError("anga_node must of type Node")
+        if anga_node.get_output() and isinstance(anga_node._data,Dhaatu) and \
+            ''.join(anga_node._data._data)== 'XdupachNN' and 8020520 not in list_past_rules_applied(node):
+            if ''.join(node._data._suffix) in niXshXthaa_pratyayaaH() \
+                and node.get_output() and node.get_output()[0] == 't':
+                    return ['v'] + node.get_output()[1:]
+        
         return node.get_output()
 
 
