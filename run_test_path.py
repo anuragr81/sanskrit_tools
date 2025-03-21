@@ -281,7 +281,7 @@ def test_expmt():
     else:
         #expression = [Node(Dhaatu(parse_string("diidhiiNN")),parent1=None),Node(Suffix("Nnvul"),parent1=None),Node(Suffix("sNN"),parent1=None)]
         #expression = [Node(Praatipadika(parse_string("agni"),linga=0),parent1=None),Node(Suffix("auXt"),parent1=None)]
-        expression = [Node(Praatipadika("sarva",1),parent1=None),Node(Suffix("jas"),parent1=None)]
+        expression = [Node(Praatipadika("sarva",1),parent1=None),Node(Suffix("Ngi"),parent1=None)]
     # for paXtheta - we need to have for liNg : yaasuXtparasmaipadeXshuudaatto Ngichcha 3.4.103 and then ato yeyaH (because of a-ending paXtha after shap)
 
     pe=process_until_finish(expression)
@@ -290,7 +290,7 @@ def test_expmt():
     print ("=====")
     print(output_processed_string (pe))
     print ("=====")
-    print(pe[0]._output)
+    print(pe[1]._output)
     print("DONE")
     
 if T:

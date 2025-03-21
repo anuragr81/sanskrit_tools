@@ -160,6 +160,24 @@ class aayaneyiiniiyiyaHphaXdhakhachchhaghaaMpratyayaadiinaaM_7010020:
 
 
 
+class sarvanaamnaHsmai_7010140:
+
+    def __init__(self):
+        self._numconditions = 1
+                   
+    def __call__(self,anga_node,node):
+        if not isinstance(anga_node,Node):
+            raise ValueError("anga_node must of type Node")
+        if not isinstance(node,Node):
+            raise ValueError("node must of type Node")
+           
+        if node.get_output() and isinstance(node._data,Suffix) and ''.join(node._data._suffix) == 'Ngi':
+            if 7010140 not in list_past_rules_applied(node) and ''.join(anga_node._data._data) in sarvanaama_praatipadikaaH():
+                return {'output':['s','m','ai'],'mutate':True}
+
+        return node.get_output()
+
+
 
 class jasaHshii_7010170:
 
