@@ -204,8 +204,9 @@ class aadeshapratyayoH_8030059:
         #isaadesha = node._parent1 and node._parent2 
         permittedSuffixes = kRit_pratyayaaH()
         if node.get_output() and node.get_output()[0] == 's' and (node._inserted or ''.join(node._data._suffix) in permittedSuffixes):
-            if anga_node.get_output()[-1] in ('i','ii','u','uu','Ri','Rii','lRi','lRii','e','o','ai','au','h','y','v','r','l') :
-                return ['Xsh'] + node.get_output()[1:]
+            if anga_node.get_output():
+                if anga_node.get_output()[-1] in ('i','ii','u','uu','Ri','Rii','lRi','lRii','e','o','ai','au','h','y','v','r','l') :
+                    return ['Xsh'] + node.get_output()[1:]
             
         #vriddhi may also be needed 7020021
             

@@ -107,6 +107,43 @@ class NgeryaH_7010130:
 
 
 
+class sarvanaamnaHsmai_7010140:
+
+    def __init__(self):
+        self._numconditions = 1
+                   
+    def __call__(self,anga_node,node):
+        if not isinstance(anga_node,Node):
+            raise ValueError("anga_node must of type Node")
+        if not isinstance(node,Node):
+            raise ValueError("node must of type Node")
+           
+        if node.get_output() and isinstance(node._data,Suffix) and ''.join(node._data._suffix) == 'Ngi':
+            if 7010140 not in list_past_rules_applied(node) and ''.join(anga_node._data._data) in sarvanaama_praatipadikaaH():
+                return {'output':['s','m','ai'],'mutate':True}
+
+        return node.get_output()
+
+
+
+class jasaHshii_7010170:
+
+    def __init__(self):
+        self._numconditions = 1
+                   
+    def __call__(self,anga_node,node):
+        if not isinstance(anga_node,Node):
+            raise ValueError("anga_node must of type Node")
+        if not isinstance(node,Node):
+            raise ValueError("node must of type Node")
+           
+        if node.get_output() and isinstance(node._data,Suffix) and ''.join(node._data._suffix) == 'jas':
+            if 7010170 not in list_past_rules_applied(node) and ''.join(anga_node._data._data) in sarvanaama_praatipadikaaH():
+                if anga_node.get_output()[-1] in ('a','aa'):
+                    return {'output':['sh','ii'],'mutate':True}
+
+        return node.get_output()
+
 class jhoantaH_7010030:
     def __init__(self):
         self._numconditions = 0
@@ -158,44 +195,28 @@ class aayaneyiiniiyiyaHphaXdhakhachchhaghaaMpratyayaadiinaaM_7010020:
         else:
             return pratyaya
 
-
-
-class sarvanaamnaHsmai_7010140:
+class aamisarvanaamnaHsuXt_7010520:
 
     def __init__(self):
-        self._numconditions = 1
+        self._numconditions = 0
                    
-    def __call__(self,anga_node,node):
-        if not isinstance(anga_node,Node):
-            raise ValueError("anga_node must of type Node")
-        if not isinstance(node,Node):
-            raise ValueError("node must of type Node")
+    def __call__(self,prefix_node,suffix_node):
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix_node must of type Node")
+        if not isinstance(prefix_node,Node):
+            raise ValueError("prefix_node must of type Node")
            
-        if node.get_output() and isinstance(node._data,Suffix) and ''.join(node._data._suffix) == 'Ngi':
-            if 7010140 not in list_past_rules_applied(node) and ''.join(anga_node._data._data) in sarvanaama_praatipadikaaH():
-                return {'output':['s','m','ai'],'mutate':True}
+        if suffix_node.get_output():
+            if 7010520 not in list_past_rules_applied(suffix_node) and isinstance(suffix_node._data,Suffix) and suffix_node._data._suffix==['aa','m']:
+                # find effective prefix_node if prefix_node is empty
+                effective_prefix_node = prefix_node if prefix_node.get_output() else find_eldest_parent1_of_condition(prefix_node,lambda x : x.get_output() is not None)
+                if effective_prefix_node.get_output()[-1] in ('a','aa',) :
+                    if isinstance(effective_prefix_node._data,Praatipadika) and ''.join(effective_prefix_node._data._data) in sarvanaama_praatipadikaaH():
+                        return Aagama('sNNXt')
+                
 
-        return node.get_output()
+        return []
 
-
-
-class jasaHshii_7010170:
-
-    def __init__(self):
-        self._numconditions = 1
-                   
-    def __call__(self,anga_node,node):
-        if not isinstance(anga_node,Node):
-            raise ValueError("anga_node must of type Node")
-        if not isinstance(node,Node):
-            raise ValueError("node must of type Node")
-           
-        if node.get_output() and isinstance(node._data,Suffix) and ''.join(node._data._suffix) == 'jas':
-            if 7010170 not in list_past_rules_applied(node) and ''.join(anga_node._data._data) in sarvanaama_praatipadikaaH():
-                if anga_node.get_output()[-1] in ('a','aa'):
-                    return {'output':['sh','ii'],'mutate':True}
-
-        return node.get_output()
 
 
 class hrasvanadyaaponuXt_7010540:
@@ -754,13 +775,17 @@ class bahuvachanejhalyetosicha_7031030:
             
         # if there suffix has become invisible - no changes would be necessary
         
-        if not suffix_node.get_output() or not node.get_output():
+        # if suffix_node is an aagam then consider the parent
+        
+        effective_suffix_node = suffix_node._parent2 if isinstance(suffix_node._data,Aagama) else suffix_node
+        
+        if not effective_suffix_node.get_output() or not node.get_output():
             return node.get_output()
         
-        if suffix_node._data._suffix in (['bh','i','s'],['bh','y','a','s'],['s','u','p'], ['o','s']):
+        if effective_suffix_node._data._suffix in (['bh','i','s'],['bh','y','a','s'],['s','u','p'], ['o','s'],['aa','m']):
             ## 7010090 i.e. ato bhisa ais is an apavaada sutra hence it needs to be checked whether it has been
             #  applied or not
-            if 7031030 not in list_past_rules_applied(node) and 7010090 not in  list_past_rules_applied(suffix_node) and node.get_output()[-1] in ('a','aa',) :
+            if 7031030 not in list_past_rules_applied(node) and 7010090 not in  list_past_rules_applied(effective_suffix_node) and node.get_output()[-1] in ('a','aa',) :
                 return node.get_output()[0:-1] + ['e']
         
         return node.get_output()
