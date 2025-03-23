@@ -701,6 +701,38 @@ class saarvadhaatukaardhadhaatukayoH_7030840:
         
         return node.get_output()
     
+class astisichoapRikte_7030960:
+    def __init__(self):
+        self._numconditions = 2
+    def __call__(self,prefix_node,suffix_node):
+        if not isinstance(suffix_node._data, Suffix):
+            raise ValueError("Must be suffix")
+        suffix_data = suffix_node._data
+        numachs = len([x for x in suffix_data._suffix if x in ach()])
+        # ekaala saarvadhaatuaka
+        if suffix_data.is_saarvadhaatuka() and suffix_data._suffix[0] in hal() and numachs ==1:
+            if ''.join(suffix_data ._suffix) != 'iiXt':
+                if (isinstance(prefix_node._data,Dhaatu) and ''.join(prefix_node._data._data)=='asNN') :
+                    return Suffix("iiXt")
+        return []
+
+class astisichoapRikte_7030961:
+    def __init__(self):
+        self._numconditions = 2
+        
+    def __call__(self,prefix_node,suffix_node):
+        if isinstance(prefix_node._data, Suffix) and isinstance(suffix_node._data, Suffix):            
+            suffix_data= suffix_node._data
+            
+            numachs = len([x for x in suffix_data._suffix if x in ach()])
+            # ekaala saarvadhaatuaka
+            if suffix_data.is_saarvadhaatuka() and suffix_data._suffix[0] in hal() and numachs ==1:
+                if ''.join(suffix_data._suffix) != 'iiXt':
+                    if ''.join(prefix_node._data._suffix)=='sNNch' :
+                        return Suffix("iiXt")
+                    
+        return []
+
 
 class supicha_7031020:
     def __init__(self):
@@ -790,39 +822,48 @@ class bahuvachanejhalyetosicha_7031030:
         
         return node.get_output()
 
+class sarvanaamnaHsyaaXdhrasvashcha_7031140:
     
-class astisichoapRikte_7030960:
     def __init__(self):
-        self._numconditions = 2
+        self._numconditions = 1
+    
     def __call__(self,prefix_node,suffix_node):
-        if not isinstance(suffix_node._data, Suffix):
-            raise ValueError("Must be suffix")
-        suffix_data = suffix_node._data
-        numachs = len([x for x in suffix_data._suffix if x in ach()])
-        # ekaala saarvadhaatuaka
-        if suffix_data.is_saarvadhaatuka() and suffix_data._suffix[0] in hal() and numachs ==1:
-            if ''.join(suffix_data ._suffix) != 'iiXt':
-                if (isinstance(prefix_node._data,Dhaatu) and ''.join(prefix_node._data._data)=='asNN') :
-                    return Suffix("iiXt")
+        if not isinstance(suffix_node, Node):
+            raise ValueError("suffix_node must be a Node")
+        if not isinstance(prefix_node, Node):
+            raise ValueError("prefix_node must be a Node")
+        if prefix_node.get_output() and suffix_node.get_output():
+            if isinstance(prefix_node._data,Suffix) and ''.join(prefix_node._data._suffix) == 'Xtaap':
+                
+                if 7031140 not in list_past_rules_applied(prefix_node) and 7031140 not in list_past_rules_applied(suffix_node):
+                    if prefix_node._parent1 and isinstance(prefix_node._parent1._data,Praatipadika) and ''.join(prefix_node._parent1._data._data) in sarvanaama_praatipadikaaH():
+                        if isinstance(suffix_node._data,Suffix) and (suffix_node._data._suffix[0] == 'Ng' or suffix_node._data._suffix[-1] == 'Ng'):
+                        #    return []
+                            return Aagama('syaaXt')
         return []
 
-class astisichoapRikte_7030961:
+class sarvanaamnaHsyaaXdhrasvashcha_7031141:
+    
     def __init__(self):
-        self._numconditions = 2
-        
-    def __call__(self,prefix_node,suffix_node):
-        if isinstance(prefix_node._data, Suffix) and isinstance(suffix_node._data, Suffix):            
-            suffix_data= suffix_node._data
-            
-            numachs = len([x for x in suffix_data._suffix if x in ach()])
-            # ekaala saarvadhaatuaka
-            if suffix_data.is_saarvadhaatuka() and suffix_data._suffix[0] in hal() and numachs ==1:
-                if ''.join(suffix_data._suffix) != 'iiXt':
-                    if ''.join(prefix_node._data._suffix)=='sNNch' :
-                        return Suffix("iiXt")
-                    
-        return []
-
+        self._numconditions = 1
+    
+    def __call__(self,node,suffix_node):
+        if not isinstance(suffix_node, Node):
+            raise ValueError("suffix_node must be a Node")
+        if not isinstance(node, Node):
+            raise ValueError("node must be a Node")
+        if node.get_output() and suffix_node.get_output():
+            if isinstance(node._data,Suffix) and ''.join(node._data._suffix) == 'Xtaap':
+                if node._children and len(node._children)>0 and \
+                    isinstance(node._children[-1]._data,Suffix) and\
+                        ''.join(node._children[-1]._data._suffix)=='syaaXt' \
+                            and 7031140 in list_past_rules_applied(node._children[-1]) :
+                                if node._parent1 and isinstance(node._parent1._data,Praatipadika) \
+                                    and ''.join(node._parent1._data._data) in sarvanaama_praatipadikaaH():
+                                        if node.get_output()[-1] == 'aa':
+                                            return node.get_output()[0:-1] + ['a']
+        return node.get_output()
+    
 
 class taasastyorlopaH_7040500:
     def __init__(self):

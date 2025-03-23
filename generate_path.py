@@ -65,7 +65,7 @@ def transformation_sutras():
           7010030, 7010010, 7010020, 7010090, 7010120, 7010130, 7010140, 7010170, 7010700, 7010940,
           
           7020021, 7020790, 7020800, 7021020, 7021140, 7021150, 7021160, 7021170, 
-          7030520, 7030710, 7030780, 7030820, 7030840,7031010,7031020, 7031030, 7040500,7040501,
+          7030520, 7030710, 7030780, 7030820, 7030840,7031010,7031020, 7031030, 7031141, 7040500,7040501,
           8010150, 8020070, 8020280, 8020300, 8020360, 8020520, 8020660, 8030059,
           8040010]
     return sorted(float(x) for x in ll)
@@ -78,7 +78,7 @@ def prepend_sutras():
 def insertion_sutras():
 #   to be considered: 601008
     ll=[2040750, 3010330, 3010460, 3010680, 3010690, 3010730, 3040920, 3041030, 3041070,\
-        7010520, 7010540, 7020350, 7030960, 7030961]
+        7010520, 7010540, 7020350, 7030960, 7030961, 7031140]
     return sorted(float(x) for x in ll)
 
 def apply_transformation_at_end(transformation_rule,new_expr):
@@ -457,6 +457,8 @@ def check_group_sutra(sutranum):
                         6010091: ({'type':'transformation', 'sutranum':6010090.0},{'type':'transformation', 'sutranum':6010091.0},),
                         6010100: ({'type':'transformation', 'sutranum':6010100.0},{'type':'transformation', 'sutranum':6010101.0},),
                         6010101: ({'type':'transformation', 'sutranum':6010100.0},{'type':'transformation', 'sutranum':6010101.0},),
+                        6010850: ({'type':'transformation', 'sutranum':6010850.0},{'type':'transformation', 'sutranum':6010851.0},),
+                        6010851: ({'type':'transformation', 'sutranum':6010850.0},{'type':'transformation', 'sutranum':6010851.0},),
                         }
                         
     if sutranum not in group_sutra_dict :

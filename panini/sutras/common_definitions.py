@@ -393,7 +393,7 @@ def intermediate_pratyayaaH():
     return ('shap','shyan','shlu','shnu',)
 
 def unclassified_pratyayaaH():
-    return ('sNNch','chlNN','taas','sya','aXt','iiXt','aaXt','yaasNNXt','sNNXt','nNNXt','anaNg','tarap','tamap') + intermediate_pratyayaaH()
+    return ('sNNch','chlNN','syaaXt','taas','sya','aXt','iiXt','aaXt','yaasNNXt','sNNXt','nNNXt','anaNg','tarap','tamap') + intermediate_pratyayaaH()
 
 def san_pratyayaaH():
     return ("san","kyach","kaamyach","kyaNg","kyaXsh",
@@ -519,7 +519,7 @@ def vriddhi(x):
     elif x == "i":
         return "ai"
     elif x == "e":
-        return "ay"
+        return "ai"
     elif x == 'ii':
         return 'ai'
     elif x=='u':
