@@ -31,6 +31,57 @@ class yuvoranaakau_7010010:
     
         return suffix_string
 
+class aayaneyiiniiyiyaHphaXdhakhachchhaghaaMpratyayaadiinaaM_7010020:
+
+    def __init__(self):
+        self._numconditions = 1
+
+    def __call__(self,anga_node ,node):        
+        if not isinstance(node,Node):
+            raise ValueError("suffix must of type Node")
+        
+        if not isinstance(node._data,Suffix):
+            raise ValueError("suffix must of type Suffix")
+        
+        
+        if not isinstance(anga_node,Node):
+            raise ValueError("anga_node must of type Node")
+        pratyaya=node.get_output()
+        if not pratyaya:
+            return pratyaya
+        letter = pratyaya[0]
+        if letter== "ph":
+            return ["aa","y","a","n"] + pratyaya[1:]
+        elif letter == "Xdh":
+            return ["e","y"]+ pratyaya[1:]
+        elif letter == "kh":
+            return ["ii","n"]+ pratyaya[1:]
+        elif letter == "chh":
+            return  ["ii","y"]+ pratyaya[1:]
+        elif letter == "gh":
+            return ["i","y"]+ pratyaya[1:]
+        else:
+            return pratyaya
+
+
+class jhoantaH_7010030:
+    def __init__(self):
+        self._numconditions = 0
+                   
+    def __call__(self,node):
+        if not isinstance(node,Node):
+            raise ValueError("node must of type Node")
+        
+        if not isinstance(node._data,Suffix):
+            raise ValueError("node must encapsulate Suffix")
+        num_adeshas=len([x for x in node._output if 'new' in x])
+        if node._data._suffix[0] == 'jh' and 7010030 not in list_past_rules_applied(node) and num_adeshas<2:
+            ## doesn't matter what has happened before (chuXtuu etc.), jh and 
+            # ant would be introduced here            
+            # the only exception is that there is no adesha after jh
+            return ['a','n','t'] +node._data._suffix[1:]
+        return node.get_output()
+
 class atobhisaais_7010090:
     def __init__(self):
         self._numconditions = 1
@@ -138,62 +189,34 @@ class jasaHshii_7010170:
             raise ValueError("node must of type Node")
            
         if node.get_output() and isinstance(node._data,Suffix) and ''.join(node._data._suffix) == 'jas':
-            if 7010170 not in list_past_rules_applied(node) and ''.join(anga_node._data._data) in sarvanaama_praatipadikaaH():
-                if anga_node.get_output()[-1] in ('a','aa'):
-                    return {'output':['sh','ii'],'mutate':True}
+            if 7010170 not in list_past_rules_applied(node) :
+                if isinstance(anga_node._data,Praatipadika) and ''.join(anga_node._data._data) in sarvanaama_praatipadikaaH():
+                    if anga_node.get_output()[-1] in ('a','aa'):
+                        return {'output':['sh','ii'],'mutate':True}
 
         return node.get_output()
 
-class jhoantaH_7010030:
-    def __init__(self):
-        self._numconditions = 0
-                   
-    def __call__(self,node):
-        if not isinstance(node,Node):
-            raise ValueError("node must of type Node")
-        
-        if not isinstance(node._data,Suffix):
-            raise ValueError("node must encapsulate Suffix")
-        num_adeshas=len([x for x in node._output if 'new' in x])
-        if node._data._suffix[0] == 'jh' and 7010030 not in list_past_rules_applied(node) and num_adeshas<2:
-            ## doesn't matter what has happened before (chuXtuu etc.), jh and 
-            # ant would be introduced here            
-            # the only exception is that there is no adesha after jh
-            return ['a','n','t'] +node._data._suffix[1:]
-        return node.get_output()
 
-
-class aayaneyiiniiyiyaHphaXdhakhachchhaghaaMpratyayaadiinaaM_7010020:
+class jasshasoHshi_7010200:
 
     def __init__(self):
         self._numconditions = 1
-
-    def __call__(self,anga_node ,node):        
-        if not isinstance(node,Node):
-            raise ValueError("suffix must of type Node")
-        
-        if not isinstance(node._data,Suffix):
-            raise ValueError("suffix must of type Suffix")
-        
-        
+                   
+    def __call__(self,anga_node,node):
         if not isinstance(anga_node,Node):
             raise ValueError("anga_node must of type Node")
-        pratyaya=node.get_output()
-        if not pratyaya:
-            return pratyaya
-        letter = pratyaya[0]
-        if letter== "ph":
-            return ["aa","y","a","n"] + pratyaya[1:]
-        elif letter == "Xdh":
-            return ["e","y"]+ pratyaya[1:]
-        elif letter == "kh":
-            return ["ii","n"]+ pratyaya[1:]
-        elif letter == "chh":
-            return  ["ii","y"]+ pratyaya[1:]
-        elif letter == "gh":
-            return ["i","y"]+ pratyaya[1:]
-        else:
-            return pratyaya
+        if not isinstance(node,Node):
+            raise ValueError("node must of type Node")
+           
+        if node.get_output() and isinstance(node._data,Suffix) and ''.join(node._data._suffix) in ('jas','shas',):
+            if 7010200 not in list_past_rules_applied(node) :
+                if isinstance(anga_node._data,Praatipadika) and anga_node._data._linga == 2:
+                    return {'output':['sh','i'],'mutate':True}
+
+        return node.get_output()
+
+
+
 
 class aamisarvanaamnaHsuXt_7010520:
 
@@ -285,6 +308,32 @@ class ugidachaaMsarvanaamasthaaneadhaatoH_7010700:
                             return ['n'] + node.get_output()
         return node.get_output()
     
+
+
+class napunsakasyajhalachaH_7010720:
+
+    def __init__(self):
+        self._numconditions = 0
+                   
+    def __call__(self,prefix_node,suffix_node):
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix_node must of type Node")
+        if not isinstance(prefix_node,Node):
+            raise ValueError("prefix_node must of type Node")
+        listSarvanaamasthaanaVibhakti = ('shi',)
+        effective_prefix_node = prefix_node if prefix_node.get_output() else find_eldest_parent1_of_condition(prefix_node,lambda x : x.get_output() is not None)
+        
+        if effective_prefix_node.get_output() and suffix_node.get_output():
+            if 7010720 not in list_past_rules_applied(suffix_node) :
+                if isinstance(effective_prefix_node._data,Praatipadika) and effective_prefix_node._data._linga == 2 : 
+                    if isinstance(suffix_node._data,Suffix) :
+                        suffixUpdates = [x for x in suffix_node._output if 'new' in x]
+                        if suffixUpdates and ''.join(suffixUpdates [-1]['output']) in listSarvanaamasthaanaVibhakti:
+                            if effective_prefix_node.get_output()[-1] in ( ('a',) + pratyaahaara('jh', 'l')):
+                                return Aagama('nNNm')
+                            
+
+        return []
 
 
 

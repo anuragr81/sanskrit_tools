@@ -246,6 +246,7 @@ def test_siddhis ():
     assert output_string([Node(Praatipadika("sarva",1),parent1=None),Node(Suffix("aam"),parent1=None)]) == "sarveXshaam"
     sarvaRootPraatipadika = Node(Praatipadika("sarva",1),parent1=None)
     assert output_string ([sarvaRootPraatipadika ,Node(Suffix("Xtaap"),parent1=sarvaRootPraatipadika ), Node(Suffix("Nge"),parent1=None)]) == 'sarvasyai'
+    assert output_string([Node(Dhaatu(parse_string("paXthNN")),parent1=None ), Node(Suffix("ktvaa"),parent1=None)]) == 'paXthitvaa'
     #test_tibaadi()
     if not disabled_tests:
         assert output_string ([Node(Dhaatu(parse_string("luuNN")),parent1=None),Node(Suffix('yaNg'),parent1=None),Node(Suffix('sNN'),parent1=None)]) == 'loluvas'
@@ -270,6 +271,8 @@ def test_expmt():
     # 10. Why is taddhiteXshu-achaamaadeH and yasyeticha not applied on bahu + kati+ kRitvasNNch - so that bahukaatkRitvas is formed?
     # 11. Why is lashakvataddhite not applied in bahu + shas - so that bahu + as is formed?
     # 12. Why isn't choH kuH applied on maarXshXti so that mRiXshXti is formed?
+    # 13. How is kuNnXda a sarvanaama?
+    
     
     if not pending:
         expression1=[Node(Praatipadika("upagu",1),parent1=None),
@@ -281,11 +284,12 @@ def test_expmt():
         expression6 = [Node(Praatipadika("kim",1),parent1=None), Node(Suffix("Xdati"),parent1=None),Node(Suffix("kRitvasNNch"),parent1=None)] 
         expression7 = [Node(Praatipadika("bahu",1),parent1=None), Node(Suffix("shas"),parent1=None),Node(Suffix("sNN"),parent1=None)] 
         expression8 = [Node(Dhaatu(parse_string("XdupachNN")),parent1=None),Node(Suffix("ktavatu"),parent1=None),Node(Suffix('sNN'),parent1=None)]
+        expression9 = [Node(Praatipadika("kuNnXda",linga=2),parent1=None ), Node(Suffix("jas"),parent1=None)]
     else:
         #expression = [Node(Dhaatu(parse_string("diidhiiNN")),parent1=None),Node(Suffix("Nnvul"),parent1=None),Node(Suffix("sNN"),parent1=None)]
         #expression = [Node(Praatipadika(parse_string("agni"),linga=0),parent1=None),Node(Suffix("auXt"),parent1=None)]
-        rootPraatipadika = Node(Praatipadika("sarva",1),parent1=None)
-        expression = [rootPraatipadika ,Node(Suffix("Xtaap"),parent1=rootPraatipadika ), Node(Suffix("Nge"),parent1=None)]
+
+        expression = [Node(Praatipadika("kuNnXda",linga=2),parent1=None ), Node(Suffix("jas"),parent1=None)]
     # for paXtheta - we need to have for liNg : yaasuXtparasmaipadeXshuudaatto Ngichcha 3.4.103 and then ato yeyaH (because of a-ending paXtha after shap)
 
     pe=process_until_finish(expression)
@@ -297,7 +301,7 @@ def test_expmt():
     print(pe[3]._output)
     print("DONE")
     
-if T:
+if F:
     test_siddhis ()
 else:   
     test_expmt()
