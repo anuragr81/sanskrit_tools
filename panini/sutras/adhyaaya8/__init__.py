@@ -23,11 +23,14 @@ class kharavasaanayorvisarjaniiyaH_8010150:
 
 class nalopaHpraatipaadikaantasya_8020070:
     def __init__(self):
-        self._numconditions = 2 # conditions being two ensures that 
+        self._numconditions = 2 # conditions being set equal to 2 ensures that 
                                 # the sutra isn't applied when chetan is formed 
-                                # and halNgyaabhyosutisyapraktamhal (6.1.66) is applied
-                                # (alternatively, this sutra 
-                                # could be explored as a post-processing sutra)
+                                # and halNgyaabhyosutisyapraktamhal (6.1.66) is prioritised
+                                # len (suffix)==0 acts as the padaanta check. Since our
+                                # padaanta check kicks in only when there are non-empty nodes
+                                # at the end, the padanta check would not apply this sutra
+                                # even if it were treated as a padaanta sutra.
+                                
         
     def __call__(self,node,suffix_node):
         #
@@ -40,8 +43,10 @@ class nalopaHpraatipaadikaantasya_8020070:
         
         if node.get_output() and node.get_output()[-1]=='n' and isinstance(suffix_node._data,Suffix) \
             and ''.join(suffix_node._data._suffix) in tiNg_pratyayaaH()+sup_pratyayaaH():
-            if isinstance(node._data,Praatipadika) or isinstance(node._data,Suffix):
-                return node.get_output()[0:-1]
+                # len=0 acts as the padaanta check
+                if len(suffix_node.get_output())==0:
+                    if isinstance(node._data,Praatipadika) or isinstance(node._data,Suffix):
+                        return node.get_output()[0:-1]
         return node.get_output()
 
     

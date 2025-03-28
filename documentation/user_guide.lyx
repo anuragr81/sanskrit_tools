@@ -283,6 +283,20 @@ noprefix "false"
 \end_inset
 
 .
+ 
+\end_layout
+
+\begin_layout Standard
+The application of sutras has been described in the the lierature not merely
+ due to the nature of operands and operations- but several state-based treatment
+ in the grammar.
+ For example, the grammar does not describe a null condition - but three
+ different types of null-condition that all result in desappearance of a
+ certain element (which we consider a node's data in the presented software
+ application) but result in different operations.
+ The intermediate-states also govern other operations and the domain of
+ operations to be applied (functions) is always the entire rule-set (except
+ when one of the rules limits the domain of operations/functions).
 \end_layout
 
 \begin_layout Standard
@@ -1068,6 +1082,16 @@ noprefix "false"
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+The past actions or memory of operations clearly matter (this confusion
+ has been addressed in the literature).
+ One such instance is that sthaanivadaadeshoanalvidhau rule with states
+ that al-vidhi treatment is concerned with last state - except in anal-vidhi
+ cases that retain old state (resulting in actions depending on the old
+ assumed state).
+ 
 \end_layout
 
 \begin_layout Subsection
