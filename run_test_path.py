@@ -247,6 +247,7 @@ def test_siddhis ():
     sarvaRootPraatipadika = Node(Praatipadika("sarva",1),parent1=None)
     assert output_string ([sarvaRootPraatipadika ,Node(Suffix("Xtaap"),parent1=sarvaRootPraatipadika ), Node(Suffix("Nge"),parent1=None)]) == 'sarvasyai'
     assert output_string([Node(Dhaatu(parse_string("paXthNN")),parent1=None ), Node(Suffix("ktvaa"),parent1=None)]) == 'paXthitvaa'
+    assert output_string([Node(Praatipadika("kuNnXda",linga=2),parent1=None ), Node(Suffix("jas"),parent1=None)]) == 'kuNnXdaani'
     #test_tibaadi()
     if not disabled_tests:
         assert output_string ([Node(Dhaatu(parse_string("luuNN")),parent1=None),Node(Suffix('yaNg'),parent1=None),Node(Suffix('sNN'),parent1=None)]) == 'loluvas'
@@ -290,8 +291,7 @@ def test_expmt():
         #expression = [Node(Praatipadika(parse_string("agni"),linga=0),parent1=None),Node(Suffix("auXt"),parent1=None)]
 
         expression = [Node(Praatipadika("kuNnXda",linga=2),parent1=None ), Node(Suffix("jas"),parent1=None)]
-        #expression= [Node(Dhaatu(parse_string("chiNN")),parent1=None),Node(Suffix("tRich"),parent1=None),Node(Suffix("sNN"),parent1=None)]
-    
+        
     # for paXtheta - we need to have for liNg : yaasuXtparasmaipadeXshuudaatto Ngichcha 3.4.103 and then ato yeyaH (because of a-ending paXtha after shap)
 
     pe=process_until_finish(expression)

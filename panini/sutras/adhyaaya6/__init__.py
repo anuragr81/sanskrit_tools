@@ -2,9 +2,9 @@
 from ..common_definitions import ach, hal, sup_pratyayaaH, taddhita_pratyayaaH, kRit_pratyayaaH,san_pratyayaaH
 from ..common_definitions import pratyaahaara, make_diirgha, yaNn, guna_letters_for_aat, juhotyaadi_dhaatus
 from ..common_definitions import vriddhi, guNna, list_past_rules_applied, node_upadhaa
-from ..common_definitions import find_eldest_parent1_of_condition, list_achpos, ghu_dhaatus
+from ..common_definitions import find_eldest_parent1_of_condition, list_achpos, ghu_dhaatus, find_last_ach_pos
 from ..common_definitions import find_eldest_parent2_of_condition, parasmaidpada_pratyayaaH
-from ..common_definitions import Suffix, Aagama, Node, Dhaatu, Praatipadika
+from ..common_definitions import Suffix, Aagama, Node, Dhaatu, Praatipadika, find_recentmost_child_of_condition
 from ..common_definitions import nandyaadi_dhaatus, grahaadi_dhaatus, pachaadi_dhaatus, ach_permitted_temp_dhaatus
 
 
@@ -735,6 +735,82 @@ class naami_6040030:
                 
         return node.get_output()
 
+class sarvanaamasthaanechaasambuddhau_6040080:
+    
+    def __init__(self):
+        self._numconditions = 1
+        
+    def __call__(self,node,suffix_node):
+        """        
+        Since we don't cosnider sambuddhi as part of sup_pratyayaaH, all sup_pratyayaaH 
+        are treated as non-sambuddhi.
+        
+        node that undergoes diirghatva at its upadhaa is one that has and an n-ending.
+        
+        n can occur either in a suffix following the praatipadika or in the praatipadika itself
+        
+        When n is in praatipadika, what we need to check is whether the suffix  is shi (sarvanaamasthan) or not
+        When n is in a suffix, then the upadhaa needs to be searched in the suffix. if upadhaa is
+        not in the suffix then the previous (parent) suffix/praatipadika would be the one whose 
+        upadhaa would undergo diirghatva.
+        
+        The latter case - when the upadhaa needs to be in parent- can be handled 
+        only if the rules starts looking into its children. This is because a 
+        rule only mutates the main node that it's written with respect to (and is referenced in the arguments as node).
+        
+        To handle this latter case, the rule is thus also invoked when two of the following conditions are met. 
+        First, the praatipadika's child is a suffix and has a n-ending and second, that the suffix immediately 
+        to right of this child suffix (i.e. its parent2) is sarvanaamasthaana (shi).
+
+        """
+        if not isinstance(node,Node):
+            raise ValueError("node must be of Node type")
+
+        if not isinstance(suffix_node,Node):
+            raise ValueError("suffix_node must be of Node type")
+        
+        
+        
+        listSarvanaamasthaanaVibhakti=('shi',)
+        
+        
+            
+        if node.get_output():
+            if isinstance(node._data,Praatipadika) :
+                if node.get_output()[-1]== 'n':
+                    suffixUpdates = [x for x in suffix_node._output if 'new' in x]
+                    if suffixUpdates and ''.join(suffixUpdates [-1]['output']) in listSarvanaamasthaanaVibhakti:
+                        achsInNode = [i for i,x in enumerate(node.get_output()) if x in ach()]
+                        if achsInNode: 
+                            return node.get_output()[0:achsInNode[-1]] + \
+                               [make_diirgha(node.get_output()[achsInNode[-1]])] +\
+                                   node.get_output()[achsInNode[-1]+1:]
+                elif node._children :
+                    recentChildWithNending= find_recentmost_child_of_condition(node,lambda x : isinstance(x,Node) and x.get_output() and x.get_output()[-1]=='n')
+                    #if recentChildWithNending has achs then do nothing as that would be taken care of in the call with recentChildWithNending as node
+                    #if recentChildWithNending has no achs then take the last ach in node and call make_diirgha on it.
+                    if recentChildWithNending:
+                        achsInRecentChildWithNending= [i for i,x in enumerate(recentChildWithNending.get_output()) if x in ach()]
+                        if not achsInRecentChildWithNending:
+                            achsInNode = [i for i,x in enumerate(node.get_output()) if x in ach()]
+                            if achsInNode: 
+                                return node.get_output()[0:achsInNode[-1]] + \
+                                   [make_diirgha(node.get_output()[achsInNode[-1]])] +\
+                                       node.get_output()[achsInNode[-1]+1:]
+                    
+            if isinstance(node._data,Suffix) and isinstance(suffix_node._data,Suffix):
+                suffixUpdates = [x for x in suffix_node._output if 'new' in x]
+                if suffixUpdates and ''.join(suffixUpdates [-1]['output']) in listSarvanaamasthaanaVibhakti:
+                    achsInNode = [i for i,x in enumerate(node.get_output()) if x in ach()]
+                    if achsInNode:
+                        return node.get_output()[0:achsInNode[-1]] + \
+                           [make_diirgha(node.get_output()[achsInNode[-1]])] +\
+                               node.get_output()[achsInNode[-1]+1:]
+                                
+        
+        
+        return node.get_output()
+
 
 class aptRintRichsvasRinaptRineXshXtRitvaXshXtRikXshatRihotRipotRiprashaastRiiXnaam_6040110:
     def __init__(self):
@@ -777,6 +853,8 @@ class aptRintRichsvasRinaptRineXshXtRitvaXshXtRikXshatRihotRipotRiprashaastRiiXn
                             
             
         return node.get_output()
+
+
 
 class atvasantasyachaadhaatoH_6040140:
     
