@@ -772,14 +772,18 @@ class sarvanaamasthaanechaasambuddhau_6040080:
         
         
         listSarvanaamasthaanaVibhakti=('shi',)
-        
+        listsuXt= ('sNN', 'au','jas','am','auXt',)
         
             
         if node.get_output():
             if isinstance(node._data,Praatipadika) :
                 if node.get_output()[-1]== 'n':
                     suffixUpdates = [x for x in suffix_node._output if 'new' in x]
-                    if suffixUpdates and ''.join(suffixUpdates [-1]['output']) in listSarvanaamasthaanaVibhakti:
+                    isSarvanaamasthaanShi = suffixUpdates and ''.join(suffixUpdates [-1]['output']) in listSarvanaamasthaanaVibhakti
+                    
+                    isSarvanaamasthaanasuXt  =  node._data._linga in (0,1) and isinstance(suffix_node._data,Suffix) and ''.join(suffix_node._data._suffix) in listsuXt
+
+                    if isSarvanaamasthaanasuXt or isSarvanaamasthaanShi  :
                         achsInNode = [i for i,x in enumerate(node.get_output()) if x in ach()]
                         if achsInNode: 
                             return node.get_output()[0:achsInNode[-1]] + \
@@ -789,18 +793,27 @@ class sarvanaamasthaanechaasambuddhau_6040080:
                     recentChildWithNending= find_recentmost_child_of_condition(node,lambda x : isinstance(x,Node) and x.get_output() and x.get_output()[-1]=='n')
                     #if recentChildWithNending has achs then do nothing as that would be taken care of in the call with recentChildWithNending as node
                     #if recentChildWithNending has no achs then take the last ach in node and call make_diirgha on it.
-                    if recentChildWithNending:
-                        achsInRecentChildWithNending= [i for i,x in enumerate(recentChildWithNending.get_output()) if x in ach()]
-                        if not achsInRecentChildWithNending:
-                            achsInNode = [i for i,x in enumerate(node.get_output()) if x in ach()]
-                            if achsInNode: 
-                                return node.get_output()[0:achsInNode[-1]] + \
-                                   [make_diirgha(node.get_output()[achsInNode[-1]])] +\
-                                       node.get_output()[achsInNode[-1]+1:]
-                    
+                    if recentChildWithNending and recentChildWithNending._parent2:
+                        
+                        # also check if the second parent (the suffix that gave birth to the n-ending suffix) has sarvanaamasthana
+                        suffixUpdates = [x for x in recentChildWithNending._parent2._output if 'new' in x]
+                        isSarvanaamasthaanShi = suffixUpdates  and ''.join(suffixUpdates [-1]['output']) in listSarvanaamasthaanaVibhakti 
+                        isSarvanaamasthaanasuXt  =  node._data._linga in (0,1) and isinstance(recentChildWithNending._parent2._data,Suffix) and ''.join(recentChildWithNending._parent2._data._suffix) in listsuXt
+                        
+                        if isSarvanaamasthaanasuXt or isSarvanaamasthaanShi :
+                                
+                            achsInRecentChildWithNending= [i for i,x in enumerate(recentChildWithNending.get_output()) if x in ach()]
+                            if not achsInRecentChildWithNending:
+                                achsInNode = [i for i,x in enumerate(node.get_output()) if x in ach()]
+                                if achsInNode: 
+                                    return node.get_output()[0:achsInNode[-1]] + \
+                                       [make_diirgha(node.get_output()[achsInNode[-1]])] +\
+                                           node.get_output()[achsInNode[-1]+1:]
+                        
             if isinstance(node._data,Suffix) and isinstance(suffix_node._data,Suffix):
                 suffixUpdates = [x for x in suffix_node._output if 'new' in x]
-                if suffixUpdates and ''.join(suffixUpdates [-1]['output']) in listSarvanaamasthaanaVibhakti:
+                suffixUpdates and ''.join(suffixUpdates [-1]['output']) in listSarvanaamasthaanaVibhakti
+                if True: #toDoisSarvanaamasthaanShi :
                     achsInNode = [i for i,x in enumerate(node.get_output()) if x in ach()]
                     if achsInNode:
                         return node.get_output()[0:achsInNode[-1]] + \
